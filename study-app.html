@@ -1,0 +1,1286 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StudyPrep - Organizace informací</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #6366f1;
+            --primary-dark: #4f46e5;
+            --secondary: #10b981;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+            --bg: #0f172a;
+            --bg-card: #1e293b;
+            --bg-light: #334155;
+            --text: #f8fafc;
+            --text-muted: #94a3b8;
+            --border: #475569;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            min-height: 100vh;
+        }
+
+        /* Navigation */
+        .navbar {
+            background: var(--bg-card);
+            border-bottom: 1px solid var(--border);
+            padding: 1rem 2rem;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .nav-tabs {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .nav-tab {
+            padding: 0.75rem 1.5rem;
+            background: transparent;
+            border: none;
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            font-weight: 500;
+            cursor: pointer;
+            border-radius: 8px;
+            transition: all 0.3s;
+        }
+
+        .nav-tab:hover {
+            background: var(--bg-light);
+            color: var(--text);
+        }
+
+        .nav-tab.active {
+            background: var(--primary);
+            color: white;
+        }
+
+        .stats-bar {
+            display: flex;
+            gap: 1.5rem;
+            align-items: center;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-value {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--secondary);
+        }
+
+        .stat-label {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+        }
+
+        /* Main Content */
+        .main {
+            padding-top: 80px;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .section {
+            display: none;
+        }
+
+        .section.active {
+            display: block;
+        }
+
+        /* Dashboard */
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .dashboard-card {
+            background: var(--bg-card);
+            border-radius: 16px;
+            padding: 1.5rem;
+            border: 1px solid var(--border);
+        }
+
+        .dashboard-card h3 {
+            font-size: 1rem;
+            color: var(--text-muted);
+            margin-bottom: 1rem;
+        }
+
+        .dashboard-card .value {
+            font-size: 2.5rem;
+            font-weight: 700;
+        }
+
+        .progress-ring {
+            width: 120px;
+            height: 120px;
+            margin: 0 auto;
+        }
+
+        /* Flashcards */
+        .flashcard-container {
+            perspective: 1000px;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .flashcard {
+            width: 100%;
+            height: 350px;
+            position: relative;
+            transform-style: preserve-3d;
+            transition: transform 0.6s;
+            cursor: pointer;
+        }
+
+        .flashcard.flipped {
+            transform: rotateY(180deg);
+        }
+
+        .flashcard-face {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            background: var(--bg-card);
+            border-radius: 20px;
+            border: 2px solid var(--border);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 2rem;
+            text-align: center;
+        }
+
+        .flashcard-back {
+            transform: rotateY(180deg);
+            background: linear-gradient(135deg, var(--bg-card), var(--bg-light));
+        }
+
+        .flashcard-category {
+            position: absolute;
+            top: 1rem;
+            left: 1rem;
+            background: var(--primary);
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+
+        .flashcard-question {
+            font-size: 1.4rem;
+            font-weight: 600;
+            line-height: 1.5;
+        }
+
+        .flashcard-answer {
+            font-size: 1.1rem;
+            line-height: 1.7;
+            color: var(--text);
+        }
+
+        .flashcard-hint {
+            position: absolute;
+            bottom: 1rem;
+            color: var(--text-muted);
+            font-size: 0.85rem;
+        }
+
+        .flashcard-controls {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .fc-btn {
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 12px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .fc-btn.again {
+            background: var(--danger);
+            color: white;
+        }
+
+        .fc-btn.hard {
+            background: var(--warning);
+            color: white;
+        }
+
+        .fc-btn.good {
+            background: var(--secondary);
+            color: white;
+        }
+
+        .fc-btn.easy {
+            background: var(--primary);
+            color: white;
+        }
+
+        .fc-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+        }
+
+        .flashcard-progress {
+            text-align: center;
+            margin-bottom: 1.5rem;
+            color: var(--text-muted);
+        }
+
+        /* Quiz */
+        .quiz-container {
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .quiz-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+        }
+
+        .quiz-progress-bar {
+            flex: 1;
+            height: 8px;
+            background: var(--bg-light);
+            border-radius: 4px;
+            margin: 0 1rem;
+            overflow: hidden;
+        }
+
+        .quiz-progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            transition: width 0.3s;
+        }
+
+        .quiz-question-card {
+            background: var(--bg-card);
+            border-radius: 20px;
+            padding: 2rem;
+            border: 1px solid var(--border);
+        }
+
+        .quiz-question-number {
+            color: var(--primary);
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .quiz-question-text {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 2rem;
+            line-height: 1.5;
+        }
+
+        .quiz-options {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .quiz-option {
+            padding: 1.25rem;
+            background: var(--bg-light);
+            border: 2px solid var(--border);
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 1rem;
+        }
+
+        .quiz-option:hover {
+            border-color: var(--primary);
+            background: rgba(99, 102, 241, 0.1);
+        }
+
+        .quiz-option.selected {
+            border-color: var(--primary);
+            background: rgba(99, 102, 241, 0.2);
+        }
+
+        .quiz-option.correct {
+            border-color: var(--secondary);
+            background: rgba(16, 185, 129, 0.2);
+        }
+
+        .quiz-option.incorrect {
+            border-color: var(--danger);
+            background: rgba(239, 68, 68, 0.2);
+        }
+
+        .quiz-btn {
+            width: 100%;
+            padding: 1rem;
+            margin-top: 1.5rem;
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .quiz-btn:hover {
+            background: var(--primary-dark);
+        }
+
+        .quiz-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        /* Topics / Koncepty */
+        .topics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .topic-card {
+            background: var(--bg-card);
+            border-radius: 16px;
+            padding: 1.5rem;
+            border: 1px solid var(--border);
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .topic-card:hover {
+            transform: translateY(-4px);
+            border-color: var(--primary);
+            box-shadow: 0 8px 25px rgba(99, 102, 241, 0.15);
+        }
+
+        .topic-icon {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .topic-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .topic-description {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+
+        .topic-progress {
+            margin-top: 1rem;
+            height: 6px;
+            background: var(--bg-light);
+            border-radius: 3px;
+            overflow: hidden;
+        }
+
+        .topic-progress-fill {
+            height: 100%;
+            background: var(--secondary);
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.8);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+            padding: 2rem;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: var(--bg-card);
+            border-radius: 20px;
+            padding: 2rem;
+            max-width: 800px;
+            max-height: 80vh;
+            overflow-y: auto;
+            border: 1px solid var(--border);
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .modal-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+
+        .modal-close {
+            background: none;
+            border: none;
+            color: var(--text-muted);
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        .concept-list {
+            list-style: none;
+        }
+
+        .concept-item {
+            padding: 1rem;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .concept-term {
+            font-weight: 600;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .concept-definition {
+            color: var(--text-muted);
+            line-height: 1.6;
+        }
+
+        /* Results */
+        .results-container {
+            text-align: center;
+            padding: 3rem;
+        }
+
+        .results-score {
+            font-size: 4rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 1rem;
+        }
+
+        .results-message {
+            font-size: 1.5rem;
+            margin-bottom: 2rem;
+            color: var(--text-muted);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .navbar {
+                flex-direction: column;
+                gap: 1rem;
+                padding: 1rem;
+            }
+
+            .nav-tabs {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            .stats-bar {
+                display: none;
+            }
+
+            .main {
+                padding-top: 140px;
+            }
+
+            .flashcard {
+                height: 300px;
+            }
+
+            .flashcard-controls {
+                flex-wrap: wrap;
+            }
+
+            .fc-btn {
+                flex: 1;
+                min-width: 120px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="logo">StudyPrep</div>
+        <div class="nav-tabs">
+            <button class="nav-tab active" data-section="dashboard">Dashboard</button>
+            <button class="nav-tab" data-section="flashcards">Flashcards</button>
+            <button class="nav-tab" data-section="quiz">Quiz</button>
+            <button class="nav-tab" data-section="topics">Témata</button>
+        </div>
+        <div class="stats-bar">
+            <div class="stat-item">
+                <div class="stat-value" id="streak-count">0</div>
+                <div class="stat-label">Streak</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-value" id="cards-today">0</div>
+                <div class="stat-label">Dnes</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-value" id="mastery-percent">0%</div>
+                <div class="stat-label">Zvládnuto</div>
+            </div>
+        </div>
+    </nav>
+
+    <main class="main">
+        <div class="container">
+            <!-- Dashboard -->
+            <section id="dashboard" class="section active">
+                <h1 style="margin-bottom: 2rem; font-size: 2rem;">Organizace informací</h1>
+
+                <div class="dashboard-grid">
+                    <div class="dashboard-card">
+                        <h3>Celkový pokrok</h3>
+                        <div class="value" style="color: var(--secondary);" id="total-progress">0%</div>
+                        <p style="color: var(--text-muted); margin-top: 0.5rem;">kartiček zvládnuto</p>
+                    </div>
+                    <div class="dashboard-card">
+                        <h3>K opakování dnes</h3>
+                        <div class="value" style="color: var(--warning);" id="due-today">0</div>
+                        <p style="color: var(--text-muted); margin-top: 0.5rem;">podle SRS algoritmu</p>
+                    </div>
+                    <div class="dashboard-card">
+                        <h3>Správné odpovědi</h3>
+                        <div class="value" style="color: var(--primary);" id="correct-rate">0%</div>
+                        <p style="color: var(--text-muted); margin-top: 0.5rem;">průměrná úspěšnost</p>
+                    </div>
+                    <div class="dashboard-card">
+                        <h3>Studijní čas</h3>
+                        <div class="value" id="study-time">0 min</div>
+                        <p style="color: var(--text-muted); margin-top: 0.5rem;">celkový čas</p>
+                    </div>
+                </div>
+
+                <h2 style="margin: 2rem 0 1rem;">Rychlý start</h2>
+                <div class="dashboard-grid">
+                    <div class="topic-card" onclick="switchSection('flashcards')">
+                        <div class="topic-icon">📚</div>
+                        <div class="topic-title">Spaced Repetition</div>
+                        <div class="topic-description">Procvičuj kartičky s optimálním rozložením v čase pro maximální zapamatování.</div>
+                    </div>
+                    <div class="topic-card" onclick="switchSection('quiz')">
+                        <div class="topic-icon">🧠</div>
+                        <div class="topic-title">Active Recall Quiz</div>
+                        <div class="topic-description">Testuj své znalosti pomocí kvízů s okamžitou zpětnou vazbou.</div>
+                    </div>
+                    <div class="topic-card" onclick="switchSection('topics')">
+                        <div class="topic-icon">🗺️</div>
+                        <div class="topic-title">Přehled témat</div>
+                        <div class="topic-description">Prozkoumej všechna témata a jejich koncepty.</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Flashcards -->
+            <section id="flashcards" class="section">
+                <div class="flashcard-progress">
+                    <span id="fc-current">1</span> / <span id="fc-total">0</span> kartiček
+                </div>
+
+                <div class="flashcard-container">
+                    <div class="flashcard" id="flashcard" onclick="flipCard()">
+                        <div class="flashcard-face flashcard-front">
+                            <span class="flashcard-category" id="fc-category">Kategorie</span>
+                            <p class="flashcard-question" id="fc-question">Načítám...</p>
+                            <span class="flashcard-hint">Klikni pro otočení</span>
+                        </div>
+                        <div class="flashcard-face flashcard-back">
+                            <p class="flashcard-answer" id="fc-answer">Odpověď...</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flashcard-controls" id="fc-controls" style="display: none;">
+                    <button class="fc-btn again" onclick="rateCard(0)">Znovu<br><small>< 1 min</small></button>
+                    <button class="fc-btn hard" onclick="rateCard(1)">Těžké<br><small>< 10 min</small></button>
+                    <button class="fc-btn good" onclick="rateCard(2)">Dobře<br><small>1 den</small></button>
+                    <button class="fc-btn easy" onclick="rateCard(3)">Snadné<br><small>4 dny</small></button>
+                </div>
+            </section>
+
+            <!-- Quiz -->
+            <section id="quiz" class="section">
+                <div class="quiz-container">
+                    <div class="quiz-header">
+                        <span id="quiz-counter">Otázka 1/10</span>
+                        <div class="quiz-progress-bar">
+                            <div class="quiz-progress-fill" id="quiz-progress" style="width: 10%;"></div>
+                        </div>
+                        <span id="quiz-score">Skóre: 0</span>
+                    </div>
+
+                    <div class="quiz-question-card" id="quiz-card">
+                        <div class="quiz-question-number" id="quiz-q-num">Otázka 1</div>
+                        <div class="quiz-question-text" id="quiz-question">Načítám otázku...</div>
+                        <div class="quiz-options" id="quiz-options"></div>
+                        <button class="quiz-btn" id="quiz-btn" onclick="nextQuestion()" disabled>Další otázka</button>
+                    </div>
+
+                    <div class="results-container" id="quiz-results" style="display: none;">
+                        <div class="results-score" id="final-score">0%</div>
+                        <div class="results-message" id="results-message">Výborně!</div>
+                        <button class="quiz-btn" onclick="startQuiz()">Zkusit znovu</button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Topics -->
+            <section id="topics" class="section">
+                <h1 style="margin-bottom: 2rem;">Témata ke studiu</h1>
+                <div class="topics-grid" id="topics-grid"></div>
+            </section>
+        </div>
+    </main>
+
+    <!-- Modal for topic details -->
+    <div class="modal" id="topic-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title" id="modal-title">Téma</h2>
+                <button class="modal-close" onclick="closeModal()">&times;</button>
+            </div>
+            <div id="modal-body"></div>
+        </div>
+    </div>
+
+    <script>
+        // ========== DATA ==========
+        const flashcardsData = [
+            // Proč třídíme
+            { category: "Proč třídíme", q: "Co je informační exploze?", a: "Růst množství zachycených dat, informací, poznatků a dokumentů, zejména po 2. světové válce. Příčinou je technologický vývoj - rapidní nárůst kapacity přijímat, ukládat a komunikovat informace." },
+            { category: "Proč třídíme", q: "Jaký je rozdíl mezi informačním přetížením a informační deprivací?", a: "Informační přetížení je objektivní důsledek informační exploze - komplikuje vyhledávání. Informační deprivace (neuróza) je subjektivní psychologický důsledek - stavy způsobené nadbytkem nebo nedostatkem relevantních informací." },
+            { category: "Proč třídíme", q: "Jaký je vztah mezi daty, informacemi a znalostmi?", a: "Data = zaznamenané symbolické reprezentace (řetězec znaků). Informace = data s přiděleným významem. Znalosti = informace s přiděleným kontextem, propojené s našimi poznatky." },
+            { category: "Proč třídíme", q: "Co je sémiotický trojúhelník?", a: "Základní epistemologický model spojující tři prvky: jev (věc), pojem (význam) a znak (reprezentace). Např. tužka jako věc, pojem tužka (význam) a slovo 't-u-ž-k-a' (znak)." },
+            { category: "Proč třídíme", q: "Popiš Popperovu teorii tří světů.", a: "PI = svět věcí/jevů/předmětů. PII = poznávající subjekt (manipuluje s věcmi, pojmy, znaky). PIII = oblast reprezentující komunikační nástroje a zaznamenané lidské poznání." },
+
+            // Co třídíme
+            { category: "Co třídíme", q: "Co je dokument?", a: "Objekt s fyzickou povahou, který nese informace (slouží k jejich sdělování), je předmětem informačního systému a dělí se do sbírek a kolekcí." },
+            { category: "Co třídíme", q: "Co je informační objekt?", a: "Generický pojem pro jakýkoli fyzický či virtuální objekt nesoucí libovolný typ či formát informace." },
+            { category: "Co třídíme", q: "Co je informační pramen/zdroj?", a: "Informační objekt obsahující informace relevantní pro konkrétní účel (např. naplnění informační potřeby uživatele)." },
+            { category: "Co třídíme", q: "Jaký je rozdíl mezi indexací a klasifikací?", a: "Indexace = popis objektu souborem pořádajících znaků vyjadřujících obsah (klíčová slova, deskriptory). Klasifikace = zařazení objektu na určité místo v klasifikačním systému (MDT, DDC)." },
+
+            // Selekční jazyky
+            { category: "Selekční jazyky", q: "Co je selekční jazyk?", a: "Jazyk sloužící k systematické organizaci informací pro účely vyhledávání, indexace a klasifikace." },
+            { category: "Selekční jazyky", q: "Jaké jsou 4 základní typy selekčních jazyků?", a: "1) Prekoordinované systematické (MDT, DDC, LCC). 2) Postkoordinované systematické (dvojtečkové třídění). 3) Prekoordinované předmětové (předmětová hesla). 4) Postkoordinované předmětové (tezaury, klíčová slova)." },
+            { category: "Selekční jazyky", q: "Co je prekoordinace vs. postkoordinace?", a: "Prekoordinace = pojmy zařazeny jako celek (složené pořádací znaky). Postkoordinace = pojmy rozděleny na složky a kombinují se až při vyhledávání." },
+            { category: "Selekční jazyky", q: "Co je tezaurus?", a: "Postkoordinovaný systém s řízeným slovníkem, hierarchií a dalšími typy vztahů. Obvykle zaměřen na konkrétní obor. Obsahuje deskriptory (preferované) a nedeskriptory (nepreferované lexikální jednotky)." },
+            { category: "Selekční jazyky", q: "Co je MDT (Mezinárodní desetinné třídění)?", a: "Univerzální klasifikační systém kombinující hierarchický a fazetový přístup. Vytvořen počátkem 20. století (Otlet, La Fontaine). Používá desetinnou notaci a pomocné tabulky." },
+            { category: "Selekční jazyky", q: "Co je DDC (Deweyho desetinné třídění)?", a: "Pragmaticky orientovaný enumerativní klasifikační systém z roku 1876 (Melvil Dewey). Používán celosvětově. Notace poskytuje univerzální jazyk pro identifikaci tříd." },
+            { category: "Selekční jazyky", q: "Co je fazeta?", a: "Kategorie entit vytvořená uplatněním jedné klasifikační charakteristiky (principium divisionis). Fazety vyjadřují vlastnosti použité pro seskupování pojmů podle jejich podstaty." },
+            { category: "Selekční jazyky", q: "Co je PMEST?", a: "Fazetová formulace z dvojtečkového třídění (Ranganathan): Personality (ústřední téma), Matter (látka, vlastnosti), Energy (procesy, činnosti), Space (místo), Time (čas)." },
+
+            // Morfologie a struktura SJ
+            { category: "Morfologie SJ", q: "Co je deskriptor a nedeskriptor?", a: "Deskriptor = preferovaná lexikální jednotka v tezauru. Nedeskriptor = nepreferovaná LJ (ekvivalent), nepopisuje, ale odkazuje na preferovaný výraz." },
+            { category: "Morfologie SJ", q: "Co je synonymie?", a: "Vztah mezi termíny daného jazyka reprezentujícími stejný pojem." },
+            { category: "Morfologie SJ", q: "Co je homonymie?", a: "Jev, kdy jazykové jednotky znějící nebo psané stejně mají různý význam." },
+            { category: "Morfologie SJ", q: "Co je polysémie?", a: "Jev spočívající v tom, že jazykové jednotky mají dva nebo více etymologicky souvisejících významů (např. křídlo jako klavír, ptačí končetina, část dveří)." },
+            { category: "Morfologie SJ", q: "Jaký je rozdíl mezi paradigmatickým a syntagmatickým vztahem?", a: "Paradigmatický (apriorní) = vztah existující nezávisle na kontextu (synonymie, hierarchie). Syntagmatický (aposteriorní) = vztah daný kontextem." },
+
+            // Jak třídíme
+            { category: "Indexace", q: "Co je obsahová analýza?", a: "Určení obsahu dokumentu na základě plného textu nebo redukovaného textu (abstrakt, název, obsah, rejstřík). Používají se různé typy čtení: orientační, kurzorické, selektivní, statarické, racionální." },
+            { category: "Indexace", q: "Jaké jsou aspekty výběru znaků SJ?", a: "Úplnost (rozsah zachycení témat), Specifičnost (výběr nejspecifičtějšího znaku), Indexační hlediska (předmět, čas, místo, entita, proces), Prekoordinace/postkoordinace." },
+            { category: "Indexace", q: "Co je konzistence indexace?", a: "Pro tentýž obsah tentýž popis. Míra shody dvou nebo více SOD. Typy: mezi indexátory (interindexer), jednoho indexátora, z hlediska hloubky." },
+            { category: "Indexace", q: "Jak se počítá konzistence mezi dvěma indexátory?", a: "C = a / b, kde a = počet shodně zvolených znaků, b = celkový počet přidělených jedinečných znaků." },
+            { category: "Indexace", q: "Co je úplnost (recall) a přesnost (precision)?", a: "Úplnost = vyhledané relevantní / všechny relevantní. Přesnost = vyhledané relevantní / všechny vyhledané. Vztah je nepřímo úměrný." },
+            { category: "Indexace", q: "Jaké jsou nejčastější indexační chyby?", a: "Opominutí hledisek (18,6%), Nesprávné stanovení významu deskriptoru (12,3%), Chybějící jednotlivé deskriptory (11,5%)." },
+
+            // SOD
+            { category: "SOD", q: "Co je SOD (Selekční obraz dokumentu)?", a: "Soubor lexikálních jednotek nebo klasifikačních znaků, který reprezentuje obsah dokumentu po jeho zpracování." },
+            { category: "SOD", q: "Jaké jsou typy redukovaných textů?", a: "Abstrakt (krátké shrnutí od autora/zpracovatele), Anotace (povrchní doprovod nakladatelské činnosti), Referát (delší, přibližuje výsledky), Extrakt (výběr částí), Resumé (výsledky poznání autora)." },
+
+            // Systémy
+            { category: "Systémy", q: "Co jsou LCSH?", a: "Předmětová hesla Kongresové knihovny - systém se střední mírou prekoordinace. Umožňují vytvářet kombinovaná témata a pracují s vlastními jmény." },
+            { category: "Systémy", q: "Jaký je rozdíl mezi LCSH (PH) a tezaurem?", a: "PH umožňují prekoordinované lexikální jednotky a práci s vlastními jmény. Tezaurus se snaží o sémantický rozklad a kombinuje jednotky až při vyhledávání." },
+            { category: "Systémy", q: "Co je AGROVOC?", a: "Tezaurus pro jídla a zemědělství vytvořený OSN (FAO). Vícejazyčný oborový tezaurus." },
+            { category: "Systémy", q: "Co je EuroVoc?", a: "Evropský mnohojazyčný a multidisciplinární tezaurus spojený s právními informacemi EU." },
+
+            // Vyhledávání
+            { category: "Vyhledávání", q: "Jaké jsou výhody řízeného slovníku oproti fulltextu?", a: "Řeší synonymii a homonymii, paradigmatické vztahy jsou dány strukturou, překonává vícejazyčnost (vícejazyčné tezaury), může být přesnější." },
+            { category: "Vyhledávání", q: "Jaké jsou výhody fulltextu oproti řízenému slovníku?", a: "Přístupný všem uživatelům, zachycuje nové termíny bez zpoždění, obsahuje všechny specifické výrazy, může být úplnější." },
+            { category: "Vyhledávání", q: "Co je ontologie v kontextu organizace informací?", a: "Typ pojmového modelu vymezené domény. Účelem je komunikace, organizace znalostí, popis skutečnosti pro počítačové zpracování a automatické odvozování znalostí." },
+
+            // Definice
+            { category: "Definice", q: "Co je epistemologie?", a: "Jedna ze základních filosofických disciplín, která zkoumá lidské poznání, jeho vznik, proces, předmět či limity." },
+            { category: "Definice", q: "Co je sémiotika?", a: "Obecné označení vědních teorií zabývajících se zkoumáním znaků a znakových soustav." },
+            { category: "Definice", q: "Co je sémantika?", a: "Zkoumá vztahy mezi formou a významem znaků. Je součástí sémiotiky (spolu s pragmatikou a syntagmatikou)." },
+            { category: "Definice", q: "Co je taxonomie?", a: "Věda zabývající se teorií a praxí klasifikace organismů." },
+            { category: "Definice", q: "Co je syntax?", a: "Struktura nebo pořadí prvků v jazykovém vyjádření." },
+            { category: "Definice", q: "Co je morfologie v kontextu jazykovědy?", a: "Jazykovědná disciplína zabývající se tvary slov, zkoumá slovní druhy z hlediska jejich struktury, možností změn, vzájemných vztahů a gramatické funkce." },
+            { category: "Definice", q: "Co je granularita?", a: "Úroveň podrobnosti identifikace jednotlivých složek informačního objektu." },
+            { category: "Definice", q: "Co je relátor?", a: "Slovní výraz používaný k rozlišení významu homonym, je nedílnou součástí lexikální jednotky." }
+        ];
+
+        const quizData = [
+            {
+                q: "Co je hlavní příčinou informační exploze?",
+                options: ["Růst populace", "Technologický vývoj", "Vznik internetu", "Globalizace"],
+                correct: 1
+            },
+            {
+                q: "Jaký je správný vztah: Data → Informace → Znalosti?",
+                options: ["Přidání kontextu → Přidání významu", "Přidání významu → Přidání kontextu", "Přidání formátu → Přidání struktury", "Přidání média → Přidání formy"],
+                correct: 1
+            },
+            {
+                q: "Co NENÍ součástí sémiotického trojúhelníku?",
+                options: ["Jev (věc)", "Pojem (význam)", "Znak (reprezentace)", "Kontext (situace)"],
+                correct: 3
+            },
+            {
+                q: "Který typ selekčního jazyka je MDT?",
+                options: ["Postkoordinovaný předmětový", "Prekoordinovaný systematický", "Postkoordinovaný systematický", "Prekoordinovaný předmětový"],
+                correct: 1
+            },
+            {
+                q: "Co je deskriptor v tezauru?",
+                options: ["Nepreferovaná lexikální jednotka", "Preferovaná lexikální jednotka", "Klasifikační znak", "Pomocný symbol"],
+                correct: 1
+            },
+            {
+                q: "Jak se vypočítá přesnost (precision) vyhledávání?",
+                options: ["Vyhledané relevantní / Všechny relevantní", "Vyhledané relevantní / Všechny vyhledané", "Všechny vyhledané / Všechny relevantní", "Všechny relevantní / Vyhledané relevantní"],
+                correct: 1
+            },
+            {
+                q: "Co je PMEST?",
+                options: ["Typ notace v MDT", "Fazetová formulace z dvojtečkového třídění", "Struktura předmětových hesel", "Metoda indexace"],
+                correct: 1
+            },
+            {
+                q: "Co je synonymie?",
+                options: ["Různé termíny pro různé pojmy", "Stejné termíny pro různé pojmy", "Různé termíny pro stejný pojem", "Stejné termíny pro stejné pojmy"],
+                correct: 2
+            },
+            {
+                q: "Jaký je vztah mezi úplností (recall) a přesností (precision)?",
+                options: ["Přímo úměrný", "Nepřímo úměrný", "Nezávislý", "Exponenciální"],
+                correct: 1
+            },
+            {
+                q: "Co je fazeta?",
+                options: ["Typ notace", "Kategorie entit vytvořená uplatněním jedné klasifikační charakteristiky", "Hierarchický vztah", "Typ dokumentu"],
+                correct: 1
+            },
+            {
+                q: "Který systém vytvořil Melvil Dewey v roce 1876?",
+                options: ["MDT", "LCC", "DDC", "CC"],
+                correct: 2
+            },
+            {
+                q: "Co je EuroVoc?",
+                options: ["Americký klasifikační systém", "Evropský vícejazyčný tezaurus", "Britská knihovní klasifikace", "Systém pro katalogizaci"],
+                correct: 1
+            },
+            {
+                q: "Jaký je rozdíl mezi paradigmatickým a syntagmatickým vztahem?",
+                options: ["Paradigmatický závisí na kontextu, syntagmatický ne", "Paradigmatický je apriorní, syntagmatický aposteriorní", "Jsou totožné", "Paradigmatický je novější koncept"],
+                correct: 1
+            },
+            {
+                q: "Co je SOD?",
+                options: ["Systém organizace dokumentů", "Selekční obraz dokumentu", "Struktura oborových deskriptorů", "Standard odborné dokumentace"],
+                correct: 1
+            },
+            {
+                q: "Která metoda čtení je nejdůkladnější?",
+                options: ["Orientační čtení", "Kurzorické čtení", "Statarické čtení", "Selektivní čtení"],
+                correct: 2
+            },
+            {
+                q: "Co je ontologie v informační vědě?",
+                options: ["Typ dokumentu", "Filozofická disciplína", "Typ pojmového modelu pro počítačové zpracování", "Metoda indexace"],
+                correct: 2
+            },
+            {
+                q: "Jaká je nejčastější indexační chyba?",
+                options: ["Překlepy v deskriptorech", "Opominutí hledisek", "Použití nesprávného jazyka", "Duplicitní záznamy"],
+                correct: 1
+            },
+            {
+                q: "Co je polysémie?",
+                options: ["Více termínů pro jeden pojem", "Jeden termín s více etymologicky souvisejícími významy", "Chybné psaní termínů", "Typ hierarchie"],
+                correct: 1
+            },
+            {
+                q: "Který Popperův svět zahrnuje zaznamenané lidské poznání?",
+                options: ["PI", "PII", "PIII", "PIV"],
+                correct: 2
+            },
+            {
+                q: "Co je abstrakt?",
+                options: ["Povrchní doprovod nakladatelské činnosti", "Krátké shrnutí obsahu od autora či zpracovatele", "Výběr konkrétních částí dokumentu", "Výsledky poznání autora v dokumentu"],
+                correct: 1
+            }
+        ];
+
+        const topicsData = [
+            {
+                icon: "❓",
+                title: "Proč třídíme",
+                description: "Informační exploze, přetížení, deprivace. Vztahy data-informace-znalosti. Sémiotický trojúhelník a Popperova teorie.",
+                concepts: [
+                    { term: "Informační exploze", def: "Růst množství zachycených dat/informací/dokumentů, zejména po 2. sv. válce." },
+                    { term: "Informační přetížení", def: "Objektivní důsledek informační exploze - komplikuje efektivní vyhledávání." },
+                    { term: "Informační deprivace", def: "Subjektivní psychologický důsledek - stavy způsobené nadbytkem nebo nedostatkem relevantních informací." },
+                    { term: "Sémiotický trojúhelník", def: "Model spojující jev (věc), pojem (význam) a znak (reprezentace)." },
+                    { term: "Popperovy světy", def: "PI (věci), PII (poznávající subjekt), PIII (zaznamenané poznání)." }
+                ]
+            },
+            {
+                icon: "📄",
+                title: "Co třídíme",
+                description: "Dokument, informační objekt, informační pramen/zdroj. Typologie dokumentů.",
+                concepts: [
+                    { term: "Dokument", def: "Objekt s fyzickou povahou nesoucí informace, předmět IS." },
+                    { term: "Informační objekt", def: "Generický pojem pro jakýkoli objekt nesoucí informace." },
+                    { term: "Informační pramen", def: "Informační objekt relevantní pro konkrétní účel." },
+                    { term: "Indexace", def: "Popis objektu souborem pořádajících znaků vyjadřujících obsah." },
+                    { term: "Klasifikace", def: "Zařazení objektu na určité místo v klasifikačním systému." }
+                ]
+            },
+            {
+                icon: "🗣️",
+                title: "Selekční jazyky",
+                description: "Typologie SJ, prekoordinace vs. postkoordinace, vývoj SJ, systematické a předmětové SJ.",
+                concepts: [
+                    { term: "Selekční jazyk", def: "Jazyk pro systematickou organizaci informací (vyhledávání, indexace, klasifikace)." },
+                    { term: "Prekoordinace", def: "Pojmy zařazeny jako celek (složené pořádací znaky)." },
+                    { term: "Postkoordinace", def: "Pojmy rozděleny na složky, kombinují se při vyhledávání." },
+                    { term: "Tezaurus", def: "Postkoordinovaný systém s řízeným slovníkem a hierarchií." },
+                    { term: "Fazeta", def: "Kategorie entit vytvořená uplatněním jedné klasifikační charakteristiky." }
+                ]
+            },
+            {
+                icon: "🏛️",
+                title: "Klasifikační systémy",
+                description: "DDC, LCC, MDT, CC, BBC - historie a charakteristiky velkých klasifikací.",
+                concepts: [
+                    { term: "DDC", def: "Deweyho desetinné třídění (1876) - pragmatický enumerativní systém." },
+                    { term: "LCC", def: "Klasifikace Kongresové knihovny - orientovaná na americké reálie." },
+                    { term: "MDT", def: "Mezinárodní desetinné třídění - kombinace hierarchického a fazetového přístupu." },
+                    { term: "CC", def: "Dvojtečkové třídění (Ranganathan) - fazetový přístup PMEST." },
+                    { term: "BBC", def: "Blissovo bibliografické třídění - teoreticky fundované, minimálně rozšířené." }
+                ]
+            },
+            {
+                icon: "🔤",
+                title: "Morfologie a struktura SJ",
+                description: "Pořádací znaky, notace, deskriptory, řízení slovníku, vztahy mezi pojmy.",
+                concepts: [
+                    { term: "Deskriptor", def: "Preferovaná lexikální jednotka v tezauru." },
+                    { term: "Nedeskriptor", def: "Nepreferovaná LJ, odkazuje na preferovaný výraz." },
+                    { term: "Synonymie", def: "Různé termíny pro stejný pojem." },
+                    { term: "Homonymie", def: "Stejně znějící/psané jednotky s různým významem." },
+                    { term: "Paradigmatický vztah", def: "Vztah nezávislý na kontextu (synonymie, hierarchie)." }
+                ]
+            },
+            {
+                icon: "⚙️",
+                title: "Jak třídíme",
+                description: "Obsahová analýza, identifikace pojmů, indexace, kvalita a konzistence indexace.",
+                concepts: [
+                    { term: "Obsahová analýza", def: "Určení obsahu dokumentu na základě textu." },
+                    { term: "Konzistence indexace", def: "Pro tentýž obsah tentýž popis." },
+                    { term: "Úplnost (recall)", def: "Vyhledané relevantní / všechny relevantní dokumenty." },
+                    { term: "Přesnost (precision)", def: "Vyhledané relevantní / všechny vyhledané dokumenty." },
+                    { term: "SOD", def: "Selekční obraz dokumentu - výsledek obsahového zpracování." }
+                ]
+            },
+            {
+                icon: "🔍",
+                title: "Vyhledávání",
+                description: "Typy vyhledávání, faktory ovlivňující věcné vyhledávání, řízený slovník vs. fulltext.",
+                concepts: [
+                    { term: "Strukturované vyhledávání", def: "Pokročilé vyhledávání s přesně daným cílem." },
+                    { term: "Fulltextové vyhledávání", def: "Vyhledávání v plném textu dokumentů." },
+                    { term: "Proximitní operátory", def: "Určení vzdálenosti hledaných výrazů v textu." },
+                    { term: "Query expansion", def: "Rozšiřování uživatelského dotazu pomocí řízeného slovníku." }
+                ]
+            },
+            {
+                icon: "🌍",
+                title: "Univerzální a oborové systémy",
+                description: "LCSH, MDT, AGROVOC, EuroVoc, MSC, NACE a další specializované systémy.",
+                concepts: [
+                    { term: "LCSH", def: "Předmětová hesla Kongresové knihovny." },
+                    { term: "AGROVOC", def: "Tezaurus FAO pro jídla a zemědělství." },
+                    { term: "EuroVoc", def: "Evropský mnohojazyčný tezaurus pro právní informace." },
+                    { term: "MSC", def: "Klasifikace matematických schémat." },
+                    { term: "NACE/CZ-NACE", def: "Klasifikace ekonomických činností." }
+                ]
+            }
+        ];
+
+        // ========== STATE ==========
+        let currentCardIndex = 0;
+        let cardFlipped = false;
+        let cardStats = {};
+        let quizState = { current: 0, score: 0, answered: false };
+        let studyStartTime = Date.now();
+        let cardsStudiedToday = 0;
+
+        // ========== SPACED REPETITION (SM-2) ==========
+        function initCardStats() {
+            const saved = localStorage.getItem('cardStats');
+            if (saved) {
+                cardStats = JSON.parse(saved);
+            } else {
+                flashcardsData.forEach((_, i) => {
+                    cardStats[i] = { interval: 1, easeFactor: 2.5, repetitions: 0, nextReview: Date.now() };
+                });
+            }
+        }
+
+        function saveCardStats() {
+            localStorage.setItem('cardStats', JSON.stringify(cardStats));
+        }
+
+        function getDueCards() {
+            const now = Date.now();
+            return flashcardsData.map((card, i) => ({ ...card, index: i }))
+                .filter((_, i) => cardStats[i].nextReview <= now);
+        }
+
+        function rateCard(rating) {
+            const stats = cardStats[currentCardIndex];
+
+            // SM-2 Algorithm
+            if (rating < 2) {
+                stats.repetitions = 0;
+                stats.interval = 1;
+            } else {
+                if (stats.repetitions === 0) {
+                    stats.interval = 1;
+                } else if (stats.repetitions === 1) {
+                    stats.interval = 6;
+                } else {
+                    stats.interval = Math.round(stats.interval * stats.easeFactor);
+                }
+                stats.repetitions++;
+            }
+
+            stats.easeFactor = Math.max(1.3, stats.easeFactor + (0.1 - (3 - rating) * (0.08 + (3 - rating) * 0.02)));
+            stats.nextReview = Date.now() + (stats.interval * 24 * 60 * 60 * 1000);
+
+            if (rating >= 2) {
+                cardsStudiedToday++;
+            }
+
+            saveCardStats();
+            updateStats();
+            nextCard();
+        }
+
+        // ========== FLASHCARD FUNCTIONS ==========
+        function flipCard() {
+            const card = document.getElementById('flashcard');
+            cardFlipped = !cardFlipped;
+            card.classList.toggle('flipped');
+
+            if (cardFlipped) {
+                document.getElementById('fc-controls').style.display = 'flex';
+            }
+        }
+
+        function showCard(index) {
+            const dueCards = getDueCards();
+            if (dueCards.length === 0) {
+                document.getElementById('fc-question').textContent = 'Výborně! Všechny kartičky pro dnešek zvládnuty!';
+                document.getElementById('fc-category').textContent = 'Hotovo';
+                document.getElementById('fc-controls').style.display = 'none';
+                return;
+            }
+
+            const card = dueCards[index % dueCards.length];
+            currentCardIndex = card.index;
+
+            document.getElementById('fc-category').textContent = card.category;
+            document.getElementById('fc-question').textContent = card.q;
+            document.getElementById('fc-answer').textContent = card.a;
+            document.getElementById('fc-current').textContent = index + 1;
+            document.getElementById('fc-total').textContent = dueCards.length;
+
+            // Reset flip
+            cardFlipped = false;
+            document.getElementById('flashcard').classList.remove('flipped');
+            document.getElementById('fc-controls').style.display = 'none';
+        }
+
+        function nextCard() {
+            const dueCards = getDueCards();
+            const currentInDue = dueCards.findIndex(c => c.index === currentCardIndex);
+            showCard((currentInDue + 1) % Math.max(1, dueCards.length));
+        }
+
+        // ========== QUIZ FUNCTIONS ==========
+        function shuffleArray(array) {
+            const shuffled = [...array];
+            for (let i = shuffled.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+            }
+            return shuffled;
+        }
+
+        function startQuiz() {
+            quizState = { current: 0, score: 0, answered: false, questions: shuffleArray(quizData).slice(0, 10) };
+            document.getElementById('quiz-card').style.display = 'block';
+            document.getElementById('quiz-results').style.display = 'none';
+            showQuestion();
+        }
+
+        function showQuestion() {
+            const q = quizState.questions[quizState.current];
+            document.getElementById('quiz-q-num').textContent = `Otázka ${quizState.current + 1}`;
+            document.getElementById('quiz-counter').textContent = `Otázka ${quizState.current + 1}/10`;
+            document.getElementById('quiz-question').textContent = q.q;
+            document.getElementById('quiz-progress').style.width = `${(quizState.current + 1) * 10}%`;
+            document.getElementById('quiz-score').textContent = `Skóre: ${quizState.score}`;
+
+            const optionsDiv = document.getElementById('quiz-options');
+            optionsDiv.innerHTML = '';
+
+            q.options.forEach((opt, i) => {
+                const btn = document.createElement('div');
+                btn.className = 'quiz-option';
+                btn.textContent = opt;
+                btn.onclick = () => selectOption(i);
+                optionsDiv.appendChild(btn);
+            });
+
+            quizState.answered = false;
+            document.getElementById('quiz-btn').disabled = true;
+            document.getElementById('quiz-btn').textContent = 'Vyberte odpověď';
+        }
+
+        function selectOption(index) {
+            if (quizState.answered) return;
+            quizState.answered = true;
+
+            const q = quizState.questions[quizState.current];
+            const options = document.querySelectorAll('.quiz-option');
+
+            options.forEach((opt, i) => {
+                opt.style.pointerEvents = 'none';
+                if (i === q.correct) {
+                    opt.classList.add('correct');
+                } else if (i === index && i !== q.correct) {
+                    opt.classList.add('incorrect');
+                }
+            });
+
+            if (index === q.correct) {
+                quizState.score++;
+                document.getElementById('quiz-score').textContent = `Skóre: ${quizState.score}`;
+            }
+
+            document.getElementById('quiz-btn').disabled = false;
+            document.getElementById('quiz-btn').textContent = quizState.current < 9 ? 'Další otázka' : 'Zobrazit výsledky';
+        }
+
+        function nextQuestion() {
+            if (quizState.current < 9) {
+                quizState.current++;
+                showQuestion();
+            } else {
+                showResults();
+            }
+        }
+
+        function showResults() {
+            document.getElementById('quiz-card').style.display = 'none';
+            document.getElementById('quiz-results').style.display = 'block';
+
+            const percent = quizState.score * 10;
+            document.getElementById('final-score').textContent = `${percent}%`;
+
+            let message = '';
+            if (percent >= 90) message = 'Vynikající! Jsi připraven/a na zkoušku!';
+            else if (percent >= 70) message = 'Velmi dobře! Ještě trochu procvič.';
+            else if (percent >= 50) message = 'Dobře, ale je co zlepšovat.';
+            else message = 'Více studia potřeba. Zkus flashcards!';
+
+            document.getElementById('results-message').textContent = message;
+        }
+
+        // ========== TOPICS ==========
+        function renderTopics() {
+            const grid = document.getElementById('topics-grid');
+            grid.innerHTML = '';
+
+            topicsData.forEach((topic, i) => {
+                const mastery = Math.floor(Math.random() * 100); // TODO: Calculate real mastery
+                const card = document.createElement('div');
+                card.className = 'topic-card';
+                card.onclick = () => openTopicModal(i);
+                card.innerHTML = `
+                    <div class="topic-icon">${topic.icon}</div>
+                    <div class="topic-title">${topic.title}</div>
+                    <div class="topic-description">${topic.description}</div>
+                    <div class="topic-progress">
+                        <div class="topic-progress-fill" style="width: ${mastery}%"></div>
+                    </div>
+                `;
+                grid.appendChild(card);
+            });
+        }
+
+        function openTopicModal(index) {
+            const topic = topicsData[index];
+            document.getElementById('modal-title').textContent = topic.title;
+
+            const body = document.getElementById('modal-body');
+            body.innerHTML = `
+                <p style="color: var(--text-muted); margin-bottom: 1.5rem;">${topic.description}</p>
+                <h3 style="margin-bottom: 1rem;">Klíčové pojmy</h3>
+                <ul class="concept-list">
+                    ${topic.concepts.map(c => `
+                        <li class="concept-item">
+                            <div class="concept-term">${c.term}</div>
+                            <div class="concept-definition">${c.def}</div>
+                        </li>
+                    `).join('')}
+                </ul>
+            `;
+
+            document.getElementById('topic-modal').classList.add('active');
+        }
+
+        function closeModal() {
+            document.getElementById('topic-modal').classList.remove('active');
+        }
+
+        // ========== NAVIGATION ==========
+        function switchSection(sectionId) {
+            document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+            document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+
+            document.getElementById(sectionId).classList.add('active');
+            document.querySelector(`[data-section="${sectionId}"]`).classList.add('active');
+
+            if (sectionId === 'flashcards') {
+                showCard(0);
+            } else if (sectionId === 'quiz') {
+                startQuiz();
+            }
+        }
+
+        document.querySelectorAll('.nav-tab').forEach(tab => {
+            tab.addEventListener('click', () => switchSection(tab.dataset.section));
+        });
+
+        // ========== STATS ==========
+        function updateStats() {
+            const dueCards = getDueCards();
+            const masteredCards = Object.values(cardStats).filter(s => s.repetitions >= 3).length;
+            const totalCards = flashcardsData.length;
+
+            document.getElementById('due-today').textContent = dueCards.length;
+            document.getElementById('cards-today').textContent = cardsStudiedToday;
+            document.getElementById('total-progress').textContent = `${Math.round(masteredCards / totalCards * 100)}%`;
+            document.getElementById('mastery-percent').textContent = `${Math.round(masteredCards / totalCards * 100)}%`;
+
+            const studyMinutes = Math.round((Date.now() - studyStartTime) / 60000);
+            document.getElementById('study-time').textContent = `${studyMinutes} min`;
+
+            // Calculate correct rate from quiz history
+            const quizHistory = JSON.parse(localStorage.getItem('quizHistory') || '[]');
+            if (quizHistory.length > 0) {
+                const avgScore = quizHistory.reduce((a, b) => a + b, 0) / quizHistory.length;
+                document.getElementById('correct-rate').textContent = `${Math.round(avgScore)}%`;
+            }
+        }
+
+        // ========== INIT ==========
+        function init() {
+            initCardStats();
+            renderTopics();
+            updateStats();
+
+            // Close modal on outside click
+            document.getElementById('topic-modal').addEventListener('click', (e) => {
+                if (e.target.id === 'topic-modal') closeModal();
+            });
+
+            // Update study time every minute
+            setInterval(updateStats, 60000);
+        }
+
+        init();
+    </script>
+</body>
+</html>
