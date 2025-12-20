@@ -578,6 +578,7 @@
             <button class="nav-tab active" data-section="dashboard">Dashboard</button>
             <button class="nav-tab" data-section="flashcards">Flashcards</button>
             <button class="nav-tab" data-section="quiz">Quiz</button>
+            <button class="nav-tab" data-section="maps">Mapy</button>
             <button class="nav-tab" data-section="topics">Témata</button>
         </div>
         <div class="stats-bar">
@@ -746,6 +747,56 @@
                 </div>
             </section>
 
+            <!-- Concept Maps -->
+            <section id="maps" class="section">
+                <h1 style="margin-bottom: 2rem;">Konceptové mapy</h1>
+                <p style="color: var(--text-muted); margin-bottom: 2rem;">Vizuální přehled klíčových konceptů a jejich vztahů (Dual Coding)</p>
+
+                <div class="topics-grid">
+                    <div class="topic-card" onclick="showConceptMap('hierarchy')">
+                        <div class="topic-icon">🌳</div>
+                        <div class="topic-title">Hierarchie selekčních jazyků</div>
+                        <div class="topic-description">Přehled typů SJ a jejich vztahů</div>
+                    </div>
+                    <div class="topic-card" onclick="showConceptMap('triangle')">
+                        <div class="topic-icon">🔺</div>
+                        <div class="topic-title">Sémiotický trojúhelník</div>
+                        <div class="topic-description">Jev - Pojem - Znak a Popperovy světy</div>
+                    </div>
+                    <div class="topic-card" onclick="showConceptMap('dataflow')">
+                        <div class="topic-icon">📊</div>
+                        <div class="topic-title">Data → Informace → Znalosti</div>
+                        <div class="topic-description">Transformace a jejich charakteristiky</div>
+                    </div>
+                    <div class="topic-card" onclick="showConceptMap('indexing')">
+                        <div class="topic-icon">📝</div>
+                        <div class="topic-title">Proces indexace</div>
+                        <div class="topic-description">Od obsahové analýzy k SOD</div>
+                    </div>
+                    <div class="topic-card" onclick="showConceptMap('thesaurus')">
+                        <div class="topic-icon">🔗</div>
+                        <div class="topic-title">Struktura tezauru</div>
+                        <div class="topic-description">Vztahy mezi lexikálními jednotkami</div>
+                    </div>
+                    <div class="topic-card" onclick="showConceptMap('classifications')">
+                        <div class="topic-icon">📚</div>
+                        <div class="topic-title">Přehled klasifikací</div>
+                        <div class="topic-description">DDC, LCC, MDT, CC, BBC</div>
+                    </div>
+                </div>
+
+                <!-- Concept Map Display -->
+                <div id="concept-map-container" style="display: none; margin-top: 2rem;">
+                    <div style="background: var(--bg-card); border-radius: 16px; padding: 2rem; border: 1px solid var(--border);">
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
+                            <h2 id="map-title" style="color: var(--primary);">Název mapy</h2>
+                            <button onclick="hideConceptMap()" style="background: var(--bg-light); border: none; color: var(--text); padding: 0.5rem 1rem; border-radius: 8px; cursor: pointer;">Zavřít</button>
+                        </div>
+                        <div id="map-content" style="min-height: 400px;"></div>
+                    </div>
+                </div>
+            </section>
+
             <!-- Topics -->
             <section id="topics" class="section">
                 <h1 style="margin-bottom: 2rem;">Témata ke studiu</h1>
@@ -829,7 +880,60 @@
             { category: "Definice", q: "Co je syntax?", a: "Struktura nebo pořadí prvků v jazykovém vyjádření." },
             { category: "Definice", q: "Co je morfologie v kontextu jazykovědy?", a: "Jazykovědná disciplína zabývající se tvary slov, zkoumá slovní druhy z hlediska jejich struktury, možností změn, vzájemných vztahů a gramatické funkce." },
             { category: "Definice", q: "Co je granularita?", a: "Úroveň podrobnosti identifikace jednotlivých složek informačního objektu." },
-            { category: "Definice", q: "Co je relátor?", a: "Slovní výraz používaný k rozlišení významu homonym, je nedílnou součástí lexikální jednotky." }
+            { category: "Definice", q: "Co je relátor?", a: "Slovní výraz používaný k rozlišení významu homonym, je nedílnou součástí lexikální jednotky." },
+
+            // === ROZŠÍŘENÉ FLASHCARDS ===
+            // Systematické klasifikace
+            { category: "Systematické SJ", q: "Co je LCC (Library of Congress Classification)?", a: "Klasifikace Kongresové knihovny - pragmatický enumerativní systém orientovaný na americké reálie. Vznikl na přelomu 19. a 20. století." },
+            { category: "Systematické SJ", q: "Co je CC (Colon Classification)?", a: "Dvojtečkové třídění vytvořené Ranghanathanem v roce 1933. Fazetový přístup založený na formulaci PMEST." },
+            { category: "Systematické SJ", q: "Co je BBC (Bliss Bibliographic Classification)?", a: "Blissovo bibliografické třídění (1940-1953). Teoreticky fundovaný fazetový systém, ale minimálně rozšířený v praxi." },
+            { category: "Systematické SJ", q: "Co jsou pomocné tabulky v MDT?", a: "Tabulky obsahující pomocné znaky pro vyjádření různých aspektů: místo, čas, jazyk, forma dokumentu a další. Umožňují kombinace s hlavními znaky." },
+            { category: "Systematické SJ", q: "Co je enumerativní klasifikace?", a: "Výčtová klasifikace obsahující všechny třídy předem definované. Příkladem jsou DDC a LCC." },
+            { category: "Systematické SJ", q: "Co je fazetová klasifikace?", a: "Klasifikace umožňující kombinovat různé aspekty (fazety) pro popis dokumentu. Příkladem jsou CC a MDT." },
+            { category: "Systematické SJ", q: "Co je notace v klasifikaci?", a: "Symbolické vyjádření třídy - může být numerické (DDC), alfanumerické (LCC) nebo smíšené (MDT). Slouží k jednoznačné identifikaci." },
+
+            // Předmětové systémy podrobněji
+            { category: "Předmětové SJ", q: "Co jsou předmětová hesla?", a: "Prekoordinované lexikální jednotky pro popis obsahu dokumentu. Struktura: heslo (+ doplněk) – podheslo (+ doplněk). Příklad: 'Dvořák, Antonín – hry divadelní – bibliografie'." },
+            { category: "Předmětové SJ", q: "Co je inverze sousloví?", a: "Přehození pořadí slov v předmětovém hesle pro účely abecedního řazení. Např. 'ložiska metamorfovaná' místo 'metamorfovaná ložiska'." },
+            { category: "Předmětové SJ", q: "Co jsou klíčová slova z názvu?", a: "Nejrychlejší přístup k obsahu - KWIC (Keyword in Context) a KWOC (Keyword out of Context). Nevýhodou je závislost na jazyce dokumentu." },
+            { category: "Předmětové SJ", q: "Kdo vytvořil unitermy?", a: "Mortimer Taube v 50. letech 20. století. Silná postkoordinace - původně jen jednotlivá slova. Později obohaceno a stalo se předchůdcem tezauru." },
+            { category: "Předmětové SJ", q: "Jaké vztahy obsahuje tezaurus?", a: "Hierarchie (BT/NT - nadřazený/podřazený), Ekvivalence (USE/UF - viz/ekvivalent), Asociace (RT - příbuzný termín)." },
+            { category: "Předmětové SJ", q: "Co je deskriptorový odstavec?", a: "Deskriptor se všemi vztahy k němu připojenými - nadřazené, podřazené, příbuzné termíny a nedeskriptory." },
+
+            // Morfologie podrobněji
+            { category: "Morfologie SJ", q: "Co je kvazisynonymie?", a: "Vztah mezi termíny s podobnými významy, které pro některé účely mohou být považovány za synonyma. Např. 'automobil' a 'vůz'." },
+            { category: "Morfologie SJ", q: "Co je homografie?", a: "Slova psaná stejně, ale vyslovovaná odlišně. V češtině méně časté než v angličtině." },
+            { category: "Morfologie SJ", q: "Co je partitivní vztah?", a: "Hierarchický vztah celek-část. Např. 'auto' - 'motor', 'kolo'." },
+            { category: "Morfologie SJ", q: "Co je generický vztah?", a: "Hierarchický vztah rod-druh. Např. 'vozidlo' - 'automobil', 'motocykl'." },
+            { category: "Morfologie SJ", q: "Co je polyhierarchie?", a: "Situace kdy jeden pojem je podřazen více nadřazeným pojmům. Např. 'biofyzika' pod 'fyzikou' i 'biologií'." },
+
+            // Obsahová analýza a indexace
+            { category: "Indexace", q: "Jaké jsou typy čtení při obsahové analýze?", a: "Orientační (základní info), Kurzorické/diagonální (rychlé, klíčová slova), Selektivní (hledání konkrétního), Statarické (důkladné), Racionální (kombinace metod)." },
+            { category: "Indexace", q: "Co je výběrová vs. úplná indexace?", a: "Výběrová (selective) zachycuje jen hlavní témata. Úplná (exhaustive) zachycuje všechna témata včetně vedlejších." },
+            { category: "Indexace", q: "Jaké faktory ovlivňují indexaci?", a: "Indexátor (zkušenost, znalosti, motivace), SJ (kvalita slovníku, pravidla), Dokument (obor, struktura, jazyk), Pracovní podmínky." },
+            { category: "Indexace", q: "V jaké fázi vzniká nejvíce chyb?", a: "Identifikace pojmů (42,3%) - nejčastěji opominutí hledisek. Zdrojem jsou indexátor a indexační pravidla." },
+            { category: "Indexace", q: "Co je formální relevance?", a: "Dva dokumenty mají tentýž popis/SOD, ale nemusí být obsahově totožné. Důsledek nedokonalosti popisu." },
+
+            // Vyhledávání podrobněji
+            { category: "Vyhledávání", q: "Co jsou proximitní operátory?", a: "Určují vzdálenost hledaných výrazů v textu - buď počtem slov, nebo segmentem (věta, odstavec). Předpoklad: blízká slova = blízký význam." },
+            { category: "Vyhledávání", q: "Co je query expansion?", a: "Rozšiřování uživatelského dotazu pomocí řízeného slovníku - přidání synonym, nadřazených/podřazených termínů." },
+            { category: "Vyhledávání", q: "Jak řízený slovník řeší vícejazyčnost?", a: "Vícejazyčný tezaurus nebo klasifikace (nezávislá na přirozeném jazyce) umožňují vyhledávat dokumenty v různých jazycích." },
+            { category: "Vyhledávání", q: "Co je vektorové vyhledávání?", a: "Moderní metoda kde dokumenty jsou reprezentovány jako vektory. Podobnost se měří vzdáleností vektorů v prostoru." },
+            { category: "Vyhledávání", q: "Co je latentní sémantické vyhledávání?", a: "Pokročilá metoda překonávající synonymii a vícejazyčnost pomocí statistických modelů textu." },
+
+            // Oborové a specializované systémy
+            { category: "Systémy", q: "Co je MSC (Mathematics Subject Classification)?", a: "Klasifikace matematických schémat. Používá binární notaci na 1. úrovni s vynechávkami pro budoucí rozšíření." },
+            { category: "Systémy", q: "Co je NACE/CZ-NACE?", a: "Klasifikace ekonomických činností používaná evropskými statistickými úřady. CZ-NACE je česká verze s podrobnějším rozšířením." },
+            { category: "Systémy", q: "Co je backbone thesaurus?", a: "Obecný propojovací tezaurus pro humanitní vědy. Slouží jako inspirace při zavádění nových systémů a pro propojení existujících." },
+            { category: "Systémy", q: "Co je TaDiRaH?", a: "Taxonomie výzkumných aktivit v digitálních humanitních vědách. Velmi dobře propracovaná struktura pro úzkou specializovanou oblast." },
+            { category: "Systémy", q: "Co je ICS?", a: "Mezinárodní klasifikace norem a standardů. Tříúrovňová struktura pro popis technických norem." },
+            { category: "Systémy", q: "Co je IPS?", a: "Mezinárodní klasifikace patentů. Čtyřúrovňová struktura s velmi specifickými výrazy pro patentovou dokumentaci." },
+
+            // Budoucnost a trendy
+            { category: "Budoucnost", q: "Co jsou LOD (Linked Open Data)?", a: "Propojená otevřená data - trend standardizace pro maximální propojitelnost a sdílení dat mezi systémy." },
+            { category: "Budoucnost", q: "Co je AXI?", a: "Artificial Explainable Intelligence - AI podávající informace způsobem, z nějž je patrné, jak se k nim dopracovala." },
+            { category: "Budoucnost", q: "Kdy vznikl MARC formát?", a: "V 60. letech 20. století. Formát pro výměnu bibliografických informací, základ pro moderní katalogizaci." },
+            { category: "Budoucnost", q: "Jaké jsou trendy v organizaci informací?", a: "Uživatelsky vstřícná rozhraní, vyhledávání konkrétní informace místo dokumentu, růst ontologií, automatizace zpracování, standardizace (LOD)." }
         ];
 
         const quizData = [
@@ -1446,6 +1550,298 @@
                 const avgScore = quizHistory.reduce((a, b) => a + b, 0) / quizHistory.length;
                 document.getElementById('correct-rate').textContent = `${Math.round(avgScore)}%`;
             }
+        }
+
+        // ========== CONCEPT MAPS ==========
+        const conceptMaps = {
+            hierarchy: {
+                title: "Hierarchie selekčních jazyků",
+                content: `
+                    <div style="text-align: center; padding: 1rem;">
+                        <div style="display: inline-block; background: var(--primary); color: white; padding: 1rem 2rem; border-radius: 12px; font-weight: 600; font-size: 1.2rem;">SELEKČNÍ JAZYKY</div>
+                        <div style="display: flex; justify-content: center; margin: 1rem 0;">
+                            <div style="width: 2px; height: 40px; background: var(--border);"></div>
+                        </div>
+                        <div style="display: flex; justify-content: center; gap: 3rem; flex-wrap: wrap;">
+                            <div style="text-align: center;">
+                                <div style="background: var(--secondary); color: white; padding: 0.75rem 1.5rem; border-radius: 10px; font-weight: 600;">SYSTEMATICKÉ</div>
+                                <div style="width: 2px; height: 30px; background: var(--border); margin: 0 auto;"></div>
+                                <div style="display: flex; gap: 1rem; margin-top: 0.5rem;">
+                                    <div style="background: var(--bg-light); padding: 0.5rem 1rem; border-radius: 8px; font-size: 0.9rem;">
+                                        <strong>Prekoordinované</strong><br>
+                                        <span style="color: var(--text-muted); font-size: 0.8rem;">DDC, LCC, MDT</span>
+                                    </div>
+                                    <div style="background: var(--bg-light); padding: 0.5rem 1rem; border-radius: 8px; font-size: 0.9rem;">
+                                        <strong>Postkoordinované</strong><br>
+                                        <span style="color: var(--text-muted); font-size: 0.8rem;">CC, BBC</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div style="text-align: center;">
+                                <div style="background: var(--warning); color: white; padding: 0.75rem 1.5rem; border-radius: 10px; font-weight: 600;">PŘEDMĚTOVÉ</div>
+                                <div style="width: 2px; height: 30px; background: var(--border); margin: 0 auto;"></div>
+                                <div style="display: flex; gap: 1rem; margin-top: 0.5rem;">
+                                    <div style="background: var(--bg-light); padding: 0.5rem 1rem; border-radius: 8px; font-size: 0.9rem;">
+                                        <strong>Prekoordinované</strong><br>
+                                        <span style="color: var(--text-muted); font-size: 0.8rem;">Předmětová hesla</span>
+                                    </div>
+                                    <div style="background: var(--bg-light); padding: 0.5rem 1rem; border-radius: 8px; font-size: 0.9rem;">
+                                        <strong>Postkoordinované</strong><br>
+                                        <span style="color: var(--text-muted); font-size: 0.8rem;">Tezaury, Klíč. slova</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `
+            },
+            triangle: {
+                title: "Sémiotický trojúhelník a Popperovy světy",
+                content: `
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; padding: 1rem;">
+                        <div style="text-align: center;">
+                            <h3 style="color: var(--primary); margin-bottom: 1rem;">Sémiotický trojúhelník</h3>
+                            <svg viewBox="0 0 300 260" style="max-width: 300px;">
+                                <polygon points="150,20 280,230 20,230" fill="none" stroke="#6366f1" stroke-width="3"/>
+                                <circle cx="150" cy="20" r="40" fill="#1e293b" stroke="#10b981" stroke-width="2"/>
+                                <circle cx="280" cy="230" r="40" fill="#1e293b" stroke="#f59e0b" stroke-width="2"/>
+                                <circle cx="20" cy="230" r="40" fill="#1e293b" stroke="#ef4444" stroke-width="2"/>
+                                <text x="150" y="25" text-anchor="middle" fill="#10b981" font-weight="600">POJEM</text>
+                                <text x="150" y="40" text-anchor="middle" fill="#94a3b8" font-size="10">(význam)</text>
+                                <text x="280" y="235" text-anchor="middle" fill="#f59e0b" font-weight="600">ZNAK</text>
+                                <text x="280" y="250" text-anchor="middle" fill="#94a3b8" font-size="10">(reprezentace)</text>
+                                <text x="20" y="235" text-anchor="middle" fill="#ef4444" font-weight="600">JEV</text>
+                                <text x="20" y="250" text-anchor="middle" fill="#94a3b8" font-size="10">(věc)</text>
+                                <line x1="110" y1="230" x2="190" y2="230" stroke="#475569" stroke-width="2" stroke-dasharray="5,5"/>
+                            </svg>
+                            <p style="color: var(--text-muted); font-size: 0.85rem; margin-top: 1rem;">Znak nemá přímý vztah k věci (arbitrární povaha)</p>
+                        </div>
+                        <div>
+                            <h3 style="color: var(--primary); margin-bottom: 1rem;">Popperovy světy</h3>
+                            <div style="display: flex; flex-direction: column; gap: 1rem;">
+                                <div style="background: linear-gradient(90deg, #ef4444 0%, #1e293b 100%); padding: 1rem; border-radius: 10px;">
+                                    <strong style="color: #ef4444;">PI - Svět věcí</strong>
+                                    <p style="color: var(--text-muted); font-size: 0.85rem; margin: 0;">Věci, jevy, předměty, skutečnosti</p>
+                                </div>
+                                <div style="background: linear-gradient(90deg, #f59e0b 0%, #1e293b 100%); padding: 1rem; border-radius: 10px;">
+                                    <strong style="color: #f59e0b;">PII - Poznávající subjekt</strong>
+                                    <p style="color: var(--text-muted); font-size: 0.85rem; margin: 0;">Manipuluje s věcmi, pojmy a znaky</p>
+                                </div>
+                                <div style="background: linear-gradient(90deg, #10b981 0%, #1e293b 100%); padding: 1rem; border-radius: 10px;">
+                                    <strong style="color: #10b981;">PIII - Zaznamenané poznání</strong>
+                                    <p style="color: var(--text-muted); font-size: 0.85rem; margin: 0;">Komunikační nástroje, dokumenty</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `
+            },
+            dataflow: {
+                title: "Data → Informace → Znalosti",
+                content: `
+                    <div style="padding: 1rem;">
+                        <div style="display: flex; align-items: center; justify-content: center; gap: 1rem; flex-wrap: wrap;">
+                            <div style="background: var(--bg-light); padding: 1.5rem; border-radius: 12px; text-align: center; min-width: 200px; border: 2px solid var(--danger);">
+                                <div style="font-size: 2rem; margin-bottom: 0.5rem;">📊</div>
+                                <div style="font-weight: 700; color: var(--danger); font-size: 1.2rem;">DATA</div>
+                                <div style="color: var(--text-muted); font-size: 0.85rem; margin-top: 0.5rem;">
+                                    Symbolické reprezentace<br>
+                                    Řetězec znaků<br>
+                                    <em>Př: 460,8</em>
+                                </div>
+                            </div>
+                            <div style="font-size: 2rem; color: var(--primary);">→</div>
+                            <div style="background: var(--primary); color: white; padding: 0.5rem 1rem; border-radius: 20px; font-size: 0.9rem;">+ VÝZNAM</div>
+                            <div style="font-size: 2rem; color: var(--primary);">→</div>
+                            <div style="background: var(--bg-light); padding: 1.5rem; border-radius: 12px; text-align: center; min-width: 200px; border: 2px solid var(--warning);">
+                                <div style="font-size: 2rem; margin-bottom: 0.5rem;">📄</div>
+                                <div style="font-weight: 700; color: var(--warning); font-size: 1.2rem;">INFORMACE</div>
+                                <div style="color: var(--text-muted); font-size: 0.85rem; margin-top: 0.5rem;">
+                                    Data s významem<br>
+                                    Faktografické, bibliografické<br>
+                                    <em>Př: 460,8 m.n.m.</em>
+                                </div>
+                            </div>
+                            <div style="font-size: 2rem; color: var(--primary);">→</div>
+                            <div style="background: var(--secondary); color: white; padding: 0.5rem 1rem; border-radius: 20px; font-size: 0.9rem;">+ KONTEXT</div>
+                            <div style="font-size: 2rem; color: var(--primary);">→</div>
+                            <div style="background: var(--bg-light); padding: 1.5rem; border-radius: 12px; text-align: center; min-width: 200px; border: 2px solid var(--secondary);">
+                                <div style="font-size: 2rem; margin-bottom: 0.5rem;">🧠</div>
+                                <div style="font-weight: 700; color: var(--secondary); font-size: 1.2rem;">ZNALOSTI</div>
+                                <div style="color: var(--text-muted); font-size: 0.85rem; margin-top: 0.5rem;">
+                                    Informace s kontextem<br>
+                                    Médium: mozek<br>
+                                    <em>Př: 460,8 m.n.m., Říp</em>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `
+            },
+            indexing: {
+                title: "Proces indexace",
+                content: `
+                    <div style="padding: 1rem;">
+                        <div style="display: flex; flex-direction: column; gap: 1rem; max-width: 600px; margin: 0 auto;">
+                            <div style="display: flex; align-items: center; gap: 1rem;">
+                                <div style="background: var(--primary); color: white; width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700;">1</div>
+                                <div style="flex: 1; background: var(--bg-light); padding: 1rem; border-radius: 10px;">
+                                    <strong>Obsahová analýza</strong>
+                                    <p style="color: var(--text-muted); font-size: 0.85rem; margin: 0.25rem 0 0 0;">Typy čtení: orientační, kurzorické, selektivní, statarické, racionální</p>
+                                </div>
+                            </div>
+                            <div style="display: flex; align-items: center; gap: 1rem;">
+                                <div style="background: var(--primary); color: white; width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700;">2</div>
+                                <div style="flex: 1; background: var(--bg-light); padding: 1rem; border-radius: 10px;">
+                                    <strong>Identifikace pojmů</strong>
+                                    <p style="color: var(--text-muted); font-size: 0.85rem; margin: 0.25rem 0 0 0;">Zde vzniká 42,3% chyb! Opominutí hledisek je nejčastější chyba.</p>
+                                </div>
+                            </div>
+                            <div style="display: flex; align-items: center; gap: 1rem;">
+                                <div style="background: var(--primary); color: white; width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700;">3</div>
+                                <div style="flex: 1; background: var(--bg-light); padding: 1rem; border-radius: 10px;">
+                                    <strong>Výběr znaků SJ</strong>
+                                    <p style="color: var(--text-muted); font-size: 0.85rem; margin: 0.25rem 0 0 0;">Úplnost, specifičnost, indexační hlediska</p>
+                                </div>
+                            </div>
+                            <div style="display: flex; align-items: center; gap: 1rem;">
+                                <div style="background: var(--secondary); color: white; width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700;">✓</div>
+                                <div style="flex: 1; background: linear-gradient(90deg, var(--secondary), var(--bg-light)); padding: 1rem; border-radius: 10px;">
+                                    <strong style="color: var(--secondary);">SOD (Selekční obraz dokumentu)</strong>
+                                    <p style="color: var(--text-muted); font-size: 0.85rem; margin: 0.25rem 0 0 0;">Soubor lexikálních jednotek nebo klasifikačních znaků</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div style="display: flex; justify-content: center; gap: 2rem; margin-top: 2rem; flex-wrap: wrap;">
+                            <div style="text-align: center;">
+                                <div style="font-size: 1.5rem; font-weight: 700; color: var(--primary);">Recall (Úplnost)</div>
+                                <div style="color: var(--text-muted);">vyhledané rel. / všechny rel.</div>
+                            </div>
+                            <div style="text-align: center;">
+                                <div style="font-size: 1.5rem; font-weight: 700; color: var(--warning);">Precision (Přesnost)</div>
+                                <div style="color: var(--text-muted);">vyhledané rel. / všechny vyhled.</div>
+                            </div>
+                        </div>
+                    </div>
+                `
+            },
+            thesaurus: {
+                title: "Struktura tezauru",
+                content: `
+                    <div style="padding: 1rem; text-align: center;">
+                        <div style="display: inline-block; background: var(--primary); color: white; padding: 1rem 2rem; border-radius: 12px; font-weight: 600; font-size: 1.1rem;">DESKRIPTOR (preferovaný termín)</div>
+                        <div style="display: flex; justify-content: center; gap: 3rem; margin-top: 2rem; flex-wrap: wrap;">
+                            <div style="text-align: center;">
+                                <div style="background: var(--secondary); color: white; padding: 0.5rem 1rem; border-radius: 8px; font-weight: 600;">BT (Broader Term)</div>
+                                <div style="color: var(--text-muted); font-size: 0.85rem; margin-top: 0.5rem;">Nadřazený deskriptor</div>
+                                <div style="font-size: 1.5rem; margin: 0.5rem 0;">↑</div>
+                            </div>
+                            <div style="text-align: center;">
+                                <div style="background: var(--warning); color: white; padding: 0.5rem 1rem; border-radius: 8px; font-weight: 600;">NT (Narrower Term)</div>
+                                <div style="color: var(--text-muted); font-size: 0.85rem; margin-top: 0.5rem;">Podřazený deskriptor</div>
+                                <div style="font-size: 1.5rem; margin: 0.5rem 0;">↓</div>
+                            </div>
+                            <div style="text-align: center;">
+                                <div style="background: var(--danger); color: white; padding: 0.5rem 1rem; border-radius: 8px; font-weight: 600;">RT (Related Term)</div>
+                                <div style="color: var(--text-muted); font-size: 0.85rem; margin-top: 0.5rem;">Příbuzný deskriptor</div>
+                                <div style="font-size: 1.5rem; margin: 0.5rem 0;">↔</div>
+                            </div>
+                            <div style="text-align: center;">
+                                <div style="background: var(--bg-light); border: 2px dashed var(--border); padding: 0.5rem 1rem; border-radius: 8px; font-weight: 600;">UF (Used For)</div>
+                                <div style="color: var(--text-muted); font-size: 0.85rem; margin-top: 0.5rem;">Nedeskriptor (ekvivalent)</div>
+                                <div style="font-size: 1.5rem; margin: 0.5rem 0;">≈</div>
+                            </div>
+                        </div>
+                        <div style="margin-top: 2rem; padding: 1rem; background: var(--bg-light); border-radius: 12px;">
+                            <h4 style="color: var(--primary); margin-bottom: 0.5rem;">Příklad deskriptorového odstavce:</h4>
+                            <div style="text-align: left; font-family: monospace; color: var(--text-muted);">
+                                <strong style="color: var(--text);">informační systémy</strong><br>
+                                BT: informační technologie<br>
+                                NT: databázové systémy, knihovní systémy<br>
+                                RT: informační služby, vyhledávání informací<br>
+                                UF: IS, informační systém
+                            </div>
+                        </div>
+                    </div>
+                `
+            },
+            classifications: {
+                title: "Přehled velkých klasifikačních systémů",
+                content: `
+                    <div style="padding: 1rem;">
+                        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1rem;">
+                            <div style="background: var(--bg-light); padding: 1.5rem; border-radius: 12px; border-left: 4px solid #ef4444;">
+                                <div style="font-weight: 700; color: #ef4444; font-size: 1.2rem;">DDC</div>
+                                <div style="color: var(--text-muted); font-size: 0.85rem;">Deweyho desetinné třídění</div>
+                                <hr style="border-color: var(--border); margin: 0.75rem 0;">
+                                <div style="font-size: 0.9rem;">
+                                    <strong>Rok:</strong> 1876 (Melvil Dewey)<br>
+                                    <strong>Typ:</strong> Enumerativní<br>
+                                    <strong>Notace:</strong> Numerická<br>
+                                    <strong>Rozšíření:</strong> Celosvětové
+                                </div>
+                            </div>
+                            <div style="background: var(--bg-light); padding: 1.5rem; border-radius: 12px; border-left: 4px solid #f59e0b;">
+                                <div style="font-weight: 700; color: #f59e0b; font-size: 1.2rem;">LCC</div>
+                                <div style="color: var(--text-muted); font-size: 0.85rem;">Klasifikace Kongresové knihovny</div>
+                                <hr style="border-color: var(--border); margin: 0.75rem 0;">
+                                <div style="font-size: 0.9rem;">
+                                    <strong>Rok:</strong> přelom 19./20. st.<br>
+                                    <strong>Typ:</strong> Enumerativní<br>
+                                    <strong>Notace:</strong> Alfanumerická<br>
+                                    <strong>Orientace:</strong> Americké reálie
+                                </div>
+                            </div>
+                            <div style="background: var(--bg-light); padding: 1.5rem; border-radius: 12px; border-left: 4px solid #10b981;">
+                                <div style="font-weight: 700; color: #10b981; font-size: 1.2rem;">MDT</div>
+                                <div style="color: var(--text-muted); font-size: 0.85rem;">Mezinárodní desetinné třídění</div>
+                                <hr style="border-color: var(--border); margin: 0.75rem 0;">
+                                <div style="font-size: 0.9rem;">
+                                    <strong>Rok:</strong> poč. 20. st. (Otlet, La Fontaine)<br>
+                                    <strong>Typ:</strong> Hierarchický + fazetový<br>
+                                    <strong>Notace:</strong> Smíšená<br>
+                                    <strong>Rozšíření:</strong> Celosvětové
+                                </div>
+                            </div>
+                            <div style="background: var(--bg-light); padding: 1.5rem; border-radius: 12px; border-left: 4px solid #6366f1;">
+                                <div style="font-weight: 700; color: #6366f1; font-size: 1.2rem;">CC</div>
+                                <div style="color: var(--text-muted); font-size: 0.85rem;">Dvojtečkové třídění</div>
+                                <hr style="border-color: var(--border); margin: 0.75rem 0;">
+                                <div style="font-size: 0.9rem;">
+                                    <strong>Rok:</strong> 1933 (Ranganathan)<br>
+                                    <strong>Typ:</strong> Fazetový (PMEST)<br>
+                                    <strong>Rozšíření:</strong> Omezené<br>
+                                    <strong>Význam:</strong> Teoretický přínos
+                                </div>
+                            </div>
+                            <div style="background: var(--bg-light); padding: 1.5rem; border-radius: 12px; border-left: 4px solid #8b5cf6;">
+                                <div style="font-weight: 700; color: #8b5cf6; font-size: 1.2rem;">BBC</div>
+                                <div style="color: var(--text-muted); font-size: 0.85rem;">Blissovo bibliografické třídění</div>
+                                <hr style="border-color: var(--border); margin: 0.75rem 0;">
+                                <div style="font-size: 0.9rem;">
+                                    <strong>Rok:</strong> 1940-1953 (Bliss)<br>
+                                    <strong>Typ:</strong> Fazetový<br>
+                                    <strong>Základ:</strong> Filosofický<br>
+                                    <strong>Rozšíření:</strong> Minimální
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `
+            }
+        };
+
+        function showConceptMap(mapId) {
+            const map = conceptMaps[mapId];
+            if (!map) return;
+
+            document.getElementById('map-title').textContent = map.title;
+            document.getElementById('map-content').innerHTML = map.content;
+            document.getElementById('concept-map-container').style.display = 'block';
+        }
+
+        function hideConceptMap() {
+            document.getElementById('concept-map-container').style.display = 'none';
         }
 
         // ========== INIT ==========
