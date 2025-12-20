@@ -675,7 +675,51 @@
             <!-- Quiz -->
             <section id="quiz" class="section">
                 <div class="quiz-container">
-                    <div class="quiz-header">
+                    <!-- Quiz Setup -->
+                    <div id="quiz-setup" class="quiz-question-card">
+                        <h2 style="margin-bottom: 1.5rem; text-align: center;">Nastavení kvízu</h2>
+
+                        <div style="margin-bottom: 1.5rem;">
+                            <label style="display: block; margin-bottom: 0.5rem; color: var(--text-muted);">Téma:</label>
+                            <select id="quiz-category" style="width: 100%; padding: 0.75rem; background: var(--bg-light); border: 1px solid var(--border); border-radius: 8px; color: var(--text); font-size: 1rem;">
+                                <option value="all">Všechna témata (120 otázek)</option>
+                                <option value="Proč třídíme">Proč třídíme</option>
+                                <option value="Co kdo třídí">Co kdo třídí</option>
+                                <option value="Co třídíme">Co třídíme</option>
+                                <option value="Selekční jazyky">Selekční jazyky</option>
+                                <option value="Systematické SJ">Systematické SJ (DDC, LCC, MDT...)</option>
+                                <option value="Předmětové SJ">Předmětové SJ (tezaury, PH...)</option>
+                                <option value="Morfologie SJ">Morfologie a struktura SJ</option>
+                                <option value="Jak třídíme">Jak třídíme (obsahová analýza)</option>
+                                <option value="Indexace">Indexace</option>
+                                <option value="SOD">SOD a redukované texty</option>
+                                <option value="Vyhledávání">Vyhledávání</option>
+                                <option value="Systémy">Univerzální a oborové systémy</option>
+                                <option value="Budoucnost">Ontologie a budoucnost</option>
+                            </select>
+                        </div>
+
+                        <div style="margin-bottom: 1.5rem;">
+                            <label style="display: block; margin-bottom: 0.5rem; color: var(--text-muted);">Počet otázek:</label>
+                            <select id="quiz-count" style="width: 100%; padding: 0.75rem; background: var(--bg-light); border: 1px solid var(--border); border-radius: 8px; color: var(--text); font-size: 1rem;">
+                                <option value="10">10 otázek (rychlý test)</option>
+                                <option value="20">20 otázek</option>
+                                <option value="30">30 otázek</option>
+                                <option value="50">50 otázek</option>
+                                <option value="all">Všechny dostupné otázky</option>
+                            </select>
+                        </div>
+
+                        <div id="quiz-category-info" style="background: var(--bg); padding: 1rem; border-radius: 8px; margin-bottom: 1.5rem;">
+                            <span style="color: var(--secondary); font-weight: 600;" id="available-count">120</span>
+                            <span style="color: var(--text-muted);"> otázek k dispozici</span>
+                        </div>
+
+                        <button class="quiz-btn" onclick="startQuizWithSettings()">Spustit kvíz</button>
+                    </div>
+
+                    <!-- Quiz Header -->
+                    <div class="quiz-header" id="quiz-header-bar" style="display: none;">
                         <span id="quiz-counter">Otázka 1/10</span>
                         <div class="quiz-progress-bar">
                             <div class="quiz-progress-fill" id="quiz-progress" style="width: 10%;"></div>
@@ -683,8 +727,11 @@
                         <span id="quiz-score">Skóre: 0</span>
                     </div>
 
-                    <div class="quiz-question-card" id="quiz-card">
-                        <div class="quiz-question-number" id="quiz-q-num">Otázka 1</div>
+                    <div class="quiz-question-card" id="quiz-card" style="display: none;">
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+                            <div class="quiz-question-number" id="quiz-q-num">Otázka 1</div>
+                            <span style="background: var(--primary); padding: 0.25rem 0.75rem; border-radius: 20px; font-size: 0.8rem;" id="quiz-q-cat">Kategorie</span>
+                        </div>
                         <div class="quiz-question-text" id="quiz-question">Načítám otázku...</div>
                         <div class="quiz-options" id="quiz-options"></div>
                         <button class="quiz-btn" id="quiz-btn" onclick="nextQuestion()" disabled>Další otázka</button>
@@ -693,7 +740,8 @@
                     <div class="results-container" id="quiz-results" style="display: none;">
                         <div class="results-score" id="final-score">0%</div>
                         <div class="results-message" id="results-message">Výborně!</div>
-                        <button class="quiz-btn" onclick="startQuiz()">Zkusit znovu</button>
+                        <div id="results-details" style="margin: 2rem 0; text-align: left; background: var(--bg-card); padding: 1.5rem; border-radius: 12px;"></div>
+                        <button class="quiz-btn" onclick="showQuizSetup()">Nový kvíz</button>
                     </div>
                 </div>
             </section>
@@ -785,106 +833,165 @@
         ];
 
         const quizData = [
-            {
-                q: "Co je hlavní příčinou informační exploze?",
-                options: ["Růst populace", "Technologický vývoj", "Vznik internetu", "Globalizace"],
-                correct: 1
-            },
-            {
-                q: "Jaký je správný vztah: Data → Informace → Znalosti?",
-                options: ["Přidání kontextu → Přidání významu", "Přidání významu → Přidání kontextu", "Přidání formátu → Přidání struktury", "Přidání média → Přidání formy"],
-                correct: 1
-            },
-            {
-                q: "Co NENÍ součástí sémiotického trojúhelníku?",
-                options: ["Jev (věc)", "Pojem (význam)", "Znak (reprezentace)", "Kontext (situace)"],
-                correct: 3
-            },
-            {
-                q: "Který typ selekčního jazyka je MDT?",
-                options: ["Postkoordinovaný předmětový", "Prekoordinovaný systematický", "Postkoordinovaný systematický", "Prekoordinovaný předmětový"],
-                correct: 1
-            },
-            {
-                q: "Co je deskriptor v tezauru?",
-                options: ["Nepreferovaná lexikální jednotka", "Preferovaná lexikální jednotka", "Klasifikační znak", "Pomocný symbol"],
-                correct: 1
-            },
-            {
-                q: "Jak se vypočítá přesnost (precision) vyhledávání?",
-                options: ["Vyhledané relevantní / Všechny relevantní", "Vyhledané relevantní / Všechny vyhledané", "Všechny vyhledané / Všechny relevantní", "Všechny relevantní / Vyhledané relevantní"],
-                correct: 1
-            },
-            {
-                q: "Co je PMEST?",
-                options: ["Typ notace v MDT", "Fazetová formulace z dvojtečkového třídění", "Struktura předmětových hesel", "Metoda indexace"],
-                correct: 1
-            },
-            {
-                q: "Co je synonymie?",
-                options: ["Různé termíny pro různé pojmy", "Stejné termíny pro různé pojmy", "Různé termíny pro stejný pojem", "Stejné termíny pro stejné pojmy"],
-                correct: 2
-            },
-            {
-                q: "Jaký je vztah mezi úplností (recall) a přesností (precision)?",
-                options: ["Přímo úměrný", "Nepřímo úměrný", "Nezávislý", "Exponenciální"],
-                correct: 1
-            },
-            {
-                q: "Co je fazeta?",
-                options: ["Typ notace", "Kategorie entit vytvořená uplatněním jedné klasifikační charakteristiky", "Hierarchický vztah", "Typ dokumentu"],
-                correct: 1
-            },
-            {
-                q: "Který systém vytvořil Melvil Dewey v roce 1876?",
-                options: ["MDT", "LCC", "DDC", "CC"],
-                correct: 2
-            },
-            {
-                q: "Co je EuroVoc?",
-                options: ["Americký klasifikační systém", "Evropský vícejazyčný tezaurus", "Britská knihovní klasifikace", "Systém pro katalogizaci"],
-                correct: 1
-            },
-            {
-                q: "Jaký je rozdíl mezi paradigmatickým a syntagmatickým vztahem?",
-                options: ["Paradigmatický závisí na kontextu, syntagmatický ne", "Paradigmatický je apriorní, syntagmatický aposteriorní", "Jsou totožné", "Paradigmatický je novější koncept"],
-                correct: 1
-            },
-            {
-                q: "Co je SOD?",
-                options: ["Systém organizace dokumentů", "Selekční obraz dokumentu", "Struktura oborových deskriptorů", "Standard odborné dokumentace"],
-                correct: 1
-            },
-            {
-                q: "Která metoda čtení je nejdůkladnější?",
-                options: ["Orientační čtení", "Kurzorické čtení", "Statarické čtení", "Selektivní čtení"],
-                correct: 2
-            },
-            {
-                q: "Co je ontologie v informační vědě?",
-                options: ["Typ dokumentu", "Filozofická disciplína", "Typ pojmového modelu pro počítačové zpracování", "Metoda indexace"],
-                correct: 2
-            },
-            {
-                q: "Jaká je nejčastější indexační chyba?",
-                options: ["Překlepy v deskriptorech", "Opominutí hledisek", "Použití nesprávného jazyka", "Duplicitní záznamy"],
-                correct: 1
-            },
-            {
-                q: "Co je polysémie?",
-                options: ["Více termínů pro jeden pojem", "Jeden termín s více etymologicky souvisejícími významy", "Chybné psaní termínů", "Typ hierarchie"],
-                correct: 1
-            },
-            {
-                q: "Který Popperův svět zahrnuje zaznamenané lidské poznání?",
-                options: ["PI", "PII", "PIII", "PIV"],
-                correct: 2
-            },
-            {
-                q: "Co je abstrakt?",
-                options: ["Povrchní doprovod nakladatelské činnosti", "Krátké shrnutí obsahu od autora či zpracovatele", "Výběr konkrétních částí dokumentu", "Výsledky poznání autora v dokumentu"],
-                correct: 1
-            }
+            // === PROČ TŘÍDÍME ===
+            { q: "Co je hlavní příčinou informační exploze?", options: ["Růst populace", "Technologický vývoj", "Vznik internetu", "Globalizace"], correct: 1, cat: "Proč třídíme" },
+            { q: "Kdy začala informační exploze?", options: ["Po 1. světové válce", "Po 2. světové válce", "V 19. století", "V roce 2000"], correct: 1, cat: "Proč třídíme" },
+            { q: "Co je informační přetížení?", options: ["Subjektivní psychologický stav", "Objektivní důsledek informační exploze", "Nedostatek informací", "Typ dokumentu"], correct: 1, cat: "Proč třídíme" },
+            { q: "Co je informační deprivace/neuróza?", options: ["Objektivní důsledek exploze", "Subjektivní psychologický důsledek", "Typ vyhledávání", "Metoda indexace"], correct: 1, cat: "Proč třídíme" },
+            { q: "Jaký je správný vztah: Data → Informace → Znalosti?", options: ["Přidání kontextu → Přidání významu", "Přidání významu → Přidání kontextu", "Přidání formátu → Přidání struktury", "Přidání média → Přidání formy"], correct: 1, cat: "Proč třídíme" },
+            { q: "Co jsou data?", options: ["Informace s kontextem", "Zaznamenané symbolické reprezentace", "Znalosti bez významu", "Typ dokumentu"], correct: 1, cat: "Proč třídíme" },
+            { q: "Jaké je médium pro znalosti?", options: ["Papír", "Digitální nosič", "Mozek", "Databáze"], correct: 2, cat: "Proč třídíme" },
+            { q: "Co NENÍ součástí sémiotického trojúhelníku?", options: ["Jev (věc)", "Pojem (význam)", "Znak (reprezentace)", "Kontext (situace)"], correct: 3, cat: "Proč třídíme" },
+            { q: "Co zkoumá sémiotika?", options: ["Vztahy mezi formou a významem", "Znaky a znakové soustavy", "Strukturu vět", "Tvary slov"], correct: 1, cat: "Proč třídíme" },
+            { q: "Co zkoumá sémantika?", options: ["Znakové soustavy", "Vztahy mezi formou a významem znaků", "Strukturu jazyka", "Lidské poznání"], correct: 1, cat: "Proč třídíme" },
+            { q: "Co je epistemologie?", options: ["Nauka o znacích", "Filosofická disciplína zkoumající poznání", "Teorie klasifikace", "Metoda indexace"], correct: 1, cat: "Proč třídíme" },
+            { q: "Který Popperův svět zahrnuje zaznamenané lidské poznání?", options: ["PI", "PII", "PIII", "PIV"], correct: 2, cat: "Proč třídíme" },
+            { q: "Co představuje Popperův svět PI?", options: ["Poznávající subjekt", "Zaznamenané poznání", "Svět věcí a jevů", "Komunikační nástroje"], correct: 2, cat: "Proč třídíme" },
+            { q: "Co představuje Popperův svět PII?", options: ["Svět věcí", "Poznávající subjekt", "Zaznamenané poznání", "Znakový systém"], correct: 1, cat: "Proč třídíme" },
+            { q: "Jaký je charakter znaků v sémiotickém trojúhelníku?", options: ["Přirozený", "Arbitrární (nahodilý, konvenční)", "Logický", "Hierarchický"], correct: 1, cat: "Proč třídíme" },
+            { q: "Kdo formuloval teorii tří světů?", options: ["Melvil Dewey", "Karl Popper a John Eccles", "Ranganathan", "Paul Otlet"], correct: 1, cat: "Proč třídíme" },
+
+            // === CO KDO TŘÍDÍ ===
+            { q: "Co je taxonomie?", options: ["Teorie klasifikace dokumentů", "Věda o klasifikaci organismů", "Typ selekčního jazyka", "Metoda indexace"], correct: 1, cat: "Co kdo třídí" },
+            { q: "S čím pracuje informační specialista?", options: ["Přímo s jevy", "S informačními objekty", "Pouze s metadaty", "S taxonomiemi organismů"], correct: 1, cat: "Co kdo třídí" },
+            { q: "Co je výsledkem práce digitálního badatele?", options: ["Metadata", "Metametadata", "Informační objekt", "Taxonomie"], correct: 1, cat: "Co kdo třídí" },
+
+            // === CO TŘÍDÍME ===
+            { q: "Co je dokument?", options: ["Virtuální objekt", "Objekt s fyzickou povahou nesoucí informace", "Pouze digitální soubor", "Abstraktní pojem"], correct: 1, cat: "Co třídíme" },
+            { q: "Co je informační objekt?", options: ["Pouze fyzický dokument", "Generický pojem pro jakýkoli objekt nesoucí informace", "Digitální databáze", "Klasifikační systém"], correct: 1, cat: "Co třídíme" },
+            { q: "Co je informační pramen/zdroj?", options: ["Jakýkoli dokument", "Informační objekt relevantní pro konkrétní účel", "Databáze metadat", "Typ klasifikace"], correct: 1, cat: "Co třídíme" },
+            { q: "Jaký je rozdíl mezi indexací a klasifikací?", options: ["Žádný", "Indexace popisuje obsahem, klasifikace zařazuje do systému", "Indexace je novější", "Klasifikace používá klíčová slova"], correct: 1, cat: "Co třídíme" },
+            { q: "Co je primární dokument?", options: ["Originální dokument", "Sekundární zdroj", "Katalogizační záznam", "Abstrakt"], correct: 0, cat: "Co třídíme" },
+            { q: "Co je granularita?", options: ["Typ notace", "Úroveň podrobnosti identifikace složek objektu", "Hierarchický vztah", "Metoda čtení"], correct: 1, cat: "Co třídíme" },
+
+            // === SELEKČNÍ JAZYKY - ZÁKLADY ===
+            { q: "Co je selekční jazyk?", options: ["Přirozený jazyk", "Jazyk pro organizaci informací", "Programovací jazyk", "Komunikační jazyk"], correct: 1, cat: "Selekční jazyky" },
+            { q: "Který typ selekčního jazyka je MDT?", options: ["Postkoordinovaný předmětový", "Prekoordinovaný systematický", "Postkoordinovaný systematický", "Prekoordinovaný předmětový"], correct: 1, cat: "Selekční jazyky" },
+            { q: "Který typ selekčního jazyka je tezaurus?", options: ["Prekoordinovaný systematický", "Postkoordinovaný předmětový", "Prekoordinovaný předmětový", "Postkoordinovaný systematický"], correct: 1, cat: "Selekční jazyky" },
+            { q: "Který typ selekčního jazyka jsou předmětová hesla?", options: ["Postkoordinovaný předmětový", "Prekoordinovaný předmětový", "Systematický", "Deskriptorový"], correct: 1, cat: "Selekční jazyky" },
+            { q: "Co je prekoordinace?", options: ["Pojmy se kombinují při vyhledávání", "Pojmy jsou zařazeny jako celek", "Typ notace", "Metoda čtení"], correct: 1, cat: "Selekční jazyky" },
+            { q: "Co je postkoordinace?", options: ["Pojmy jsou zařazeny jako celek", "Pojmy se kombinují až při vyhledávání", "Typ hierarchie", "Metoda indexace"], correct: 1, cat: "Selekční jazyky" },
+            { q: "Co je fazeta?", options: ["Typ notace", "Kategorie entit s jednou klasifikační charakteristikou", "Hierarchický vztah", "Typ dokumentu"], correct: 1, cat: "Selekční jazyky" },
+            { q: "Co znamená PMEST?", options: ["Typ notace MDT", "Personality, Matter, Energy, Space, Time", "Prekoordinační metoda", "Typ tezauru"], correct: 1, cat: "Selekční jazyky" },
+            { q: "Kdy vznikl pojem selekční jazyk?", options: ["V 19. století", "V 50./60. letech 20. století", "Po roce 2000", "V antice"], correct: 1, cat: "Selekční jazyky" },
+
+            // === SYSTEMATICKÉ SELEKČNÍ JAZYKY ===
+            { q: "Který systém vytvořil Melvil Dewey v roce 1876?", options: ["MDT", "LCC", "DDC", "CC"], correct: 2, cat: "Systematické SJ" },
+            { q: "Co je DDC?", options: ["Dvojtečkové třídění", "Deweyho desetinné třídění", "Deskriptorový systém", "Digitální klasifikace"], correct: 1, cat: "Systematické SJ" },
+            { q: "Jaký charakter má DDC?", options: ["Fazetový", "Enumerativní (výčtový)", "Předmětový", "Deskriptorový"], correct: 1, cat: "Systematické SJ" },
+            { q: "Co je LCC?", options: ["Deweyho třídění", "Klasifikace Kongresové knihovny", "Londýnská klasifikace", "Linguistická klasifikace"], correct: 1, cat: "Systematické SJ" },
+            { q: "Na co je orientována LCC?", options: ["Evropské reálie", "Americké reálie", "Asijské reálie", "Univerzálně"], correct: 1, cat: "Systematické SJ" },
+            { q: "Kdo vytvořil MDT?", options: ["Melvil Dewey", "Paul Otlet a Henri La Fontaine", "Ranganathan", "Bliss"], correct: 1, cat: "Systematické SJ" },
+            { q: "Jaký přístup kombinuje MDT?", options: ["Pouze hierarchický", "Hierarchický a fazetový", "Pouze fazetový", "Abecední"], correct: 1, cat: "Systematické SJ" },
+            { q: "Kdo vytvořil dvojtečkové třídění (CC)?", options: ["Dewey", "Otlet", "Ranganathan", "Bliss"], correct: 2, cat: "Systematické SJ" },
+            { q: "Kdy vzniklo dvojtečkové třídění?", options: ["1876", "1933", "1950", "1900"], correct: 1, cat: "Systematické SJ" },
+            { q: "Co je BBC?", options: ["Britská klasifikace", "Blissovo bibliografické třídění", "Bibliografická báze dat", "Binární klasifikace"], correct: 1, cat: "Systematické SJ" },
+            { q: "Jaký je charakter BBC?", options: ["Pragmatický", "Teoreticky fundovaný, málo rozšířený", "Enumerativní", "Čistě abecední"], correct: 1, cat: "Systematické SJ" },
+            { q: "Co obsahují pomocné tabulky v MDT?", options: ["Pouze hlavní znaky", "Pomocné znaky (místo, čas, jazyk, forma)", "Abecední rejstřík", "Seznam autorů"], correct: 1, cat: "Systematické SJ" },
+
+            // === PŘEDMĚTOVÉ SELEKČNÍ JAZYKY ===
+            { q: "Co jsou předmětová hesla?", options: ["Klasifikační znaky", "Prekoordinované lexikální jednotky", "Postkoordinované deskriptory", "Číselné kódy"], correct: 1, cat: "Předmětové SJ" },
+            { q: "Co je tezaurus?", options: ["Klasifikační systém", "Postkoordinovaný systém s řízeným slovníkem", "Typ notace", "Abecední seznam"], correct: 1, cat: "Předmětové SJ" },
+            { q: "Co je deskriptor?", options: ["Nepreferovaná lexikální jednotka", "Preferovaná lexikální jednotka", "Klasifikační znak", "Pomocný symbol"], correct: 1, cat: "Předmětové SJ" },
+            { q: "Co je nedeskriptor?", options: ["Preferovaný termín", "Nepreferovaná LJ odkazující na deskriptor", "Klasifikační znak", "Typ notace"], correct: 1, cat: "Předmětové SJ" },
+            { q: "Kdy vznikly první tezaury?", options: ["V 19. století", "Na přelomu 50. a 60. let 20. st.", "Po roce 2000", "V antice"], correct: 1, cat: "Předmětové SJ" },
+            { q: "Co jsou unitermy?", options: ["Složená slova", "Jednotlivá slova jako předchůdce tezauru", "Klasifikační znaky", "Typ notace"], correct: 1, cat: "Předmětové SJ" },
+            { q: "Kdo vytvořil unitermy?", options: ["Dewey", "Mortimer Taube", "Ranganathan", "Otlet"], correct: 1, cat: "Předmětové SJ" },
+            { q: "Co je KWIC?", options: ["Klasifikace", "Keyword in context - rotovaný rejstřík", "Typ tezauru", "Metoda indexace"], correct: 1, cat: "Předmětové SJ" },
+            { q: "Co je KWOC?", options: ["Klasifikace", "Keyword out of context", "Typ notace", "Metoda čtení"], correct: 1, cat: "Předmětové SJ" },
+
+            // === MORFOLOGIE A STRUKTURA SJ ===
+            { q: "Co je synonymie?", options: ["Různé termíny pro různé pojmy", "Stejné termíny pro různé pojmy", "Různé termíny pro stejný pojem", "Stejné termíny pro stejné pojmy"], correct: 2, cat: "Morfologie SJ" },
+            { q: "Co je homonymie?", options: ["Různé termíny pro stejný pojem", "Stejně znějící/psané jednotky s různým významem", "Příbuzné termíny", "Nadřazené termíny"], correct: 1, cat: "Morfologie SJ" },
+            { q: "Co je polysémie?", options: ["Více termínů pro jeden pojem", "Jeden termín s více etymologicky souvisejícími významy", "Chybné psaní", "Typ hierarchie"], correct: 1, cat: "Morfologie SJ" },
+            { q: "Co je kvazisynonymie?", options: ["Úplná synonymie", "Termíny s podobnými významy považované za synonyma", "Typ homonymie", "Hierarchický vztah"], correct: 1, cat: "Morfologie SJ" },
+            { q: "Co je homografie?", options: ["Slova psaná stejně ale vyslovovaná odlišně", "Slova znějící stejně", "Typ synonymie", "Metoda indexace"], correct: 0, cat: "Morfologie SJ" },
+            { q: "Co je relátor?", options: ["Typ notace", "Výraz k rozlišení významu homonym", "Klasifikační znak", "Typ dokumentu"], correct: 1, cat: "Morfologie SJ" },
+            { q: "Co je paradigmatický vztah?", options: ["Vztah daný kontextem", "Vztah nezávislý na kontextu (apriorní)", "Typ notace", "Metoda indexace"], correct: 1, cat: "Morfologie SJ" },
+            { q: "Co je syntagmatický vztah?", options: ["Vztah nezávislý na kontextu", "Vztah daný kontextem (aposteriorní)", "Typ hierarchie", "Metoda čtení"], correct: 1, cat: "Morfologie SJ" },
+            { q: "Co je partitivní vztah?", options: ["Rod-druh", "Celek-část", "Příčina-následek", "Synonymie"], correct: 1, cat: "Morfologie SJ" },
+            { q: "Co je generický vztah?", options: ["Celek-část", "Rod-druh", "Příčina-následek", "Asociace"], correct: 1, cat: "Morfologie SJ" },
+            { q: "Co je asociace v kontextu SJ?", options: ["Hierarchický vztah", "Nehierarchické tematické spojení", "Typ synonymie", "Klasifikační znak"], correct: 1, cat: "Morfologie SJ" },
+            { q: "Co je polyhierarchie?", options: ["Jeden pojem nadřazen více pojmům", "Jeden pojem podřazen více pojmům", "Typ asociace", "Metoda indexace"], correct: 1, cat: "Morfologie SJ" },
+            { q: "Co je syntax?", options: ["Tvar slov", "Struktura nebo pořadí prvků ve vyjádření", "Typ notace", "Metoda čtení"], correct: 1, cat: "Morfologie SJ" },
+            { q: "Co je morfologie v jazykovědě?", options: ["Pořadí slov", "Disciplína zabývající se tvary slov", "Typ klasifikace", "Metoda indexace"], correct: 1, cat: "Morfologie SJ" },
+            { q: "Co jsou synkategorematická substantiva?", options: ["Běžná podstatná jména", "Podst. jména nevyjadřující třídu pojmů (umělé květiny)", "Typ deskriptorů", "Klasifikační znaky"], correct: 1, cat: "Morfologie SJ" },
+
+            // === JAK TŘÍDÍME - OBSAHOVÁ ANALÝZA ===
+            { q: "Co je obsahová analýza?", options: ["Formální popis", "Určení obsahu dokumentu", "Typ klasifikace", "Metoda vyhledávání"], correct: 1, cat: "Jak třídíme" },
+            { q: "Co je orientační čtení?", options: ["Důkladné čtení", "Získání základních informací o dokumentu", "Hledání konkrétních informací", "Rychlé pročítání"], correct: 1, cat: "Jak třídíme" },
+            { q: "Co je kurzorické/diagonální čtení?", options: ["Důkladné čtení", "Rychlé pročítání zachycující podstatné pasáže", "Výběrové čtení", "Orientační čtení"], correct: 1, cat: "Jak třídíme" },
+            { q: "Co je selektivní čtení?", options: ["Rychlé pročítání", "Výběrové čtení hledající konkrétní informace", "Důkladné čtení", "Orientační čtení"], correct: 1, cat: "Jak třídíme" },
+            { q: "Která metoda čtení je nejdůkladnější?", options: ["Orientační", "Kurzorické", "Statarické", "Selektivní"], correct: 2, cat: "Jak třídíme" },
+            { q: "Co je racionální čtení?", options: ["Povrchní čtení", "Kombinace metod aktivizující všechny schopnosti", "Pouze selektivní čtení", "Typ indexace"], correct: 1, cat: "Jak třídíme" },
+
+            // === INDEXACE ===
+            { q: "Co je úplnost indexace?", options: ["Počet dokumentů", "Rozsah zachycení hlavních a vedlejších témat", "Typ notace", "Metoda čtení"], correct: 1, cat: "Indexace" },
+            { q: "Co je specifičnost indexace?", options: ["Počet znaků", "Výběr nejspecifičtějšího znaku SJ", "Typ hierarchie", "Metoda vyhledávání"], correct: 1, cat: "Indexace" },
+            { q: "Co je konzistence indexace?", options: ["Rychlost indexace", "Pro tentýž obsah tentýž popis", "Typ notace", "Metoda čtení"], correct: 1, cat: "Indexace" },
+            { q: "Jak se počítá konzistence mezi dvěma indexátory?", options: ["a + b", "a * b", "a / b (shodné / celkové jedinečné znaky)", "a - b"], correct: 2, cat: "Indexace" },
+            { q: "Co je interindexer consistency?", options: ["Konzistence jednoho indexátora", "Shoda mezi dvěma a více indexátory", "Typ notace", "Metoda čtení"], correct: 1, cat: "Indexace" },
+            { q: "Jak se vypočítá úplnost (recall)?", options: ["Vyhledané relevantní / Všechny vyhledané", "Vyhledané relevantní / Všechny relevantní", "Všechny vyhledané / Všechny dokumenty", "Relevantní / Nerelevatní"], correct: 1, cat: "Indexace" },
+            { q: "Jak se vypočítá přesnost (precision)?", options: ["Vyhledané relevantní / Všechny relevantní", "Vyhledané relevantní / Všechny vyhledané", "Všechny vyhledané / Všechny relevantní", "Relevantní / Celkem"], correct: 1, cat: "Indexace" },
+            { q: "Jaký je vztah mezi úplností a přesností?", options: ["Přímo úměrný", "Nepřímo úměrný", "Nezávislý", "Exponenciální"], correct: 1, cat: "Indexace" },
+            { q: "Jaká je nejčastější indexační chyba?", options: ["Překlepy", "Opominutí hledisek (18,6%)", "Duplicity", "Nesprávný jazyk"], correct: 1, cat: "Indexace" },
+            { q: "Co je formální relevance?", options: ["Obsahová shoda", "Dva dokumenty mají tentýž popis ale nemusí být obsahově totožné", "Typ indexace", "Metoda čtení"], correct: 1, cat: "Indexace" },
+            { q: "V jaké fázi vzniká nejvíce indexačních chyb?", options: ["Obsahová analýza", "Identifikace pojmů (42,3%)", "Výběr deskriptorů", "Kontrola"], correct: 1, cat: "Indexace" },
+
+            // === SOD A REDUKOVANÉ TEXTY ===
+            { q: "Co je SOD?", options: ["Systém organizace dokumentů", "Selekční obraz dokumentu", "Struktura oborových deskriptorů", "Standard odborné dokumentace"], correct: 1, cat: "SOD" },
+            { q: "Co je abstrakt?", options: ["Povrchní doprovod nakladatelství", "Krátké shrnutí od autora/zpracovatele", "Výběr částí dokumentu", "Výsledky poznání autora"], correct: 1, cat: "SOD" },
+            { q: "Co je anotace?", options: ["Shrnutí od autora", "Povrchní doprovod nakladatelské činnosti", "Výběr částí", "Typ indexace"], correct: 1, cat: "SOD" },
+            { q: "Co je referát?", options: ["Krátké shrnutí", "Delší text přibližující výsledky a metody", "Povrchní doprovod", "Typ klasifikace"], correct: 1, cat: "SOD" },
+            { q: "Co je extrakt?", options: ["Shrnutí", "Výběr konkrétních částí z dokumentu", "Anotace", "Typ indexace"], correct: 1, cat: "SOD" },
+            { q: "Co je resumé?", options: ["Krátká anotace", "Přibližuje výsledky poznání autora v dokumentu", "Extrakt", "Typ notace"], correct: 1, cat: "SOD" },
+
+            // === VYHLEDÁVÁNÍ ===
+            { q: "Co je strukturované vyhledávání?", options: ["Základní vyhledávání", "Pokročilé vyhledávání s přesným cílem", "Fulltextové vyhledávání", "Náhodné hledání"], correct: 1, cat: "Vyhledávání" },
+            { q: "Co jsou proximitní operátory?", options: ["Booleovské operátory", "Určení vzdálenosti hledaných výrazů", "Typ notace", "Metoda indexace"], correct: 1, cat: "Vyhledávání" },
+            { q: "Co je query expansion?", options: ["Zúžení dotazu", "Rozšiřování dotazu pomocí řízeného slovníku", "Typ indexace", "Metoda čtení"], correct: 1, cat: "Vyhledávání" },
+            { q: "Jaká je výhoda řízeného slovníku?", options: ["Rychlejší vyhledávání", "Řeší synonymii a homonymii", "Více výsledků", "Jednodušší použití"], correct: 1, cat: "Vyhledávání" },
+            { q: "Jaká je výhoda fulltextového vyhledávání?", options: ["Přesnější výsledky", "Přístupný všem, zachycuje nové termíny", "Řeší synonymii", "Méně výsledků"], correct: 1, cat: "Vyhledávání" },
+            { q: "Co je vektorové vyhledávání?", options: ["Booleovské vyhledávání", "Vyhledávání měřící vzdálenost mezi vektory dokumentů", "Typ indexace", "Metoda klasifikace"], correct: 1, cat: "Vyhledávání" },
+
+            // === UNIVERZÁLNÍ A OBOROVÉ SYSTÉMY ===
+            { q: "Co jsou LCSH?", options: ["Klasifikace", "Předmětová hesla Kongresové knihovny", "Typ tezauru", "Britský systém"], correct: 1, cat: "Systémy" },
+            { q: "Co je AGROVOC?", options: ["Klasifikace", "Tezaurus FAO pro zemědělství", "Evropský tezaurus", "Americký systém"], correct: 1, cat: "Systémy" },
+            { q: "Co je EuroVoc?", options: ["Americký systém", "Evropský vícejazyčný tezaurus", "Britská klasifikace", "Typ notace"], correct: 1, cat: "Systémy" },
+            { q: "Co je MSC?", options: ["Tezaurus", "Klasifikace matematických schémat", "Předmětová hesla", "Typ notace"], correct: 1, cat: "Systémy" },
+            { q: "Co je NACE/CZ-NACE?", options: ["Tezaurus", "Klasifikace ekonomických činností", "Předmětová hesla", "Typ indexace"], correct: 1, cat: "Systémy" },
+            { q: "Co je backbone thesaurus?", options: ["Specializovaný tezaurus", "Obecný propojovací tezaurus pro humanitní vědy", "Klasifikace", "Typ notace"], correct: 1, cat: "Systémy" },
+            { q: "Co je TaDiRaH?", options: ["Klasifikace", "Taxonomie pro digitální humanitní vědy", "Tezaurus", "Typ notace"], correct: 1, cat: "Systémy" },
+            { q: "Co je ICS?", options: ["Tezaurus", "Mezinárodní klasifikace norem a standardů", "Předmětová hesla", "Typ indexace"], correct: 1, cat: "Systémy" },
+            { q: "Co je IPS?", options: ["Tezaurus", "Mezinárodní klasifikace patentů", "Předmětová hesla", "Typ notace"], correct: 1, cat: "Systémy" },
+            { q: "Jaký je rozdíl mezi LCSH a tezaurem?", options: ["Žádný", "LCSH umožňují prekoordinaci a vlastní jména", "LCSH jsou postkoordinované", "Tezaurus používá notaci"], correct: 1, cat: "Systémy" },
+
+            // === ONTOLOGIE A BUDOUCNOST ===
+            { q: "Co je ontologie v informační vědě?", options: ["Filozofická disciplína", "Typ pojmového modelu pro počítačové zpracování", "Klasifikace", "Tezaurus"], correct: 1, cat: "Budoucnost" },
+            { q: "K čemu slouží ontologie?", options: ["Pouze k popisu", "Komunikace, organizace znalostí, automatické odvozování", "Indexace", "Klasifikace"], correct: 1, cat: "Budoucnost" },
+            { q: "Co je AXI?", options: ["Typ klasifikace", "Artificial Explainable Intelligence", "Tezaurus", "Metoda indexace"], correct: 1, cat: "Budoucnost" },
+            { q: "Co jsou LOD?", options: ["Typ klasifikace", "Linked Open Data", "Tezaurus", "Metoda čtení"], correct: 1, cat: "Budoucnost" },
+            { q: "Kdy vznikl MARC formát?", options: ["V 19. století", "V 60. letech 20. století", "Po roce 2000", "V antice"], correct: 1, cat: "Budoucnost" },
+
+            // === DALŠÍ DOPLŇUJÍCÍ OTÁZKY ===
+            { q: "Co je principium divisionis?", options: ["Typ notace", "Klasifikační charakteristika/princip dělení", "Metoda indexace", "Typ dokumentu"], correct: 1, cat: "Selekční jazyky" },
+            { q: "Co je expanzivní notace?", options: ["Krátká notace", "Notace s vynechávkami pro budoucí doplnění", "Typ klasifikace", "Metoda čtení"], correct: 1, cat: "Systematické SJ" },
+            { q: "Co je mnemotechnická notace?", options: ["Náhodná notace", "Notace usnadňující zapamatování", "Typ klasifikace", "Metoda indexace"], correct: 1, cat: "Systematické SJ" },
+            { q: "Co je enumerativní klasifikace?", options: ["Fazetová", "Výčtová - obsahuje všechny třídy", "Hierarchická", "Abecední"], correct: 1, cat: "Systematické SJ" },
+            { q: "Co je fazetová klasifikace?", options: ["Výčtová", "Kombinující aspekty/fazety", "Pouze abecední", "Pouze numerická"], correct: 1, cat: "Systematické SJ" },
+            { q: "Co je řízený slovník?", options: ["Jakýkoli seznam slov", "Kontrolovaný slovník se strukturou a pravidly", "Abecední rejstřík", "Typ notace"], correct: 1, cat: "Předmětové SJ" },
+            { q: "Co je vocabulary control?", options: ["Typ notace", "Řízení slovníku - kontrola termínů a vztahů", "Metoda čtení", "Typ klasifikace"], correct: 1, cat: "Předmětové SJ" },
+            { q: "Co je deskriptorový odstavec?", options: ["Část dokumentu", "Deskriptor a všechny vztahy k němu připojené", "Typ notace", "Metoda indexace"], correct: 1, cat: "Předmětové SJ" },
+            { q: "Co značí zkratka BT/ND v tezauru?", options: ["Příbuzný termín", "Nadřazený deskriptor (Broader Term)", "Nedeskriptor", "Užší termín"], correct: 1, cat: "Předmětové SJ" },
+            { q: "Co značí zkratka NT/PD v tezauru?", options: ["Nadřazený termín", "Podřazený deskriptor (Narrower Term)", "Příbuzný termín", "Nedeskriptor"], correct: 1, cat: "Předmětové SJ" },
+            { q: "Co značí zkratka RT/AD v tezauru?", options: ["Nadřazený termín", "Příbuzný deskriptor (Related Term)", "Podřazený termín", "Nedeskriptor"], correct: 1, cat: "Předmětové SJ" },
+            { q: "Co značí zkratka USE/VIZ v tezauru?", options: ["Nadřazený termín", "Odkaz z nedeskriptoru na deskriptor", "Příbuzný termín", "Podřazený termín"], correct: 1, cat: "Předmětové SJ" },
+            { q: "Co značí zkratka UF/EKV v tezauru?", options: ["Nadřazený termín", "Used For - ekvivalent (nedeskriptor)", "Příbuzný termín", "Podřazený termín"], correct: 1, cat: "Předmětové SJ" },
+            { q: "Jaký je rozdíl mezi výběrovou a úplnou indexací?", options: ["Žádný", "Výběrová zachycuje jen hlavní témata, úplná všechna", "Výběrová je rychlejší", "Úplná používá méně znaků"], correct: 1, cat: "Indexace" },
+            { q: "Co je inverze sousloví v předmětových heslech?", options: ["Typ notace", "Přehození pořadí slov pro abecední řazení", "Metoda indexace", "Typ klasifikace"], correct: 1, cat: "Předmětové SJ" },
+            { q: "Podle jaké normy se tvoří české předmětová hesla?", options: ["ČSN 01 0172", "ČSN 01 0188", "ČSN 01 0193", "ISO 2709"], correct: 1, cat: "Předmětové SJ" },
+            { q: "Podle jaké normy se tvoří jednojazyčné tezaury?", options: ["ČSN 01 0188", "ČSN 01 0193", "ČSN 01 0172", "ISO 2709"], correct: 1, cat: "Předmětové SJ" },
+            { q: "Podle jaké normy se tvoří vícejazyčné tezaury?", options: ["ČSN 01 0188", "ČSN 01 0193", "ČSN 01 0172", "ISO 2709"], correct: 2, cat: "Předmětové SJ" }
         ];
 
         const topicsData = [
@@ -1096,20 +1203,60 @@
             return shuffled;
         }
 
-        function startQuiz() {
-            quizState = { current: 0, score: 0, answered: false, questions: shuffleArray(quizData).slice(0, 10) };
+        function getFilteredQuestions() {
+            const category = document.getElementById('quiz-category').value;
+            if (category === 'all') return quizData;
+            return quizData.filter(q => q.cat === category);
+        }
+
+        function updateAvailableCount() {
+            const filtered = getFilteredQuestions();
+            document.getElementById('available-count').textContent = filtered.length;
+        }
+
+        function showQuizSetup() {
+            document.getElementById('quiz-setup').style.display = 'block';
+            document.getElementById('quiz-header-bar').style.display = 'none';
+            document.getElementById('quiz-card').style.display = 'none';
+            document.getElementById('quiz-results').style.display = 'none';
+            updateAvailableCount();
+        }
+
+        function startQuizWithSettings() {
+            const filtered = getFilteredQuestions();
+            const countSelect = document.getElementById('quiz-count').value;
+            const count = countSelect === 'all' ? filtered.length : Math.min(parseInt(countSelect), filtered.length);
+
+            quizState = {
+                current: 0,
+                score: 0,
+                answered: false,
+                questions: shuffleArray(filtered).slice(0, count),
+                total: count,
+                wrongAnswers: []
+            };
+
+            document.getElementById('quiz-setup').style.display = 'none';
+            document.getElementById('quiz-header-bar').style.display = 'flex';
             document.getElementById('quiz-card').style.display = 'block';
             document.getElementById('quiz-results').style.display = 'none';
             showQuestion();
         }
 
+        function startQuiz() {
+            showQuizSetup();
+        }
+
         function showQuestion() {
             const q = quizState.questions[quizState.current];
+            const total = quizState.total;
+
             document.getElementById('quiz-q-num').textContent = `Otázka ${quizState.current + 1}`;
-            document.getElementById('quiz-counter').textContent = `Otázka ${quizState.current + 1}/10`;
+            document.getElementById('quiz-q-cat').textContent = q.cat || 'Obecné';
+            document.getElementById('quiz-counter').textContent = `Otázka ${quizState.current + 1}/${total}`;
             document.getElementById('quiz-question').textContent = q.q;
-            document.getElementById('quiz-progress').style.width = `${(quizState.current + 1) * 10}%`;
-            document.getElementById('quiz-score').textContent = `Skóre: ${quizState.score}`;
+            document.getElementById('quiz-progress').style.width = `${((quizState.current + 1) / total) * 100}%`;
+            document.getElementById('quiz-score').textContent = `Skóre: ${quizState.score}/${quizState.current}`;
 
             const optionsDiv = document.getElementById('quiz-options');
             optionsDiv.innerHTML = '';
@@ -1145,15 +1292,22 @@
 
             if (index === q.correct) {
                 quizState.score++;
-                document.getElementById('quiz-score').textContent = `Skóre: ${quizState.score}`;
+            } else {
+                quizState.wrongAnswers.push({
+                    question: q.q,
+                    yourAnswer: q.options[index],
+                    correctAnswer: q.options[q.correct],
+                    category: q.cat
+                });
             }
 
+            document.getElementById('quiz-score').textContent = `Skóre: ${quizState.score}/${quizState.current + 1}`;
             document.getElementById('quiz-btn').disabled = false;
-            document.getElementById('quiz-btn').textContent = quizState.current < 9 ? 'Další otázka' : 'Zobrazit výsledky';
+            document.getElementById('quiz-btn').textContent = quizState.current < quizState.total - 1 ? 'Další otázka' : 'Zobrazit výsledky';
         }
 
         function nextQuestion() {
-            if (quizState.current < 9) {
+            if (quizState.current < quizState.total - 1) {
                 quizState.current++;
                 showQuestion();
             } else {
@@ -1162,10 +1316,11 @@
         }
 
         function showResults() {
+            document.getElementById('quiz-header-bar').style.display = 'none';
             document.getElementById('quiz-card').style.display = 'none';
             document.getElementById('quiz-results').style.display = 'block';
 
-            const percent = quizState.score * 10;
+            const percent = Math.round((quizState.score / quizState.total) * 100);
             document.getElementById('final-score').textContent = `${percent}%`;
 
             let message = '';
@@ -1175,7 +1330,35 @@
             else message = 'Více studia potřeba. Zkus flashcards!';
 
             document.getElementById('results-message').textContent = message;
+
+            // Show wrong answers
+            const detailsDiv = document.getElementById('results-details');
+            if (quizState.wrongAnswers.length > 0) {
+                detailsDiv.innerHTML = `
+                    <h3 style="margin-bottom: 1rem; color: var(--danger);">Chybné odpovědi (${quizState.wrongAnswers.length}):</h3>
+                    ${quizState.wrongAnswers.map(w => `
+                        <div style="margin-bottom: 1rem; padding: 1rem; background: var(--bg); border-radius: 8px; border-left: 3px solid var(--danger);">
+                            <div style="font-weight: 600; margin-bottom: 0.5rem;">${w.question}</div>
+                            <div style="color: var(--danger); font-size: 0.9rem;">Tvá odpověď: ${w.yourAnswer}</div>
+                            <div style="color: var(--secondary); font-size: 0.9rem;">Správně: ${w.correctAnswer}</div>
+                            <div style="color: var(--text-muted); font-size: 0.8rem; margin-top: 0.25rem;">${w.category}</div>
+                        </div>
+                    `).join('')}
+                `;
+            } else {
+                detailsDiv.innerHTML = '<p style="color: var(--secondary); text-align: center;">Všechny odpovědi správně!</p>';
+            }
+
+            // Save to history
+            const history = JSON.parse(localStorage.getItem('quizHistory') || '[]');
+            history.push(percent);
+            if (history.length > 20) history.shift();
+            localStorage.setItem('quizHistory', JSON.stringify(history));
+            updateStats();
         }
+
+        // Initialize category selector
+        document.getElementById('quiz-category')?.addEventListener('change', updateAvailableCount);
 
         // ========== TOPICS ==========
         function renderTopics() {
