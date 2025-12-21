@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="cs">
+<html lang="cs" data-theme="dark">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -12,7 +12,10 @@
             box-sizing: border-box;
         }
 
-        :root {
+        /* ========================================
+           THEME VARIABLES - Dark Mode (default)
+           ======================================== */
+        :root, [data-theme="dark"] {
             --primary: #8b5cf6;
             --primary-dark: #7c3aed;
             --primary-light: #a78bfa;
@@ -31,6 +34,43 @@
             --gradient-1: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             --gradient-2: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
             --gradient-3: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            --card-bg: #1a1a2e;
+            --card-bg-alt: #1e1e3a;
+            --bullet-color: #f8fafc;
+        }
+
+        /* ========================================
+           THEME VARIABLES - Light Mode
+           ======================================== */
+        [data-theme="light"] {
+            --primary: #7c3aed;
+            --primary-dark: #6d28d9;
+            --primary-light: #8b5cf6;
+            --secondary: #059669;
+            --secondary-dark: #047857;
+            --accent: #db2777;
+            --warning: #d97706;
+            --danger: #dc2626;
+            --bg: #f8fafc;
+            --bg-card: rgba(255, 255, 255, 0.9);
+            --bg-glass: rgba(255, 255, 255, 0.7);
+            --bg-light: rgba(0, 0, 0, 0.05);
+            --text: #1e293b;
+            --text-muted: #64748b;
+            --border: rgba(0, 0, 0, 0.1);
+            --gradient-1: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --gradient-2: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            --gradient-3: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            --card-bg: #ffffff;
+            --card-bg-alt: #f1f5f9;
+            --bullet-color: #1e293b;
+        }
+
+        [data-theme="light"] body {
+            background: var(--bg);
+            background-image:
+                radial-gradient(ellipse at 20% 20%, rgba(139, 92, 246, 0.08) 0%, transparent 50%),
+                radial-gradient(ellipse at 80% 80%, rgba(6, 214, 160, 0.06) 0%, transparent 50%);
         }
 
         body {
@@ -42,6 +82,164 @@
                 radial-gradient(ellipse at 50% 50%, rgba(247, 37, 133, 0.05) 0%, transparent 70%);
             color: var(--text);
             min-height: 100vh;
+            line-height: 1.6;
+        }
+
+        /* ========================================
+           TYPOGRAPHY IMPROVEMENTS
+           ======================================== */
+        p, li, .quiz-option, .flashcard-answer {
+            line-height: 1.8;
+        }
+
+        ul, ol {
+            padding-left: 1.5rem;
+        }
+
+        ul li {
+            list-style-type: disc;
+            color: var(--text);
+        }
+
+        ul li::marker {
+            color: var(--bullet-color);
+        }
+
+        /* ========================================
+           THEME TOGGLE BUTTON
+           ======================================== */
+        .theme-toggle {
+            background: var(--bg-glass);
+            border: 1px solid var(--border);
+            color: var(--text);
+            width: 44px;
+            height: 44px;
+            border-radius: 12px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
+        }
+
+        .theme-toggle:hover {
+            background: var(--bg-light);
+            transform: scale(1.05);
+        }
+
+        /* ========================================
+           AUDIO LOOP CONTROLS
+           ======================================== */
+        .audio-controls {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            padding: 1rem;
+            background: var(--bg-glass);
+            border-radius: 16px;
+            border: 1px solid var(--border);
+            flex-wrap: wrap;
+        }
+
+        .audio-btn {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.75rem 1.25rem;
+            border: none;
+            border-radius: 12px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .audio-btn.primary {
+            background: var(--gradient-1);
+            color: white;
+            box-shadow: 0 4px 15px rgba(139, 92, 246, 0.3);
+        }
+
+        .audio-btn.primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(139, 92, 246, 0.4);
+        }
+
+        .audio-btn.stop {
+            background: var(--danger);
+            color: white;
+        }
+
+        .audio-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .speed-selector {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .speed-selector label {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+
+        .speed-selector select {
+            background: var(--bg-light);
+            border: 1px solid var(--border);
+            color: var(--text);
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            cursor: pointer;
+        }
+
+        .audio-status {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+
+        .audio-status.playing {
+            color: var(--secondary);
+        }
+
+        .audio-status .pulse {
+            width: 8px;
+            height: 8px;
+            background: var(--secondary);
+            border-radius: 50%;
+            animation: pulse 1.5s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.5; transform: scale(1.2); }
+        }
+
+        /* ========================================
+           FLASHCARD EXPLANATION
+           ======================================== */
+        .flashcard-explanation {
+            margin-top: 1rem;
+            padding: 1rem;
+            background: rgba(6, 214, 160, 0.1);
+            border-left: 3px solid var(--secondary);
+            border-radius: 0 10px 10px 0;
+            font-size: 0.9rem;
+            line-height: 1.7;
+            color: var(--text-muted);
+        }
+
+        .flashcard-explanation strong {
+            color: var(--secondary);
         }
 
         /* Glassmorphism base */
@@ -814,6 +1012,9 @@
                 <div class="stat-value" id="mastery-percent">0%</div>
                 <div class="stat-label">Zvládnuto</div>
             </div>
+            <button class="theme-toggle" id="theme-toggle" onclick="toggleTheme()" title="Přepnout téma">
+                🌙
+            </button>
         </div>
     </nav>
 
@@ -868,6 +1069,28 @@
 
             <!-- Flashcards -->
             <section id="flashcards" class="section">
+                <!-- Audio Loop Controls -->
+                <div class="audio-controls" id="audio-controls">
+                    <button class="audio-btn primary" id="audio-start" onclick="startAudioLoop()">
+                        🎧 Spustit Audio Loop
+                    </button>
+                    <button class="audio-btn stop" id="audio-stop" onclick="stopAudioLoop()" style="display: none;">
+                        ⏹️ Zastavit
+                    </button>
+                    <div class="speed-selector">
+                        <label for="audio-speed">Rychlost:</label>
+                        <select id="audio-speed" onchange="updateAudioSpeed()">
+                            <option value="0.8">0.8x</option>
+                            <option value="1" selected>1x</option>
+                            <option value="1.25">1.25x</option>
+                            <option value="1.5">1.5x</option>
+                        </select>
+                    </div>
+                    <div class="audio-status" id="audio-status">
+                        <span>Připraveno</span>
+                    </div>
+                </div>
+
                 <div class="flashcard-progress">
                     <span id="fc-current">1</span> / <span id="fc-total">0</span> kartiček
                 </div>
@@ -881,6 +1104,7 @@
                         </div>
                         <div class="flashcard-face flashcard-back">
                             <p class="flashcard-answer" id="fc-answer">Odpověď...</p>
+                            <div class="flashcard-explanation" id="fc-explanation" style="display: none;"></div>
                         </div>
                     </div>
                 </div>
@@ -1040,120 +1264,120 @@
         // ========== DATA ==========
         const flashcardsData = [
             // Proč třídíme
-            { category: "Proč třídíme", q: "Co je informační exploze?", a: "Růst množství zachycených dat, informací, poznatků a dokumentů, zejména po 2. světové válce. Příčinou je technologický vývoj - rapidní nárůst kapacity přijímat, ukládat a komunikovat informace." },
-            { category: "Proč třídíme", q: "Jaký je rozdíl mezi informačním přetížením a informační deprivací?", a: "Informační přetížení je objektivní důsledek informační exploze - komplikuje vyhledávání. Informační deprivace (neuróza) je subjektivní psychologický důsledek - stavy způsobené nadbytkem nebo nedostatkem relevantních informací." },
-            { category: "Proč třídíme", q: "Jaký je vztah mezi daty, informacemi a znalostmi?", a: "Data = zaznamenané symbolické reprezentace (řetězec znaků). Informace = data s přiděleným významem. Znalosti = informace s přiděleným kontextem, propojené s našimi poznatky." },
-            { category: "Proč třídíme", q: "Co je sémiotický trojúhelník?", a: "Základní epistemologický model spojující tři prvky: jev (věc), pojem (význam) a znak (reprezentace). Např. tužka jako věc, pojem tužka (význam) a slovo 't-u-ž-k-a' (znak)." },
-            { category: "Proč třídíme", q: "Popiš Popperovu teorii tří světů.", a: "PI = svět věcí/jevů/předmětů. PII = poznávající subjekt (manipuluje s věcmi, pojmy, znaky). PIII = oblast reprezentující komunikační nástroje a zaznamenané lidské poznání." },
+            { category: "Proč třídíme", q: "Co je informační exploze?", a: "Růst množství zachycených dat, informací, poznatků a dokumentů, zejména po 2. světové válce. Příčinou je technologický vývoj - rapidní nárůst kapacity přijímat, ukládat a komunikovat informace.", exp: "Tento koncept vysvětluje, proč vůbec potřebujeme organizovat informace - bez třídění bychom se v záplavě dat ztratili." },
+            { category: "Proč třídíme", q: "Jaký je rozdíl mezi informačním přetížením a informační deprivací?", a: "Informační přetížení je objektivní důsledek informační exploze - komplikuje vyhledávání. Informační deprivace (neuróza) je subjektivní psychologický důsledek - stavy způsobené nadbytkem nebo nedostatkem relevantních informací.", exp: "Klíčové je rozlišit objektivní stav (přetížení) od subjektivního pocitu (deprivace) - to je častá zkušková otázka." },
+            { category: "Proč třídíme", q: "Jaký je vztah mezi daty, informacemi a znalostmi?", a: "Data = zaznamenané symbolické reprezentace (řetězec znaků). Informace = data s přiděleným významem. Znalosti = informace s přiděleným kontextem, propojené s našimi poznatky.", exp: "Tento řetězec Data→Informace→Znalosti je základní paradigma oboru. Pamatuj: +význam, +kontext." },
+            { category: "Proč třídíme", q: "Co je sémiotický trojúhelník?", a: "Základní epistemologický model spojující tři prvky: jev (věc), pojem (význam) a znak (reprezentace). Např. tužka jako věc, pojem tužka (význam) a slovo 't-u-ž-k-a' (znak).", exp: "Důležité je, že znak nemá přímý vztah k věci - je arbitrární (nahodilý). Proto různé jazyky používají různá slova." },
+            { category: "Proč třídíme", q: "Popiš Popperovu teorii tří světů.", a: "PI = svět věcí/jevů/předmětů. PII = poznávající subjekt (manipuluje s věcmi, pojmy, znaky). PIII = oblast reprezentující komunikační nástroje a zaznamenané lidské poznání.", exp: "PIII je klíčový pro informační vědu - zahrnuje knihy, dokumenty, databáze. To je oblast, se kterou pracujeme." },
 
             // Co třídíme
-            { category: "Co třídíme", q: "Co je dokument?", a: "Objekt s fyzickou povahou, který nese informace (slouží k jejich sdělování), je předmětem informačního systému a dělí se do sbírek a kolekcí." },
-            { category: "Co třídíme", q: "Co je informační objekt?", a: "Generický pojem pro jakýkoli fyzický či virtuální objekt nesoucí libovolný typ či formát informace." },
-            { category: "Co třídíme", q: "Co je informační pramen/zdroj?", a: "Informační objekt obsahující informace relevantní pro konkrétní účel (např. naplnění informační potřeby uživatele)." },
-            { category: "Co třídíme", q: "Jaký je rozdíl mezi indexací a klasifikací?", a: "Indexace = popis objektu souborem pořádajících znaků vyjadřujících obsah (klíčová slova, deskriptory). Klasifikace = zařazení objektu na určité místo v klasifikačním systému (MDT, DDC)." },
+            { category: "Co třídíme", q: "Co je dokument?", a: "Objekt s fyzickou povahou, který nese informace (slouží k jejich sdělování), je předmětem informačního systému a dělí se do sbírek a kolekcí.", exp: "Dokument má fyzickou povahu - to ho odlišuje od abstraktních pojmů. I digitální soubor má fyzickou reprezentaci na nosiči." },
+            { category: "Co třídíme", q: "Co je informační objekt?", a: "Generický pojem pro jakýkoli fyzický či virtuální objekt nesoucí libovolný typ či formát informace.", exp: "Širší pojem než dokument - zahrnuje i virtuální objekty jako webové stránky nebo databázové záznamy." },
+            { category: "Co třídíme", q: "Co je informační pramen/zdroj?", a: "Informační objekt obsahující informace relevantní pro konkrétní účel (např. naplnění informační potřeby uživatele).", exp: "Klíčové slovo je 'relevantní' - ne každý informační objekt je zdrojem, záleží na kontextu použití." },
+            { category: "Co třídíme", q: "Jaký je rozdíl mezi indexací a klasifikací?", a: "Indexace = popis objektu souborem pořádajících znaků vyjadřujících obsah (klíčová slova, deskriptory). Klasifikace = zařazení objektu na určité místo v klasifikačním systému (MDT, DDC).", exp: "Indexace = 'co dokument obsahuje' (slova). Klasifikace = 'kam dokument patří' (místo v hierarchii). Obě metody se často kombinují." },
 
             // Selekční jazyky
-            { category: "Selekční jazyky", q: "Co je selekční jazyk?", a: "Jazyk sloužící k systematické organizaci informací pro účely vyhledávání, indexace a klasifikace." },
-            { category: "Selekční jazyky", q: "Jaké jsou 4 základní typy selekčních jazyků?", a: "1) Prekoordinované systematické (MDT, DDC, LCC). 2) Postkoordinované systematické (dvojtečkové třídění). 3) Prekoordinované předmětové (předmětová hesla). 4) Postkoordinované předmětové (tezaury, klíčová slova)." },
-            { category: "Selekční jazyky", q: "Co je prekoordinace vs. postkoordinace?", a: "Prekoordinace = pojmy zařazeny jako celek (složené pořádací znaky). Postkoordinace = pojmy rozděleny na složky a kombinují se až při vyhledávání." },
-            { category: "Selekční jazyky", q: "Co je tezaurus?", a: "Postkoordinovaný systém s řízeným slovníkem, hierarchií a dalšími typy vztahů. Obvykle zaměřen na konkrétní obor. Obsahuje deskriptory (preferované) a nedeskriptory (nepreferované lexikální jednotky)." },
-            { category: "Selekční jazyky", q: "Co je MDT (Mezinárodní desetinné třídění)?", a: "Univerzální klasifikační systém kombinující hierarchický a fazetový přístup. Vytvořen počátkem 20. století (Otlet, La Fontaine). Používá desetinnou notaci a pomocné tabulky." },
-            { category: "Selekční jazyky", q: "Co je DDC (Deweyho desetinné třídění)?", a: "Pragmaticky orientovaný enumerativní klasifikační systém z roku 1876 (Melvil Dewey). Používán celosvětově. Notace poskytuje univerzální jazyk pro identifikaci tříd." },
-            { category: "Selekční jazyky", q: "Co je fazeta?", a: "Kategorie entit vytvořená uplatněním jedné klasifikační charakteristiky (principium divisionis). Fazety vyjadřují vlastnosti použité pro seskupování pojmů podle jejich podstaty." },
-            { category: "Selekční jazyky", q: "Co je PMEST?", a: "Fazetová formulace z dvojtečkového třídění (Ranganathan): Personality (ústřední téma), Matter (látka, vlastnosti), Energy (procesy, činnosti), Space (místo), Time (čas)." },
+            { category: "Selekční jazyky", q: "Co je selekční jazyk?", a: "Jazyk sloužící k systematické organizaci informací pro účely vyhledávání, indexace a klasifikace.", exp: "Selekční jazyky jsou umělé jazyky - na rozdíl od přirozených jazyků mají přesně definovaná pravidla pro popis dokumentů." },
+            { category: "Selekční jazyky", q: "Jaké jsou 4 základní typy selekčních jazyků?", a: "1) Prekoordinované systematické (MDT, DDC, LCC). 2) Postkoordinované systematické (dvojtečkové třídění). 3) Prekoordinované předmětové (předmětová hesla). 4) Postkoordinované předmětové (tezaury, klíčová slova).", exp: "Zapamatuj si tabulku 2x2: systematické/předmětové × pre/postkoordinované. Každý typ má jiné použití a výhody." },
+            { category: "Selekční jazyky", q: "Co je prekoordinace vs. postkoordinace?", a: "Prekoordinace = pojmy zařazeny jako celek (složené pořádací znaky). Postkoordinace = pojmy rozděleny na složky a kombinují se až při vyhledávání.", exp: "Pre = před indexací se pojmy kombinují. Post = až při vyhledávání. Postkoordinace je flexibilnější, ale méně přesná." },
+            { category: "Selekční jazyky", q: "Co je tezaurus?", a: "Postkoordinovaný systém s řízeným slovníkem, hierarchií a dalšími typy vztahů. Obvykle zaměřen na konkrétní obor. Obsahuje deskriptory (preferované) a nedeskriptory (nepreferované lexikální jednotky).", exp: "Tezaurus řeší problém synonymie - říká, které slovo preferovat. Např. 'automobil' místo 'auto', 'vůz', 'vozidlo'." },
+            { category: "Selekční jazyky", q: "Co je MDT (Mezinárodní desetinné třídění)?", a: "Univerzální klasifikační systém kombinující hierarchický a fazetový přístup. Vytvořen počátkem 20. století (Otlet, La Fontaine). Používá desetinnou notaci a pomocné tabulky.", exp: "MDT je v ČR nejpoužívanější klasifikační systém. Kombinace hierarchie + fazety ho činí velmi flexibilním." },
+            { category: "Selekční jazyky", q: "Co je DDC (Deweyho desetinné třídění)?", a: "Pragmaticky orientovaný enumerativní klasifikační systém z roku 1876 (Melvil Dewey). Používán celosvětově. Notace poskytuje univerzální jazyk pro identifikaci tříd.", exp: "DDC je nejstarší a nejrozšířenější moderní klasifikace. Čísla jako 821.162.3 jednoznačně identifikují třídu v jakémkoli jazyce." },
+            { category: "Selekční jazyky", q: "Co je fazeta?", a: "Kategorie entit vytvořená uplatněním jedné klasifikační charakteristiky (principium divisionis). Fazety vyjadřují vlastnosti použité pro seskupování pojmů podle jejich podstaty.", exp: "Fazeta = jeden 'úhel pohledu' na věc. Např. kniha může být popsána fazetami: téma, jazyk, forma, rok vydání." },
+            { category: "Selekční jazyky", q: "Co je PMEST?", a: "Fazetová formulace z dvojtečkového třídění (Ranganathan): Personality (ústřední téma), Matter (látka, vlastnosti), Energy (procesy, činnosti), Space (místo), Time (čas).", exp: "PMEST je mnemotechnická pomůcka pro základní fazety. P=co, M=z čeho, E=co se děje, S=kde, T=kdy." },
 
             // Morfologie a struktura SJ
-            { category: "Morfologie SJ", q: "Co je deskriptor a nedeskriptor?", a: "Deskriptor = preferovaná lexikální jednotka v tezauru. Nedeskriptor = nepreferovaná LJ (ekvivalent), nepopisuje, ale odkazuje na preferovaný výraz." },
-            { category: "Morfologie SJ", q: "Co je synonymie?", a: "Vztah mezi termíny daného jazyka reprezentujícími stejný pojem." },
-            { category: "Morfologie SJ", q: "Co je homonymie?", a: "Jev, kdy jazykové jednotky znějící nebo psané stejně mají různý význam." },
-            { category: "Morfologie SJ", q: "Co je polysémie?", a: "Jev spočívající v tom, že jazykové jednotky mají dva nebo více etymologicky souvisejících významů (např. křídlo jako klavír, ptačí končetina, část dveří)." },
-            { category: "Morfologie SJ", q: "Jaký je rozdíl mezi paradigmatickým a syntagmatickým vztahem?", a: "Paradigmatický (apriorní) = vztah existující nezávisle na kontextu (synonymie, hierarchie). Syntagmatický (aposteriorní) = vztah daný kontextem." },
+            { category: "Morfologie SJ", q: "Co je deskriptor a nedeskriptor?", a: "Deskriptor = preferovaná lexikální jednotka v tezauru. Nedeskriptor = nepreferovaná LJ (ekvivalent), nepopisuje, ale odkazuje na preferovaný výraz.", exp: "Deskriptor = to, co používáme. Nedeskriptor = to, co říká 'VIZ deskriptor'. Řeší problém synonymie." },
+            { category: "Morfologie SJ", q: "Co je synonymie?", a: "Vztah mezi termíny daného jazyka reprezentujícími stejný pojem.", exp: "Synonymie komplikuje vyhledávání - musíme hledat všechna synonyma. Tezaurus to řeší preferovanými termíny." },
+            { category: "Morfologie SJ", q: "Co je homonymie?", a: "Jev, kdy jazykové jednotky znějící nebo psané stejně mají různý význam.", exp: "Homonymie = 'jedno slovo, více významů'. Řeší se relátory v závorkách: koruna (měna) vs. koruna (strom)." },
+            { category: "Morfologie SJ", q: "Co je polysémie?", a: "Jev spočívající v tom, že jazykové jednotky mají dva nebo více etymologicky souvisejících významů (např. křídlo jako klavír, ptačí končetina, část dveří).", exp: "Na rozdíl od homonymie jsou významy etymologicky příbuzné - mají společný původ. Křídlo = něco plochého na straně." },
+            { category: "Morfologie SJ", q: "Jaký je rozdíl mezi paradigmatickým a syntagmatickým vztahem?", a: "Paradigmatický (apriorní) = vztah existující nezávisle na kontextu (synonymie, hierarchie). Syntagmatický (aposteriorní) = vztah daný kontextem.", exp: "Paradigmatický = daný jazykem/slovníkem. Syntagmatický = vzniká až v konkrétní větě/textu." },
 
             // Jak třídíme
-            { category: "Indexace", q: "Co je obsahová analýza?", a: "Určení obsahu dokumentu na základě plného textu nebo redukovaného textu (abstrakt, název, obsah, rejstřík). Používají se různé typy čtení: orientační, kurzorické, selektivní, statarické, racionální." },
-            { category: "Indexace", q: "Jaké jsou aspekty výběru znaků SJ?", a: "Úplnost (rozsah zachycení témat), Specifičnost (výběr nejspecifičtějšího znaku), Indexační hlediska (předmět, čas, místo, entita, proces), Prekoordinace/postkoordinace." },
-            { category: "Indexace", q: "Co je konzistence indexace?", a: "Pro tentýž obsah tentýž popis. Míra shody dvou nebo více SOD. Typy: mezi indexátory (interindexer), jednoho indexátora, z hlediska hloubky." },
-            { category: "Indexace", q: "Jak se počítá konzistence mezi dvěma indexátory?", a: "C = a / b, kde a = počet shodně zvolených znaků, b = celkový počet přidělených jedinečných znaků." },
-            { category: "Indexace", q: "Co je úplnost (recall) a přesnost (precision)?", a: "Úplnost = vyhledané relevantní / všechny relevantní. Přesnost = vyhledané relevantní / všechny vyhledané. Vztah je nepřímo úměrný." },
-            { category: "Indexace", q: "Jaké jsou nejčastější indexační chyby?", a: "Opominutí hledisek (18,6%), Nesprávné stanovení významu deskriptoru (12,3%), Chybějící jednotlivé deskriptory (11,5%)." },
+            { category: "Indexace", q: "Co je obsahová analýza?", a: "Určení obsahu dokumentu na základě plného textu nebo redukovaného textu (abstrakt, název, obsah, rejstřík). Používají se různé typy čtení: orientační, kurzorické, selektivní, statarické, racionální.", exp: "Obsahová analýza je první krok indexace - musíme pochopit, o čem dokument je, než ho popíšeme." },
+            { category: "Indexace", q: "Jaké jsou aspekty výběru znaků SJ?", a: "Úplnost (rozsah zachycení témat), Specifičnost (výběr nejspecifičtějšího znaku), Indexační hlediska (předmět, čas, místo, entita, proces), Prekoordinace/postkoordinace.", exp: "Vždy volíme nejspecifičtější znak - ne 'zvíře', ale 'pes'. Čím specifičtější, tím přesnější vyhledávání." },
+            { category: "Indexace", q: "Co je konzistence indexace?", a: "Pro tentýž obsah tentýž popis. Míra shody dvou nebo více SOD. Typy: mezi indexátory (interindexer), jednoho indexátora, z hlediska hloubky.", exp: "Konzistence = spolehlivost. Pokud dva indexátoři popíší stejný dokument stejně, systém je konzistentní." },
+            { category: "Indexace", q: "Jak se počítá konzistence mezi dvěma indexátory?", a: "C = a / b, kde a = počet shodně zvolených znaků, b = celkový počet přidělených jedinečných znaků.", exp: "Jednoduchý vzorec: shody/všechny jedinečné. Pokud oba přidělili 5 znaků a 3 se shodují, C = 3/7." },
+            { category: "Indexace", q: "Co je úplnost (recall) a přesnost (precision)?", a: "Úplnost = vyhledané relevantní / všechny relevantní. Přesnost = vyhledané relevantní / všechny vyhledané. Vztah je nepřímo úměrný.", exp: "Recall = kolik z toho, co jsme MĚLI najít, jsme našli. Precision = kolik z toho, co jsme NAŠLI, bylo správně." },
+            { category: "Indexace", q: "Jaké jsou nejčastější indexační chyby?", a: "Opominutí hledisek (18,6%), Nesprávné stanovení významu deskriptoru (12,3%), Chybějící jednotlivé deskriptory (11,5%).", exp: "Nejčastější chyba je opominutí - indexátor si něčeho nevšimne. Proto je důležitá systematická kontrola." },
 
             // SOD
-            { category: "SOD", q: "Co je SOD (Selekční obraz dokumentu)?", a: "Soubor lexikálních jednotek nebo klasifikačních znaků, který reprezentuje obsah dokumentu po jeho zpracování." },
-            { category: "SOD", q: "Jaké jsou typy redukovaných textů?", a: "Abstrakt (krátké shrnutí od autora/zpracovatele), Anotace (povrchní doprovod nakladatelské činnosti), Referát (delší, přibližuje výsledky), Extrakt (výběr částí), Resumé (výsledky poznání autora)." },
+            { category: "SOD", q: "Co je SOD (Selekční obraz dokumentu)?", a: "Soubor lexikálních jednotek nebo klasifikačních znaků, který reprezentuje obsah dokumentu po jeho zpracování.", exp: "SOD je výsledek indexace - sada klíčových slov nebo klasifikačních znaků přiřazených dokumentu." },
+            { category: "SOD", q: "Jaké jsou typy redukovaných textů?", a: "Abstrakt (krátké shrnutí od autora/zpracovatele), Anotace (povrchní doprovod nakladatelské činnosti), Referát (delší, přibližuje výsledky), Extrakt (výběr částí), Resumé (výsledky poznání autora).", exp: "Abstrakt je nejdůležitější - krátké, věcné shrnutí. Anotace je spíše reklamní text, referát je podrobnější." },
 
             // Systémy
-            { category: "Systémy", q: "Co jsou LCSH?", a: "Předmětová hesla Kongresové knihovny - systém se střední mírou prekoordinace. Umožňují vytvářet kombinovaná témata a pracují s vlastními jmény." },
-            { category: "Systémy", q: "Jaký je rozdíl mezi LCSH (PH) a tezaurem?", a: "PH umožňují prekoordinované lexikální jednotky a práci s vlastními jmény. Tezaurus se snaží o sémantický rozklad a kombinuje jednotky až při vyhledávání." },
-            { category: "Systémy", q: "Co je AGROVOC?", a: "Tezaurus pro jídla a zemědělství vytvořený OSN (FAO). Vícejazyčný oborový tezaurus." },
-            { category: "Systémy", q: "Co je EuroVoc?", a: "Evropský mnohojazyčný a multidisciplinární tezaurus spojený s právními informacemi EU." },
+            { category: "Systémy", q: "Co jsou LCSH?", a: "Předmětová hesla Kongresové knihovny - systém se střední mírou prekoordinace. Umožňují vytvářet kombinovaná témata a pracují s vlastními jmény.", exp: "LCSH je nejrozšířenější systém předmětových hesel na světě. Střední prekoordinace = některé kombinace jsou předem dané." },
+            { category: "Systémy", q: "Jaký je rozdíl mezi LCSH (PH) a tezaurem?", a: "PH umožňují prekoordinované lexikální jednotky a práci s vlastními jmény. Tezaurus se snaží o sémantický rozklad a kombinuje jednotky až při vyhledávání.", exp: "PH = 'České dějiny - 20. století' jako celek. Tezaurus = 'Česko' AND 'dějiny' AND '20. století' kombinované při vyhledávání." },
+            { category: "Systémy", q: "Co je AGROVOC?", a: "Tezaurus pro jídla a zemědělství vytvořený OSN (FAO). Vícejazyčný oborový tezaurus.", exp: "AGROVOC je příklad oborového tezauru - specializovaný slovník pro konkrétní oblast. Vícejazyčnost umožňuje mezinárodní vyhledávání." },
+            { category: "Systémy", q: "Co je EuroVoc?", a: "Evropský mnohojazyčný a multidisciplinární tezaurus spojený s právními informacemi EU.", exp: "EuroVoc se používá pro indexaci dokumentů EU ve všech úředních jazycích. Důležitý pro právo a politiku." },
 
             // Vyhledávání
-            { category: "Vyhledávání", q: "Jaké jsou výhody řízeného slovníku oproti fulltextu?", a: "Řeší synonymii a homonymii, paradigmatické vztahy jsou dány strukturou, překonává vícejazyčnost (vícejazyčné tezaury), může být přesnější." },
-            { category: "Vyhledávání", q: "Jaké jsou výhody fulltextu oproti řízenému slovníku?", a: "Přístupný všem uživatelům, zachycuje nové termíny bez zpoždění, obsahuje všechny specifické výrazy, může být úplnější." },
-            { category: "Vyhledávání", q: "Co je ontologie v kontextu organizace informací?", a: "Typ pojmového modelu vymezené domény. Účelem je komunikace, organizace znalostí, popis skutečnosti pro počítačové zpracování a automatické odvozování znalostí." },
+            { category: "Vyhledávání", q: "Jaké jsou výhody řízeného slovníku oproti fulltextu?", a: "Řeší synonymii a homonymii, paradigmatické vztahy jsou dány strukturou, překonává vícejazyčnost (vícejazyčné tezaury), může být přesnější.", exp: "Řízený slovník je přesnější - víme, jaké termíny hledat. Fulltext může minout synonyma nebo najít homonyma." },
+            { category: "Vyhledávání", q: "Jaké jsou výhody fulltextu oproti řízenému slovníku?", a: "Přístupný všem uživatelům, zachycuje nové termíny bez zpoždění, obsahuje všechny specifické výrazy, může být úplnější.", exp: "Fulltext je rychlejší a zachycuje nové termíny okamžitě. Řízený slovník vyžaduje odborníky a má zpoždění." },
+            { category: "Vyhledávání", q: "Co je ontologie v kontextu organizace informací?", a: "Typ pojmového modelu vymezené domény. Účelem je komunikace, organizace znalostí, popis skutečnosti pro počítačové zpracování a automatické odvozování znalostí.", exp: "Ontologie jde dál než tezaurus - definuje nejen termíny, ale i jejich vlastnosti a vztahy pro strojové zpracování." },
 
             // Definice
-            { category: "Definice", q: "Co je epistemologie?", a: "Jedna ze základních filosofických disciplín, která zkoumá lidské poznání, jeho vznik, proces, předmět či limity." },
-            { category: "Definice", q: "Co je sémiotika?", a: "Obecné označení vědních teorií zabývajících se zkoumáním znaků a znakových soustav." },
-            { category: "Definice", q: "Co je sémantika?", a: "Zkoumá vztahy mezi formou a významem znaků. Je součástí sémiotiky (spolu s pragmatikou a syntagmatikou)." },
-            { category: "Definice", q: "Co je taxonomie?", a: "Věda zabývající se teorií a praxí klasifikace organismů." },
-            { category: "Definice", q: "Co je syntax?", a: "Struktura nebo pořadí prvků v jazykovém vyjádření." },
-            { category: "Definice", q: "Co je morfologie v kontextu jazykovědy?", a: "Jazykovědná disciplína zabývající se tvary slov, zkoumá slovní druhy z hlediska jejich struktury, možností změn, vzájemných vztahů a gramatické funkce." },
-            { category: "Definice", q: "Co je granularita?", a: "Úroveň podrobnosti identifikace jednotlivých složek informačního objektu." },
-            { category: "Definice", q: "Co je relátor?", a: "Slovní výraz používaný k rozlišení významu homonym, je nedílnou součástí lexikální jednotky." },
+            { category: "Definice", q: "Co je epistemologie?", a: "Jedna ze základních filosofických disciplín, která zkoumá lidské poznání, jeho vznik, proces, předmět či limity.", exp: "Epistemologie = teorie poznání. Základ pro pochopení, jak vznikají informace a znalosti." },
+            { category: "Definice", q: "Co je sémiotika?", a: "Obecné označení vědních teorií zabývajících se zkoumáním znaků a znakových soustav.", exp: "Sémiotika je širší než sémantika - zahrnuje i syntaktiku (strukturu) a pragmatiku (použití znaků)." },
+            { category: "Definice", q: "Co je sémantika?", a: "Zkoumá vztahy mezi formou a významem znaků. Je součástí sémiotiky (spolu s pragmatikou a syntagmatikou).", exp: "Sémantika se ptá 'co to znamená?' - vztah mezi znakem a jeho významem." },
+            { category: "Definice", q: "Co je taxonomie?", a: "Věda zabývající se teorií a praxí klasifikace organismů.", exp: "Taxonomie je původně biologický termín. V informační vědě se používá pro jakoukoliv hierarchickou klasifikaci." },
+            { category: "Definice", q: "Co je syntax?", a: "Struktura nebo pořadí prvků v jazykovém vyjádření.", exp: "Syntax = pravidla, jak skládat prvky dohromady. V češtině máme volný slovosled, v angličtině pevný." },
+            { category: "Definice", q: "Co je morfologie v kontextu jazykovědy?", a: "Jazykovědná disciplína zabývající se tvary slov, zkoumá slovní druhy z hlediska jejich struktury, možností změn, vzájemných vztahů a gramatické funkce.", exp: "Morfologie = tvary slov. V češtině je důležitá kvůli skloňování a časování." },
+            { category: "Definice", q: "Co je granularita?", a: "Úroveň podrobnosti identifikace jednotlivých složek informačního objektu.", exp: "Granularita = jak detailně popisujeme. Vysoká granularita = velmi podrobný popis (každá kapitola zvlášť)." },
+            { category: "Definice", q: "Co je relátor?", a: "Slovní výraz používaný k rozlišení významu homonym, je nedílnou součástí lexikální jednotky.", exp: "Relátor = upřesnění v závorce: 'zámek (budova)' vs. 'zámek (uzamykací)'." },
 
             // === ROZŠÍŘENÉ FLASHCARDS ===
             // Systematické klasifikace
-            { category: "Systematické SJ", q: "Co je LCC (Library of Congress Classification)?", a: "Klasifikace Kongresové knihovny - pragmatický enumerativní systém orientovaný na americké reálie. Vznikl na přelomu 19. a 20. století." },
-            { category: "Systematické SJ", q: "Co je CC (Colon Classification)?", a: "Dvojtečkové třídění vytvořené Ranghanathanem v roce 1933. Fazetový přístup založený na formulaci PMEST." },
-            { category: "Systematické SJ", q: "Co je BBC (Bliss Bibliographic Classification)?", a: "Blissovo bibliografické třídění (1940-1953). Teoreticky fundovaný fazetový systém, ale minimálně rozšířený v praxi." },
-            { category: "Systematické SJ", q: "Co jsou pomocné tabulky v MDT?", a: "Tabulky obsahující pomocné znaky pro vyjádření různých aspektů: místo, čas, jazyk, forma dokumentu a další. Umožňují kombinace s hlavními znaky." },
-            { category: "Systematické SJ", q: "Co je enumerativní klasifikace?", a: "Výčtová klasifikace obsahující všechny třídy předem definované. Příkladem jsou DDC a LCC." },
-            { category: "Systematické SJ", q: "Co je fazetová klasifikace?", a: "Klasifikace umožňující kombinovat různé aspekty (fazety) pro popis dokumentu. Příkladem jsou CC a MDT." },
-            { category: "Systematické SJ", q: "Co je notace v klasifikaci?", a: "Symbolické vyjádření třídy - může být numerické (DDC), alfanumerické (LCC) nebo smíšené (MDT). Slouží k jednoznačné identifikaci." },
+            { category: "Systematické SJ", q: "Co je LCC (Library of Congress Classification)?", a: "Klasifikace Kongresové knihovny - pragmatický enumerativní systém orientovaný na americké reálie. Vznikl na přelomu 19. a 20. století.", exp: "LCC používá písmena pro hlavní třídy (A=Všeobecnosti, B=Filosofie). Dominuje v USA, jinde méně." },
+            { category: "Systematické SJ", q: "Co je CC (Colon Classification)?", a: "Dvojtečkové třídění vytvořené Ranghanathanem v roce 1933. Fazetový přístup založený na formulaci PMEST.", exp: "CC je teoreticky nejčistší fazetový systém. Používá dvojtečku k oddělení fazet - odtud název." },
+            { category: "Systematické SJ", q: "Co je BBC (Bliss Bibliographic Classification)?", a: "Blissovo bibliografické třídění (1940-1953). Teoreticky fundovaný fazetový systém, ale minimálně rozšířený v praxi.", exp: "BBC je teoreticky vynikající, ale přišlo pozdě a neujalo se. Zajímavé pro studium, ne pro praxi." },
+            { category: "Systematické SJ", q: "Co jsou pomocné tabulky v MDT?", a: "Tabulky obsahující pomocné znaky pro vyjádření různých aspektů: místo, čas, jazyk, forma dokumentu a další. Umožňují kombinace s hlavními znaky.", exp: "Pomocné tabulky jsou síla MDT - umožňují přidat k hlavnímu znaku aspekty jako (437) pro Česko nebo \"18\" pro 18. století." },
+            { category: "Systematické SJ", q: "Co je enumerativní klasifikace?", a: "Výčtová klasifikace obsahující všechny třídy předem definované. Příkladem jsou DDC a LCC.", exp: "Enumerativní = všechno vyjmenované předem. Nevýhoda: pokud téma není v seznamu, nemůžeme ho zařadit." },
+            { category: "Systematické SJ", q: "Co je fazetová klasifikace?", a: "Klasifikace umožňující kombinovat různé aspekty (fazety) pro popis dokumentu. Příkladem jsou CC a MDT.", exp: "Fazetová = kombinujeme aspekty. Výhoda: flexibilita. Nevýhoda: složitější pravidla kombinování." },
+            { category: "Systematické SJ", q: "Co je notace v klasifikaci?", a: "Symbolické vyjádření třídy - může být numerické (DDC), alfanumerické (LCC) nebo smíšené (MDT). Slouží k jednoznačné identifikaci.", exp: "Notace je 'adresa' třídy. Numerická (800) je jazykově nezávislá, alfanumerická (PS) může být mnemotechnická." },
 
             // Předmětové systémy podrobněji
-            { category: "Předmětové SJ", q: "Co jsou předmětová hesla?", a: "Prekoordinované lexikální jednotky pro popis obsahu dokumentu. Struktura: heslo (+ doplněk) – podheslo (+ doplněk). Příklad: 'Dvořák, Antonín – hry divadelní – bibliografie'." },
-            { category: "Předmětové SJ", q: "Co je inverze sousloví?", a: "Přehození pořadí slov v předmětovém hesle pro účely abecedního řazení. Např. 'ložiska metamorfovaná' místo 'metamorfovaná ložiska'." },
-            { category: "Předmětové SJ", q: "Co jsou klíčová slova z názvu?", a: "Nejrychlejší přístup k obsahu - KWIC (Keyword in Context) a KWOC (Keyword out of Context). Nevýhodou je závislost na jazyce dokumentu." },
-            { category: "Předmětové SJ", q: "Kdo vytvořil unitermy?", a: "Mortimer Taube v 50. letech 20. století. Silná postkoordinace - původně jen jednotlivá slova. Později obohaceno a stalo se předchůdcem tezauru." },
-            { category: "Předmětové SJ", q: "Jaké vztahy obsahuje tezaurus?", a: "Hierarchie (BT/NT - nadřazený/podřazený), Ekvivalence (USE/UF - viz/ekvivalent), Asociace (RT - příbuzný termín)." },
-            { category: "Předmětové SJ", q: "Co je deskriptorový odstavec?", a: "Deskriptor se všemi vztahy k němu připojenými - nadřazené, podřazené, příbuzné termíny a nedeskriptory." },
+            { category: "Předmětové SJ", q: "Co jsou předmětová hesla?", a: "Prekoordinované lexikální jednotky pro popis obsahu dokumentu. Struktura: heslo (+ doplněk) – podheslo (+ doplněk). Příklad: 'Dvořák, Antonín – hry divadelní – bibliografie'.", exp: "Předmětová hesla mají pevnou strukturu: heslo – podheslo. Umožňují práci s vlastními jmény a geografickými názvy." },
+            { category: "Předmětové SJ", q: "Co je inverze sousloví?", a: "Přehození pořadí slov v předmětovém hesle pro účely abecedního řazení. Např. 'ložiska metamorfovaná' místo 'metamorfovaná ložiska'.", exp: "Inverze zajistí, že podobná témata jsou v abecedním katalogu blízko sebe. Hledáme pod podstatným jménem." },
+            { category: "Předmětové SJ", q: "Co jsou klíčová slova z názvu?", a: "Nejrychlejší přístup k obsahu - KWIC (Keyword in Context) a KWOC (Keyword out of Context). Nevýhodou je závislost na jazyce dokumentu.", exp: "KWIC/KWOC jsou automatické metody - žádný indexátor. Rychlé, ale nepřesné." },
+            { category: "Předmětové SJ", q: "Kdo vytvořil unitermy?", a: "Mortimer Taube v 50. letech 20. století. Silná postkoordinace - původně jen jednotlivá slova. Později obohaceno a stalo se předchůdcem tezauru.", exp: "Unitermy = jednotlivá slova bez struktury. Jednoduché, ale nepřesné. Vedly k vývoji tezaurů." },
+            { category: "Předmětové SJ", q: "Jaké vztahy obsahuje tezaurus?", a: "Hierarchie (BT/NT - nadřazený/podřazený), Ekvivalence (USE/UF - viz/ekvivalent), Asociace (RT - příbuzný termín).", exp: "BT=Broader Term, NT=Narrower Term, RT=Related Term, UF=Used For. Standardní zkratky v tezaurech." },
+            { category: "Předmětové SJ", q: "Co je deskriptorový odstavec?", a: "Deskriptor se všemi vztahy k němu připojenými - nadřazené, podřazené, příbuzné termíny a nedeskriptory.", exp: "Deskriptorový odstavec je základ tezauru - ukazuje deskriptor v kontextu všech jeho vztahů." },
 
             // Morfologie podrobněji
-            { category: "Morfologie SJ", q: "Co je kvazisynonymie?", a: "Vztah mezi termíny s podobnými významy, které pro některé účely mohou být považovány za synonyma. Např. 'automobil' a 'vůz'." },
-            { category: "Morfologie SJ", q: "Co je homografie?", a: "Slova psaná stejně, ale vyslovovaná odlišně. V češtině méně časté než v angličtině." },
-            { category: "Morfologie SJ", q: "Co je partitivní vztah?", a: "Hierarchický vztah celek-část. Např. 'auto' - 'motor', 'kolo'." },
-            { category: "Morfologie SJ", q: "Co je generický vztah?", a: "Hierarchický vztah rod-druh. Např. 'vozidlo' - 'automobil', 'motocykl'." },
-            { category: "Morfologie SJ", q: "Co je polyhierarchie?", a: "Situace kdy jeden pojem je podřazen více nadřazeným pojmům. Např. 'biofyzika' pod 'fyzikou' i 'biologií'." },
+            { category: "Morfologie SJ", q: "Co je kvazisynonymie?", a: "Vztah mezi termíny s podobnými významy, které pro některé účely mohou být považovány za synonyma. Např. 'automobil' a 'vůz'.", exp: "Kvazi = 'jako by'. Nejsou to úplná synonyma, ale pro účely SJ je považujeme za zaměnitelné." },
+            { category: "Morfologie SJ", q: "Co je homografie?", a: "Slova psaná stejně, ale vyslovovaná odlišně. V češtině méně časté než v angličtině.", exp: "Homografie = stejné psaní, jiná výslovnost. Anglicky: 'lead' (vést) vs. 'lead' (olovo)." },
+            { category: "Morfologie SJ", q: "Co je partitivní vztah?", a: "Hierarchický vztah celek-část. Např. 'auto' - 'motor', 'kolo'.", exp: "Partitivní = části celku. Motor je ČÁST auta, ne DRUH auta. Jiný vztah než generický." },
+            { category: "Morfologie SJ", q: "Co je generický vztah?", a: "Hierarchický vztah rod-druh. Např. 'vozidlo' - 'automobil', 'motocykl'.", exp: "Generický = rod-druh. Automobil JE DRUH vozidla. Každý automobil je vozidlo." },
+            { category: "Morfologie SJ", q: "Co je polyhierarchie?", a: "Situace kdy jeden pojem je podřazen více nadřazeným pojmům. Např. 'biofyzika' pod 'fyzikou' i 'biologií'.", exp: "Polyhierarchie = více rodičů. V reálném světě běžné. Tezaury to umožňují." },
 
             // Obsahová analýza a indexace
-            { category: "Indexace", q: "Jaké jsou typy čtení při obsahové analýze?", a: "Orientační (základní info), Kurzorické/diagonální (rychlé, klíčová slova), Selektivní (hledání konkrétního), Statarické (důkladné), Racionální (kombinace metod)." },
-            { category: "Indexace", q: "Co je výběrová vs. úplná indexace?", a: "Výběrová (selective) zachycuje jen hlavní témata. Úplná (exhaustive) zachycuje všechna témata včetně vedlejších." },
-            { category: "Indexace", q: "Jaké faktory ovlivňují indexaci?", a: "Indexátor (zkušenost, znalosti, motivace), SJ (kvalita slovníku, pravidla), Dokument (obor, struktura, jazyk), Pracovní podmínky." },
-            { category: "Indexace", q: "V jaké fázi vzniká nejvíce chyb?", a: "Identifikace pojmů (42,3%) - nejčastěji opominutí hledisek. Zdrojem jsou indexátor a indexační pravidla." },
-            { category: "Indexace", q: "Co je formální relevance?", a: "Dva dokumenty mají tentýž popis/SOD, ale nemusí být obsahově totožné. Důsledek nedokonalosti popisu." },
+            { category: "Indexace", q: "Jaké jsou typy čtení při obsahové analýze?", a: "Orientační (základní info), Kurzorické/diagonální (rychlé, klíčová slova), Selektivní (hledání konkrétního), Statarické (důkladné), Racionální (kombinace metod).", exp: "Různé typy čtení pro různé účely. Indexátor kombinuje metody podle potřeby - racionální přístup." },
+            { category: "Indexace", q: "Co je výběrová vs. úplná indexace?", a: "Výběrová (selective) zachycuje jen hlavní témata. Úplná (exhaustive) zachycuje všechna témata včetně vedlejších.", exp: "Výběrová = jen hlavní. Úplná = všechno. Volba závisí na účelu systému a zdrojích." },
+            { category: "Indexace", q: "Jaké faktory ovlivňují indexaci?", a: "Indexátor (zkušenost, znalosti, motivace), SJ (kvalita slovníku, pravidla), Dokument (obor, struktura, jazyk), Pracovní podmínky.", exp: "Kvalita indexace závisí na mnoha faktorech. Lidský faktor je nejdůležitější - proto školení." },
+            { category: "Indexace", q: "V jaké fázi vzniká nejvíce chyb?", a: "Identifikace pojmů (42,3%) - nejčastěji opominutí hledisek. Zdrojem jsou indexátor a indexační pravidla.", exp: "42,3% chyb v identifikaci pojmů! Nejčastější chyba = opominutí. Systematická kontrola je klíčová." },
+            { category: "Indexace", q: "Co je formální relevance?", a: "Dva dokumenty mají tentýž popis/SOD, ale nemusí být obsahově totožné. Důsledek nedokonalosti popisu.", exp: "Formální relevance = falešná shoda. Popis nikdy neobsáhne celý obsah dokumentu." },
 
             // Vyhledávání podrobněji
-            { category: "Vyhledávání", q: "Co jsou proximitní operátory?", a: "Určují vzdálenost hledaných výrazů v textu - buď počtem slov, nebo segmentem (věta, odstavec). Předpoklad: blízká slova = blízký význam." },
-            { category: "Vyhledávání", q: "Co je query expansion?", a: "Rozšiřování uživatelského dotazu pomocí řízeného slovníku - přidání synonym, nadřazených/podřazených termínů." },
-            { category: "Vyhledávání", q: "Jak řízený slovník řeší vícejazyčnost?", a: "Vícejazyčný tezaurus nebo klasifikace (nezávislá na přirozeném jazyce) umožňují vyhledávat dokumenty v různých jazycích." },
-            { category: "Vyhledávání", q: "Co je vektorové vyhledávání?", a: "Moderní metoda kde dokumenty jsou reprezentovány jako vektory. Podobnost se měří vzdáleností vektorů v prostoru." },
-            { category: "Vyhledávání", q: "Co je latentní sémantické vyhledávání?", a: "Pokročilá metoda překonávající synonymii a vícejazyčnost pomocí statistických modelů textu." },
+            { category: "Vyhledávání", q: "Co jsou proximitní operátory?", a: "Určují vzdálenost hledaných výrazů v textu - buď počtem slov, nebo segmentem (věta, odstavec). Předpoklad: blízká slova = blízký význam.", exp: "Proximitní = 'blízko sebe'. NEAR/5 = maximálně 5 slov mezi výrazy. Zvyšuje přesnost." },
+            { category: "Vyhledávání", q: "Co je query expansion?", a: "Rozšiřování uživatelského dotazu pomocí řízeného slovníku - přidání synonym, nadřazených/podřazených termínů.", exp: "Query expansion zvyšuje recall - najdeme víc. Systém přidá synonyma a příbuzné termíny automaticky." },
+            { category: "Vyhledávání", q: "Jak řízený slovník řeší vícejazyčnost?", a: "Vícejazyčný tezaurus nebo klasifikace (nezávislá na přirozeném jazyce) umožňují vyhledávat dokumenty v různých jazycích.", exp: "Klasifikace jako MDT jsou jazykově nezávislé - číslo 821 znamená literaturu v každém jazyce." },
+            { category: "Vyhledávání", q: "Co je vektorové vyhledávání?", a: "Moderní metoda kde dokumenty jsou reprezentovány jako vektory. Podobnost se měří vzdáleností vektorů v prostoru.", exp: "Vektory = matematická reprezentace. Čím blíž v prostoru, tím podobnější. Základ moderního AI vyhledávání." },
+            { category: "Vyhledávání", q: "Co je latentní sémantické vyhledávání?", a: "Pokročilá metoda překonávající synonymii a vícejazyčnost pomocí statistických modelů textu.", exp: "LSA/LSI = statistické metody. Překonávají synonymii bez tezauru - na základě co-occurrence." },
 
             // Oborové a specializované systémy
-            { category: "Systémy", q: "Co je MSC (Mathematics Subject Classification)?", a: "Klasifikace matematických schémat. Používá binární notaci na 1. úrovni s vynechávkami pro budoucí rozšíření." },
-            { category: "Systémy", q: "Co je NACE/CZ-NACE?", a: "Klasifikace ekonomických činností používaná evropskými statistickými úřady. CZ-NACE je česká verze s podrobnějším rozšířením." },
-            { category: "Systémy", q: "Co je backbone thesaurus?", a: "Obecný propojovací tezaurus pro humanitní vědy. Slouží jako inspirace při zavádění nových systémů a pro propojení existujících." },
-            { category: "Systémy", q: "Co je TaDiRaH?", a: "Taxonomie výzkumných aktivit v digitálních humanitních vědách. Velmi dobře propracovaná struktura pro úzkou specializovanou oblast." },
-            { category: "Systémy", q: "Co je ICS?", a: "Mezinárodní klasifikace norem a standardů. Tříúrovňová struktura pro popis technických norem." },
-            { category: "Systémy", q: "Co je IPS?", a: "Mezinárodní klasifikace patentů. Čtyřúrovňová struktura s velmi specifickými výrazy pro patentovou dokumentaci." },
+            { category: "Systémy", q: "Co je MSC (Mathematics Subject Classification)?", a: "Klasifikace matematických schémat. Používá binární notaci na 1. úrovni s vynechávkami pro budoucí rozšíření.", exp: "MSC = standardní klasifikace v matematice. Vynechávky v číslování umožňují přidávat nové třídy." },
+            { category: "Systémy", q: "Co je NACE/CZ-NACE?", a: "Klasifikace ekonomických činností používaná evropskými statistickými úřady. CZ-NACE je česká verze s podrobnějším rozšířením.", exp: "NACE se používá pro statistiky firem. CZ-NACE má české rozšíření - více detailů pro ČR." },
+            { category: "Systémy", q: "Co je backbone thesaurus?", a: "Obecný propojovací tezaurus pro humanitní vědy. Slouží jako inspirace při zavádění nových systémů a pro propojení existujících.", exp: "Backbone = 'páteř'. Propojuje různé oborové tezaury. Důležitý pro interoperabilitu." },
+            { category: "Systémy", q: "Co je TaDiRaH?", a: "Taxonomie výzkumných aktivit v digitálních humanitních vědách. Velmi dobře propracovaná struktura pro úzkou specializovanou oblast.", exp: "TaDiRaH = Taxonomy of Digital Research Activities. Příklad specializované taxonomie pro DH." },
+            { category: "Systémy", q: "Co je ICS?", a: "Mezinárodní klasifikace norem a standardů. Tříúrovňová struktura pro popis technických norem.", exp: "ICS = International Classification for Standards. Každá norma ISO má ICS kód." },
+            { category: "Systémy", q: "Co je IPS?", a: "Mezinárodní klasifikace patentů. Čtyřúrovňová struktura s velmi specifickými výrazy pro patentovou dokumentaci.", exp: "IPC = International Patent Classification. Velmi podrobná - patenty vyžadují přesnost." },
 
             // Budoucnost a trendy
-            { category: "Budoucnost", q: "Co jsou LOD (Linked Open Data)?", a: "Propojená otevřená data - trend standardizace pro maximální propojitelnost a sdílení dat mezi systémy." },
-            { category: "Budoucnost", q: "Co je AXI?", a: "Artificial Explainable Intelligence - AI podávající informace způsobem, z nějž je patrné, jak se k nim dopracovala." },
-            { category: "Budoucnost", q: "Kdy vznikl MARC formát?", a: "V 60. letech 20. století. Formát pro výměnu bibliografických informací, základ pro moderní katalogizaci." },
-            { category: "Budoucnost", q: "Jaké jsou trendy v organizaci informací?", a: "Uživatelsky vstřícná rozhraní, vyhledávání konkrétní informace místo dokumentu, růst ontologií, automatizace zpracování, standardizace (LOD)." }
+            { category: "Budoucnost", q: "Co jsou LOD (Linked Open Data)?", a: "Propojená otevřená data - trend standardizace pro maximální propojitelnost a sdílení dat mezi systémy.", exp: "LOD = propojená data na webu. Používají URI a RDF. Trend směrem k sémantickému webu." },
+            { category: "Budoucnost", q: "Co je AXI?", a: "Artificial Explainable Intelligence - AI podávající informace způsobem, z nějž je patrné, jak se k nim dopracovala.", exp: "XAI = Explainable AI. Důležité pro důvěryhodnost - víme, proč AI něco tvrdí." },
+            { category: "Budoucnost", q: "Kdy vznikl MARC formát?", a: "V 60. letech 20. století. Formát pro výměnu bibliografických informací, základ pro moderní katalogizaci.", exp: "MARC = Machine-Readable Cataloging. Vznikl v Library of Congress. Stále se používá." },
+            { category: "Budoucnost", q: "Jaké jsou trendy v organizaci informací?", a: "Uživatelsky vstřícná rozhraní, vyhledávání konkrétní informace místo dokumentu, růst ontologií, automatizace zpracování, standardizace (LOD).", exp: "Trendy: od dokumentů k informacím, od manuální práce k automatizaci, od izolace k propojení (LOD)." }
         ];
 
         const quizData = [
@@ -1504,6 +1728,15 @@
             document.getElementById('fc-answer').textContent = card.a;
             document.getElementById('fc-current').textContent = index + 1;
             document.getElementById('fc-total').textContent = dueCards.length;
+
+            // Zobrazení vysvětlení (pokud existuje)
+            const expEl = document.getElementById('fc-explanation');
+            if (card.exp) {
+                expEl.innerHTML = '<strong>Proč je to důležité:</strong> ' + card.exp;
+                expEl.style.display = 'block';
+            } else {
+                expEl.style.display = 'none';
+            }
 
             // Reset flip
             cardFlipped = false;
@@ -2077,8 +2310,143 @@
             document.getElementById('concept-map-container').style.display = 'none';
         }
 
+        // ========== THEME TOGGLE ==========
+        function toggleTheme() {
+            const html = document.documentElement;
+            const btn = document.getElementById('theme-toggle');
+            const currentTheme = html.getAttribute('data-theme');
+
+            if (currentTheme === 'dark') {
+                html.setAttribute('data-theme', 'light');
+                btn.textContent = '☀️';
+                localStorage.setItem('theme', 'light');
+            } else {
+                html.setAttribute('data-theme', 'dark');
+                btn.textContent = '🌙';
+                localStorage.setItem('theme', 'dark');
+            }
+        }
+
+        function loadTheme() {
+            const savedTheme = localStorage.getItem('theme') || 'dark';
+            document.documentElement.setAttribute('data-theme', savedTheme);
+            document.getElementById('theme-toggle').textContent = savedTheme === 'dark' ? '🌙' : '☀️';
+        }
+
+        // ========== AUDIO LOOP (Web Speech API) ==========
+        let audioLoopRunning = false;
+        let audioLoopIndex = 0;
+        let audioSpeed = 1;
+        let speechSynthesis = window.speechSynthesis;
+
+        function speak(text, onEnd) {
+            if (!speechSynthesis) {
+                console.error('Web Speech API není podporováno');
+                if (onEnd) onEnd();
+                return;
+            }
+
+            const utterance = new SpeechSynthesisUtterance(text);
+            utterance.lang = 'cs-CZ';
+            utterance.rate = audioSpeed;
+            utterance.onend = onEnd;
+            utterance.onerror = onEnd;
+            speechSynthesis.speak(utterance);
+        }
+
+        function startAudioLoop() {
+            if (!speechSynthesis) {
+                alert('Váš prohlížeč nepodporuje Web Speech API');
+                return;
+            }
+
+            audioLoopRunning = true;
+            audioLoopIndex = 0;
+
+            document.getElementById('audio-start').style.display = 'none';
+            document.getElementById('audio-stop').style.display = 'inline-flex';
+            updateAudioStatus('Přehrávám...', true);
+
+            playNextCard();
+        }
+
+        function stopAudioLoop() {
+            audioLoopRunning = false;
+            speechSynthesis.cancel();
+
+            document.getElementById('audio-start').style.display = 'inline-flex';
+            document.getElementById('audio-stop').style.display = 'none';
+            updateAudioStatus('Zastaveno', false);
+        }
+
+        function playNextCard() {
+            if (!audioLoopRunning) return;
+
+            const dueCards = getDueCards();
+            if (dueCards.length === 0 || audioLoopIndex >= dueCards.length) {
+                stopAudioLoop();
+                updateAudioStatus('Dokončeno', false);
+                return;
+            }
+
+            const card = dueCards[audioLoopIndex];
+            showCard(audioLoopIndex);
+
+            updateAudioStatus(`Karta ${audioLoopIndex + 1}/${dueCards.length}: Otázka`, true);
+
+            // Přečti otázku
+            speak(card.q, () => {
+                if (!audioLoopRunning) return;
+
+                updateAudioStatus(`Karta ${audioLoopIndex + 1}/${dueCards.length}: Pauza...`, true);
+
+                // Pauza před odpovědí (3 sekundy)
+                setTimeout(() => {
+                    if (!audioLoopRunning) return;
+
+                    // Otoč kartu
+                    if (!cardFlipped) flipCard();
+
+                    updateAudioStatus(`Karta ${audioLoopIndex + 1}/${dueCards.length}: Odpověď`, true);
+
+                    // Přečti odpověď
+                    speak(card.a, () => {
+                        if (!audioLoopRunning) return;
+
+                        // Pauza před další kartou (2 sekundy)
+                        setTimeout(() => {
+                            if (!audioLoopRunning) return;
+
+                            // Reset karty pro další
+                            if (cardFlipped) {
+                                cardFlipped = false;
+                                document.getElementById('flashcard').classList.remove('flipped');
+                                document.getElementById('fc-controls').style.display = 'none';
+                            }
+
+                            audioLoopIndex++;
+                            playNextCard();
+                        }, 2000);
+                    });
+                }, 3000);
+            });
+        }
+
+        function updateAudioSpeed() {
+            audioSpeed = parseFloat(document.getElementById('audio-speed').value);
+        }
+
+        function updateAudioStatus(text, isPlaying) {
+            const status = document.getElementById('audio-status');
+            status.innerHTML = isPlaying
+                ? `<span class="pulse"></span><span>${text}</span>`
+                : `<span>${text}</span>`;
+            status.className = isPlaying ? 'audio-status playing' : 'audio-status';
+        }
+
         // ========== INIT ==========
         function init() {
+            loadTheme();
             initCardStats();
             renderTopics();
             updateStats();
