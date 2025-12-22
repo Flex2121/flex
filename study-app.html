@@ -111,6 +111,108 @@
             color: var(--primary);
         }
 
+        /* Light mode navbar and navigation */
+        [data-theme="light"] .navbar {
+            background: rgba(255, 255, 255, 0.95);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+        }
+
+        [data-theme="light"] .logo {
+            color: #1e293b;
+        }
+
+        [data-theme="light"] .nav-tab {
+            color: #475569;
+        }
+
+        [data-theme="light"] .nav-tab:hover {
+            color: #1e293b;
+            background: rgba(0, 0, 0, 0.05);
+        }
+
+        [data-theme="light"] .nav-tab.active {
+            color: #7c3aed;
+            background: rgba(124, 58, 237, 0.1);
+        }
+
+        [data-theme="light"] .stats-bar .stat-item {
+            color: #1e293b;
+        }
+
+        [data-theme="light"] .stat-label {
+            color: #64748b;
+        }
+
+        /* Light mode dashboard cards */
+        [data-theme="light"] .dashboard-card,
+        [data-theme="light"] .cta-card,
+        [data-theme="light"] .stat-box,
+        [data-theme="light"] .topic-card,
+        [data-theme="light"] .quiz-question-card {
+            background: rgba(255, 255, 255, 0.9);
+            border: 1px solid rgba(0, 0, 0, 0.08);
+        }
+
+        [data-theme="light"] .cta-card:not(.primary) {
+            background: rgba(255, 255, 255, 0.9);
+        }
+
+        [data-theme="light"] .cta-card h3,
+        [data-theme="light"] .dashboard-card h3,
+        [data-theme="light"] .stat-box-label {
+            color: #1e293b;
+        }
+
+        [data-theme="light"] .cta-card p,
+        [data-theme="light"] .topic-description {
+            color: #64748b;
+        }
+
+        /* Light mode stat boxes */
+        [data-theme="light"] .stat-box {
+            background: rgba(255, 255, 255, 0.9);
+        }
+
+        [data-theme="light"] .stat-box-label {
+            color: #64748b;
+        }
+
+        /* Light mode quick start cards */
+        [data-theme="light"] .quick-topic-card {
+            background: rgba(255, 255, 255, 0.9);
+            border: 1px solid rgba(0, 0, 0, 0.08);
+        }
+
+        [data-theme="light"] .quick-topic-card h4 {
+            color: #1e293b;
+        }
+
+        [data-theme="light"] .quick-topic-card p {
+            color: #64748b;
+        }
+
+        /* Light mode text overrides */
+        [data-theme="light"] .audio-status {
+            color: #64748b;
+        }
+
+        [data-theme="light"] h1,
+        [data-theme="light"] h2,
+        [data-theme="light"] h3 {
+            color: #1e293b;
+        }
+
+        /* Light mode audio panel */
+        [data-theme="light"] .audio-panel {
+            background: rgba(255, 255, 255, 0.9);
+            border: 1px solid rgba(0, 0, 0, 0.1);
+        }
+
+        [data-theme="light"] .audio-panel label,
+        [data-theme="light"] .audio-panel span {
+            color: #1e293b;
+        }
+
         body {
             font-family: 'Inter', sans-serif;
             background: var(--bg);
