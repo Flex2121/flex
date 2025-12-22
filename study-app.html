@@ -3491,8 +3491,43 @@ Proč třídíme,Co je informační exploze?,Růst množství dat...,Vysvětlen�
             // Praktické úlohy z přednášek
             { category: "Praktické", q: "Jak vybrat lexikální jednotku z tezauru?", a: "1) Najít pojem v abecedním rejstříku. 2) Ověřit, že jde o deskriptor (ne nedeskriptor). 3) Zkontrolovat rozsah významu v poznámce. 4) Použít nejspecifičtější deskriptor.", exp: "Vždy ověřujte, že používáte preferovaný termín a že odpovídá zamýšlenému významu." },
             { category: "Praktické", q: "Co je triáda v kontextu fazet?", a: "Trojice: specifický výraz → obecný výraz → fazeta. Např.: 'fortifikovaná vína' → 'nápoje' → 'obsah alkoholu'.", exp: "Triáda ukazuje hierarchii a klasifikační charakteristiku (fazetu)." },
-            { category: "Praktické", q: "Jak správně zapsat lexikální jednotku z tezauru?", a: "Přesně podle slovníku včetně velkých/malých písmen a čísla (plurál/singulár). Např. 'jízdní kola' (ne 'jízdní kolo').", exp: "Přesný zápis je důležitý pro strojové zpracování a vyhledávání." }
+            { category: "Praktické", q: "Jak správně zapsat lexikální jednotku z tezauru?", a: "Přesně podle slovníku včetně velkých/malých písmen a čísla (plurál/singulár). Např. 'jízdní kola' (ne 'jízdní kolo').", exp: "Přesný zápis je důležitý pro strojové zpracování a vyhledávání." },
+
+            // === Z PŘEDNÁŠKY 1: ÚVOD DO ORGANIZACE INFORMACÍ ===
+
+            // Informace a sdělení
+            { category: "Základy OI", q: "Jaký je rozdíl mezi informací a sdělením?", a: "Sdělení/zpráva je nosič informace. Informace vzniká teprve tehdy, když sdělení změní poznatkový systém příjemce - formuje ho.", exp: "Když slyším 'je pátek' poprvé, je to informace. Když to slyším podruhé, je to jen sdělení - já už to vím, nic se nezměnilo." },
+            { category: "Základy OI", q: "Co dělá informace s příjemcem?", a: "Informace formuje (informuje) příjemce - mění jeho poznatkový systém, rozšiřuje znalosti.", exp: "Slovo IN-FORMACE = vtiskává formu. Informace má smysl jen ve vztahu k příjemci, který ji přijme a zpracuje." },
+            { category: "Základy OI", q: "Kdo vytvořil model komunikace s vysílačem, přijímačem, kanálem a šumem?", a: "Claude Shannon. Jeho matematická teorie komunikace (1948) definovala tyto základní prvky přenosu informace.", exp: "Šanonův model je technicistní - nezabývá se významem, jen přenosem signálu. Pro nás je důležitý kontext a interpretace." },
+            { category: "Základy OI", q: "Co je entropie v kontextu organizace informací?", a: "Entropie je míra neuspořádanosti systému - opak informace. Nestrukturovaný, chaotický stav.", exp: "Informace se označuje jako negentropie (záporná entropie). Organizace informací = snižování entropie, vytváření řádu." },
+            { category: "Základy OI", q: "Proč organizujeme informace?", a: "Abychom snížili entropii (neuspořádanost), usnadnili vyhledávání a překonali problémy informačního přetížení.", exp: "Bez organizace bychom v množství informací 'utonuli' - cílem je struktura umožňující efektivní nalezení relevantních informací." },
+
+            // Zaznamenané poznání
+            { category: "Základy OI", q: "Čím se zabývá organizace informací?", a: "Zaznamenanými informacemi - dokumenty, texty, artefakty. Pracujeme s tím, co bylo vytvořeno, zjištěno a zaznamenáno.", exp: "Nezabýváme se informacemi 'létajícími ve vzduchu', ale jejich záznamy - knihy, databáze, webové stránky atd." },
+            { category: "Základy OI", q: "Můžeme v organizaci informací rozlišovat pravdivost informace?", a: "Ne, nemůžeme hodnotit pravdivost ani odlišovat informaci od dezinformace. Zpracováváme záznamy bez hodnocení jejich obsahu.", exp: "Náš systém shromažďuje a popisuje dokumenty. Vyhodnocení pravdivosti je nad rámec organizace informací." },
+
+            // Tacitní znalosti
+            { category: "Základy OI", q: "Co jsou tacitní (skryté) znalosti?", a: "Znalosti, které člověk má a používá, ale není si jich vědom a neumí je explicitně formulovat.", exp: "Např. expertní intuice, 'cit pro věc'. Tacitní znalosti jsou těžko přenositelné a formalizovatelné do systémů." },
+            { category: "Základy OI", q: "Co jsou explicitní znalosti?", a: "Znalosti, které dokážeme slovně vyjádřit, popsat a předat ostatním.", exp: "Na rozdíl od tacitních znalostí je můžeme zaznamenat a sdílet - jsou základem dokumentů a databází." },
+
+            // Arbitrárnost a sémiotika
+            { category: "Základy OI", q: "Co znamená arbitrárnost znaku?", a: "Znak nemá přímý, přirozený vztah k označované věci. Vztah je konvenční (dohodnutý, nahodilý).", exp: "Slovo 'tužka' nijak nesouvisí s tužkou jako objektem. Jediné výjimky jsou citoslovce (gdákat napodobuje zvuk slepice)." },
+            { category: "Základy OI", q: "Proč je v sémiotickém trojúhelníku vztah znaku a věci přerušovaný?", a: "Protože znak se nevztahuje k věci přímo, ale přes význam (pojem). Toto označujeme jako arbitrárnost znaku.", exp: "Trojúhelník: Znak ↔ Význam ↔ Věc. Přímá linka Znak--Věc je čárkovaná (nepřímý vztah)." },
+
+            // Primární a sekundární úroveň
+            { category: "Základy OI", q: "Co je primární úroveň zpracování informací?", a: "Badatel/expert pracuje s primárním objektem (jev, datel v přírodě) a vytváří primární záznam (vědecký článek, databázový záznam).", exp: "Ornitolog pozoruje datla, určuje druh a zapisuje do databáze - to je primární zpracování." },
+            { category: "Základy OI", q: "Co je sekundární úroveň zpracování informací?", a: "Informační specialista pracuje s primárním záznamem (dokument) a vytváří metadata - popis dokumentu.", exp: "Pro nás je informační objekt ten dokument, ne skutečný datel. Vytváříme katalogizační záznamy - sekundární dokumenty." },
+            { category: "Základy OI", q: "Co je terciární úroveň zpracování?", a: "Digitální badatel pracuje s metadaty a vytváří metametadata - analýza katalogizačních záznamů samotných.", exp: "Relativně nový přístup - zkoumáme, jak byla katalogizace provedena, jaké systémy byly použity." },
+
+            // Praktické příklady z přednášky
+            { category: "Praktické OI", q: "Je těhotenství nemoc podle klasifikačních systémů?", a: "V MKN (Mezinárodní klasifikace nemocí) je těhotenství zařazeno jako položka, protože lékař s ním pracuje v rámci diagnostik.", exp: "Pragmatický kontext: lékaři řeší těhotenství, proto je v lékařských třídicích systémech. V jiných (biologie) je zařazeno jinam." },
+            { category: "Praktické OI", q: "Je Franz Kafka český spisovatel?", a: "Záleží na systému: psal německy (ne čeština), ale žil a tvořil v Praze (český kontext). Lexikon české literatury ho nezahrnuje.", exp: "Příklad kdy musíme zaujmout stanovisko. Rozhodnutí závisí na účelu a definici systému - není jednoznačná odpověď." },
+            { category: "Praktické OI", q: "Je nealkoholické pivo nealkoholický nápoj?", a: "Obsahuje až 0,5% alkoholu - název je marketingový. Správně by mělo být 'pivo se sníženým obsahem alkoholu'.", exp: "Příklad matoucího pojmenování. Pro klasifikaci musíme chápat skutečný obsah, ne jen název." },
+
+            // Formátové a obsahové stavění
+            { category: "Praktické OI", q: "Co je formátové stavění fondu?", a: "Uspořádání dokumentů podle jejich fyzické velikosti (formátu) - velké knihy spolu, malé spolu.", exp: "Viditelné třeba v barokních knihovnách. Výhoda: efektivní využití prostoru, estetický vzhled." }
         ];
+
 
         const quizData = [
             // === PROČ TŘÍDÍME ===
