@@ -46,34 +46,36 @@
            THEME VARIABLES - Light Mode
            ======================================== */
         [data-theme="light"] {
-            --primary: #7c3aed;
-            --primary-dark: #6d28d9;
-            --primary-light: #8b5cf6;
-            --secondary: #059669;
-            --secondary-dark: #047857;
-            --accent: #db2777;
-            --warning: #d97706;
-            --danger: #dc2626;
-            --bg: #f8fafc;
-            --bg-card: rgba(255, 255, 255, 0.9);
-            --bg-glass: rgba(255, 255, 255, 0.7);
-            --bg-light: rgba(0, 0, 0, 0.05);
-            --text: #1e293b;
-            --text-muted: #64748b;
-            --border: rgba(0, 0, 0, 0.1);
-            --gradient-1: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            --gradient-2: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
-            --gradient-3: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            --primary: #6d28d9;
+            --primary-dark: #5b21b6;
+            --primary-light: #7c3aed;
+            --secondary: #047857;
+            --secondary-dark: #065f46;
+            --accent: #be185d;
+            --warning: #b45309;
+            --danger: #b91c1c;
+            --bg: #f1f5f9;
+            --bg-card: rgba(255, 255, 255, 0.95);
+            --bg-glass: rgba(255, 255, 255, 0.85);
+            --bg-light: rgba(109, 40, 217, 0.08);
+            --text: #0f172a;
+            --text-muted: #475569;
+            --border: rgba(109, 40, 217, 0.15);
+            --gradient-1: linear-gradient(135deg, #6d28d9 0%, #db2777 100%);
+            --gradient-2: linear-gradient(135deg, #ec4899 0%, #f43f5e 100%);
+            --gradient-3: linear-gradient(135deg, #0ea5e9 0%, #06b6d4 100%);
             --card-bg: #ffffff;
-            --card-bg-alt: #f1f5f9;
-            --bullet-color: #1e293b;
+            --card-bg-alt: #e2e8f0;
+            --bullet-color: #0f172a;
         }
 
         [data-theme="light"] body {
-            background: var(--bg);
+            background: #f1f5f9;
             background-image:
-                radial-gradient(ellipse at 20% 20%, rgba(139, 92, 246, 0.08) 0%, transparent 50%),
-                radial-gradient(ellipse at 80% 80%, rgba(6, 214, 160, 0.06) 0%, transparent 50%);
+                radial-gradient(ellipse at 20% 20%, rgba(109, 40, 217, 0.15) 0%, transparent 50%),
+                radial-gradient(ellipse at 80% 80%, rgba(219, 39, 119, 0.1) 0%, transparent 50%),
+                radial-gradient(ellipse at 50% 50%, rgba(5, 150, 105, 0.08) 0%, transparent 60%);
+
         }
 
         /* Light mode flashcard overrides */
@@ -140,7 +142,7 @@
         }
 
         [data-theme="light"] .stat-label {
-            color: #64748b;
+            color: #334155;
         }
 
         /* Light mode dashboard cards */
@@ -149,68 +151,94 @@
         [data-theme="light"] .stat-box,
         [data-theme="light"] .topic-card,
         [data-theme="light"] .quiz-question-card {
-            background: rgba(255, 255, 255, 0.9);
-            border: 1px solid rgba(0, 0, 0, 0.08);
+            background: #ffffff;
+            border: 1px solid rgba(109, 40, 217, 0.12);
+            box-shadow: 0 4px 20px rgba(109, 40, 217, 0.08), 0 1px 3px rgba(0, 0, 0, 0.05);
         }
 
         [data-theme="light"] .cta-card:not(.primary) {
-            background: rgba(255, 255, 255, 0.9);
+            background: #ffffff;
+            border: 2px solid rgba(109, 40, 217, 0.15);
+        }
+
+        [data-theme="light"] .cta-card:not(.primary):hover {
+            border-color: rgba(109, 40, 217, 0.3);
+            box-shadow: 0 8px 30px rgba(109, 40, 217, 0.15);
         }
 
         [data-theme="light"] .cta-card h3,
         [data-theme="light"] .dashboard-card h3,
         [data-theme="light"] .stat-box-label {
-            color: #1e293b;
+            color: #0f172a;
+            font-weight: 700;
         }
 
         [data-theme="light"] .cta-card p,
         [data-theme="light"] .topic-description {
-            color: #64748b;
+            color: #334155;
         }
 
         /* Light mode stat boxes */
         [data-theme="light"] .stat-box {
-            background: rgba(255, 255, 255, 0.9);
+            background: #ffffff;
+            border: 1px solid rgba(109, 40, 217, 0.1);
+            box-shadow: 0 2px 12px rgba(109, 40, 217, 0.06);
         }
 
         [data-theme="light"] .stat-box-label {
-            color: #64748b;
+            color: #475569;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        [data-theme="light"] .stat-box-value {
+            color: #6d28d9;
         }
 
         /* Light mode quick start cards */
         [data-theme="light"] .quick-topic-card {
-            background: rgba(255, 255, 255, 0.9);
-            border: 1px solid rgba(0, 0, 0, 0.08);
+            background: #ffffff;
+            border: 1px solid rgba(109, 40, 217, 0.12);
+            box-shadow: 0 4px 15px rgba(109, 40, 217, 0.08);
+        }
+
+        [data-theme="light"] .quick-topic-card:hover {
+            border-color: rgba(109, 40, 217, 0.25);
+            box-shadow: 0 8px 25px rgba(109, 40, 217, 0.12);
+            transform: translateY(-2px);
         }
 
         [data-theme="light"] .quick-topic-card h4 {
-            color: #1e293b;
+            color: #0f172a;
+            font-weight: 700;
         }
 
         [data-theme="light"] .quick-topic-card p {
-            color: #64748b;
+            color: #334155;
         }
 
         /* Light mode text overrides */
         [data-theme="light"] .audio-status {
-            color: #64748b;
+            color: #475569;
         }
 
         [data-theme="light"] h1,
         [data-theme="light"] h2,
         [data-theme="light"] h3 {
-            color: #1e293b;
+            color: #0f172a;
         }
 
         /* Light mode audio panel */
         [data-theme="light"] .audio-panel {
-            background: rgba(255, 255, 255, 0.9);
-            border: 1px solid rgba(0, 0, 0, 0.1);
+            background: #ffffff;
+            border: 1px solid rgba(109, 40, 217, 0.12);
+            box-shadow: 0 4px 20px rgba(109, 40, 217, 0.08);
         }
 
         [data-theme="light"] .audio-panel label,
         [data-theme="light"] .audio-panel span {
-            color: #1e293b;
+            color: #0f172a;
         }
 
         body {
