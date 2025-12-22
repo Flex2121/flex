@@ -2290,6 +2290,31 @@
                         <div class="topic-title">Přehled klasifikací</div>
                         <div class="topic-description">DDC, LCC, MDT, CC, BBC</div>
                     </div>
+                    <div class="topic-card" onclick="showConceptMap('lrm')">
+                        <div class="topic-icon">📖</div>
+                        <div class="topic-title">LRM Model</div>
+                        <div class="topic-description">Dílo → Vyjádření → Provedení → Jednotka</div>
+                    </div>
+                    <div class="topic-card" onclick="showConceptMap('doclevels')">
+                        <div class="topic-icon">📋</div>
+                        <div class="topic-title">Dokumentografické úrovně</div>
+                        <div class="topic-description">A-F: Nosič až Obsah</div>
+                    </div>
+                    <div class="topic-card" onclick="showConceptMap('recallprecision')">
+                        <div class="topic-icon">📊</div>
+                        <div class="topic-title">Recall vs Precision</div>
+                        <div class="topic-description">Úplnost a přesnost vyhledávání</div>
+                    </div>
+                    <div class="topic-card" onclick="showConceptMap('prepost')">
+                        <div class="topic-icon">🔄</div>
+                        <div class="topic-title">Pre vs Postkoordinace</div>
+                        <div class="topic-description">Kombinování pojmů při indexaci/vyhledávání</div>
+                    </div>
+                    <div class="topic-card" onclick="showConceptMap('consistency')">
+                        <div class="topic-icon">📏</div>
+                        <div class="topic-title">Konzistence indexace</div>
+                        <div class="topic-description">Vzorec C = a/b, inter/intraindexer</div>
+                    </div>
                 </div>
 
                 <!-- Concept Map Display -->
@@ -2515,7 +2540,100 @@ Proč třídíme,Co je informační exploze?,Růst množství dat...,Vysvětlen�
             { category: "Budoucnost", q: "Co jsou LOD (Linked Open Data)?", a: "Propojená otevřená data - trend standardizace pro maximální propojitelnost a sdílení dat mezi systémy.", exp: "LOD = propojená data na webu. Používají URI a RDF. Trend směrem k sémantickému webu." },
             { category: "Budoucnost", q: "Co je AXI?", a: "Artificial Explainable Intelligence - AI podávající informace způsobem, z nějž je patrné, jak se k nim dopracovala.", exp: "XAI = Explainable AI. Důležité pro důvěryhodnost - víme, proč AI něco tvrdí." },
             { category: "Budoucnost", q: "Kdy vznikl MARC formát?", a: "V 60. letech 20. století. Formát pro výměnu bibliografických informací, základ pro moderní katalogizaci.", exp: "MARC = Machine-Readable Cataloging. Vznikl v Library of Congress. Stále se používá." },
-            { category: "Budoucnost", q: "Jaké jsou trendy v organizaci informací?", a: "Uživatelsky vstřícná rozhraní, vyhledávání konkrétní informace místo dokumentu, růst ontologií, automatizace zpracování, standardizace (LOD).", exp: "Trendy: od dokumentů k informacím, od manuální práce k automatizaci, od izolace k propojení (LOD)." }
+            { category: "Budoucnost", q: "Jaké jsou trendy v organizaci informací?", a: "Uživatelsky vstřícná rozhraní, vyhledávání konkrétní informace místo dokumentu, růst ontologií, automatizace zpracování, standardizace (LOD).", exp: "Trendy: od dokumentů k informacím, od manuální práce k automatizaci, od izolace k propojení (LOD)." },
+
+            // === NOVÉ FLASHCARDS Z PŘEDNÁŠEK ===
+
+            // Sbírky a kolekce
+            { category: "Sbírky", q: "Co je sbírka v kontextu organizace informací?", a: "Subsystém informačního systému vytvářený za určitým účelem. Primárně plní informační funkci (podpora poznání), sekundárně může plnit i další funkce (estetickou, ekonomickou, archivační, sociální).", exp: "Sbírka = organizovaná skupina objektů. Klíčové je, že slouží k vyhledávání informací - antikvariát není sbírka, protože primárně prodává." },
+            { category: "Sbírky", q: "Co je GLAM?", a: "Galleries, Libraries, Archives, Museums - souhrnné označení pro sbírkové/paměťové instituce.", exp: "GLAM instituce jsou správci sbírek - galerie, knihovny, archivy, muzea. Všechny pracují s organizací informací." },
+            { category: "Sbírky", q: "Jaký je rozdíl mezi sbírkou a nesbírkou?", a: "Sbírka má primárně informační funkci (knihovna, bibliografická databáze). Nesbírka má jinou primární funkci (antikvariát = prodej, zverimex = prodej zvířat).", exp: "Klíčem je primární funkce. Knihovna informuje, antikvariát prodává - přestože obě obsahují knihy." },
+            { category: "Sbírky", q: "Jaké jsou vlastnosti sbírky?", a: "Slouží určitým uživatelům, je formálně nebo obsahově specializována, objekty jsou popsány a utříděny, vlastník může být soukromý nebo veřejný.", exp: "Sbírka není chaotická - má pravidla organizace a slouží konkrétnímu účelu a uživatelům." },
+            { category: "Sbírky", q: "Jaký je rozdíl mezi fyzickou a virtuální sbírkou?", a: "Fyzická sbírka obsahuje hmotné objekty na jednom místě (knihovna, muzeum). Virtuální sbírka propojuje objekty digitálně bez ohledu na fyzické umístění (digitální knihovna, databáze).", exp: "Virtuální sbírka může propojovat objekty z různých institucí po celém světě." },
+
+            // Atributy informačního objektu
+            { category: "Atributy IO", q: "Jaké jsou dokumentografické úrovně popisu IO?", a: "A) nosič/médium, B) forma, C) typ/druh, D) formát obsahu, E) žánr, F) obsah.", exp: "6 úrovní od nejobecnějších (nosič) po nejkonkrétnější (obsah). Každá úroveň přidává detail popisu." },
+            { category: "Atributy IO", q: "Co je nosič/médium informačního objektu?", a: "Fyzický materiál nesoucí informaci - může být analogový (kámen, hlína, papír) nebo digitální.", exp: "Nosič je fyzická podstata - papír knihy, plastový disk CD, magnetický pásek." },
+            { category: "Atributy IO", q: "Co je forma informačního objektu?", a: "Konkrétní podoba nosiče - kniha, gramofonová deska, databáze, webová stránka.", exp: "Forma je fyzická podoba. Papír (nosič) → kniha (forma). Digitální médium → databáze (forma)." },
+            { category: "Atributy IO", q: "Co je formát obsahu informačního objektu?", a: "Způsob záznamu informací - text, obraz, zvuk, audiovizuální, data, komiks.", exp: "Formát obsahu = jak je informace zaznamenána. Kniha může mít textový nebo obrazový formát obsahu." },
+            { category: "Atributy IO", q: "Jaké funkční vlastnosti má informační objekt?", a: "Dokumentuje (dokládá), deskribuje (popisuje), reprezentuje (představuje, zastupuje), komunikuje (sděluje).", exp: "IO plní různé funkce - fotografie dokumentuje událost, mapa reprezentuje území, dopis komunikuje zprávu." },
+            { category: "Atributy IO", q: "Jaké jsou strukturální vlastnosti IO z hlediska reprezentace?", a: "Originál, kopie, faksimile, falzifikát.", exp: "Originál je původní dílo. Kopie je reprodukce. Faksimile je přesná kopie. Falzifikát je podvrh." },
+
+            // LRM model
+            { category: "LRM", q: "Co je LRM (Library Reference Model)?", a: "Koncepční model pro popis bibliografických entit. Nahradil dřívější FRBR. Definuje entity Dílo, Vyjádření, Provedení, Jednotka.", exp: "LRM je základ moderní katalogizace. Rozlišuje abstraktní dílo od jeho konkrétních realizací." },
+            { category: "LRM", q: "Co je entita 'Dílo' v LRM?", a: "Abstraktní intelektuální nebo umělecký výtvor. Např. 'Babička' jako literární koncept Boženy Němcové.", exp: "Dílo existuje nezávisle na konkrétním vydání. 'Babička' je jedno dílo, i když má stovky vydání." },
+            { category: "LRM", q: "Co je entita 'Vyjádření' v LRM?", a: "Intelektuální nebo umělecká realizace díla. Např. český text 'Babičky', anglický překlad, audiokniha.", exp: "Vyjádření = konkrétní forma díla. Originál vs překlad jsou různá vyjádření téhož díla." },
+            { category: "LRM", q: "Co je entita 'Provedení' v LRM?", a: "Fyzické ztělesnění vyjádření. Např. konkrétní vydání knihy (Albatros 2020, Odeon 1985).", exp: "Provedení = konkrétní vydání. Různá nakladatelství vydávají různá provedení téhož vyjádření." },
+            { category: "LRM", q: "Co je entita 'Jednotka' v LRM?", a: "Konkrétní exemplář provedení. Např. tento konkrétní výtisk knihy v mých rukou.", exp: "Jednotka = jeden kus. Každý výtisk je samostatná jednotka, i když jsou identické." },
+
+            // Notační systém
+            { category: "Notace", q: "Jaké jsou typy notace podle druhu znaků?", a: "Alfabetická (písmena), numerická (čísla), desetinná (desetinná čísla), alfanumerická/smíšená (kombinace).", exp: "LCC používá alfanumerickou (PS3511), DDC používá desetinnou (821.162.3), MDT kombinuje oba přístupy." },
+            { category: "Notace", q: "Jaké jsou typy notace podle struktury?", a: "Lineární (A11, A12, A13...) vs hierarchická (A11, A11.1, A11.1.01...). Hierarchická lépe vyjadřuje vztahy.", exp: "Lineární = ploché řazení. Hierarchická = stromová struktura. DDC a MDT jsou hierarchické." },
+            { category: "Notace", q: "Co je expanzivní notace?", a: "Notace umožňující přidávání nových tříd bez narušení stávající struktury - 'pohostinnost' notačního systému.", exp: "Expanzivní = můžeme rozšiřovat. MDT je velmi expanzivní, LCC méně - proto má různě podrobné části." },
+            { category: "Notace", q: "Co je mnemotechnická notace?", a: "Notace navržená tak, aby si ji bylo snadné zapamatovat. Např. L pro literaturu, M pro hudbu.", exp: "Mnemotechnika = pomůcka pro paměť. LCC používá písmena asociovaná s obory (M=Music)." },
+            { category: "Notace", q: "Co je separátor notace?", a: "Symbol oddělující části složené notace - tečka, dvojtečka, závorky. Umožňuje kombinovat znaky.", exp: "Separátory v MDT: . (podtřída), : (vztah), + (sloučení), / (rozsah). Každý má jiný význam." },
+            { category: "Notace", q: "Co je čistá vs smíšená notace?", a: "Čistá používá jeden typ znaků (jen čísla nebo jen písmena). Smíšená kombinuje více typů (písmena + čísla).", exp: "DDC = čistá (jen čísla). LCC = smíšená (písmena + čísla). Smíšená je flexibilnější." },
+
+            // Prekoordinace a postkoordinace - detaily
+            { category: "Pre/Post", q: "Jaký je sémantický vs syntaktický rozklad?", a: "Sémantický rozklad (nedoporučuje se): barometr = tlak + měření + přístroj. Syntaktický rozklad: knihovnické časopisy = knihovnictví + časopisy.", exp: "Sémantický rozkládá podle významu (ztrácí se smysl). Syntaktický rozkládá podle slovních částí (zachovává smysl)." },
+            { category: "Pre/Post", q: "Kdy použít prekoordinaci u sousloví?", a: "Když je sousloví běžné (informační zdroje), rozklad vede ke ztrátě významu (filozofie dějin), obsahuje vlastní jméno (Bradfordův zákon), nebo modifikátor ztratil původní význam (lehký průmysl).", exp: "Některá sousloví nelze rozložit beze ztráty významu - 'lehký průmysl' není o váze." },
+            { category: "Pre/Post", q: "Jaké jsou aplikační dopady pre/postkoordinace?", a: "Prekoordinace: složený pojem = jeden znak pro indexaci i vyhledávání. Postkoordinace: složený pojem = dílčí znaky kombinované až při vyhledávání.", exp: "Pre = přesné, ale rigidní. Post = flexibilní, ale vyžaduje znalost kombinování." },
+            { category: "Pre/Post", q: "Co je princip: Vlastnost/část × Modifikátor:nositel/celek?", a: "Pravidlo pro syntaktický rozklad: lodní motor = lodě + motory. Činnost/objekt: indexace článků = indexace + články.", exp: "Systematický přístup k rozkladu sousloví. Pomáhá rozhodnout, jak rozložit složené pojmy." },
+
+            // Indexace - detailněji
+            { category: "Indexace detail", q: "Co je orientační čtení?", a: "Rychlé zjištění základních informací o dokumentu - název, autor, abstrakt, obsah.", exp: "Orientační = 'o čem to asi je'. Nejrychlejší forma analýzy, stačí pro úvodní rozhodnutí." },
+            { category: "Indexace detail", q: "Co je kurzorické/diagonální čtení?", a: "Rychlé procházení textu zaměřené na klíčová slova a zvýrazněné části.", exp: "Diagonální = přeskakujeme, hledáme důležité. Vhodné pro dlouhé texty." },
+            { category: "Indexace detail", q: "Co je selektivní čtení?", a: "Cílené hledání konkrétní informace v textu - odpověď na specifickou otázku.", exp: "Selektivní = hledám konkrétní údaj. Ignoruji vše ostatní, zaměřuji se na cíl." },
+            { category: "Indexace detail", q: "Co je statarické čtení?", a: "Důkladné, pomalé čtení celého textu s plným porozuměním.", exp: "Statarické = čtu vše pečlivě. Nejpomalejší, ale nejúplnější porozumění." },
+            { category: "Indexace detail", q: "Co je racionální čtení?", a: "Kombinace různých metod čtení podle potřeby - nejefektivnější přístup pro indexátora.", exp: "Racionální = kombinuji metody podle situace. Profesionální přístup k obsahové analýze." },
+            { category: "Indexace detail", q: "Jaká je nejčastější indexační chyba?", a: "Opominutí hledisek (18,6% chyb). Indexátor přehlédne důležitý aspekt dokumentu.", exp: "Opominutí = nevšiml jsem si. Systematická kontrola pomocí fazet může pomoci." },
+            { category: "Indexace detail", q: "V jaké fázi indexace vzniká nejvíce chyb?", a: "Ve fázi identifikace pojmů vzniká 42,3% všech chyb.", exp: "Identifikace pojmů je kritická fáze. Chyba zde se propaguje do celého SOD." },
+            { category: "Indexace detail", q: "Jaké jsou zdroje indexačních chyb?", a: "Indexátor (nezkušenost, nepozornost), indexační pravidla (nejasná, neúplná), řízený slovník (neaktuální, mezery).", exp: "Chyby mají různé zdroje - proto je třeba školit indexátory, udržovat pravidla i slovníky." },
+            { category: "Indexace detail", q: "Jaké jsou typy chyb podle vlivu na vyhledávání?", a: "Komplexní chyby snižující úplnost (23,4%), dílčí chyby snižující úplnost (22,1%), dílčí chyby snižující úplnost i přesnost (14,9%).", exp: "Některé chyby vedou k nenalezení dokumentu (recall), jiné k nalezení nerelevantních (precision)." },
+
+            // Konzistence indexace
+            { category: "Konzistence", q: "Jaký je vzorec pro konzistenci mezi dvěma indexátory?", a: "C = a / b, kde a = počet shodných znaků, b = celkový počet jedinečných znaků.", exp: "Příklad: oba přidělili 5 znaků, 3 se shodují. a=3, b=7 (5+5-3), C=3/7=43%." },
+            { category: "Konzistence", q: "Jak se počítá konzistence pro více indexátorů?", a: "C = průměr konzistenčních párů. Vypočítáme konzistenci pro každou dvojici a zprůměrujeme.", exp: "Pro 3 indexátory: C = (C12 + C13 + C23) / 3" },
+            { category: "Konzistence", q: "Jaký je vztah mezi kvalitou a konzistencí indexace?", a: "Konzistentní indexace nemusí být kvalitní, ale kvalitní indexace zahrnuje konzistenci. Konzistence zlepšuje efektivitu vyhledávání.", exp: "Dva indexátoři mohou být konzistentně špatní. Konzistence je nutná, ale ne dostačující podmínka kvality." },
+            { category: "Konzistence", q: "Co je interindexer a intraindexer konzistence?", a: "Interindexer = shoda mezi různými indexátory. Intraindexer = konzistence jednoho indexátora v čase.", exp: "Indexátor by měl být konzistentní sám se sebou - stejný dokument = stejný popis." },
+
+            // Redukované texty - detailněji
+            { category: "Redukované texty", q: "Co je strukturovaný abstrakt?", a: "Abstrakt uspořádaný do logických oddílů - obvykle: Cíl, Metody, Výsledky, Závěr.", exp: "Strukturovaný abstrakt je standardem ve vědeckých časopisech. Usnadňuje rychlou orientaci." },
+            { category: "Redukované texty", q: "Co je referát (review)?", a: "Souhrn obsahu orientující se na konkrétní přínosy a výsledky prezentované v dokumentu.", exp: "Referát je podrobnější než abstrakt - hodnotí a shrnuje hlavní výsledky." },
+            { category: "Redukované texty", q: "Co je resumé (summary)?", a: "Podrobný (často několikastránkový) cizojazyčný souhrn obsahu kopírující strukturu originální publikace.", exp: "Resumé je typicky na konci knihy v jiném jazyce - umožňuje cizincům porozumět obsahu." },
+            { category: "Redukované texty", q: "Co je extrakt (výtah)?", a: "Charakteristika obsahu sestavená z formulací originálního textu - citace klíčových částí.", exp: "Extrakt neformuluje vlastními slovy - vybírá a kopíruje důležité pasáže originálu." },
+            { category: "Redukované texty", q: "Jaký je rozdíl mezi anotací a abstraktem?", a: "Anotace je krátký informativní souhrn často s upoutávkou nebo hodnocením (nakladatelská). Abstrakt je věcná, objektivní charakteristika obsahu.", exp: "Anotace = reklamní text. Abstrakt = vědecké shrnutí. Anotace láká, abstrakt informuje." },
+
+            // Vyhledávání - detailněji
+            { category: "Vyhledávání detail", q: "Jak řízený slovník řeší synonymii?", a: "Definuje preferované termíny (deskriptory) a nepreferované (nedeskriptory) s odkazy USE/UF.", exp: "Synonyma jsou sjednocena pod jeden preferovaný termín - vyhledávání najde vše." },
+            { category: "Vyhledávání detail", q: "Jak řízený slovník řeší homonymii?", a: "Používá relátory v závorkách k rozlišení významu: koruna (měna) vs koruna (strom).", exp: "Relátor jednoznačně identifikuje význam - nedochází k záměně." },
+            { category: "Vyhledávání detail", q: "Co jsou proximitní operátory?", a: "Operátory určující vzdálenost hledaných výrazů - počtem slov (NEAR/5) nebo segmentem (SAME SENTENCE).", exp: "Proximitní operátory zvyšují přesnost - blízká slova obvykle tvoří smysluplnou frázi." },
+            { category: "Vyhledávání detail", q: "Co je query expansion?", a: "Automatické rozšíření dotazu o synonyma a příbuzné termíny z řízeného slovníku.", exp: "Systém přidá k 'automobil' i 'auto', 'vůz'. Zvyšuje úplnost (recall)." },
+            { category: "Vyhledávání detail", q: "Jak délka SOD ovlivňuje vyhledávání?", a: "Delší SOD (úplná indexace) → vyšší úplnost (recall). Kratší SOD (výběrová indexace) → vyšší přesnost (precision).", exp: "Více znaků = větší šance na shodu, ale i na falešnou shodu." },
+            { category: "Vyhledávání detail", q: "Jak ovlivňuje typ uživatele vyhledávání?", a: "Odborník využívá řízený slovník a strukturované vyhledávání. Běžný uživatel preferuje přirozený jazyk a fulltext.", exp: "Systémy musí podporovat oba přístupy - kombinace je ideální." },
+
+            // Konkrétní systémy - příklady
+            { category: "Příklady systémů", q: "Co je ERIC Thesaurus?", a: "Tezaurus pro oblast vzdělávání (Education Resources Information Center). Příklad oborového tezauru.", exp: "ERIC je americký systém pro pedagogickou literaturu. Tezaurus má omezenou, řízenou slovní zásobu." },
+            { category: "Příklady systémů", q: "Co je PSH (Polytematický strukturovaný heslář)?", a: "Český polytematický tezaurus spravovaný Národní technickou knihovnou. Pokrývá široké spektrum oborů.", exp: "PSH je český nástroj - důležitý pro práci s českou odbornou literaturou." },
+            { category: "Příklady systémů", q: "Co je MeSH?", a: "Medical Subject Headings - lékařský tezaurus pro indexaci biomedicínské literatury v databázi PubMed.", exp: "MeSH je standard pro lékařskou literaturu. Velmi podrobný a pravidelně aktualizovaný." },
+            { category: "Příklady systémů", q: "Co je AAT (Art & Architecture Thesaurus)?", a: "Tezaurus pro umění a architekturu spravovaný Getty Research Institute. Velmi podrobný slovník pro kulturní dědictví.", exp: "AAT je standard pro popis uměleckých děl a architektury. Mezinárodně uznávaný." },
+            { category: "Příklady systémů", q: "Co je BARTOC?", a: "Basel Register of Thesauri, Ontologies & Classifications - metakatalog řízených slovníků a klasifikací.", exp: "BARTOC je katalog katalogů - pomáhá najít vhodný řízený slovník pro konkrétní obor." },
+            { category: "Příklady systémů", q: "Co je Iconclass?", a: "Klasifikační systém pro popis ikonografického obsahu obrazů - co je na obraze zobrazeno.", exp: "Iconclass popisuje výtvarné náměty - postavy, příběhy, symboly v obrazech." },
+
+            // Hlavní třídy klasifikací
+            { category: "Hlavní třídy", q: "Kolik má DDC hlavních tříd?", a: "10 hlavních tříd (000-900): 000 Počítače a informace, 100 Filosofie, 200 Náboženství, 300 Sociální vědy, 400 Jazyky, 500 Přírodní vědy, 600 Technologie, 700 Umění, 800 Literatura, 900 Historie.", exp: "DDC má dekadickou strukturu - 10 hlavních tříd, každá se dělí na 10 podtříd atd." },
+            { category: "Hlavní třídy", q: "Kolik má LCC hlavních tříd?", a: "21 hlavních tříd označených písmeny: A-Všeobecnosti, B-Filosofie, C-Pomocné vědy historické, D-Světové dějiny, E-F Amerika, G-Geografie, H-Sociální vědy, J-Politika, K-Právo, L-Vzdělávání, M-Hudba, N-Výtvarné umění, P-Jazyk a literatura, Q-Věda, R-Medicína, S-Zemědělství, T-Technika, U-Vojenství, V-Námořnictví, Z-Bibliografie.", exp: "LCC používá písmena. Některé oblasti (E-F Amerika) jsou podrobnější - odráží americký původ." },
+            { category: "Hlavní třídy", q: "Kolik má MDT hlavních tříd?", a: "10 hlavních tříd (0-9): 0 Věda a poznání obecně, 1 Filosofie, 2 Náboženství, 3 Společenské vědy, 4 (volná), 5 Matematika a přírodní vědy, 6 Aplikované vědy, 7 Umění, 8 Jazykověda a literatura, 9 Geografie a dějiny.", exp: "MDT má prázdnou třídu 4 - umožňuje budoucí rozšíření. To je příklad expanzivity." },
+
+            // Přirozený vs umělý jazyk
+            { category: "PJ vs SJ", q: "Co je asymetrie přirozeného jazyka?", a: "Význam závisí na kontextu, mnoho výjimek, obsahuje synonyma a homonyma.", exp: "Přirozený jazyk je bohatý, ale nepřesný - jedno slovo může znamenat různé věci." },
+            { category: "PJ vs SJ", q: "Co je symetrie selekčního jazyka?", a: "Jednoznačný význam bez závislosti na kontextu, bez výjimek, synonyma a homonyma jsou vyloučena.", exp: "Selekční jazyk je přesný, ale chudší - jeden termín = jeden význam." },
+            { category: "PJ vs SJ", q: "Jaké jsou složky jazyka v porovnání PJ a SJ?", a: "Lexikum/slovník → řízený slovník. Morfologie/tvorba slov → konstrukce pořádacích znaků. Syntax/vztahy mezi slovy → kombinace pořádacích znaků.", exp: "SJ má analogické složky jako PJ, ale formalizované a kontrolované." },
+
+            // Praktické úlohy z přednášek
+            { category: "Praktické", q: "Jak vybrat lexikální jednotku z tezauru?", a: "1) Najít pojem v abecedním rejstříku. 2) Ověřit, že jde o deskriptor (ne nedeskriptor). 3) Zkontrolovat rozsah významu v poznámce. 4) Použít nejspecifičtější deskriptor.", exp: "Vždy ověřujte, že používáte preferovaný termín a že odpovídá zamýšlenému významu." },
+            { category: "Praktické", q: "Co je triáda v kontextu fazet?", a: "Trojice: specifický výraz → obecný výraz → fazeta. Např.: 'fortifikovaná vína' → 'nápoje' → 'obsah alkoholu'.", exp: "Triáda ukazuje hierarchii a klasifikační charakteristiku (fazetu)." },
+            { category: "Praktické", q: "Jak správně zapsat lexikální jednotku z tezauru?", a: "Přesně podle slovníku včetně velkých/malých písmen a čísla (plurál/singulár). Např. 'jízdní kola' (ne 'jízdní kolo').", exp: "Přesný zápis je důležitý pro strojové zpracování a vyhledávání." }
         ];
 
         const quizData = [
@@ -2677,7 +2795,81 @@ Proč třídíme,Co je informační exploze?,Růst množství dat...,Vysvětlen�
             { q: "Co je inverze sousloví v předmětových heslech?", options: ["Typ notace", "Přehození pořadí slov pro abecední řazení", "Metoda indexace", "Typ klasifikace"], correct: 1, cat: "Předmětové SJ", exp: "Inverze sousloví = přehození pořadí slov pro lepší abecední řazení. Např. 'ložiska metamorfovaná' místo 'metamorfovaná ložiska'." },
             { q: "Podle jaké normy se tvoří české předmětová hesla?", options: ["ČSN 01 0172", "ČSN 01 0188", "ČSN 01 0193", "ISO 2709"], correct: 1, cat: "Předmětové SJ", exp: "ČSN 01 0188 je česká norma pro tvorbu předmětových hesel - definuje strukturu a pravidla jejich tvorby." },
             { q: "Podle jaké normy se tvoří jednojazyčné tezaury?", options: ["ČSN 01 0188", "ČSN 01 0193", "ČSN 01 0172", "ISO 2709"], correct: 1, cat: "Předmětové SJ", exp: "ČSN 01 0193 je norma pro tvorbu jednojazyčných tezaurů - definuje strukturu, vztahy a pravidla." },
-            { q: "Podle jaké normy se tvoří vícejazyčné tezaury?", options: ["ČSN 01 0188", "ČSN 01 0193", "ČSN 01 0172", "ISO 2709"], correct: 2, cat: "Předmětové SJ", exp: "ČSN 01 0172 je norma pro tvorbu vícejazyčných tezaurů - řeší ekvivalenci termínů mezi jazyky." }
+            { q: "Podle jaké normy se tvoří vícejazyčné tezaury?", options: ["ČSN 01 0188", "ČSN 01 0193", "ČSN 01 0172", "ISO 2709"], correct: 2, cat: "Předmětové SJ", exp: "ČSN 01 0172 je norma pro tvorbu vícejazyčných tezaurů - řeší ekvivalenci termínů mezi jazyky." },
+
+            // === NOVÉ OTÁZKY Z PŘEDNÁŠEK ===
+
+            // Sbírky
+            { q: "Co znamená zkratka GLAM?", options: ["General Library and Museum", "Galleries, Libraries, Archives, Museums", "Global Library Access Model", "Government Libraries and Archives Management"], correct: 1, cat: "Sbírky", exp: "GLAM = Galleries, Libraries, Archives, Museums - souhrnné označení pro sbírkové/paměťové instituce." },
+            { q: "Co je primární funkce sbírky?", options: ["Prodej objektů", "Estetická funkce", "Informační funkce", "Archivační funkce"], correct: 2, cat: "Sbírky", exp: "Sbírka má primárně informační funkci - podpora poznání. Sekundárně může mít funkci estetickou, ekonomickou, archivační či sociální." },
+            { q: "Je antikvariát sbírka?", options: ["Ano, vždy", "Ne, má primárně prodejní funkci", "Záleží na velikosti", "Pouze pokud má katalog"], correct: 1, cat: "Sbírky", exp: "Antikvariát není sbírka, protože jeho primární funkcí je prodej, nikoli informační funkce." },
+            { q: "Co je virtuální sbírka?", options: ["Sbírka digitálních kopií", "Sbírka propojující objekty digitálně bez ohledu na fyzické umístění", "Sbírka ve virtuální realitě", "Online katalog"], correct: 1, cat: "Sbírky", exp: "Virtuální sbírka propojuje objekty digitálně bez ohledu na jejich fyzické umístění - může zahrnovat objekty z různých institucí." },
+
+            // Atributy IO
+            { q: "Kolik je dokumentografických úrovní popisu IO?", options: ["3", "4", "6", "10"], correct: 2, cat: "Atributy IO", exp: "Je 6 úrovní: A) nosič/médium, B) forma, C) typ/druh, D) formát obsahu, E) žánr, F) obsah." },
+            { q: "Co je 'forma' informačního objektu?", options: ["Fyzický materiál nosiče", "Konkrétní podoba nosiče (kniha, CD)", "Způsob záznamu informací", "Literární žánr"], correct: 1, cat: "Atributy IO", exp: "Forma je konkrétní podoba nosiče - např. kniha, gramofonová deska, databáze, webová stránka." },
+            { q: "Co je 'formát obsahu' IO?", options: ["Rozměry dokumentu", "Způsob záznamu informací (text, obraz, zvuk)", "Typ vazby knihy", "Počet stran"], correct: 1, cat: "Atributy IO", exp: "Formát obsahu je způsob záznamu informací - text, obraz, zvuk, audiovizuální, data, komiks." },
+            { q: "Jaká NENÍ funkční vlastnost IO?", options: ["Dokumentuje", "Reprezentuje", "Klasifikuje", "Komunikuje"], correct: 2, cat: "Atributy IO", exp: "IO dokumentuje, deskribuje, reprezentuje a komunikuje. Klasifikuje ho informační specialista, ne IO sám." },
+            { q: "Co je faksimile?", options: ["Originál díla", "Běžná kopie", "Přesná kopie originálu", "Podvrh"], correct: 2, cat: "Atributy IO", exp: "Faksimile je přesná kopie originálu zachovávající jeho vzhled. Liší se od běžné kopie i od falzifikátu." },
+
+            // LRM model
+            { q: "Co nahradil model LRM?", options: ["DDC", "FRBR", "MARC", "RDA"], correct: 1, cat: "LRM", exp: "LRM (Library Reference Model) nahradil dřívější FRBR (Functional Requirements for Bibliographic Records)." },
+            { q: "Co je entita 'Dílo' v LRM?", options: ["Konkrétní kniha", "Abstraktní intelektuální výtvor", "Vydání knihy", "Exemplář v knihovně"], correct: 1, cat: "LRM", exp: "Dílo je abstraktní intelektuální nebo umělecký výtvor - např. 'Babička' jako koncept, nezávisle na konkrétním vydání." },
+            { q: "Co je 'Provedení' v LRM?", options: ["Abstraktní dílo", "Překlad díla", "Konkrétní vydání (nakladatelství, rok)", "Jeden výtisk"], correct: 2, cat: "LRM", exp: "Provedení je fyzické ztělesnění vyjádření - konkrétní vydání u konkrétního nakladatele v konkrétním roce." },
+            { q: "Co je 'Jednotka' v LRM?", options: ["Abstraktní dílo", "Typ vyjádření", "Vydání", "Konkrétní exemplář"], correct: 3, cat: "LRM", exp: "Jednotka je konkrétní exemplář provedení - tento výtisk knihy, který držím v ruce." },
+
+            // Notace
+            { q: "Jakou notaci používá DDC?", options: ["Alfabetickou", "Alfanumerickou", "Desetinnou numerickou", "Smíšenou"], correct: 2, cat: "Notace", exp: "DDC používá desetinnou numerickou notaci - čísla jako 821.162.3 označují třídy hierarchicky." },
+            { q: "Jakou notaci používá LCC?", options: ["Čistě numerickou", "Čistě alfabetickou", "Alfanumerickou (smíšenou)", "Desetinnou"], correct: 2, cat: "Notace", exp: "LCC používá alfanumerickou (smíšenou) notaci - kombinuje písmena a čísla, např. PS3511.I9." },
+            { q: "Co je expanzivní notace?", options: ["Velmi dlouhá notace", "Notace umožňující přidávat nové třídy", "Typ DDC", "Notace s mnoha symboly"], correct: 1, cat: "Notace", exp: "Expanzivní notace umožňuje přidávání nových tříd bez narušení stávající struktury - 'pohostinnost' systému." },
+            { q: "Co je mnemotechnická notace?", options: ["Notace založená na numerických kódech", "Notace snadno zapamatovatelná (M=Music)", "Notace používající speciální znaky", "Automaticky generovaná notace"], correct: 1, cat: "Notace", exp: "Mnemotechnická notace je navržena pro snadné zapamatování - např. M pro hudbu v LCC." },
+            { q: "Co jsou separátory v notaci?", options: ["Mezery mezi slovy", "Symboly oddělující části složené notace", "Čísla tříd", "Oddělovače stran"], correct: 1, cat: "Notace", exp: "Separátory (tečka, dvojtečka, závorky) oddělují části složené notace a umožňují kombinovat znaky." },
+
+            // Pre/postkoordinace
+            { q: "Co je sémantický rozklad?", options: ["Rozklad podle slovních částí", "Rozklad podle významu (nedoporučuje se)", "Rozklad podle fazet", "Rozklad podle hierarchie"], correct: 1, cat: "Pre/Post", exp: "Sémantický rozklad rozkládá pojem podle významu (barometr = tlak + měření + přístroj) - nedoporučuje se, ztrácí se smysl." },
+            { q: "Co je syntaktický rozklad?", options: ["Rozklad podle významu", "Rozklad podle slovních částí", "Rozklad podle velikosti", "Rozklad podle času"], correct: 1, cat: "Pre/Post", exp: "Syntaktický rozklad rozkládá sousloví podle slovních částí (knihovnické časopisy = knihovnictví + časopisy)." },
+            { q: "Kdy použít prekoordinaci?", options: ["Vždy", "Když rozklad vede ke ztrátě významu", "Nikdy", "Pouze u číselníků"], correct: 1, cat: "Pre/Post", exp: "Prekoordinaci použijeme, když je sousloví běžné, rozklad vede ke ztrátě významu, nebo obsahuje vlastní jméno." },
+
+            // Indexace detaily
+            { q: "Co je kurzorické čtení?", options: ["Důkladné čtení", "Rychlé diagonální procházení textu", "Čtení nahlas", "Čtení pozpátku"], correct: 1, cat: "Indexace", exp: "Kurzorické (diagonální) čtení je rychlé procházení textu zaměřené na klíčová slova a zvýrazněné části." },
+            { q: "Co je statarické čtení?", options: ["Rychlé přeskakování", "Důkladné pomalé čtení s porozuměním", "Selektivní hledání", "Čtení pouze nadpisů"], correct: 1, cat: "Indexace", exp: "Statarické čtení je důkladné, pomalé čtení celého textu s plným porozuměním." },
+            { q: "V jaké fázi indexace vzniká nejvíce chyb?", options: ["Obsahová analýza", "Identifikace pojmů", "Výběr deskriptorů", "Zápis SOD"], correct: 1, cat: "Indexace", exp: "Ve fázi identifikace pojmů vzniká 42,3% všech chyb - nejčastěji opominutí hledisek." },
+            { q: "Jaká je nejčastější indexační chyba?", options: ["Překlep v deskriptoru", "Opominutí hledisek", "Použití nesprávné notace", "Záměna homonym"], correct: 1, cat: "Indexace", exp: "Opominutí hledisek (18,6% chyb) je nejčastější chyba - indexátor přehlédne důležitý aspekt dokumentu." },
+
+            // Konzistence
+            { q: "Co je interindexer konzistence?", options: ["Konzistence jednoho indexátora", "Shoda mezi různými indexátory", "Konzistence notace", "Shoda slovníků"], correct: 1, cat: "Konzistence", exp: "Interindexer konzistence je shoda indexace mezi dvěma nebo více indexátory indexujícími stejný dokument." },
+            { q: "Co je intraindexer konzistence?", options: ["Shoda mezi indexátory", "Konzistence jednoho indexátora v čase", "Konzistence slovníku", "Shoda klasifikací"], correct: 1, cat: "Konzistence", exp: "Intraindexer konzistence je konzistence jednoho indexátora - zda stejný dokument popisuje stejně." },
+            { q: "Jak se počítá konzistence mezi dvěma indexátory?", options: ["C = a × b", "C = a / b", "C = a + b", "C = a - b"], correct: 1, cat: "Konzistence", exp: "C = a / b, kde a = počet shodných znaků, b = celkový počet jedinečných znaků." },
+
+            // Redukované texty
+            { q: "Co je strukturovaný abstrakt?", options: ["Abstrakt bez struktury", "Abstrakt s oddíly (Cíl, Metody, Výsledky)", "Abstrakt s obrázky", "Automaticky generovaný abstrakt"], correct: 1, cat: "Redukované texty", exp: "Strukturovaný abstrakt je uspořádán do logických oddílů - obvykle Cíl, Metody, Výsledky, Závěr." },
+            { q: "Co je resumé?", options: ["Krátká anotace", "Podrobný cizojazyčný souhrn", "Reklamní text", "Seznam klíčových slov"], correct: 1, cat: "Redukované texty", exp: "Resumé je podrobný (často několikastránkový) cizojazyčný souhrn kopírující strukturu originálu." },
+            { q: "Co je extrakt?", options: ["Souhrn vlastními slovy", "Výběr citací z originálního textu", "Překlad abstraktu", "Typ bibliografie"], correct: 1, cat: "Redukované texty", exp: "Extrakt je charakteristika obsahu sestavená z formulací (citací) originálního textu." },
+            { q: "Jaký je rozdíl mezi anotací a abstraktem?", options: ["Žádný", "Anotace je reklamní, abstrakt je objektivní", "Abstrakt je kratší", "Anotace je v cizím jazyce"], correct: 1, cat: "Redukované texty", exp: "Anotace je často reklamní text s upoutávkou. Abstrakt je věcná, objektivní charakteristika obsahu." },
+
+            // Vyhledávání
+            { q: "Co je query expansion?", options: ["Zkrácení dotazu", "Automatické rozšíření dotazu o synonyma", "Typ proximitního operátoru", "Metoda indexace"], correct: 1, cat: "Vyhledávání", exp: "Query expansion je automatické rozšíření dotazu o synonyma a příbuzné termíny z řízeného slovníku." },
+            { q: "Co jsou proximitní operátory?", options: ["Booleovské operátory", "Operátory určující vzdálenost výrazů", "Operátory pro řazení", "Operátory pro filtrování"], correct: 1, cat: "Vyhledávání", exp: "Proximitní operátory určují vzdálenost hledaných výrazů - počtem slov nebo segmentem textu." },
+            { q: "Jak řízený slovník řeší synonymii?", options: ["Ignoruje ji", "Definuje preferované a nepreferované termíny", "Používá pouze homonyma", "Neumožňuje synonyma"], correct: 1, cat: "Vyhledávání", exp: "Řízený slovník definuje deskriptory (preferované) a nedeskriptory (nepreferované synonyma) s odkazy USE/UF." },
+
+            // Konkrétní systémy
+            { q: "Co je PSH?", options: ["Americký tezaurus", "Český polytematický tezaurus NTK", "Německá klasifikace", "Mezinárodní norma"], correct: 1, cat: "Systémy", exp: "PSH = Polytematický strukturovaný heslář - český polytematický tezaurus spravovaný Národní technickou knihovnou." },
+            { q: "Co je MeSH?", options: ["Klasifikace patentů", "Lékařský tezaurus pro PubMed", "Tezaurus pro umění", "Norma pro metadata"], correct: 1, cat: "Systémy", exp: "MeSH = Medical Subject Headings - lékařský tezaurus pro indexaci biomedicínské literatury v PubMed." },
+            { q: "Co je BARTOC?", options: ["Klasifikační systém", "Metakatalog řízených slovníků", "Typ tezauru", "Bibliografická databáze"], correct: 1, cat: "Systémy", exp: "BARTOC = Basel Register of Thesauri, Ontologies & Classifications - metakatalog (katalog katalogů) řízených slovníků." },
+            { q: "Co je Iconclass?", options: ["Klasifikace hudby", "Klasifikace ikonografického obsahu obrazů", "Typ notace", "Digitální archiv"], correct: 1, cat: "Systémy", exp: "Iconclass je klasifikační systém pro popis ikonografického obsahu (námětů, motivů) v obrazech." },
+
+            // Hlavní třídy
+            { q: "Kolik hlavních tříd má DDC?", options: ["5", "10", "21", "100"], correct: 1, cat: "Systematické SJ", exp: "DDC má 10 hlavních tříd (000-900) - dekadická struktura, každá třída se dělí na 10 podtříd." },
+            { q: "Kolik hlavních tříd má LCC?", options: ["10", "21", "26", "100"], correct: 1, cat: "Systematické SJ", exp: "LCC má 21 hlavních tříd označených písmeny (A-Z, některá písmena se nepoužívají)." },
+            { q: "Která třída je v MDT prázdná?", options: ["0", "4", "6", "9"], correct: 1, cat: "Systematické SJ", exp: "Třída 4 je v MDT prázdná - umožňuje budoucí rozšíření. Je to příklad expanzivity systému." },
+
+            // PJ vs SJ
+            { q: "Co je asymetrie přirozeného jazyka?", options: ["Jednotný význam slov", "Závislost významu na kontextu, výjimky, synonyma", "Přesná pravidla", "Jednoznačnost"], correct: 1, cat: "PJ vs SJ", exp: "Asymetrie = význam závisí na kontextu, mnoho výjimek, obsahuje synonyma a homonyma." },
+            { q: "Co je symetrie selekčního jazyka?", options: ["Závislost na kontextu", "Jednoznačný význam bez výjimek", "Mnoho synonym", "Flexibilní pravidla"], correct: 1, cat: "PJ vs SJ", exp: "Symetrie = jednoznačný význam bez závislosti na kontextu, bez výjimek, synonyma/homonyma vyloučena." },
+
+            // Praktické otázky
+            { q: "Co je triáda v kontextu fazet?", options: ["Tři knihy", "Trojice: specifický výraz → obecný výraz → fazeta", "Typ klasifikace", "Tři indexátoři"], correct: 1, cat: "Praktické", exp: "Triáda ukazuje hierarchii: např. 'fortifikovaná vína' → 'nápoje' → fazeta 'obsah alkoholu'." },
+            { q: "Proč je důležitý přesný zápis lexikální jednotky?", options: ["Estetické důvody", "Pro strojové zpracování a vyhledávání", "Historické důvody", "Není důležitý"], correct: 1, cat: "Praktické", exp: "Přesný zápis (včetně velkých/malých písmen a plurálu) je klíčový pro strojové zpracování a správné vyhledávání." }
         ];
 
         const topicsData = [
@@ -2774,6 +2966,178 @@ Proč třídíme,Co je informační exploze?,Růst množství dat...,Vysvětlen�
                     { term: "EuroVoc", def: "Evropský mnohojazyčný tezaurus pro právní informace." },
                     { term: "MSC", def: "Klasifikace matematických schémat." },
                     { term: "NACE/CZ-NACE", def: "Klasifikace ekonomických činností." }
+                ]
+            },
+            {
+                icon: "📚",
+                title: "Sbírky a kolekce",
+                description: "Definice sbírky, vlastnosti sbírek, fyzické vs virtuální sbírky, GLAM instituce.",
+                concepts: [
+                    { term: "Sbírka", def: "Subsystém IS vytvářený za účelem, primárně plní informační funkci (podpora poznání)." },
+                    { term: "GLAM", def: "Galleries, Libraries, Archives, Museums - sbírkové/paměťové instituce." },
+                    { term: "Fyzická sbírka", def: "Sbírka hmotných objektů na jednom místě (knihovna, muzeum)." },
+                    { term: "Virtuální sbírka", def: "Digitálně propojené objekty bez ohledu na fyzické umístění." },
+                    { term: "Sbírka vs nesbírka", def: "Sbírka = informační funkce (knihovna). Nesbírka = jiná funkce (antikvariát = prodej)." }
+                ]
+            },
+            {
+                icon: "📋",
+                title: "Atributy informačního objektu",
+                description: "Dokumentografické úrovně popisu, funkční a strukturální vlastnosti IO.",
+                concepts: [
+                    { term: "Nosič/médium", def: "Fyzický materiál nesoucí informaci - analogový nebo digitální." },
+                    { term: "Forma", def: "Konkrétní podoba nosiče - kniha, gramofonová deska, databáze, web." },
+                    { term: "Typ/druh", def: "Specifická varianta formy - tištěná kniha, LP deska, relační databáze." },
+                    { term: "Formát obsahu", def: "Způsob záznamu - text, obraz, zvuk, audiovizuální, data, komiks." },
+                    { term: "Žánr", def: "Tematická/stylová kategorie - epos, beletrie, písně, faktografie." },
+                    { term: "Obsah", def: "Konkrétní téma dokumentu." }
+                ]
+            },
+            {
+                icon: "📖",
+                title: "LRM - Library Reference Model",
+                description: "Koncepční model pro popis bibliografických entit (Dílo, Vyjádření, Provedení, Jednotka).",
+                concepts: [
+                    { term: "Dílo (Work)", def: "Abstraktní intelektuální/umělecký výtvor (např. 'Babička' jako koncept)." },
+                    { term: "Vyjádření (Expression)", def: "Realizace díla - český originál, anglický překlad, audiokniha." },
+                    { term: "Provedení (Manifestation)", def: "Fyzické ztělesnění - konkrétní vydání (Albatros 2020)." },
+                    { term: "Jednotka (Item)", def: "Konkrétní exemplář provedení - tento výtisk v mých rukou." },
+                    { term: "FRBR", def: "Předchůdce LRM - Functional Requirements for Bibliographic Records." }
+                ]
+            },
+            {
+                icon: "🔢",
+                title: "Notační systémy",
+                description: "Typy notace, expanzivita, mnemotechnika, separátory v klasifikačních systémech.",
+                concepts: [
+                    { term: "Numerická notace", def: "Používá pouze čísla (DDC: 821.162.3)." },
+                    { term: "Alfanumerická notace", def: "Kombinuje písmena a čísla (LCC: PS3511.I9)." },
+                    { term: "Expanzivní notace", def: "Umožňuje přidávat nové třídy bez narušení struktury." },
+                    { term: "Mnemotechnická notace", def: "Snadno zapamatovatelná (M=Music, L=Literature)." },
+                    { term: "Separátor", def: "Symbol oddělující části složené notace (. : + / v MDT)." },
+                    { term: "Hierarchická notace", def: "Notace vyjadřující hierarchii (A11.1.01...)." }
+                ]
+            },
+            {
+                icon: "🔄",
+                title: "Pre/Postkoordinace podrobně",
+                description: "Sémantický vs syntaktický rozklad, pravidla pro sousloví, aplikační dopady.",
+                concepts: [
+                    { term: "Sémantický rozklad", def: "Rozklad podle významu (barometr = tlak + měření + přístroj) - NEDOPORUČUJE SE." },
+                    { term: "Syntaktický rozklad", def: "Rozklad podle slovních částí (knihovnické časopisy = knihovnictví + časopisy)." },
+                    { term: "Kdy prekoordinovat", def: "Běžné sousloví, ztráta významu při rozkladu, vlastní jméno, modifikátor ztratil původní význam." },
+                    { term: "Princip vlastnost-nositel", def: "lodní motor = lodě + motory; indexace článků = indexace + články." }
+                ]
+            },
+            {
+                icon: "📝",
+                title: "Obsahová analýza podrobně",
+                description: "Typy čtení, fáze indexace, indexační chyby, faktory ovlivňující indexaci.",
+                concepts: [
+                    { term: "Orientační čtení", def: "Rychlé zjištění základních informací - název, autor, abstrakt." },
+                    { term: "Kurzorické čtení", def: "Diagonální procházení textu zaměřené na klíčová slova." },
+                    { term: "Selektivní čtení", def: "Cílené hledání konkrétní informace v textu." },
+                    { term: "Statarické čtení", def: "Důkladné, pomalé čtení s plným porozuměním." },
+                    { term: "Racionální čtení", def: "Kombinace metod podle potřeby - profesionální přístup." },
+                    { term: "Opominutí hledisek", def: "Nejčastější indexační chyba (18,6% chyb)." },
+                    { term: "42,3% chyb", def: "Vzniká ve fázi identifikace pojmů." }
+                ]
+            },
+            {
+                icon: "📊",
+                title: "Konzistence a kvalita indexace",
+                description: "Metriky konzistence, výpočet, vztah kvality a konzistence, indexační experimenty.",
+                concepts: [
+                    { term: "Interindexer konzistence", def: "Shoda mezi různými indexátory." },
+                    { term: "Intraindexer konzistence", def: "Konzistence jednoho indexátora v čase." },
+                    { term: "Vzorec C = a/b", def: "a = shodné znaky, b = všechny jedinečné znaky." },
+                    { term: "Kvalita vs konzistence", def: "Konzistentní nemusí být kvalitní, ale kvalitní zahrnuje konzistenci." },
+                    { term: "Recall (úplnost)", def: "Vyhledané relevantní / všechny relevantní." },
+                    { term: "Precision (přesnost)", def: "Vyhledané relevantní / všechny vyhledané." }
+                ]
+            },
+            {
+                icon: "📄",
+                title: "Redukované texty",
+                description: "Abstrakt, anotace, referát, resumé, extrakt - typy a rozdíly.",
+                concepts: [
+                    { term: "Abstrakt", def: "Věcná, objektivní charakteristika obsahu dokumentu." },
+                    { term: "Strukturovaný abstrakt", def: "Abstrakt s oddíly: Cíl, Metody, Výsledky, Závěr." },
+                    { term: "Anotace", def: "Krátký informativní souhrn, často reklamního charakteru." },
+                    { term: "Referát", def: "Souhrn orientující se na přínosy a výsledky." },
+                    { term: "Resumé", def: "Podrobný cizojazyčný souhrn kopírující strukturu originálu." },
+                    { term: "Extrakt", def: "Charakteristika obsahu z citací originálního textu." }
+                ]
+            },
+            {
+                icon: "🔎",
+                title: "Vyhledávání podrobně",
+                description: "Řízený slovník vs fulltext, proximitní operátory, query expansion, faktory vyhledávání.",
+                concepts: [
+                    { term: "Řízený slovník řeší", def: "Synonymii (deskriptory), homonymii (relátory), paradigmatické vztahy (struktura)." },
+                    { term: "Fulltext výhody", def: "Přístupný všem, nové termíny bez zpoždění, všechny specifické výrazy." },
+                    { term: "Proximitní operátory", def: "NEAR/5 = max 5 slov mezi výrazy, SAME SENTENCE." },
+                    { term: "Query expansion", def: "Automatické rozšíření dotazu o synonyma a příbuzné termíny." },
+                    { term: "Délka SOD", def: "Delší → vyšší recall. Kratší → vyšší precision." }
+                ]
+            },
+            {
+                icon: "🗂️",
+                title: "Konkrétní systémy - příklady",
+                description: "PSH, MeSH, AAT, ERIC, Iconclass, BARTOC a jejich použití.",
+                concepts: [
+                    { term: "PSH", def: "Polytematický strukturovaný heslář - český tezaurus NTK." },
+                    { term: "MeSH", def: "Medical Subject Headings - lékařský tezaurus pro PubMed." },
+                    { term: "AAT", def: "Art & Architecture Thesaurus - Getty pro kulturní dědictví." },
+                    { term: "ERIC Thesaurus", def: "Tezaurus pro vzdělávání (Education Resources Information Center)." },
+                    { term: "Iconclass", def: "Klasifikace ikonografického obsahu obrazů." },
+                    { term: "BARTOC", def: "Metakatalog řízených slovníků a klasifikací (katalog katalogů)." }
+                ]
+            },
+            {
+                icon: "🎯",
+                title: "Hlavní třídy klasifikací",
+                description: "Přehled hlavních tříd DDC, LCC a MDT.",
+                concepts: [
+                    { term: "DDC (10 tříd)", def: "000-Počítače, 100-Filosofie, 200-Náboženství, 300-Soc.vědy, 400-Jazyky, 500-Přír.vědy, 600-Technika, 700-Umění, 800-Literatura, 900-Historie." },
+                    { term: "LCC (21 tříd)", def: "Písmena A-Z (ne všechna), např. A-Všeobecnosti, B-Filosofie, M-Hudba, P-Jazyk/literatura, Q-Věda." },
+                    { term: "MDT (10 tříd)", def: "0-Věda obecně, 1-Filosofie, 2-Náboženství, 3-Spol.vědy, 4-(volná), 5-Matematika/přírodověda, 6-Aplikované vědy, 7-Umění, 8-Jazykověda/literatura, 9-Geografie/dějiny." },
+                    { term: "Třída 4 v MDT", def: "Prázdná třída - příklad expanzivity systému." }
+                ]
+            },
+            {
+                icon: "⚖️",
+                title: "Přirozený vs selekční jazyk",
+                description: "Asymetrie vs symetrie, složky jazyka, paradigmatické vs syntagmatické vztahy.",
+                concepts: [
+                    { term: "Asymetrie PJ", def: "Význam závisí na kontextu, výjimky, synonyma/homonyma." },
+                    { term: "Symetrie SJ", def: "Jednoznačný význam, bez výjimek, synonyma/homonyma vyloučena." },
+                    { term: "Lexikum → Řízený slovník", def: "Slovní zásoba je kontrolována a strukturována." },
+                    { term: "Paradigmatický vztah", def: "Nezávislý na kontextu (apriorní) - synonymie, hierarchie." },
+                    { term: "Syntagmatický vztah", def: "Daný kontextem (aposteriorní) - vzniká v textu." }
+                ]
+            },
+            {
+                icon: "🚀",
+                title: "Budoucnost organizace informací",
+                description: "Trendy, LOD, ontologie, automatizace, AI v organizaci informací.",
+                concepts: [
+                    { term: "LOD", def: "Linked Open Data - propojená otevřená data pro maximální sdílení." },
+                    { term: "Ontologie", def: "Pojmový model domény pro strojové zpracování a odvozování znalostí." },
+                    { term: "XAI", def: "Explainable AI - AI vysvětlující, jak došla k výsledku." },
+                    { term: "Trendy", def: "Od dokumentů k informacím, automatizace, standardizace (LOD), uživatelská přívětivost." },
+                    { term: "MARC", def: "Machine-Readable Cataloging - formát z 60. let pro výměnu bibliografických dat." }
+                ]
+            },
+            {
+                icon: "✅",
+                title: "Praktické dovednosti",
+                description: "Výběr lexikálních jednotek, triády, správný zápis, řešení úkolů.",
+                concepts: [
+                    { term: "Výběr LJ z tezauru", def: "1) Najít v rejstříku, 2) Ověřit deskriptor, 3) Zkontrolovat rozsah, 4) Nejspecifičtější." },
+                    { term: "Triáda", def: "Specifický výraz → obecný výraz → fazeta (např. fortifikovaná vína → nápoje → obsah alkoholu)." },
+                    { term: "Přesný zápis LJ", def: "Včetně velkých/malých písmen a plurálu - pro strojové zpracování." },
+                    { term: "Dokumentografické úrovně", def: "A-nosič, B-forma, C-typ, D-formát obsahu, E-žánr, F-obsah." }
                 ]
             }
         ];
@@ -4119,6 +4483,208 @@ Proč třídíme,Co je informační exploze?,Růst množství dat...,Vysvětlen�
                                     <strong>Typ:</strong> Fazetový<br>
                                     <strong>Základ:</strong> Filosofický<br>
                                     <strong>Rozšíření:</strong> Minimální
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `
+            },
+            lrm: {
+                title: "LRM - Library Reference Model",
+                content: `
+                    <div style="padding: 1rem;">
+                        <div style="display: flex; flex-direction: column; gap: 1rem; max-width: 600px; margin: 0 auto;">
+                            <div style="display: flex; align-items: center; gap: 1rem;">
+                                <div style="background: var(--primary); color: white; width: 50px; height: 50px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; flex-shrink: 0;">💡</div>
+                                <div style="flex: 1; background: var(--bg-light); padding: 1rem; border-radius: 10px; border-left: 3px solid var(--primary);">
+                                    <strong style="color: var(--primary);">DÍLO (Work)</strong>
+                                    <p style="color: var(--text-muted); font-size: 0.85rem; margin: 0.25rem 0 0 0;">Abstraktní intelektuální/umělecký výtvor<br><em>Př: "Babička" jako literární koncept</em></p>
+                                </div>
+                            </div>
+                            <div style="text-align: center; color: var(--text-muted);">↓ realizováno jako ↓</div>
+                            <div style="display: flex; align-items: center; gap: 1rem;">
+                                <div style="background: var(--secondary); color: white; width: 50px; height: 50px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; flex-shrink: 0;">📝</div>
+                                <div style="flex: 1; background: var(--bg-light); padding: 1rem; border-radius: 10px; border-left: 3px solid var(--secondary);">
+                                    <strong style="color: var(--secondary);">VYJÁDŘENÍ (Expression)</strong>
+                                    <p style="color: var(--text-muted); font-size: 0.85rem; margin: 0.25rem 0 0 0;">Konkrétní realizace díla<br><em>Př: Český originál, anglický překlad, audiokniha</em></p>
+                                </div>
+                            </div>
+                            <div style="text-align: center; color: var(--text-muted);">↓ ztělesněno v ↓</div>
+                            <div style="display: flex; align-items: center; gap: 1rem;">
+                                <div style="background: var(--warning); color: white; width: 50px; height: 50px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; flex-shrink: 0;">📚</div>
+                                <div style="flex: 1; background: var(--bg-light); padding: 1rem; border-radius: 10px; border-left: 3px solid var(--warning);">
+                                    <strong style="color: var(--warning);">PROVEDENÍ (Manifestation)</strong>
+                                    <p style="color: var(--text-muted); font-size: 0.85rem; margin: 0.25rem 0 0 0;">Konkrétní vydání<br><em>Př: Albatros 2020, Odeon 1985</em></p>
+                                </div>
+                            </div>
+                            <div style="text-align: center; color: var(--text-muted);">↓ exemplifikováno jako ↓</div>
+                            <div style="display: flex; align-items: center; gap: 1rem;">
+                                <div style="background: var(--danger); color: white; width: 50px; height: 50px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; flex-shrink: 0;">📖</div>
+                                <div style="flex: 1; background: var(--bg-light); padding: 1rem; border-radius: 10px; border-left: 3px solid var(--danger);">
+                                    <strong style="color: var(--danger);">JEDNOTKA (Item)</strong>
+                                    <p style="color: var(--text-muted); font-size: 0.85rem; margin: 0.25rem 0 0 0;">Konkrétní exemplář<br><em>Př: Tento výtisk v mých rukou</em></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `
+            },
+            doclevels: {
+                title: "Dokumentografické úrovně IO",
+                content: `
+                    <div style="padding: 1rem;">
+                        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 1rem; max-width: 900px; margin: 0 auto;">
+                            <div style="background: var(--bg-light); padding: 1rem; border-radius: 10px; border-top: 4px solid #ef4444; text-align: center;">
+                                <div style="font-weight: 700; color: #ef4444; font-size: 1.5rem;">A</div>
+                                <div style="font-weight: 600; margin: 0.5rem 0;">Nosič/médium</div>
+                                <div style="color: var(--text-muted); font-size: 0.8rem;">papír, digitální</div>
+                            </div>
+                            <div style="background: var(--bg-light); padding: 1rem; border-radius: 10px; border-top: 4px solid #f59e0b; text-align: center;">
+                                <div style="font-weight: 700; color: #f59e0b; font-size: 1.5rem;">B</div>
+                                <div style="font-weight: 600; margin: 0.5rem 0;">Forma</div>
+                                <div style="color: var(--text-muted); font-size: 0.8rem;">kniha, databáze</div>
+                            </div>
+                            <div style="background: var(--bg-light); padding: 1rem; border-radius: 10px; border-top: 4px solid #10b981; text-align: center;">
+                                <div style="font-weight: 700; color: #10b981; font-size: 1.5rem;">C</div>
+                                <div style="font-weight: 600; margin: 0.5rem 0;">Typ/druh</div>
+                                <div style="color: var(--text-muted); font-size: 0.8rem;">tištěná kniha, LP</div>
+                            </div>
+                            <div style="background: var(--bg-light); padding: 1rem; border-radius: 10px; border-top: 4px solid #6366f1; text-align: center;">
+                                <div style="font-weight: 700; color: #6366f1; font-size: 1.5rem;">D</div>
+                                <div style="font-weight: 600; margin: 0.5rem 0;">Formát obsahu</div>
+                                <div style="color: var(--text-muted); font-size: 0.8rem;">text, obraz, zvuk</div>
+                            </div>
+                            <div style="background: var(--bg-light); padding: 1rem; border-radius: 10px; border-top: 4px solid #8b5cf6; text-align: center;">
+                                <div style="font-weight: 700; color: #8b5cf6; font-size: 1.5rem;">E</div>
+                                <div style="font-weight: 600; margin: 0.5rem 0;">Žánr</div>
+                                <div style="color: var(--text-muted); font-size: 0.8rem;">beletrie, faktografie</div>
+                            </div>
+                            <div style="background: var(--bg-light); padding: 1rem; border-radius: 10px; border-top: 4px solid #ec4899; text-align: center;">
+                                <div style="font-weight: 700; color: #ec4899; font-size: 1.5rem;">F</div>
+                                <div style="font-weight: 600; margin: 0.5rem 0;">Obsah</div>
+                                <div style="color: var(--text-muted); font-size: 0.8rem;">konkrétní téma</div>
+                            </div>
+                        </div>
+                        <div style="margin-top: 1.5rem; text-align: center; color: var(--text-muted); font-size: 0.9rem;">
+                            Od nejobecnějších (nosič) → po nejkonkrétnější (obsah)
+                        </div>
+                    </div>
+                `
+            },
+            recallprecision: {
+                title: "Recall vs Precision",
+                content: `
+                    <div style="padding: 1rem;">
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; max-width: 800px; margin: 0 auto;">
+                            <div style="background: var(--bg-light); padding: 1.5rem; border-radius: 12px; border: 2px solid var(--secondary);">
+                                <h3 style="color: var(--secondary); margin-bottom: 1rem; text-align: center;">RECALL (Úplnost)</h3>
+                                <div style="background: var(--bg-card); padding: 1rem; border-radius: 8px; text-align: center; margin-bottom: 1rem;">
+                                    <div style="font-size: 1.3rem; font-weight: 700;">R = a / (a + b)</div>
+                                </div>
+                                <div style="font-size: 0.9rem; color: var(--text-muted);">
+                                    <strong>a</strong> = vyhledané relevantní<br>
+                                    <strong>b</strong> = nevyhledané relevantní<br><br>
+                                    <em>"Kolik z toho, co jsme MĚLI najít, jsme našli?"</em>
+                                </div>
+                            </div>
+                            <div style="background: var(--bg-light); padding: 1.5rem; border-radius: 12px; border: 2px solid var(--warning);">
+                                <h3 style="color: var(--warning); margin-bottom: 1rem; text-align: center;">PRECISION (Přesnost)</h3>
+                                <div style="background: var(--bg-card); padding: 1rem; border-radius: 8px; text-align: center; margin-bottom: 1rem;">
+                                    <div style="font-size: 1.3rem; font-weight: 700;">P = a / (a + c)</div>
+                                </div>
+                                <div style="font-size: 0.9rem; color: var(--text-muted);">
+                                    <strong>a</strong> = vyhledané relevantní<br>
+                                    <strong>c</strong> = vyhledané nerelevantní<br><br>
+                                    <em>"Kolik z toho, co jsme NAŠLI, bylo správně?"</em>
+                                </div>
+                            </div>
+                        </div>
+                        <div style="margin-top: 1.5rem; text-align: center; padding: 1rem; background: var(--bg-light); border-radius: 10px;">
+                            <strong style="color: var(--danger);">Nepřímá úměra:</strong>
+                            <span style="color: var(--text-muted);">Vyšší recall → nižší precision a naopak</span>
+                        </div>
+                    </div>
+                `
+            },
+            prepost: {
+                title: "Pre vs Postkoordinace",
+                content: `
+                    <div style="padding: 1rem;">
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; max-width: 900px; margin: 0 auto;">
+                            <div style="background: var(--bg-light); padding: 1.5rem; border-radius: 12px; border-left: 4px solid var(--primary);">
+                                <h3 style="color: var(--primary); margin-bottom: 1rem;">PREKOORDINACE</h3>
+                                <div style="font-size: 0.9rem; margin-bottom: 1rem;">
+                                    <strong>Princip:</strong> Pojmy jsou kombinovány <strong>předem</strong> při indexaci
+                                </div>
+                                <div style="background: var(--bg-card); padding: 1rem; border-radius: 8px; margin-bottom: 1rem;">
+                                    <div style="color: var(--text-muted); font-size: 0.85rem;">Příklad:</div>
+                                    <div style="font-weight: 600;">"dovozní daň—ojeté osobní automobily"</div>
+                                </div>
+                                <div style="font-size: 0.85rem; color: var(--text-muted);">
+                                    <strong>Výhoda:</strong> Přesné, jednoznačné<br>
+                                    <strong>Nevýhoda:</strong> Rigidní, méně flexibilní
+                                </div>
+                            </div>
+                            <div style="background: var(--bg-light); padding: 1.5rem; border-radius: 12px; border-left: 4px solid var(--secondary);">
+                                <h3 style="color: var(--secondary); margin-bottom: 1rem;">POSTKOORDINACE</h3>
+                                <div style="font-size: 0.9rem; margin-bottom: 1rem;">
+                                    <strong>Princip:</strong> Pojmy se kombinují <strong>až při vyhledávání</strong>
+                                </div>
+                                <div style="background: var(--bg-card); padding: 1rem; border-radius: 8px; margin-bottom: 1rem;">
+                                    <div style="color: var(--text-muted); font-size: 0.85rem;">Příklad:</div>
+                                    <div style="font-weight: 600;">"dovozní daň" AND "osobní automobil" AND "použité zboží"</div>
+                                </div>
+                                <div style="font-size: 0.85rem; color: var(--text-muted);">
+                                    <strong>Výhoda:</strong> Flexibilní, kombinovatelné<br>
+                                    <strong>Nevýhoda:</strong> Může být méně přesné
+                                </div>
+                            </div>
+                        </div>
+                        <div style="margin-top: 1.5rem; padding: 1rem; background: var(--bg-light); border-radius: 10px; text-align: center;">
+                            <strong>Tip:</strong> Neexistuje čistě pre- nebo postkoordinovaný SJ - jde o míru uplatnění principu
+                        </div>
+                    </div>
+                `
+            },
+            consistency: {
+                title: "Konzistence indexace",
+                content: `
+                    <div style="padding: 1rem;">
+                        <div style="max-width: 700px; margin: 0 auto;">
+                            <div style="background: var(--bg-light); padding: 1.5rem; border-radius: 12px; margin-bottom: 1.5rem;">
+                                <h3 style="color: var(--primary); margin-bottom: 1rem; text-align: center;">Vzorec konzistence</h3>
+                                <div style="background: var(--bg-card); padding: 1.5rem; border-radius: 10px; text-align: center; font-size: 1.5rem; font-weight: 700;">
+                                    C = a / b
+                                </div>
+                                <div style="margin-top: 1rem; display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; font-size: 0.9rem;">
+                                    <div><strong>a</strong> = shodné znaky</div>
+                                    <div><strong>b</strong> = všechny jedinečné znaky</div>
+                                </div>
+                            </div>
+                            <div style="background: var(--bg-light); padding: 1rem; border-radius: 10px; margin-bottom: 1rem;">
+                                <div style="font-weight: 600; margin-bottom: 0.5rem;">Příklad:</div>
+                                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; font-size: 0.85rem;">
+                                    <div>
+                                        <strong style="color: var(--primary);">Indexátor 1:</strong><br>
+                                        ostrovy, Robinson, dobrodružné romány
+                                    </div>
+                                    <div>
+                                        <strong style="color: var(--secondary);">Indexátor 2:</strong><br>
+                                        ostrovy, dobrodružné romány, 18. století
+                                    </div>
+                                </div>
+                                <div style="margin-top: 1rem; text-align: center;">
+                                    <strong>a = 2</strong> (shodné), <strong>b = 4</strong> (jedinečné) → <strong style="color: var(--warning);">C = 50%</strong>
+                                </div>
+                            </div>
+                            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                                <div style="background: var(--bg-light); padding: 1rem; border-radius: 8px; text-align: center;">
+                                    <strong style="color: var(--primary);">Interindexer</strong>
+                                    <div style="font-size: 0.85rem; color: var(--text-muted);">Shoda mezi indexátory</div>
+                                </div>
+                                <div style="background: var(--bg-light); padding: 1rem; border-radius: 8px; text-align: center;">
+                                    <strong style="color: var(--secondary);">Intraindexer</strong>
+                                    <div style="font-size: 0.85rem; color: var(--text-muted);">Konzistence jednoho indexátora</div>
                                 </div>
                             </div>
                         </div>
