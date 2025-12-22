@@ -76,6 +76,41 @@
                 radial-gradient(ellipse at 80% 80%, rgba(6, 214, 160, 0.06) 0%, transparent 50%);
         }
 
+        /* Light mode flashcard overrides */
+        [data-theme="light"] .flashcard-face {
+            background: #ffffff;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.1);
+        }
+
+        [data-theme="light"] .flashcard-back {
+            background: linear-gradient(135deg, #f8fafc, #e2e8f0);
+        }
+
+        [data-theme="light"] .flashcard-question {
+            background: linear-gradient(135deg, #1e293b 0%, #475569 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        [data-theme="light"] .flashcard-answer {
+            color: #1e293b;
+        }
+
+        [data-theme="light"] .flashcard-hint {
+            color: #64748b;
+        }
+
+        [data-theme="light"] .flashcard-explanation {
+            background: rgba(124, 58, 237, 0.08);
+            border-left-color: var(--primary);
+            color: #1e293b;
+        }
+
+        [data-theme="light"] .flashcard-explanation strong {
+            color: var(--primary);
+        }
+
         body {
             font-family: 'Inter', sans-serif;
             background: var(--bg);
@@ -2488,8 +2523,7 @@
                 </div>
 
                 <!-- Time estimate -->
-                <div id="time-estimate"
-                    style="text-align: center; margin-bottom: 2rem; color: #c4c4cc; display: none;">
+                <div id="time-estimate" style="text-align: center; margin-bottom: 2rem; color: #c4c4cc; display: none;">
                     <span>⏱️ Odhadovaný čas opakování: </span>
                     <strong id="estimate-minutes" style="color: var(--primary);">0 min</strong>
                 </div>
@@ -2745,8 +2779,7 @@
                         </div>
 
                         <div style="margin-bottom: 1.5rem;">
-                            <label
-                                style="display: block; margin-bottom: 0.5rem; color: #c4c4cc;">Téma:</label>
+                            <label style="display: block; margin-bottom: 0.5rem; color: #c4c4cc;">Téma:</label>
                             <select id="quiz-category"
                                 style="width: 100%; padding: 0.75rem; background: var(--bg-light); border: 1px solid var(--border); border-radius: 8px; color: var(--text); font-size: 1rem;">
                                 <option value="all">Všechna témata</option>
