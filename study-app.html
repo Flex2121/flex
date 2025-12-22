@@ -3344,11 +3344,13 @@ Proč třídíme,Co je informační exploze?,Růst množství dat...,Vysvětlen�
             const saved = localStorage.getItem('cardStats');
             if (saved) {
                 cardStats = JSON.parse(saved);
-            } else {
-                flashcardsData.forEach((_, i) => {
-                    cardStats[i] = { interval: 1, easeFactor: 2.5, repetitions: 0, nextReview: Date.now() };
-                });
             }
+            // Inicializace statistik pro nové kartičky (které ještě nemají stats)
+            flashcardsData.forEach((_, i) => {
+                if (!cardStats[i]) {
+                    cardStats[i] = { interval: 1, easeFactor: 2.5, repetitions: 0, nextReview: Date.now() };
+                }
+            });
         }
 
         function saveCardStats() {
