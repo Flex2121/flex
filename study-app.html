@@ -3793,8 +3793,46 @@ Proč třídíme,Co je informační exploze?,Růst množství dat...,Vysvětlen�
 
             // Praktické otázky
             { q: "Co je triáda v kontextu fazet?", options: ["Tři knihy", "Trojice: specifický výraz → obecný výraz → fazeta", "Typ klasifikace", "Tři indexátoři"], correct: 1, cat: "Praktické", exp: "Triáda ukazuje hierarchii: např. 'fortifikovaná vína' → 'nápoje' → fazeta 'obsah alkoholu'." },
-            { q: "Proč je důležitý přesný zápis lexikální jednotky?", options: ["Estetické důvody", "Pro strojové zpracování a vyhledávání", "Historické důvody", "Není důležitý"], correct: 1, cat: "Praktické", exp: "Přesný zápis (včetně velkých/malých písmen a plurálu) je klíčový pro strojové zpracování a správné vyhledávání." }
+            { q: "Proč je důležitý přesný zápis lexikální jednotky?", options: ["Estetické důvody", "Pro strojové zpracování a vyhledávání", "Historické důvody", "Není důležitý"], correct: 1, cat: "Praktické", exp: "Přesný zápis (včetně velkých/malých písmen a plurálu) je klíčový pro strojové zpracování a správné vyhledávání." },
+
+            // === NOVÉ KVÍZY Z PŘEDNÁŠKY 1 ===
+
+            // Informace a sdělení
+            { q: "Jaký je rozdíl mezi informací a sdělením?", options: ["Žádný", "Sdělení je informace opakovaná podruhé", "Informace mění poznatkový systém, sdělení je jen nosič", "Informace je vždy pravdivá"], correct: 2, cat: "Základy OI", exp: "Sdělení je nosič informace. Informace vzniká teprve tehdy, když sdělení změní poznatkový systém příjemce - formuje ho." },
+            { q: "Kdo vytvořil model komunikace s vysílačem, přijímačem, kanálem a šumem?", options: ["Marshall McLuhan", "Claude Shannon", "Karl Popper", "Paul Otlet"], correct: 1, cat: "Základy OI", exp: "Claude Shannon vytvořil matematickou teorii komunikace (1948) definující základní prvky přenosu informace." },
+            { q: "Co je entropie v organizaci informací?", options: ["Uspořádanost systému", "Míra neuspořádanosti systému", "Typ klasifikace", "Metoda indexace"], correct: 1, cat: "Základy OI", exp: "Entropie je míra neuspořádanosti. Informace se označuje jako negentropie (záporná entropie) - organizace = snižování entropie." },
+            { q: "Proč organizujeme informace?", options: ["Pro zábavu", "Abychom snížili entropii a usnadnili vyhledávání", "Protože to vyžaduje zákon", "Pro estetické účely"], correct: 1, cat: "Základy OI", exp: "Organizace informací snižuje entropii (neuspořádanost) a pomáhá překonat informační přetížení." },
+
+            // Typy znalostí
+            { q: "Co jsou tacitní znalosti?", options: ["Znalosti zapsané v knihách", "Znalosti, které člověk má, ale neumí explicitně formulovat", "Znalosti v databázích", "Historické znalosti"], correct: 1, cat: "Základy OI", exp: "Tacitní (skryté) znalosti člověk používá, ale není si jich vědom - např. expertní intuice, 'cit pro věc'." },
+            { q: "Proč jsou tacitní znalosti problematické pro organizaci informací?", options: ["Jsou příliš jednoduché", "Jsou těžko přenositelné a formalizovatelné", "Jsou příliš rozsáhlé", "Jsou pouze v cizích jazycích"], correct: 1, cat: "Základy OI", exp: "Tacitní znalosti nelze jednoduše zapsat do systémů - jsou vázané na zkušenost a intuici experta." },
+
+            // Klasifikační dilema
+            { q: "Proč je v MKN (Mezinárodní klasifikace nemocí) zařazeno i těhotenství?", options: ["Je to chyba", "Těhotenství je nemoc", "Lékaři s ním pracují v rámci diagnostik", "Je to historický relikt"], correct: 2, cat: "Praktické OI", exp: "Pragmatický kontext rozhoduje - lékaři potřebují těhotenství v systému, i když to není nemoc ve vědeckém smyslu." },
+            { q: "Je Franz Kafka český spisovatel?", options: ["Ano, protože žil v Praze", "Ne, protože psal německy", "Záleží na definici systému", "Ano, byl Čech"], correct: 2, cat: "Praktické OI", exp: "Příklad klasifikačního dilematu - psal německy (vyloučen z Lexikonu české literatury), ale tvořil v Praze." },
+
+            // Úrovně zpracování
+            { q: "Kdo pracuje s primárním objektem a vytváří primární záznam?", options: ["Informační specialista", "Badatel/expert", "Digitální badatel", "Knihovník"], correct: 1, cat: "Základy OI", exp: "Badatel pracuje s primárním objektem (jev, rostlina, fosilie) a vytváří o něm primární záznam." },
+            { q: "Co vytváří informační specialista?", options: ["Primární dokumenty", "Metadata (sekundární dokumenty)", "Metametadata", "Počítačové programy"], correct: 1, cat: "Základy OI", exp: "Informační specialista pracuje s primárním záznamem (dokument) a vytváří metadata - popis dokumentu." },
+
+            // === NOVÉ KVÍZY Z PŘEDNÁŠKY 2 ===
+
+            // Sbírky - pokročilé
+            { q: "Je zoologická zahrada sbírka?", options: ["Ne, jsou tam jen zvířata", "Ano, zvířata jsou informační objekty pro vzdělávání", "Pouze pokud má knihovnu", "Záleží na velikosti"], correct: 1, cat: "Sbírky", exp: "ZOO je sbírka - cedulky u zvířat jsou metadata, primární funkce je vzdělávací (informační)." },
+            { q: "Je zverimex sbírka?", options: ["Ano, jsou tam zvířata", "Ne, primární funkce je komerční", "Ano, mají katalog zvířat", "Záleží na sortimentu"], correct: 1, cat: "Sbírky", exp: "Zverimex má primárně komerční funkci (prodej), proto není sbírkou ve smyslu organizace informací." },
+            { q: "Je restaurační menu sbírka?", options: ["Ano", "Ne, slouží k výběru jídla pro objednávku", "Záleží na typu restaurace", "Pouze u gurmánských restaurací"], correct: 1, cat: "Sbírky", exp: "Menu není sbírka - primárním účelem je výběr jídla k objednání, ne informační funkce." },
+
+            // McLuhan a média
+            { q: "Co tvrdí McLuhan výrokem 'médium je poselství'?", options: ["Obsah je důležitější než forma", "Forma média ovlivňuje, jak vnímáme obsah", "Média jsou neutrální", "Pouze digitální média mají význam"], correct: 1, cat: "Média", exp: "McLuhan: každé médium má vlastnosti předurčující vnímání obsahu - forma ovlivňuje pochopení." },
+            { q: "Proč roztržení knihy vyvolá větší emoce než zlomení CD se stejným obsahem?", options: ["CD jsou levnější", "Kniha je kulturnější", "V knize jsou vázány kulturní hodnoty a tradice", "CD jdou opravit"], correct: 2, cat: "Média", exp: "Kniha jako objekt nese kulturní hodnoty a tradice, které digitální média postrádají." },
+
+            // Struktura dokumentů
+            { q: "Co je formát obsahu dokumentu?", options: ["Rozměry stránky", "Způsob záznamu: text, obraz, zvuk, data", "Typ vazby", "Rok vydání"], correct: 1, cat: "Dokumenty", exp: "Formát obsahu určuje způsob záznamu informací - text, obraz (statický/dynamický), zvuk, data, komiks." },
+            { q: "Co je kontinuita dokumentu?", options: ["Nepřetržité čtení", "Jednorázové vs opakované vydávání", "Kvalita tisku", "Délka textu"], correct: 1, cat: "Dokumenty", exp: "Kontinuita rozlišuje jednorázově vydané dokumenty (monografie) od opakovaně vycházejících (časopisy, ročenky)." },
+            { q: "Jak se liší typografie klasické knihy od e-knihy?", options: ["Nijak", "E-kniha má lepší typografii", "Klasická kniha má promyšlenou typografii, e-kniha často žádnou", "E-knihy neexistují"], correct: 2, cat: "Média", exp: "Typografie klasické knihy podporuje vnímání obsahu. E-knihy se přizpůsobují displeji a tuto vrstvu často postrádají." },
+            { q: "Co je bibliografie bibliografií?", options: ["Primární dokument", "Sekundární dokument", "Terciární dokument", "Kvartérní dokument"], correct: 2, cat: "Dokumenty", exp: "Bibliografie bibliografií je terciární dokument - popisuje sekundární dokumenty (bibliografie), které popisují primární." }
         ];
+
 
         const topicsData = [
             {
