@@ -1,10 +1,12 @@
 <!DOCTYPE html>
 <html lang="cs" data-theme="dark">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>StudyPrep - Organizace informací</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
     <style>
         * {
             margin: 0;
@@ -15,7 +17,8 @@
         /* ========================================
            THEME VARIABLES - Dark Mode (default)
            ======================================== */
-        :root, [data-theme="dark"] {
+        :root,
+        [data-theme="dark"] {
             --primary: #8b5cf6;
             --primary-dark: #7c3aed;
             --primary-light: #a78bfa;
@@ -88,11 +91,15 @@
         /* ========================================
            TYPOGRAPHY IMPROVEMENTS
            ======================================== */
-        p, li, .quiz-option, .flashcard-answer {
+        p,
+        li,
+        .quiz-option,
+        .flashcard-answer {
             line-height: 1.8;
         }
 
-        ul, ol {
+        ul,
+        ol {
             padding-left: 1.5rem;
         }
 
@@ -229,7 +236,7 @@
 
         .speed-selector label {
             font-size: 0.85rem;
-            color: var(--text-muted);
+            color: #c4c4cc;
         }
 
         .speed-selector select {
@@ -247,7 +254,7 @@
             align-items: center;
             gap: 0.5rem;
             font-size: 0.85rem;
-            color: var(--text-muted);
+            color: #c4c4cc;
         }
 
         .audio-status.playing {
@@ -263,8 +270,17 @@
         }
 
         @keyframes pulse {
-            0%, 100% { opacity: 1; transform: scale(1); }
-            50% { opacity: 0.5; transform: scale(1.2); }
+
+            0%,
+            100% {
+                opacity: 1;
+                transform: scale(1);
+            }
+
+            50% {
+                opacity: 0.5;
+                transform: scale(1.2);
+            }
         }
 
         /* ========================================
@@ -278,7 +294,7 @@
             border-radius: 0 10px 10px 0;
             font-size: 0.9rem;
             line-height: 1.7;
-            color: var(--text-muted);
+            color: #c4c4cc;
         }
 
         .flashcard-explanation strong {
@@ -332,7 +348,7 @@
             padding: 0.7rem 1.3rem;
             background: transparent;
             border: none;
-            color: var(--text-muted);
+            color: #c4c4cc;
             font-size: 0.9rem;
             font-weight: 500;
             cursor: pointer;
@@ -375,7 +391,7 @@
 
         .stat-label {
             font-size: 0.7rem;
-            color: var(--text-muted);
+            color: #c4c4cc;
             text-transform: uppercase;
             letter-spacing: 0.5px;
         }
@@ -415,8 +431,15 @@
         }
 
         @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         /* Dashboard */
@@ -457,7 +480,7 @@
 
         .dashboard-card h3 {
             font-size: 0.85rem;
-            color: var(--text-muted);
+            color: #c4c4cc;
             margin-bottom: 1rem;
             text-transform: uppercase;
             letter-spacing: 1px;
@@ -549,7 +572,7 @@
         .flashcard-hint {
             position: absolute;
             bottom: 1.2rem;
-            color: var(--text-muted);
+            color: #c4c4cc;
             font-size: 0.8rem;
             display: flex;
             align-items: center;
@@ -605,7 +628,7 @@
         .flashcard-progress {
             text-align: center;
             margin-bottom: 1.5rem;
-            color: var(--text-muted);
+            color: #c4c4cc;
             font-size: 0.9rem;
         }
 
@@ -783,8 +806,15 @@
         }
 
         @keyframes slideIn {
-            from { opacity: 0; transform: translateX(-20px); }
-            to { opacity: 1; transform: translateX(0); }
+            from {
+                opacity: 0;
+                transform: translateX(-20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
         }
 
         /* Topics / Koncepty */
@@ -849,7 +879,7 @@
         }
 
         .topic-description {
-            color: var(--text-muted);
+            color: #c4c4cc;
             font-size: 0.9rem;
             line-height: 1.6;
         }
@@ -890,8 +920,13 @@
         }
 
         @keyframes modalFadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
         }
 
         .modal-content {
@@ -909,8 +944,15 @@
         }
 
         @keyframes modalSlideIn {
-            from { transform: translateY(20px); opacity: 0; }
-            to { transform: translateY(0); opacity: 1; }
+            from {
+                transform: translateY(20px);
+                opacity: 0;
+            }
+
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
         }
 
         .modal-header {
@@ -931,7 +973,7 @@
         .modal-close {
             background: var(--bg-light);
             border: 1px solid var(--border);
-            color: var(--text-muted);
+            color: #c4c4cc;
             font-size: 1.2rem;
             cursor: pointer;
             width: 40px;
@@ -971,7 +1013,7 @@
         }
 
         .concept-definition {
-            color: var(--text-muted);
+            color: #c4c4cc;
             line-height: 1.6;
         }
 
@@ -993,7 +1035,7 @@
         .results-message {
             font-size: 1.5rem;
             margin-bottom: 2rem;
-            color: var(--text-muted);
+            color: #c4c4cc;
         }
 
         /* ========================================
@@ -1021,7 +1063,7 @@
         }
 
         .ui-state-desc {
-            color: var(--text-muted);
+            color: #c4c4cc;
             margin-bottom: 1.5rem;
             line-height: 1.6;
         }
@@ -1031,8 +1073,13 @@
         }
 
         @keyframes spin {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
+            from {
+                transform: rotate(0deg);
+            }
+
+            to {
+                transform: rotate(360deg);
+            }
         }
 
         .ui-state.error {
@@ -1124,7 +1171,7 @@
             gap: 1rem;
             margin-top: 1rem;
             font-size: 0.8rem;
-            color: var(--text-muted);
+            color: #c4c4cc;
             flex-wrap: wrap;
         }
 
@@ -1215,7 +1262,7 @@
 
         .quiz-mode-btn .mode-desc {
             font-size: 0.75rem;
-            color: var(--text-muted);
+            color: #c4c4cc;
             text-align: center;
         }
 
@@ -1317,7 +1364,7 @@
             background: var(--bg-light);
             border-radius: 4px;
             font-size: 0.8rem;
-            color: var(--text-muted);
+            color: #c4c4cc;
         }
 
         .match-score.high {
@@ -1376,7 +1423,7 @@
 
         .mistake-date {
             font-size: 0.75rem;
-            color: var(--text-muted);
+            color: #c4c4cc;
         }
 
         .mistake-question {
@@ -1411,7 +1458,7 @@
             align-items: center;
             gap: 0.5rem;
             font-size: 0.9rem;
-            color: var(--text-muted);
+            color: #c4c4cc;
         }
 
         .quiz-timer.warning {
@@ -1424,8 +1471,15 @@
         }
 
         @keyframes pulse {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.5; }
+
+            0%,
+            100% {
+                opacity: 1;
+            }
+
+            50% {
+                opacity: 0.5;
+            }
         }
 
         /* Question Type Toggle */
@@ -1440,7 +1494,7 @@
             background: var(--bg-glass);
             border: 1px solid var(--border);
             border-radius: 8px;
-            color: var(--text-muted);
+            color: #c4c4cc;
             font-size: 0.85rem;
             cursor: pointer;
             transition: all 0.2s ease;
@@ -1458,7 +1512,7 @@
             background: transparent;
             border: 1px dashed var(--border);
             border-radius: 6px;
-            color: var(--text-muted);
+            color: #c4c4cc;
             font-size: 0.8rem;
             cursor: pointer;
             transition: all 0.2s ease;
@@ -1492,7 +1546,7 @@
 
         .stat-box-label {
             font-size: 0.8rem;
-            color: var(--text-muted);
+            color: #c4c4cc;
         }
 
         /* Responsive */
@@ -1902,8 +1956,469 @@
                 grid-template-columns: 1fr;
             }
         }
+
+        /* ========================================
+           ENHANCED AUDIO STUDY MODE
+           ======================================== */
+        .audio-panel {
+            background: var(--bg-glass);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            position: relative;
+        }
+
+        .audio-panel-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .audio-panel-title {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 1.1rem;
+            font-weight: 600;
+        }
+
+        .audio-panel-close {
+            background: transparent;
+            border: none;
+            color: #c4c4cc;
+            font-size: 1.2rem;
+            cursor: pointer;
+            padding: 0.25rem;
+            border-radius: 8px;
+            transition: all 0.2s ease;
+        }
+
+        .audio-panel-close:hover {
+            background: var(--bg-light);
+            color: var(--text);
+        }
+
+        .audio-main-controls {
+            display: flex;
+            gap: 0.75rem;
+            margin-bottom: 1.25rem;
+            flex-wrap: wrap;
+        }
+
+        .audio-btn-lg {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            padding: 0.875rem 1.5rem;
+            border: none;
+            border-radius: 14px;
+            font-size: 0.95rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .audio-btn-lg.play {
+            background: var(--gradient-1);
+            color: white;
+            box-shadow: 0 4px 15px rgba(139, 92, 246, 0.3);
+        }
+
+        .audio-btn-lg.play:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(139, 92, 246, 0.4);
+        }
+
+        .audio-btn-lg.pause {
+            background: var(--warning);
+            color: white;
+        }
+
+        .audio-btn-lg.stop {
+            background: var(--danger);
+            color: white;
+        }
+
+        .audio-btn-lg.skip {
+            background: var(--bg-light);
+            color: var(--text);
+            border: 1px solid var(--border);
+        }
+
+        .audio-btn-lg:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none !important;
+        }
+
+        .audio-settings-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin-bottom: 1.25rem;
+        }
+
+        .audio-setting {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .audio-setting-label {
+            font-size: 0.85rem;
+            color: #c4c4cc;
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+
+        .audio-voice-select {
+            background: var(--bg-light);
+            border: 1px solid var(--border);
+            color: var(--text);
+            padding: 0.65rem 1rem;
+            border-radius: 10px;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: border-color 0.2s ease;
+        }
+
+        .audio-voice-select:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+
+        .audio-test-btn {
+            padding: 0.65rem 1rem;
+            background: var(--bg-glass);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            color: var(--text);
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .audio-test-btn:hover {
+            background: var(--bg-light);
+            border-color: var(--primary);
+        }
+
+        .audio-speed-container {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .audio-speed-slider {
+            flex: 1;
+            -webkit-appearance: none;
+            appearance: none;
+            height: 6px;
+            background: var(--bg-light);
+            border-radius: 3px;
+            outline: none;
+        }
+
+        .audio-speed-slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 18px;
+            height: 18px;
+            background: var(--primary);
+            border-radius: 50%;
+            cursor: pointer;
+            transition: transform 0.2s ease;
+        }
+
+        .audio-speed-slider::-webkit-slider-thumb:hover {
+            transform: scale(1.2);
+        }
+
+        .audio-speed-value {
+            min-width: 45px;
+            text-align: center;
+            font-weight: 600;
+            color: var(--primary);
+        }
+
+        .audio-pause-settings {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            padding: 1rem;
+            background: var(--bg-light);
+            border-radius: 12px;
+            margin-bottom: 1rem;
+        }
+
+        .pause-setting {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .pause-setting label {
+            font-size: 0.85rem;
+            color: #c4c4cc;
+            flex: 1;
+        }
+
+        .pause-setting input[type="number"] {
+            width: 60px;
+            padding: 0.5rem;
+            background: var(--bg-glass);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            color: var(--text);
+            text-align: center;
+            font-size: 0.9rem;
+        }
+
+        .audio-podcast-mode {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 1rem;
+            background: linear-gradient(135deg, rgba(139, 92, 246, 0.1), rgba(6, 214, 160, 0.1));
+            border: 1px solid rgba(139, 92, 246, 0.2);
+            border-radius: 14px;
+            margin-bottom: 1rem;
+        }
+
+        .podcast-info {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .podcast-icon {
+            font-size: 1.5rem;
+        }
+
+        .podcast-text h4 {
+            font-size: 0.95rem;
+            font-weight: 600;
+            margin-bottom: 0.2rem;
+        }
+
+        .podcast-text p {
+            font-size: 0.8rem;
+            color: #c4c4cc;
+            margin: 0;
+        }
+
+        .podcast-btn {
+            padding: 0.75rem 1.25rem;
+            background: var(--gradient-3);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .podcast-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(79, 172, 254, 0.4);
+        }
+
+        .audio-progress-container {
+            margin-top: 1rem;
+            padding-top: 1rem;
+            border-top: 1px solid var(--border);
+        }
+
+        .audio-progress-info {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 0.5rem;
+            font-size: 0.85rem;
+            color: #c4c4cc;
+        }
+
+        .audio-progress-bar {
+            height: 8px;
+            background: var(--bg-light);
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .audio-progress-fill {
+            height: 100%;
+            background: var(--gradient-1);
+            transition: width 0.3s ease;
+            border-radius: 4px;
+        }
+
+        .audio-now-playing {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 1rem;
+            background: var(--bg-light);
+            border-radius: 12px;
+            margin-top: 1rem;
+        }
+
+        .audio-now-playing.hidden {
+            display: none;
+        }
+
+        .now-playing-pulse {
+            width: 12px;
+            height: 12px;
+            background: var(--secondary);
+            border-radius: 50%;
+            animation: audioPlayingPulse 1.5s infinite;
+        }
+
+        @keyframes audioPlayingPulse {
+
+            0%,
+            100% {
+                opacity: 1;
+                transform: scale(1);
+            }
+
+            50% {
+                opacity: 0.5;
+                transform: scale(1.3);
+            }
+        }
+
+        .now-playing-text {
+            flex: 1;
+            font-size: 0.9rem;
+        }
+
+        .now-playing-label {
+            color: #c4c4cc;
+            font-size: 0.75rem;
+            margin-bottom: 0.15rem;
+        }
+
+        .now-playing-content {
+            font-weight: 500;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        /* Audio panel collapsed state */
+        .audio-panel.collapsed .audio-panel-body {
+            display: none;
+        }
+
+        .audio-toggle-collapsed {
+            background: transparent;
+            border: none;
+            color: #c4c4cc;
+            cursor: pointer;
+            padding: 0.25rem;
+            transition: transform 0.3s ease;
+        }
+
+        .audio-panel.collapsed .audio-toggle-collapsed {
+            transform: rotate(180deg);
+        }
+
+        /* Responsive audio panel */
+        @media (max-width: 768px) {
+            .audio-panel {
+                padding: 1rem;
+            }
+
+            .audio-settings-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .audio-pause-settings {
+                grid-template-columns: 1fr;
+                gap: 0.75rem;
+            }
+
+            .audio-main-controls {
+                justify-content: center;
+            }
+
+            .audio-btn-lg {
+                flex: 1;
+                padding: 0.75rem 1rem;
+                font-size: 0.85rem;
+            }
+
+            .audio-podcast-mode {
+                flex-direction: column;
+                gap: 1rem;
+                text-align: center;
+            }
+
+            .podcast-btn {
+                width: 100%;
+            }
+        }
+
+        /* ========================================
+           CONCEPT MAPS - IMPROVED READABILITY
+           ======================================== */
+        /* Fix text colors in concept map cards for dark mode */
+        #map-content [style*="var(--bg-light)"] [style*="var(--text-muted)"],
+        #map-content [style*="var(--bg-light)"] span[style*="var(--text-muted)"],
+        #map-content div[style*="background: var(--bg-light)"] div[style*="color: #c4c4cc"] {
+            color: #c4c4cc !important;
+        }
+
+        /* General fix for all muted text in map content */
+        #map-content span[style*="--text-muted"],
+        #map-content div[style*="--text-muted"] {
+            color: #c4c4cc !important;
+        }
+
+        /* Light theme adjustments */
+        [data-theme="light"] #map-content span[style*="--text-muted"],
+        [data-theme="light"] #map-content div[style*="--text-muted"] {
+            color: #475569 !important;
+        }
+
+        /* Additional specificity for nested elements */
+        #map-content .concept-map-node span,
+        #map-content [style*="font-size: 0.8rem"],
+        #map-content [style*="font-size: 0.85rem"] {
+            color: #c4c4cc !important;
+        }
+
+        [data-theme="light"] #map-content [style*="font-size: 0.8rem"],
+        [data-theme="light"] #map-content [style*="font-size: 0.85rem"] {
+            color: #475569 !important;
+        }
+
+        /* Ensure strong/bold text is readable */
+        #map-content strong {
+            color: var(--text) !important;
+        }
+
+        /* Fix for cards with bg-card background */
+        #map-content [style*="var(--bg-card)"] {
+            color: var(--text);
+        }
+
+        /* Formula boxes - make text visible */
+        #map-content [style*="font-size: 1.3rem"],
+        #map-content [style*="font-size: 1.5rem"] {
+            color: var(--text) !important;
+        }
     </style>
 </head>
+
 <body>
     <!-- Navigation -->
     <nav class="navbar">
@@ -1937,7 +2452,8 @@
         <div class="container">
             <!-- Dashboard -->
             <section id="dashboard" class="section active">
-                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem; flex-wrap: wrap; gap: 1rem;">
+                <div
+                    style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem; flex-wrap: wrap; gap: 1rem;">
                     <h1 style="font-size: 2rem;">Organizace informací</h1>
                     <div style="display: flex; gap: 0.5rem;">
                         <button class="btn-secondary" onclick="openHelpModal()">❓ Nápověda</button>
@@ -1972,7 +2488,8 @@
                 </div>
 
                 <!-- Time estimate -->
-                <div id="time-estimate" style="text-align: center; margin-bottom: 2rem; color: var(--text-muted); display: none;">
+                <div id="time-estimate"
+                    style="text-align: center; margin-bottom: 2rem; color: #c4c4cc; display: none;">
                     <span>⏱️ Odhadovaný čas opakování: </span>
                     <strong id="estimate-minutes" style="color: var(--primary);">0 min</strong>
                 </div>
@@ -1981,22 +2498,22 @@
                     <div class="dashboard-card">
                         <h3>Celkový pokrok</h3>
                         <div class="value" style="color: var(--secondary);" id="total-progress">0%</div>
-                        <p style="color: var(--text-muted); margin-top: 0.5rem;">kartiček zvládnuto</p>
+                        <p style="color: #c4c4cc; margin-top: 0.5rem;">kartiček zvládnuto</p>
                     </div>
                     <div class="dashboard-card">
                         <h3>K opakování dnes</h3>
                         <div class="value" style="color: var(--warning);" id="due-today">0</div>
-                        <p style="color: var(--text-muted); margin-top: 0.5rem;">podle SRS algoritmu</p>
+                        <p style="color: #c4c4cc; margin-top: 0.5rem;">podle SRS algoritmu</p>
                     </div>
                     <div class="dashboard-card">
                         <h3>Správné odpovědi</h3>
                         <div class="value" style="color: var(--primary);" id="correct-rate">0%</div>
-                        <p style="color: var(--text-muted); margin-top: 0.5rem;">průměrná úspěšnost</p>
+                        <p style="color: #c4c4cc; margin-top: 0.5rem;">průměrná úspěšnost</p>
                     </div>
                     <div class="dashboard-card">
                         <h3>Studijní čas</h3>
                         <div class="value" id="study-time">0 min</div>
-                        <p style="color: var(--text-muted); margin-top: 0.5rem;">celkový čas</p>
+                        <p style="color: #c4c4cc; margin-top: 0.5rem;">celkový čas</p>
                     </div>
                 </div>
 
@@ -2005,12 +2522,14 @@
                     <div class="topic-card" onclick="switchSection('flashcards')">
                         <div class="topic-icon">📚</div>
                         <div class="topic-title">Spaced Repetition</div>
-                        <div class="topic-description">Procvičuj kartičky s optimálním rozložením v čase pro maximální zapamatování.</div>
+                        <div class="topic-description">Procvičuj kartičky s optimálním rozložením v čase pro maximální
+                            zapamatování.</div>
                     </div>
                     <div class="topic-card" onclick="switchSection('quiz')">
                         <div class="topic-icon">🧠</div>
                         <div class="topic-title">Active Recall Quiz</div>
-                        <div class="topic-description">Testuj své znalosti pomocí kvízů s okamžitou zpětnou vazbou.</div>
+                        <div class="topic-description">Testuj své znalosti pomocí kvízů s okamžitou zpětnou vazbou.
+                        </div>
                     </div>
                     <div class="topic-card" onclick="switchSection('topics')">
                         <div class="topic-icon">🗺️</div>
@@ -2022,25 +2541,110 @@
 
             <!-- Flashcards -->
             <section id="flashcards" class="section">
-                <!-- Audio Loop Controls -->
-                <div class="audio-controls" id="audio-controls">
-                    <button class="audio-btn primary" id="audio-start" onclick="startAudioLoop()">
-                        🎧 Spustit Audio Loop
-                    </button>
-                    <button class="audio-btn stop" id="audio-stop" onclick="stopAudioLoop()" style="display: none;">
-                        ⏹️ Zastavit
-                    </button>
-                    <div class="speed-selector">
-                        <label for="audio-speed">Rychlost:</label>
-                        <select id="audio-speed" onchange="updateAudioSpeed()">
-                            <option value="0.8">0.8x</option>
-                            <option value="1" selected>1x</option>
-                            <option value="1.25">1.25x</option>
-                            <option value="1.5">1.5x</option>
-                        </select>
+                <!-- Enhanced Audio Study Panel -->
+                <div class="audio-panel" id="audio-panel">
+                    <div class="audio-panel-header">
+                        <div class="audio-panel-title">
+                            <span>🎧</span> Audio Study Mode
+                        </div>
+                        <div style="display: flex; gap: 0.5rem;">
+                            <button class="audio-toggle-collapsed" onclick="toggleAudioPanel()"
+                                title="Sbalit/Rozbalit">▼</button>
+                            <button class="audio-panel-close" onclick="hideAudioPanel()" title="Zavřít">×</button>
+                        </div>
                     </div>
-                    <div class="audio-status" id="audio-status">
-                        <span>Připraveno</span>
+
+                    <div class="audio-panel-body">
+                        <!-- Main Controls -->
+                        <div class="audio-main-controls">
+                            <button class="audio-btn-lg play" id="audio-play-btn" onclick="AudioStudy.play()">
+                                ▶️ Spustit
+                            </button>
+                            <button class="audio-btn-lg pause" id="audio-pause-btn" onclick="AudioStudy.pause()"
+                                style="display: none;">
+                                ⏸️ Pauza
+                            </button>
+                            <button class="audio-btn-lg play" id="audio-resume-btn" onclick="AudioStudy.resume()"
+                                style="display: none;">
+                                ▶️ Pokračovat
+                            </button>
+                            <button class="audio-btn-lg stop" id="audio-stop-btn" onclick="AudioStudy.stop()" disabled>
+                                ⏹️ Stop
+                            </button>
+                            <button class="audio-btn-lg skip" id="audio-skip-btn" onclick="AudioStudy.skip()" disabled>
+                                ⏭️ Další
+                            </button>
+                        </div>
+
+                        <!-- Voice and Speed Settings -->
+                        <div class="audio-settings-grid">
+                            <div class="audio-setting">
+                                <span class="audio-setting-label">🗣️ Hlas</span>
+                                <div style="display: flex; gap: 0.5rem;">
+                                    <select class="audio-voice-select" id="audio-voice-select"
+                                        onchange="AudioStudy.setVoice(this.value)">
+                                        <option value="">Načítání hlasů...</option>
+                                    </select>
+                                    <button class="audio-test-btn" onclick="AudioStudy.testVoice()">🔊 Test</button>
+                                </div>
+                            </div>
+                            <div class="audio-setting">
+                                <span class="audio-setting-label">🏃 Rychlost čtení</span>
+                                <div class="audio-speed-container">
+                                    <input type="range" class="audio-speed-slider" id="audio-speed-slider" min="0.5"
+                                        max="2" step="0.1" value="1" oninput="AudioStudy.setRate(this.value)">
+                                    <span class="audio-speed-value" id="audio-speed-value">1.0x</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Pause Settings -->
+                        <div class="audio-pause-settings">
+                            <div class="pause-setting">
+                                <label>⏱️ Pauza po otázce:</label>
+                                <input type="number" id="pause-after-question" value="3" min="0" max="10"
+                                    onchange="AudioStudy.saveSettings()"> sec
+                            </div>
+                            <div class="pause-setting">
+                                <label>⏱️ Pauza po kartičce:</label>
+                                <input type="number" id="pause-after-card" value="2" min="0" max="10"
+                                    onchange="AudioStudy.saveSettings()"> sec
+                            </div>
+                        </div>
+
+                        <!-- Podcast Mode -->
+                        <div class="audio-podcast-mode">
+                            <div class="podcast-info">
+                                <span class="podcast-icon">📻</span>
+                                <div class="podcast-text">
+                                    <h4>Podcast mód</h4>
+                                    <p>Přehraje všechny kartičky jako audio přednášku</p>
+                                </div>
+                            </div>
+                            <button class="podcast-btn" id="podcast-btn" onclick="AudioStudy.startPodcast()">
+                                🎙️ Spustit podcast
+                            </button>
+                        </div>
+
+                        <!-- Progress -->
+                        <div class="audio-progress-container" id="audio-progress-container" style="display: none;">
+                            <div class="audio-progress-info">
+                                <span id="audio-progress-text">Kartička 0 z 0</span>
+                                <span id="audio-progress-percent">0%</span>
+                            </div>
+                            <div class="audio-progress-bar">
+                                <div class="audio-progress-fill" id="audio-progress-fill" style="width: 0%;"></div>
+                            </div>
+                        </div>
+
+                        <!-- Now Playing -->
+                        <div class="audio-now-playing hidden" id="audio-now-playing">
+                            <div class="now-playing-pulse"></div>
+                            <div class="now-playing-text">
+                                <div class="now-playing-label">Právě čte:</div>
+                                <div class="now-playing-content" id="now-playing-content">-</div>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
@@ -2048,7 +2652,8 @@
                 <div class="ui-state" id="fc-empty-state" style="display: none;">
                     <span class="ui-state-icon">🎉</span>
                     <div class="ui-state-title">Výborně!</div>
-                    <div class="ui-state-desc">Všechny kartičky pro dnešek jsou zvládnuty.<br>Vrať se zítra nebo zkus kvíz.</div>
+                    <div class="ui-state-desc">Všechny kartičky pro dnešek jsou zvládnuty.<br>Vrať se zítra nebo zkus
+                        kvíz.</div>
                     <div class="btn-row" style="justify-content: center;">
                         <button class="btn-secondary" onclick="switchSection('quiz')">Spustit kvíz</button>
                         <button class="btn-secondary" onclick="switchSection('dashboard')">Zpět na dashboard</button>
@@ -2076,10 +2681,14 @@
                     </div>
 
                     <div class="flashcard-controls" id="fc-controls" style="display: none;">
-                        <button class="fc-btn again" onclick="rateCard(0)">Znovu<br><small>< 1 min</small><kbd class="kbd">1</kbd></button>
-                        <button class="fc-btn hard" onclick="rateCard(1)">Těžké<br><small>< 10 min</small><kbd class="kbd">2</kbd></button>
-                        <button class="fc-btn good" onclick="rateCard(2)">Dobře<br><small>1 den</small><kbd class="kbd">3</kbd></button>
-                        <button class="fc-btn easy" onclick="rateCard(3)">Snadné<br><small>4 dny</small><kbd class="kbd">4</kbd></button>
+                        <button class="fc-btn again" onclick="rateCard(0)">Znovu<br><small>
+                                < 1 min</small><kbd class="kbd">1</kbd></button>
+                        <button class="fc-btn hard" onclick="rateCard(1)">Těžké<br><small>
+                                < 10 min</small><kbd class="kbd">2</kbd></button>
+                        <button class="fc-btn good" onclick="rateCard(2)">Dobře<br><small>1 den</small><kbd
+                                class="kbd">3</kbd></button>
+                        <button class="fc-btn easy" onclick="rateCard(3)">Snadné<br><small>4 dny</small><kbd
+                                class="kbd">4</kbd></button>
                     </div>
 
                     <div class="keyboard-hints" id="fc-keyboard-hints">
@@ -2099,9 +2708,11 @@
 
                         <!-- Quiz Mode Selection -->
                         <div style="margin-bottom: 1.5rem;">
-                            <label style="display: block; margin-bottom: 0.5rem; color: var(--text-muted);">Režim kvízu:</label>
+                            <label style="display: block; margin-bottom: 0.5rem; color: #c4c4cc;">Režim
+                                kvízu:</label>
                             <div class="quiz-modes-grid">
-                                <button class="quiz-mode-btn selected" data-mode="drill" onclick="selectQuizMode('drill')">
+                                <button class="quiz-mode-btn selected" data-mode="drill"
+                                    onclick="selectQuizMode('drill')">
                                     <span class="mode-icon">⚡</span>
                                     <span class="mode-label">Rychlý drill</span>
                                     <span class="mode-desc">10 otázek, okamžitá zpětná vazba</span>
@@ -2121,17 +2732,23 @@
 
                         <!-- Question Type Toggle -->
                         <div style="margin-bottom: 1.5rem;">
-                            <label style="display: block; margin-bottom: 0.5rem; color: var(--text-muted);">Typ otázek:</label>
+                            <label style="display: block; margin-bottom: 0.5rem; color: #c4c4cc;">Typ
+                                otázek:</label>
                             <div class="question-type-toggle">
-                                <button class="type-toggle-btn active" data-type="mc" onclick="selectQuestionType('mc')">Výběr z možností</button>
-                                <button class="type-toggle-btn" data-type="open" onclick="selectQuestionType('open')">Otevřená odpověď</button>
-                                <button class="type-toggle-btn" data-type="mixed" onclick="selectQuestionType('mixed')">Kombinace</button>
+                                <button class="type-toggle-btn active" data-type="mc"
+                                    onclick="selectQuestionType('mc')">Výběr z možností</button>
+                                <button class="type-toggle-btn" data-type="open"
+                                    onclick="selectQuestionType('open')">Otevřená odpověď</button>
+                                <button class="type-toggle-btn" data-type="mixed"
+                                    onclick="selectQuestionType('mixed')">Kombinace</button>
                             </div>
                         </div>
 
                         <div style="margin-bottom: 1.5rem;">
-                            <label style="display: block; margin-bottom: 0.5rem; color: var(--text-muted);">Téma:</label>
-                            <select id="quiz-category" style="width: 100%; padding: 0.75rem; background: var(--bg-light); border: 1px solid var(--border); border-radius: 8px; color: var(--text); font-size: 1rem;">
+                            <label
+                                style="display: block; margin-bottom: 0.5rem; color: #c4c4cc;">Téma:</label>
+                            <select id="quiz-category"
+                                style="width: 100%; padding: 0.75rem; background: var(--bg-light); border: 1px solid var(--border); border-radius: 8px; color: var(--text); font-size: 1rem;">
                                 <option value="all">Všechna témata</option>
                                 <option value="Proč třídíme">Proč třídíme</option>
                                 <option value="Co kdo třídí">Co kdo třídí</option>
@@ -2150,8 +2767,10 @@
                         </div>
 
                         <div style="margin-bottom: 1.5rem;">
-                            <label style="display: block; margin-bottom: 0.5rem; color: var(--text-muted);">Počet otázek:</label>
-                            <select id="quiz-count" style="width: 100%; padding: 0.75rem; background: var(--bg-light); border: 1px solid var(--border); border-radius: 8px; color: var(--text); font-size: 1rem;">
+                            <label style="display: block; margin-bottom: 0.5rem; color: #c4c4cc;">Počet
+                                otázek:</label>
+                            <select id="quiz-count"
+                                style="width: 100%; padding: 0.75rem; background: var(--bg-light); border: 1px solid var(--border); border-radius: 8px; color: var(--text); font-size: 1rem;">
                                 <option value="10">10 otázek</option>
                                 <option value="20">20 otázek</option>
                                 <option value="30">30 otázek</option>
@@ -2161,12 +2780,14 @@
                         </div>
 
                         <!-- Exam Mode Options -->
-                        <div id="exam-options" style="display: none; margin-bottom: 1.5rem; padding: 1rem; background: var(--bg); border-radius: 8px;">
+                        <div id="exam-options"
+                            style="display: none; margin-bottom: 1.5rem; padding: 1rem; background: var(--bg); border-radius: 8px;">
                             <label style="display: flex; align-items: center; gap: 0.5rem; cursor: pointer;">
                                 <input type="checkbox" id="quiz-timer-enabled" style="width: 18px; height: 18px;">
                                 <span>Časový limit</span>
                             </label>
-                            <select id="quiz-timer-minutes" style="margin-top: 0.5rem; padding: 0.5rem; background: var(--bg-light); border: 1px solid var(--border); border-radius: 6px; color: var(--text);">
+                            <select id="quiz-timer-minutes"
+                                style="margin-top: 0.5rem; padding: 0.5rem; background: var(--bg-light); border: 1px solid var(--border); border-radius: 6px; color: var(--text);">
                                 <option value="10">10 minut</option>
                                 <option value="15">15 minut</option>
                                 <option value="20" selected>20 minut</option>
@@ -2175,9 +2796,12 @@
                         </div>
 
                         <!-- Open Answer Options -->
-                        <div id="open-answer-options" style="display: none; margin-bottom: 1.5rem; padding: 1rem; background: var(--bg); border-radius: 8px;">
-                            <label style="display: flex; align-items: center; gap: 0.5rem; cursor: pointer; margin-bottom: 0.5rem;">
-                                <input type="checkbox" id="ignore-diacritics" style="width: 18px; height: 18px;" checked>
+                        <div id="open-answer-options"
+                            style="display: none; margin-bottom: 1.5rem; padding: 1rem; background: var(--bg); border-radius: 8px;">
+                            <label
+                                style="display: flex; align-items: center; gap: 0.5rem; cursor: pointer; margin-bottom: 0.5rem;">
+                                <input type="checkbox" id="ignore-diacritics" style="width: 18px; height: 18px;"
+                                    checked>
                                 <span>Ignorovat diakritiku (háčky, čárky)</span>
                             </label>
                             <label style="display: flex; align-items: center; gap: 0.5rem; cursor: pointer;">
@@ -2186,23 +2810,30 @@
                             </label>
                         </div>
 
-                        <div id="quiz-category-info" style="background: var(--bg); padding: 1rem; border-radius: 8px; margin-bottom: 1.5rem;">
+                        <div id="quiz-category-info"
+                            style="background: var(--bg); padding: 1rem; border-radius: 8px; margin-bottom: 1.5rem;">
                             <span style="color: var(--secondary); font-weight: 600;" id="available-count">120</span>
-                            <span style="color: var(--text-muted);"> otázek k dispozici</span>
-                            <span id="weakness-count" style="display: none; margin-left: 1rem; color: var(--warning);">(<span id="weak-questions-num">0</span> slabých)</span>
+                            <span style="color: #c4c4cc;"> otázek k dispozici</span>
+                            <span id="weakness-count"
+                                style="display: none; margin-left: 1rem; color: var(--warning);">(<span
+                                    id="weak-questions-num">0</span> slabých)</span>
                         </div>
 
                         <div style="display: flex; gap: 0.75rem; flex-wrap: wrap;">
-                            <button class="quiz-btn" onclick="startQuizWithSettings()" style="flex: 1;">Spustit kvíz</button>
-                            <button class="btn-secondary" onclick="showMistakeBank()" style="display: flex; align-items: center; gap: 0.5rem;">
-                                📋 Banka chyb <span id="mistake-count-badge" style="background: var(--danger); color: white; padding: 0.15rem 0.5rem; border-radius: 10px; font-size: 0.75rem;">0</span>
+                            <button class="quiz-btn" onclick="startQuizWithSettings()" style="flex: 1;">Spustit
+                                kvíz</button>
+                            <button class="btn-secondary" onclick="showMistakeBank()"
+                                style="display: flex; align-items: center; gap: 0.5rem;">
+                                📋 Banka chyb <span id="mistake-count-badge"
+                                    style="background: var(--danger); color: white; padding: 0.15rem 0.5rem; border-radius: 10px; font-size: 0.75rem;">0</span>
                             </button>
                         </div>
                     </div>
 
                     <!-- Mistake Bank View -->
                     <div id="mistake-bank-view" class="quiz-question-card" style="display: none;">
-                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
+                        <div
+                            style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
                             <h2 style="margin: 0;">📋 Banka chyb</h2>
                             <button class="btn-secondary" onclick="hideMistakeBank()">← Zpět</button>
                         </div>
@@ -2252,11 +2883,15 @@
                     </div>
 
                     <div class="quiz-question-card" id="quiz-card" style="display: none;">
-                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+                        <div
+                            style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
                             <div class="quiz-question-number" id="quiz-q-num">Otázka 1</div>
                             <div style="display: flex; align-items: center; gap: 0.5rem;">
-                                <span id="quiz-q-type-badge" style="background: var(--secondary); padding: 0.2rem 0.5rem; border-radius: 8px; font-size: 0.7rem;">MC</span>
-                                <span style="background: var(--primary); padding: 0.25rem 0.75rem; border-radius: 20px; font-size: 0.8rem;" id="quiz-q-cat">Kategorie</span>
+                                <span id="quiz-q-type-badge"
+                                    style="background: var(--secondary); padding: 0.2rem 0.5rem; border-radius: 8px; font-size: 0.7rem;">MC</span>
+                                <span
+                                    style="background: var(--primary); padding: 0.25rem 0.75rem; border-radius: 20px; font-size: 0.8rem;"
+                                    id="quiz-q-cat">Kategorie</span>
                             </div>
                         </div>
                         <div class="quiz-question-text" id="quiz-question">Načítám otázku...</div>
@@ -2266,19 +2901,23 @@
 
                         <!-- Open Answer Input -->
                         <div id="quiz-open-container" style="display: none;">
-                            <textarea class="quiz-open-answer" id="quiz-open-input" placeholder="Napiš svou odpověď..." rows="3"></textarea>
-                            <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 0.5rem;">
+                            <textarea class="quiz-open-answer" id="quiz-open-input" placeholder="Napiš svou odpověď..."
+                                rows="3"></textarea>
+                            <div
+                                style="display: flex; justify-content: space-between; align-items: center; margin-top: 0.5rem;">
                                 <div class="keyboard-hints" style="margin: 0; font-size: 0.75rem;">
                                     <span><kbd class="kbd">Enter</kbd> Odeslat</span>
                                 </div>
-                                <button class="quiz-btn" id="submit-open-btn" onclick="submitOpenAnswer()" style="padding: 0.5rem 1.5rem;">Odeslat odpověď</button>
+                                <button class="quiz-btn" id="submit-open-btn" onclick="submitOpenAnswer()"
+                                    style="padding: 0.5rem 1.5rem;">Odeslat odpověď</button>
                             </div>
                         </div>
 
                         <!-- Feedback Container -->
                         <div id="quiz-feedback-container" style="display: none;"></div>
 
-                        <button class="quiz-btn" id="quiz-btn" onclick="nextQuestion()" disabled style="margin-top: 1rem;">Další otázka</button>
+                        <button class="quiz-btn" id="quiz-btn" onclick="nextQuestion()" disabled
+                            style="margin-top: 1rem;">Další otázka</button>
 
                         <!-- Keyboard Hints -->
                         <div class="keyboard-hints" id="quiz-keyboard-hints" style="margin-top: 0.75rem;">
@@ -2291,7 +2930,9 @@
                     <div class="results-container" id="quiz-results" style="display: none;">
                         <div class="results-score" id="final-score">0%</div>
                         <div class="results-message" id="results-message">Výborně!</div>
-                        <div id="results-details" style="margin: 2rem 0; text-align: left; background: var(--bg-card); padding: 1.5rem; border-radius: 12px;"></div>
+                        <div id="results-details"
+                            style="margin: 2rem 0; text-align: left; background: var(--bg-card); padding: 1.5rem; border-radius: 12px;">
+                        </div>
                         <button class="quiz-btn" onclick="showQuizSetup()">Nový kvíz</button>
                     </div>
                 </div>
@@ -2300,7 +2941,8 @@
             <!-- Concept Maps -->
             <section id="maps" class="section">
                 <h1 style="margin-bottom: 2rem;">Konceptové mapy</h1>
-                <p style="color: var(--text-muted); margin-bottom: 2rem;">Vizuální přehled klíčových konceptů a jejich vztahů (Dual Coding)</p>
+                <p style="color: #c4c4cc; margin-bottom: 2rem;">Vizuální přehled klíčových konceptů a jejich
+                    vztahů (Dual Coding)</p>
 
                 <div class="topics-grid">
                     <div class="topic-card" onclick="showConceptMap('hierarchy')">
@@ -2362,10 +3004,13 @@
 
                 <!-- Concept Map Display -->
                 <div id="concept-map-container" style="display: none; margin-top: 2rem;">
-                    <div style="background: var(--bg-card); border-radius: 16px; padding: 2rem; border: 1px solid var(--border);">
-                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
+                    <div
+                        style="background: var(--bg-card); border-radius: 16px; padding: 2rem; border: 1px solid var(--border);">
+                        <div
+                            style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
                             <h2 id="map-title" style="color: var(--primary);">Název mapy</h2>
-                            <button onclick="hideConceptMap()" style="background: var(--bg-light); border: none; color: var(--text); padding: 0.5rem 1rem; border-radius: 8px; cursor: pointer;">Zavřít</button>
+                            <button onclick="hideConceptMap()"
+                                style="background: var(--bg-light); border: none; color: var(--text); padding: 0.5rem 1rem; border-radius: 8px; cursor: pointer;">Zavřít</button>
                         </div>
                         <div id="map-content" style="min-height: 400px;"></div>
                     </div>
@@ -2400,7 +3045,8 @@
             </div>
             <div style="line-height: 1.8;">
                 <h3 style="color: var(--primary); margin: 1rem 0 0.5rem;">🎴 Spaced Repetition (SRS)</h3>
-                <p>Aplikace používá algoritmus SM-2 pro optimální rozložení opakování. Kartičky se zobrazují podle toho, kdy je potřeba je zopakovat.</p>
+                <p>Aplikace používá algoritmus SM-2 pro optimální rozložení opakování. Kartičky se zobrazují podle toho,
+                    kdy je potřeba je zopakovat.</p>
                 <ul style="margin: 0.5rem 0 1rem 1.5rem;">
                     <li><strong>Znovu</strong> - Kartičku uvidíš znovu za pár minut</li>
                     <li><strong>Těžké</strong> - Interval se zkrátí</li>
@@ -2419,7 +3065,8 @@
                 </ul>
 
                 <h3 style="color: var(--primary); margin: 1rem 0 0.5rem;">📥 Import/Export</h3>
-                <p>Data můžeš exportovat do CSV a později importovat. Formát: <code>topic,front,back,explanation</code></p>
+                <p>Data můžeš exportovat do CSV a později importovat. Formát: <code>topic,front,back,explanation</code>
+                </p>
 
                 <h3 style="color: var(--primary); margin: 1rem 0 0.5rem;">🎧 Audio Loop</h3>
                 <p>Režim pro hands-free studium. Čte otázky a odpovědi nahlas pomocí Web Speech API.</p>
@@ -2437,7 +3084,8 @@
 
             <div style="margin-bottom: 1.5rem;">
                 <h3 style="color: var(--secondary); margin-bottom: 0.5rem;">Export kartiček (CSV)</h3>
-                <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 0.5rem;">Formát: topic,front,back,explanation</p>
+                <p style="color: #c4c4cc; font-size: 0.9rem; margin-bottom: 0.5rem;">Formát:
+                    topic,front,back,explanation</p>
                 <div class="btn-row">
                     <button class="btn-secondary" onclick="exportFlashcardsCSV()">📥 Exportovat kartičky</button>
                     <button class="btn-secondary" onclick="exportQuizCSV()">📥 Exportovat kvízové otázky</button>
@@ -2447,7 +3095,8 @@
 
             <div style="margin-bottom: 1.5rem;">
                 <h3 style="color: var(--secondary); margin-bottom: 0.5rem;">Import kartiček (CSV)</h3>
-                <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 0.5rem;">Vlož CSV data ve formátu: topic,front,back,explanation</p>
+                <p style="color: #c4c4cc; font-size: 0.9rem; margin-bottom: 0.5rem;">Vlož CSV data ve formátu:
+                    topic,front,back,explanation</p>
                 <textarea class="import-export-area" id="import-data" placeholder="topic,front,back,explanation
 Proč třídíme,Co je informační exploze?,Růst množství dat...,Vysvětlení proč je to důležité"></textarea>
                 <div class="btn-row">
@@ -2458,11 +3107,14 @@ Proč třídíme,Co je informační exploze?,Růst množství dat...,Vysvětlen�
 
             <div style="margin-bottom: 1rem;">
                 <h3 style="color: var(--warning); margin-bottom: 0.5rem;">⚠️ Reset dat</h3>
-                <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 0.5rem;">Smaže veškerý pokrok a vrátí aplikaci do výchozího stavu.</p>
-                <button class="btn-secondary" style="border-color: var(--danger); color: var(--danger);" onclick="resetAllProgress()">🗑️ Resetovat pokrok</button>
+                <p style="color: #c4c4cc; font-size: 0.9rem; margin-bottom: 0.5rem;">Smaže veškerý pokrok a
+                    vrátí aplikaci do výchozího stavu.</p>
+                <button class="btn-secondary" style="border-color: var(--danger); color: var(--danger);"
+                    onclick="resetAllProgress()">🗑️ Resetovat pokrok</button>
             </div>
 
-            <div id="import-export-status" style="margin-top: 1rem; padding: 0.75rem; border-radius: 8px; display: none;"></div>
+            <div id="import-export-status"
+                style="margin-top: 1rem; padding: 0.75rem; border-radius: 8px; display: none;"></div>
         </div>
     </div>
 
@@ -3805,7 +4457,7 @@ Proč třídíme,Co je informační exploze?,Růst množství dat...,Vysvětlen�
             }
 
             if (question.exp) {
-                html += `<div style="color: var(--text-muted); font-size: 0.9rem;"><strong>Vysvětlení:</strong> ${question.exp}</div>`;
+                html += `<div style="color: #c4c4cc; font-size: 0.9rem;"><strong>Vysvětlení:</strong> ${question.exp}</div>`;
             }
 
             // Action buttons
@@ -3814,7 +4466,7 @@ Proč třídíme,Co je informační exploze?,Růst množství dat...,Vysvětlen�
                     ${!isCorrect ? `<button class="quiz-action-btn" onclick="addCurrentToMistakeBank()">📋 Do banky chyb</button>` : ''}
                     <button class="quiz-action-btn" onclick="createFlashcardFromQuestion()">🎴 Vytvořit kartičku</button>
                     ${evaluation && !evaluation.correct && (evaluation.matchType === 'partial' || evaluation.matchType === 'keywords') ?
-                        `<button class="override-btn" onclick="overrideAsCorrect()">✓ Označit jako správné</button>` : ''}
+                    `<button class="override-btn" onclick="overrideAsCorrect()">✓ Označit jako správné</button>` : ''}
                 </div>
             `;
 
@@ -4036,12 +4688,12 @@ Proč třídíme,Co je informační exploze?,Růst množství dat...,Vysvětlen�
                         <div class="mistake-your-answer">Tvá odpověď: ${m.yourAnswer}</div>
                         <div class="mistake-correct-answer">Správně: ${m.correctAnswer}</div>
                     </div>
-                    ${m.explanation ? `<div style="font-size: 0.85rem; color: var(--text-muted); margin-top: 0.5rem;">${m.explanation}</div>` : ''}
+                    ${m.explanation ? `<div style="font-size: 0.85rem; color: #c4c4cc; margin-top: 0.5rem;">${m.explanation}</div>` : ''}
                     <div class="mistake-actions">
                         ${!m.resolved ?
-                            `<button class="quiz-action-btn" onclick="markMistakeResolved(${m.id})">✓ Vyřešeno</button>` :
-                            `<button class="quiz-action-btn" onclick="markMistakeUnresolved(${m.id})">↩ Znovu otevřít</button>`
-                        }
+                    `<button class="quiz-action-btn" onclick="markMistakeResolved(${m.id})">✓ Vyřešeno</button>` :
+                    `<button class="quiz-action-btn" onclick="markMistakeUnresolved(${m.id})">↩ Znovu otevřít</button>`
+                }
                         <button class="quiz-action-btn" onclick="deleteMistake(${m.id})">🗑️ Smazat</button>
                     </div>
                 </div>
@@ -4150,7 +4802,7 @@ Proč třídíme,Co je informační exploze?,Růst množství dat...,Vysvětlen�
                             <div style="font-weight: 600; margin-bottom: 0.5rem;">${w.question}</div>
                             <div style="color: var(--danger); font-size: 0.9rem;">Tvá odpověď: ${w.yourAnswer}</div>
                             <div style="color: var(--secondary); font-size: 0.9rem;">Správně: ${w.correctAnswer}</div>
-                            <div style="color: var(--text-muted); font-size: 0.8rem; margin-top: 0.25rem;">${w.category}</div>
+                            <div style="color: #c4c4cc; font-size: 0.8rem; margin-top: 0.25rem;">${w.category}</div>
                         </div>
                     `).join('')}
                 `;
@@ -4197,7 +4849,7 @@ Proč třídíme,Co je informační exploze?,Růst množství dat...,Vysvětlen�
 
             const body = document.getElementById('modal-body');
             body.innerHTML = `
-                <p style="color: var(--text-muted); margin-bottom: 1.5rem;">${topic.description}</p>
+                <p style="color: #c4c4cc; margin-bottom: 1.5rem;">${topic.description}</p>
                 <h3 style="margin-bottom: 1rem;">Klíčové pojmy</h3>
                 <ul class="concept-list">
                     ${topic.concepts.map(c => `
@@ -4274,11 +4926,11 @@ Proč třídíme,Co je informační exploze?,Růst množství dat...,Vysvětlen�
                                 <div style="display: flex; gap: 1rem; margin-top: 0.5rem;">
                                     <div style="background: var(--bg-light); padding: 0.5rem 1rem; border-radius: 8px; font-size: 0.9rem;">
                                         <strong>Prekoordinované</strong><br>
-                                        <span style="color: var(--text-muted); font-size: 0.8rem;">DDC, LCC, MDT</span>
+                                        <span style="color: #c4c4cc; font-size: 0.8rem;">DDC, LCC, MDT</span>
                                     </div>
                                     <div style="background: var(--bg-light); padding: 0.5rem 1rem; border-radius: 8px; font-size: 0.9rem;">
                                         <strong>Postkoordinované</strong><br>
-                                        <span style="color: var(--text-muted); font-size: 0.8rem;">CC, BBC</span>
+                                        <span style="color: #c4c4cc; font-size: 0.8rem;">CC, BBC</span>
                                     </div>
                                 </div>
                             </div>
@@ -4288,11 +4940,11 @@ Proč třídíme,Co je informační exploze?,Růst množství dat...,Vysvětlen�
                                 <div style="display: flex; gap: 1rem; margin-top: 0.5rem;">
                                     <div style="background: var(--bg-light); padding: 0.5rem 1rem; border-radius: 8px; font-size: 0.9rem;">
                                         <strong>Prekoordinované</strong><br>
-                                        <span style="color: var(--text-muted); font-size: 0.8rem;">Předmětová hesla</span>
+                                        <span style="color: #c4c4cc; font-size: 0.8rem;">Předmětová hesla</span>
                                     </div>
                                     <div style="background: var(--bg-light); padding: 0.5rem 1rem; border-radius: 8px; font-size: 0.9rem;">
                                         <strong>Postkoordinované</strong><br>
-                                        <span style="color: var(--text-muted); font-size: 0.8rem;">Tezaury, Klíč. slova</span>
+                                        <span style="color: #c4c4cc; font-size: 0.8rem;">Tezaury, Klíč. slova</span>
                                     </div>
                                 </div>
                             </div>
@@ -4319,22 +4971,22 @@ Proč třídíme,Co je informační exploze?,Růst množství dat...,Vysvětlen�
                                 <text x="20" y="250" text-anchor="middle" fill="#94a3b8" font-size="10">(věc)</text>
                                 <line x1="110" y1="230" x2="190" y2="230" stroke="#475569" stroke-width="2" stroke-dasharray="5,5"/>
                             </svg>
-                            <p style="color: var(--text-muted); font-size: 0.85rem; margin-top: 1rem;">Znak nemá přímý vztah k věci (arbitrární povaha)</p>
+                            <p style="color: #c4c4cc; font-size: 0.85rem; margin-top: 1rem;">Znak nemá přímý vztah k věci (arbitrární povaha)</p>
                         </div>
                         <div>
                             <h3 style="color: var(--primary); margin-bottom: 1rem;">Popperovy světy</h3>
                             <div style="display: flex; flex-direction: column; gap: 1rem;">
                                 <div style="background: linear-gradient(90deg, #ef4444 0%, #1e293b 100%); padding: 1rem; border-radius: 10px;">
-                                    <strong style="color: #ef4444;">PI - Svět věcí</strong>
-                                    <p style="color: var(--text-muted); font-size: 0.85rem; margin: 0;">Věci, jevy, předměty, skutečnosti</p>
+                                    <strong style="color: #ffffff;">PI - Svět věcí</strong>
+                                    <p style="color: #e2e8f0; font-size: 0.85rem; margin: 0;">Věci, jevy, předměty, skutečnosti</p>
                                 </div>
                                 <div style="background: linear-gradient(90deg, #f59e0b 0%, #1e293b 100%); padding: 1rem; border-radius: 10px;">
-                                    <strong style="color: #f59e0b;">PII - Poznávající subjekt</strong>
-                                    <p style="color: var(--text-muted); font-size: 0.85rem; margin: 0;">Manipuluje s věcmi, pojmy a znaky</p>
+                                    <strong style="color: #ffffff;">PII - Poznávající subjekt</strong>
+                                    <p style="color: #e2e8f0; font-size: 0.85rem; margin: 0;">Manipuluje s věcmi, pojmy a znaky</p>
                                 </div>
                                 <div style="background: linear-gradient(90deg, #10b981 0%, #1e293b 100%); padding: 1rem; border-radius: 10px;">
-                                    <strong style="color: #10b981;">PIII - Zaznamenané poznání</strong>
-                                    <p style="color: var(--text-muted); font-size: 0.85rem; margin: 0;">Komunikační nástroje, dokumenty</p>
+                                    <strong style="color: #ffffff;">PIII - Zaznamenané poznání</strong>
+                                    <p style="color: #e2e8f0; font-size: 0.85rem; margin: 0;">Komunikační nástroje, dokumenty</p>
                                 </div>
                             </div>
                         </div>
@@ -4349,7 +5001,7 @@ Proč třídíme,Co je informační exploze?,Růst množství dat...,Vysvětlen�
                             <div style="background: var(--bg-light); padding: 1.5rem; border-radius: 12px; text-align: center; min-width: 200px; border: 2px solid var(--danger);">
                                 <div style="font-size: 2rem; margin-bottom: 0.5rem;">📊</div>
                                 <div style="font-weight: 700; color: var(--danger); font-size: 1.2rem;">DATA</div>
-                                <div style="color: var(--text-muted); font-size: 0.85rem; margin-top: 0.5rem;">
+                                <div style="color: #c4c4cc; font-size: 0.85rem; margin-top: 0.5rem;">
                                     Symbolické reprezentace<br>
                                     Řetězec znaků<br>
                                     <em>Př: 460,8</em>
@@ -4361,7 +5013,7 @@ Proč třídíme,Co je informační exploze?,Růst množství dat...,Vysvětlen�
                             <div style="background: var(--bg-light); padding: 1.5rem; border-radius: 12px; text-align: center; min-width: 200px; border: 2px solid var(--warning);">
                                 <div style="font-size: 2rem; margin-bottom: 0.5rem;">📄</div>
                                 <div style="font-weight: 700; color: var(--warning); font-size: 1.2rem;">INFORMACE</div>
-                                <div style="color: var(--text-muted); font-size: 0.85rem; margin-top: 0.5rem;">
+                                <div style="color: #c4c4cc; font-size: 0.85rem; margin-top: 0.5rem;">
                                     Data s významem<br>
                                     Faktografické, bibliografické<br>
                                     <em>Př: 460,8 m.n.m.</em>
@@ -4373,7 +5025,7 @@ Proč třídíme,Co je informační exploze?,Růst množství dat...,Vysvětlen�
                             <div style="background: var(--bg-light); padding: 1.5rem; border-radius: 12px; text-align: center; min-width: 200px; border: 2px solid var(--secondary);">
                                 <div style="font-size: 2rem; margin-bottom: 0.5rem;">🧠</div>
                                 <div style="font-weight: 700; color: var(--secondary); font-size: 1.2rem;">ZNALOSTI</div>
-                                <div style="color: var(--text-muted); font-size: 0.85rem; margin-top: 0.5rem;">
+                                <div style="color: #c4c4cc; font-size: 0.85rem; margin-top: 0.5rem;">
                                     Informace s kontextem<br>
                                     Médium: mozek<br>
                                     <em>Př: 460,8 m.n.m., Říp</em>
@@ -4392,39 +5044,39 @@ Proč třídíme,Co je informační exploze?,Růst množství dat...,Vysvětlen�
                                 <div style="background: var(--primary); color: white; width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; flex-shrink: 0;">1</div>
                                 <div style="flex: 1; background: var(--bg-light); padding: 1rem; border-radius: 10px; border-left: 3px solid var(--primary);">
                                     <strong style="color: var(--text);">Obsahová analýza</strong>
-                                    <p style="color: var(--text-muted); font-size: 0.85rem; margin: 0.25rem 0 0 0;">Typy čtení: orientační, kurzorické, selektivní, statarické, racionální</p>
+                                    <p style="color: #c4c4cc; font-size: 0.85rem; margin: 0.25rem 0 0 0;">Typy čtení: orientační, kurzorické, selektivní, statarické, racionální</p>
                                 </div>
                             </div>
                             <div style="display: flex; align-items: center; gap: 1rem;">
                                 <div style="background: var(--primary); color: white; width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; flex-shrink: 0;">2</div>
                                 <div style="flex: 1; background: var(--bg-light); padding: 1rem; border-radius: 10px; border-left: 3px solid var(--primary);">
                                     <strong style="color: var(--text);">Identifikace pojmů</strong>
-                                    <p style="color: var(--text-muted); font-size: 0.85rem; margin: 0.25rem 0 0 0;">Zde vzniká 42,3% chyb! Opominutí hledisek je nejčastější chyba.</p>
+                                    <p style="color: #c4c4cc; font-size: 0.85rem; margin: 0.25rem 0 0 0;">Zde vzniká 42,3% chyb! Opominutí hledisek je nejčastější chyba.</p>
                                 </div>
                             </div>
                             <div style="display: flex; align-items: center; gap: 1rem;">
                                 <div style="background: var(--primary); color: white; width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; flex-shrink: 0;">3</div>
                                 <div style="flex: 1; background: var(--bg-light); padding: 1rem; border-radius: 10px; border-left: 3px solid var(--primary);">
                                     <strong style="color: var(--text);">Výběr znaků SJ</strong>
-                                    <p style="color: var(--text-muted); font-size: 0.85rem; margin: 0.25rem 0 0 0;">Úplnost, specifičnost, indexační hlediska</p>
+                                    <p style="color: #c4c4cc; font-size: 0.85rem; margin: 0.25rem 0 0 0;">Úplnost, specifičnost, indexační hlediska</p>
                                 </div>
                             </div>
                             <div style="display: flex; align-items: center; gap: 1rem;">
                                 <div style="background: var(--secondary); color: white; width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; flex-shrink: 0;">✓</div>
                                 <div style="flex: 1; background: var(--bg-light); padding: 1rem; border-radius: 10px; border-left: 3px solid var(--secondary);">
                                     <strong style="color: var(--secondary);">SOD (Selekční obraz dokumentu)</strong>
-                                    <p style="color: var(--text-muted); font-size: 0.85rem; margin: 0.25rem 0 0 0;">Soubor lexikálních jednotek nebo klasifikačních znaků</p>
+                                    <p style="color: #c4c4cc; font-size: 0.85rem; margin: 0.25rem 0 0 0;">Soubor lexikálních jednotek nebo klasifikačních znaků</p>
                                 </div>
                             </div>
                         </div>
                         <div style="display: flex; justify-content: center; gap: 3rem; margin-top: 2rem; flex-wrap: wrap;">
                             <div style="text-align: center; background: var(--bg-light); padding: 1rem 1.5rem; border-radius: 10px; border-top: 3px solid var(--primary);">
                                 <div style="font-size: 1.1rem; font-weight: 700; color: var(--primary);">Recall (Úplnost)</div>
-                                <div style="color: var(--text-muted); font-size: 0.9rem;">vyhledané rel. / všechny rel.</div>
+                                <div style="color: #c4c4cc; font-size: 0.9rem;">vyhledané rel. / všechny rel.</div>
                             </div>
                             <div style="text-align: center; background: var(--bg-light); padding: 1rem 1.5rem; border-radius: 10px; border-top: 3px solid var(--warning);">
                                 <div style="font-size: 1.1rem; font-weight: 700; color: var(--warning);">Precision (Přesnost)</div>
-                                <div style="color: var(--text-muted); font-size: 0.9rem;">vyhledané rel. / všechny vyhled.</div>
+                                <div style="color: #c4c4cc; font-size: 0.9rem;">vyhledané rel. / všechny vyhled.</div>
                             </div>
                         </div>
                     </div>
@@ -4438,28 +5090,28 @@ Proč třídíme,Co je informační exploze?,Růst množství dat...,Vysvětlen�
                         <div style="display: flex; justify-content: center; gap: 3rem; margin-top: 2rem; flex-wrap: wrap;">
                             <div style="text-align: center;">
                                 <div style="background: var(--secondary); color: white; padding: 0.5rem 1rem; border-radius: 8px; font-weight: 600;">BT (Broader Term)</div>
-                                <div style="color: var(--text-muted); font-size: 0.85rem; margin-top: 0.5rem;">Nadřazený deskriptor</div>
+                                <div style="color: #c4c4cc; font-size: 0.85rem; margin-top: 0.5rem;">Nadřazený deskriptor</div>
                                 <div style="font-size: 1.5rem; margin: 0.5rem 0;">↑</div>
                             </div>
                             <div style="text-align: center;">
                                 <div style="background: var(--warning); color: white; padding: 0.5rem 1rem; border-radius: 8px; font-weight: 600;">NT (Narrower Term)</div>
-                                <div style="color: var(--text-muted); font-size: 0.85rem; margin-top: 0.5rem;">Podřazený deskriptor</div>
+                                <div style="color: #c4c4cc; font-size: 0.85rem; margin-top: 0.5rem;">Podřazený deskriptor</div>
                                 <div style="font-size: 1.5rem; margin: 0.5rem 0;">↓</div>
                             </div>
                             <div style="text-align: center;">
                                 <div style="background: var(--danger); color: white; padding: 0.5rem 1rem; border-radius: 8px; font-weight: 600;">RT (Related Term)</div>
-                                <div style="color: var(--text-muted); font-size: 0.85rem; margin-top: 0.5rem;">Příbuzný deskriptor</div>
+                                <div style="color: #c4c4cc; font-size: 0.85rem; margin-top: 0.5rem;">Příbuzný deskriptor</div>
                                 <div style="font-size: 1.5rem; margin: 0.5rem 0;">↔</div>
                             </div>
                             <div style="text-align: center;">
                                 <div style="background: var(--bg-light); border: 2px dashed var(--border); padding: 0.5rem 1rem; border-radius: 8px; font-weight: 600;">UF (Used For)</div>
-                                <div style="color: var(--text-muted); font-size: 0.85rem; margin-top: 0.5rem;">Nedeskriptor (ekvivalent)</div>
+                                <div style="color: #c4c4cc; font-size: 0.85rem; margin-top: 0.5rem;">Nedeskriptor (ekvivalent)</div>
                                 <div style="font-size: 1.5rem; margin: 0.5rem 0;">≈</div>
                             </div>
                         </div>
                         <div style="margin-top: 2rem; padding: 1rem; background: var(--bg-light); border-radius: 12px;">
                             <h4 style="color: var(--primary); margin-bottom: 0.5rem;">Příklad deskriptorového odstavce:</h4>
-                            <div style="text-align: left; font-family: monospace; color: var(--text-muted);">
+                            <div style="text-align: left; font-family: monospace; color: #c4c4cc;">
                                 <strong style="color: var(--text);">informační systémy</strong><br>
                                 BT: informační technologie<br>
                                 NT: databázové systémy, knihovní systémy<br>
@@ -4477,7 +5129,7 @@ Proč třídíme,Co je informační exploze?,Růst množství dat...,Vysvětlen�
                         <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1rem;">
                             <div style="background: var(--bg-light); padding: 1.5rem; border-radius: 12px; border-left: 4px solid #ef4444;">
                                 <div style="font-weight: 700; color: #ef4444; font-size: 1.2rem;">DDC</div>
-                                <div style="color: var(--text-muted); font-size: 0.85rem;">Deweyho desetinné třídění</div>
+                                <div style="color: #c4c4cc; font-size: 0.85rem;">Deweyho desetinné třídění</div>
                                 <hr style="border-color: var(--border); margin: 0.75rem 0;">
                                 <div style="font-size: 0.9rem;">
                                     <strong>Rok:</strong> 1876 (Melvil Dewey)<br>
@@ -4488,7 +5140,7 @@ Proč třídíme,Co je informační exploze?,Růst množství dat...,Vysvětlen�
                             </div>
                             <div style="background: var(--bg-light); padding: 1.5rem; border-radius: 12px; border-left: 4px solid #f59e0b;">
                                 <div style="font-weight: 700; color: #f59e0b; font-size: 1.2rem;">LCC</div>
-                                <div style="color: var(--text-muted); font-size: 0.85rem;">Klasifikace Kongresové knihovny</div>
+                                <div style="color: #c4c4cc; font-size: 0.85rem;">Klasifikace Kongresové knihovny</div>
                                 <hr style="border-color: var(--border); margin: 0.75rem 0;">
                                 <div style="font-size: 0.9rem;">
                                     <strong>Rok:</strong> přelom 19./20. st.<br>
@@ -4499,7 +5151,7 @@ Proč třídíme,Co je informační exploze?,Růst množství dat...,Vysvětlen�
                             </div>
                             <div style="background: var(--bg-light); padding: 1.5rem; border-radius: 12px; border-left: 4px solid #10b981;">
                                 <div style="font-weight: 700; color: #10b981; font-size: 1.2rem;">MDT</div>
-                                <div style="color: var(--text-muted); font-size: 0.85rem;">Mezinárodní desetinné třídění</div>
+                                <div style="color: #c4c4cc; font-size: 0.85rem;">Mezinárodní desetinné třídění</div>
                                 <hr style="border-color: var(--border); margin: 0.75rem 0;">
                                 <div style="font-size: 0.9rem;">
                                     <strong>Rok:</strong> poč. 20. st. (Otlet, La Fontaine)<br>
@@ -4510,7 +5162,7 @@ Proč třídíme,Co je informační exploze?,Růst množství dat...,Vysvětlen�
                             </div>
                             <div style="background: var(--bg-light); padding: 1.5rem; border-radius: 12px; border-left: 4px solid #6366f1;">
                                 <div style="font-weight: 700; color: #6366f1; font-size: 1.2rem;">CC</div>
-                                <div style="color: var(--text-muted); font-size: 0.85rem;">Dvojtečkové třídění</div>
+                                <div style="color: #c4c4cc; font-size: 0.85rem;">Dvojtečkové třídění</div>
                                 <hr style="border-color: var(--border); margin: 0.75rem 0;">
                                 <div style="font-size: 0.9rem;">
                                     <strong>Rok:</strong> 1933 (Ranganathan)<br>
@@ -4521,7 +5173,7 @@ Proč třídíme,Co je informační exploze?,Růst množství dat...,Vysvětlen�
                             </div>
                             <div style="background: var(--bg-light); padding: 1.5rem; border-radius: 12px; border-left: 4px solid #8b5cf6;">
                                 <div style="font-weight: 700; color: #8b5cf6; font-size: 1.2rem;">BBC</div>
-                                <div style="color: var(--text-muted); font-size: 0.85rem;">Blissovo bibliografické třídění</div>
+                                <div style="color: #c4c4cc; font-size: 0.85rem;">Blissovo bibliografické třídění</div>
                                 <hr style="border-color: var(--border); margin: 0.75rem 0;">
                                 <div style="font-size: 0.9rem;">
                                     <strong>Rok:</strong> 1940-1953 (Bliss)<br>
@@ -4543,31 +5195,31 @@ Proč třídíme,Co je informační exploze?,Růst množství dat...,Vysvětlen�
                                 <div style="background: var(--primary); color: white; width: 50px; height: 50px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; flex-shrink: 0;">💡</div>
                                 <div style="flex: 1; background: var(--bg-light); padding: 1rem; border-radius: 10px; border-left: 3px solid var(--primary);">
                                     <strong style="color: var(--primary);">DÍLO (Work)</strong>
-                                    <p style="color: var(--text-muted); font-size: 0.85rem; margin: 0.25rem 0 0 0;">Abstraktní intelektuální/umělecký výtvor<br><em>Př: "Babička" jako literární koncept</em></p>
+                                    <p style="color: #c4c4cc; font-size: 0.85rem; margin: 0.25rem 0 0 0;">Abstraktní intelektuální/umělecký výtvor<br><em>Př: "Babička" jako literární koncept</em></p>
                                 </div>
                             </div>
-                            <div style="text-align: center; color: var(--text-muted);">↓ realizováno jako ↓</div>
+                            <div style="text-align: center; color: #c4c4cc;">↓ realizováno jako ↓</div>
                             <div style="display: flex; align-items: center; gap: 1rem;">
                                 <div style="background: var(--secondary); color: white; width: 50px; height: 50px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; flex-shrink: 0;">📝</div>
                                 <div style="flex: 1; background: var(--bg-light); padding: 1rem; border-radius: 10px; border-left: 3px solid var(--secondary);">
                                     <strong style="color: var(--secondary);">VYJÁDŘENÍ (Expression)</strong>
-                                    <p style="color: var(--text-muted); font-size: 0.85rem; margin: 0.25rem 0 0 0;">Konkrétní realizace díla<br><em>Př: Český originál, anglický překlad, audiokniha</em></p>
+                                    <p style="color: #c4c4cc; font-size: 0.85rem; margin: 0.25rem 0 0 0;">Konkrétní realizace díla<br><em>Př: Český originál, anglický překlad, audiokniha</em></p>
                                 </div>
                             </div>
-                            <div style="text-align: center; color: var(--text-muted);">↓ ztělesněno v ↓</div>
+                            <div style="text-align: center; color: #c4c4cc;">↓ ztělesněno v ↓</div>
                             <div style="display: flex; align-items: center; gap: 1rem;">
                                 <div style="background: var(--warning); color: white; width: 50px; height: 50px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; flex-shrink: 0;">📚</div>
                                 <div style="flex: 1; background: var(--bg-light); padding: 1rem; border-radius: 10px; border-left: 3px solid var(--warning);">
                                     <strong style="color: var(--warning);">PROVEDENÍ (Manifestation)</strong>
-                                    <p style="color: var(--text-muted); font-size: 0.85rem; margin: 0.25rem 0 0 0;">Konkrétní vydání<br><em>Př: Albatros 2020, Odeon 1985</em></p>
+                                    <p style="color: #c4c4cc; font-size: 0.85rem; margin: 0.25rem 0 0 0;">Konkrétní vydání<br><em>Př: Albatros 2020, Odeon 1985</em></p>
                                 </div>
                             </div>
-                            <div style="text-align: center; color: var(--text-muted);">↓ exemplifikováno jako ↓</div>
+                            <div style="text-align: center; color: #c4c4cc;">↓ exemplifikováno jako ↓</div>
                             <div style="display: flex; align-items: center; gap: 1rem;">
                                 <div style="background: var(--danger); color: white; width: 50px; height: 50px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; flex-shrink: 0;">📖</div>
                                 <div style="flex: 1; background: var(--bg-light); padding: 1rem; border-radius: 10px; border-left: 3px solid var(--danger);">
                                     <strong style="color: var(--danger);">JEDNOTKA (Item)</strong>
-                                    <p style="color: var(--text-muted); font-size: 0.85rem; margin: 0.25rem 0 0 0;">Konkrétní exemplář<br><em>Př: Tento výtisk v mých rukou</em></p>
+                                    <p style="color: #c4c4cc; font-size: 0.85rem; margin: 0.25rem 0 0 0;">Konkrétní exemplář<br><em>Př: Tento výtisk v mých rukou</em></p>
                                 </div>
                             </div>
                         </div>
@@ -4582,35 +5234,35 @@ Proč třídíme,Co je informační exploze?,Růst množství dat...,Vysvětlen�
                             <div style="background: var(--bg-light); padding: 1rem; border-radius: 10px; border-top: 4px solid #ef4444; text-align: center;">
                                 <div style="font-weight: 700; color: #ef4444; font-size: 1.5rem;">A</div>
                                 <div style="font-weight: 600; margin: 0.5rem 0;">Nosič/médium</div>
-                                <div style="color: var(--text-muted); font-size: 0.8rem;">papír, digitální</div>
+                                <div style="color: #c4c4cc; font-size: 0.8rem;">papír, digitální</div>
                             </div>
                             <div style="background: var(--bg-light); padding: 1rem; border-radius: 10px; border-top: 4px solid #f59e0b; text-align: center;">
                                 <div style="font-weight: 700; color: #f59e0b; font-size: 1.5rem;">B</div>
                                 <div style="font-weight: 600; margin: 0.5rem 0;">Forma</div>
-                                <div style="color: var(--text-muted); font-size: 0.8rem;">kniha, databáze</div>
+                                <div style="color: #c4c4cc; font-size: 0.8rem;">kniha, databáze</div>
                             </div>
                             <div style="background: var(--bg-light); padding: 1rem; border-radius: 10px; border-top: 4px solid #10b981; text-align: center;">
                                 <div style="font-weight: 700; color: #10b981; font-size: 1.5rem;">C</div>
                                 <div style="font-weight: 600; margin: 0.5rem 0;">Typ/druh</div>
-                                <div style="color: var(--text-muted); font-size: 0.8rem;">tištěná kniha, LP</div>
+                                <div style="color: #c4c4cc; font-size: 0.8rem;">tištěná kniha, LP</div>
                             </div>
                             <div style="background: var(--bg-light); padding: 1rem; border-radius: 10px; border-top: 4px solid #6366f1; text-align: center;">
                                 <div style="font-weight: 700; color: #6366f1; font-size: 1.5rem;">D</div>
                                 <div style="font-weight: 600; margin: 0.5rem 0;">Formát obsahu</div>
-                                <div style="color: var(--text-muted); font-size: 0.8rem;">text, obraz, zvuk</div>
+                                <div style="color: #c4c4cc; font-size: 0.8rem;">text, obraz, zvuk</div>
                             </div>
                             <div style="background: var(--bg-light); padding: 1rem; border-radius: 10px; border-top: 4px solid #8b5cf6; text-align: center;">
                                 <div style="font-weight: 700; color: #8b5cf6; font-size: 1.5rem;">E</div>
                                 <div style="font-weight: 600; margin: 0.5rem 0;">Žánr</div>
-                                <div style="color: var(--text-muted); font-size: 0.8rem;">beletrie, faktografie</div>
+                                <div style="color: #c4c4cc; font-size: 0.8rem;">beletrie, faktografie</div>
                             </div>
                             <div style="background: var(--bg-light); padding: 1rem; border-radius: 10px; border-top: 4px solid #ec4899; text-align: center;">
                                 <div style="font-weight: 700; color: #ec4899; font-size: 1.5rem;">F</div>
                                 <div style="font-weight: 600; margin: 0.5rem 0;">Obsah</div>
-                                <div style="color: var(--text-muted); font-size: 0.8rem;">konkrétní téma</div>
+                                <div style="color: #c4c4cc; font-size: 0.8rem;">konkrétní téma</div>
                             </div>
                         </div>
-                        <div style="margin-top: 1.5rem; text-align: center; color: var(--text-muted); font-size: 0.9rem;">
+                        <div style="margin-top: 1.5rem; text-align: center; color: #c4c4cc; font-size: 0.9rem;">
                             Od nejobecnějších (nosič) → po nejkonkrétnější (obsah)
                         </div>
                     </div>
@@ -4626,7 +5278,7 @@ Proč třídíme,Co je informační exploze?,Růst množství dat...,Vysvětlen�
                                 <div style="background: var(--bg-card); padding: 1rem; border-radius: 8px; text-align: center; margin-bottom: 1rem;">
                                     <div style="font-size: 1.3rem; font-weight: 700;">R = a / (a + b)</div>
                                 </div>
-                                <div style="font-size: 0.9rem; color: var(--text-muted);">
+                                <div style="font-size: 0.9rem; color: #c4c4cc;">
                                     <strong>a</strong> = vyhledané relevantní<br>
                                     <strong>b</strong> = nevyhledané relevantní<br><br>
                                     <em>"Kolik z toho, co jsme MĚLI najít, jsme našli?"</em>
@@ -4637,7 +5289,7 @@ Proč třídíme,Co je informační exploze?,Růst množství dat...,Vysvětlen�
                                 <div style="background: var(--bg-card); padding: 1rem; border-radius: 8px; text-align: center; margin-bottom: 1rem;">
                                     <div style="font-size: 1.3rem; font-weight: 700;">P = a / (a + c)</div>
                                 </div>
-                                <div style="font-size: 0.9rem; color: var(--text-muted);">
+                                <div style="font-size: 0.9rem; color: #c4c4cc;">
                                     <strong>a</strong> = vyhledané relevantní<br>
                                     <strong>c</strong> = vyhledané nerelevantní<br><br>
                                     <em>"Kolik z toho, co jsme NAŠLI, bylo správně?"</em>
@@ -4646,7 +5298,7 @@ Proč třídíme,Co je informační exploze?,Růst množství dat...,Vysvětlen�
                         </div>
                         <div style="margin-top: 1.5rem; text-align: center; padding: 1rem; background: var(--bg-light); border-radius: 10px;">
                             <strong style="color: var(--danger);">Nepřímá úměra:</strong>
-                            <span style="color: var(--text-muted);">Vyšší recall → nižší precision a naopak</span>
+                            <span style="color: #c4c4cc;">Vyšší recall → nižší precision a naopak</span>
                         </div>
                     </div>
                 `
@@ -4662,10 +5314,10 @@ Proč třídíme,Co je informační exploze?,Růst množství dat...,Vysvětlen�
                                     <strong>Princip:</strong> Pojmy jsou kombinovány <strong>předem</strong> při indexaci
                                 </div>
                                 <div style="background: var(--bg-card); padding: 1rem; border-radius: 8px; margin-bottom: 1rem;">
-                                    <div style="color: var(--text-muted); font-size: 0.85rem;">Příklad:</div>
+                                    <div style="color: #c4c4cc; font-size: 0.85rem;">Příklad:</div>
                                     <div style="font-weight: 600;">"dovozní daň—ojeté osobní automobily"</div>
                                 </div>
-                                <div style="font-size: 0.85rem; color: var(--text-muted);">
+                                <div style="font-size: 0.85rem; color: #c4c4cc;">
                                     <strong>Výhoda:</strong> Přesné, jednoznačné<br>
                                     <strong>Nevýhoda:</strong> Rigidní, méně flexibilní
                                 </div>
@@ -4676,10 +5328,10 @@ Proč třídíme,Co je informační exploze?,Růst množství dat...,Vysvětlen�
                                     <strong>Princip:</strong> Pojmy se kombinují <strong>až při vyhledávání</strong>
                                 </div>
                                 <div style="background: var(--bg-card); padding: 1rem; border-radius: 8px; margin-bottom: 1rem;">
-                                    <div style="color: var(--text-muted); font-size: 0.85rem;">Příklad:</div>
+                                    <div style="color: #c4c4cc; font-size: 0.85rem;">Příklad:</div>
                                     <div style="font-weight: 600;">"dovozní daň" AND "osobní automobil" AND "použité zboží"</div>
                                 </div>
-                                <div style="font-size: 0.85rem; color: var(--text-muted);">
+                                <div style="font-size: 0.85rem; color: #c4c4cc;">
                                     <strong>Výhoda:</strong> Flexibilní, kombinovatelné<br>
                                     <strong>Nevýhoda:</strong> Může být méně přesné
                                 </div>
@@ -4725,11 +5377,11 @@ Proč třídíme,Co je informační exploze?,Růst množství dat...,Vysvětlen�
                             <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
                                 <div style="background: var(--bg-light); padding: 1rem; border-radius: 8px; text-align: center;">
                                     <strong style="color: var(--primary);">Interindexer</strong>
-                                    <div style="font-size: 0.85rem; color: var(--text-muted);">Shoda mezi indexátory</div>
+                                    <div style="font-size: 0.85rem; color: #c4c4cc;">Shoda mezi indexátory</div>
                                 </div>
                                 <div style="background: var(--bg-light); padding: 1rem; border-radius: 8px; text-align: center;">
                                     <strong style="color: var(--secondary);">Intraindexer</strong>
-                                    <div style="font-size: 0.85rem; color: var(--text-muted);">Konzistence jednoho indexátora</div>
+                                    <div style="font-size: 0.85rem; color: #c4c4cc;">Konzistence jednoho indexátora</div>
                                 </div>
                             </div>
                         </div>
@@ -5111,6 +5763,447 @@ Proč třídíme,Co je informační exploze?,Růst množství dat...,Vysvětlen�
             showImportExportStatus('Veškerý pokrok byl smazán.');
         }
 
+        // ========== ENHANCED AUDIO STUDY MODE ==========
+        const AudioStudy = {
+            // State
+            voices: [],
+            selectedVoice: null,
+            rate: 1.0,
+            pitch: 1.0,
+            isPlaying: false,
+            isPaused: false,
+            isStopped: true,
+            mode: 'single', // 'single' | 'podcast'
+            currentCardIndex: 0,
+            totalCards: 0,
+            cardsToPlay: [],
+            pauseAfterQuestion: 3,
+            pauseAfterCard: 2,
+            synth: null,
+            currentUtterance: null,
+            pauseTimeout: null,
+
+            // Initialize
+            init() {
+                this.synth = window.speechSynthesis;
+                if (!this.synth) {
+                    console.warn('Web Speech API not supported');
+                    return;
+                }
+
+                // Load voices (may need to wait for voiceschanged event)
+                this.loadVoices();
+                if (this.synth.onvoiceschanged !== undefined) {
+                    this.synth.onvoiceschanged = () => this.loadVoices();
+                }
+
+                // Load saved settings
+                this.loadSettings();
+            },
+
+            loadVoices() {
+                this.voices = this.synth.getVoices();
+                const select = document.getElementById('audio-voice-select');
+                if (!select) return;
+
+                // Filter for Czech voices first, then show all
+                const czechVoices = this.voices.filter(v => v.lang.startsWith('cs'));
+                const otherVoices = this.voices.filter(v => !v.lang.startsWith('cs'));
+                const sortedVoices = [...czechVoices, ...otherVoices];
+
+                select.innerHTML = '';
+
+                if (sortedVoices.length === 0) {
+                    select.innerHTML = '<option value="">Žádné hlasy</option>';
+                    return;
+                }
+
+                sortedVoices.forEach((voice, i) => {
+                    const option = document.createElement('option');
+                    option.value = i.toString();
+                    const langFlag = voice.lang.startsWith('cs') ? '🇨🇿 ' : '';
+                    option.textContent = `${langFlag}${voice.name} (${voice.lang})`;
+                    if (voice.default) option.selected = true;
+                    select.appendChild(option);
+                });
+
+                // Set default voice (prefer Czech)
+                if (czechVoices.length > 0) {
+                    this.selectedVoice = czechVoices[0];
+                    select.value = '0';
+                } else if (sortedVoices.length > 0) {
+                    this.selectedVoice = sortedVoices[0];
+                }
+
+                // Restore saved voice preference
+                const savedVoice = localStorage.getItem('audioVoiceName');
+                if (savedVoice) {
+                    const foundIndex = sortedVoices.findIndex(v => v.name === savedVoice);
+                    if (foundIndex !== -1) {
+                        this.selectedVoice = sortedVoices[foundIndex];
+                        select.value = foundIndex.toString();
+                    }
+                }
+            },
+
+            setVoice(index) {
+                const czechVoices = this.voices.filter(v => v.lang.startsWith('cs'));
+                const otherVoices = this.voices.filter(v => !v.lang.startsWith('cs'));
+                const sortedVoices = [...czechVoices, ...otherVoices];
+
+                if (sortedVoices[index]) {
+                    this.selectedVoice = sortedVoices[index];
+                    localStorage.setItem('audioVoiceName', this.selectedVoice.name);
+                }
+            },
+
+            setRate(rate) {
+                this.rate = parseFloat(rate);
+                document.getElementById('audio-speed-value').textContent = `${this.rate.toFixed(1)}x`;
+                this.saveSettings();
+            },
+
+            testVoice() {
+                this.synth.cancel();
+                const utterance = new SpeechSynthesisUtterance('Toto je test vybraného hlasu pro studium.');
+                if (this.selectedVoice) utterance.voice = this.selectedVoice;
+                utterance.rate = this.rate;
+                utterance.pitch = this.pitch;
+                utterance.lang = 'cs-CZ';
+                this.synth.speak(utterance);
+            },
+
+            speak(text) {
+                return new Promise((resolve, reject) => {
+                    if (!this.synth || this.isStopped) {
+                        reject('Stopped');
+                        return;
+                    }
+
+                    const utterance = new SpeechSynthesisUtterance(text);
+                    if (this.selectedVoice) utterance.voice = this.selectedVoice;
+                    utterance.rate = this.rate;
+                    utterance.pitch = this.pitch;
+                    utterance.lang = 'cs-CZ';
+
+                    this.currentUtterance = utterance;
+
+                    utterance.onend = () => {
+                        this.currentUtterance = null;
+                        resolve();
+                    };
+                    utterance.onerror = (e) => {
+                        this.currentUtterance = null;
+                        if (e.error !== 'interrupted') {
+                            reject(e);
+                        } else {
+                            resolve();
+                        }
+                    };
+
+                    this.synth.speak(utterance);
+                });
+            },
+
+            updateNowPlaying(text) {
+                const nowPlaying = document.getElementById('audio-now-playing');
+                const content = document.getElementById('now-playing-content');
+                if (nowPlaying && content) {
+                    nowPlaying.classList.remove('hidden');
+                    content.textContent = text.length > 80 ? text.substring(0, 80) + '...' : text;
+                }
+            },
+
+            hideNowPlaying() {
+                const nowPlaying = document.getElementById('audio-now-playing');
+                if (nowPlaying) {
+                    nowPlaying.classList.add('hidden');
+                }
+            },
+
+            updateProgress() {
+                const container = document.getElementById('audio-progress-container');
+                const text = document.getElementById('audio-progress-text');
+                const percent = document.getElementById('audio-progress-percent');
+                const fill = document.getElementById('audio-progress-fill');
+
+                if (container && this.totalCards > 0) {
+                    container.style.display = 'block';
+                    const pct = Math.round((this.currentCardIndex / this.totalCards) * 100);
+                    text.textContent = `Kartička ${this.currentCardIndex} z ${this.totalCards}`;
+                    percent.textContent = `${pct}%`;
+                    fill.style.width = `${pct}%`;
+                } else if (container) {
+                    container.style.display = 'none';
+                }
+            },
+
+            updateButtons(state) {
+                const playBtn = document.getElementById('audio-play-btn');
+                const pauseBtn = document.getElementById('audio-pause-btn');
+                const resumeBtn = document.getElementById('audio-resume-btn');
+                const stopBtn = document.getElementById('audio-stop-btn');
+                const skipBtn = document.getElementById('audio-skip-btn');
+
+                switch (state) {
+                    case 'idle':
+                        if (playBtn) playBtn.style.display = 'flex';
+                        if (pauseBtn) pauseBtn.style.display = 'none';
+                        if (resumeBtn) resumeBtn.style.display = 'none';
+                        if (stopBtn) stopBtn.disabled = true;
+                        if (skipBtn) skipBtn.disabled = true;
+                        break;
+                    case 'playing':
+                        if (playBtn) playBtn.style.display = 'none';
+                        if (pauseBtn) pauseBtn.style.display = 'flex';
+                        if (resumeBtn) resumeBtn.style.display = 'none';
+                        if (stopBtn) stopBtn.disabled = false;
+                        if (skipBtn) skipBtn.disabled = false;
+                        break;
+                    case 'paused':
+                        if (playBtn) playBtn.style.display = 'none';
+                        if (pauseBtn) pauseBtn.style.display = 'none';
+                        if (resumeBtn) resumeBtn.style.display = 'flex';
+                        if (stopBtn) stopBtn.disabled = false;
+                        if (skipBtn) skipBtn.disabled = false;
+                        break;
+                }
+            },
+
+            async playCard(card) {
+                if (this.isStopped) return;
+
+                // Update now playing
+                this.updateNowPlaying(card.q);
+
+                // Read question
+                await this.speak(`Otázka: ${card.q}`);
+
+                if (this.isStopped) return;
+
+                // Pause after question
+                await this.wait(this.pauseAfterQuestion * 1000);
+
+                if (this.isStopped) return;
+
+                // Update now playing for answer
+                this.updateNowPlaying(card.a);
+
+                // Read answer
+                await this.speak(`Odpověď: ${card.a}`);
+
+                if (this.isStopped) return;
+
+                // Read explanation if exists
+                if (card.exp) {
+                    await this.speak(`Vysvětlení: ${card.exp}`);
+                }
+            },
+
+            wait(ms) {
+                return new Promise((resolve) => {
+                    this.pauseTimeout = setTimeout(() => {
+                        this.pauseTimeout = null;
+                        resolve();
+                    }, ms);
+                });
+            },
+
+            async play() {
+                // Play current flashcard based on currentDueIndex
+                const dueCards = getDueCards();
+                if (dueCards.length === 0) {
+                    alert('Žádné kartičky k přehrání.');
+                    return;
+                }
+
+                this.isStopped = false;
+                this.isPaused = false;
+                this.isPlaying = true;
+                this.mode = 'single';
+                this.cardsToPlay = [dueCards[currentDueIndex]];
+                this.currentCardIndex = 1;
+                this.totalCards = 1;
+
+                this.updateButtons('playing');
+                this.updateProgress();
+
+                try {
+                    await this.playCard(this.cardsToPlay[0]);
+                    this.stop();
+                } catch (e) {
+                    if (e !== 'Stopped') console.error('Audio error:', e);
+                }
+            },
+
+            async startPodcast() {
+                const dueCards = getDueCards();
+                if (dueCards.length === 0) {
+                    // Use all flashcards if no due cards
+                    this.cardsToPlay = [...flashcardsData];
+                } else {
+                    this.cardsToPlay = [...dueCards];
+                }
+
+                if (this.cardsToPlay.length === 0) {
+                    alert('Žádné kartičky k přehrání.');
+                    return;
+                }
+
+                this.isStopped = false;
+                this.isPaused = false;
+                this.isPlaying = true;
+                this.mode = 'podcast';
+                this.currentCardIndex = 0;
+                this.totalCards = this.cardsToPlay.length;
+
+                this.updateButtons('playing');
+
+                // Intro
+                this.updateNowPlaying('Podcast začíná...');
+                await this.speak(`Vítejte v podcast módu. Budeme procházet ${this.totalCards} kartiček. Začínáme.`);
+
+                // Play all cards
+                for (let i = 0; i < this.cardsToPlay.length && !this.isStopped; i++) {
+                    this.currentCardIndex = i + 1;
+                    this.updateProgress();
+
+                    // Also update flashcard UI
+                    const cardIndex = flashcardsData.findIndex(c => c.q === this.cardsToPlay[i].q);
+                    if (cardIndex !== -1) {
+                        showCard(cardIndex);
+                    }
+
+                    await this.playCard(this.cardsToPlay[i]);
+
+                    if (this.isStopped) break;
+
+                    // Pause between cards
+                    await this.wait(this.pauseAfterCard * 1000);
+                }
+
+                if (!this.isStopped) {
+                    await this.speak('Podcast dokončen. Výborná práce!');
+                }
+
+                this.stop();
+            },
+
+            pause() {
+                if (!this.isPlaying) return;
+
+                this.isPaused = true;
+                this.synth.pause();
+
+                if (this.pauseTimeout) {
+                    clearTimeout(this.pauseTimeout);
+                }
+
+                this.updateButtons('paused');
+            },
+
+            resume() {
+                if (!this.isPaused) return;
+
+                this.isPaused = false;
+                this.synth.resume();
+
+                this.updateButtons('playing');
+            },
+
+            stop() {
+                this.isStopped = true;
+                this.isPlaying = false;
+                this.isPaused = false;
+
+                this.synth.cancel();
+
+                if (this.pauseTimeout) {
+                    clearTimeout(this.pauseTimeout);
+                    this.pauseTimeout = null;
+                }
+
+                this.hideNowPlaying();
+                this.updateButtons('idle');
+
+                const progressContainer = document.getElementById('audio-progress-container');
+                if (progressContainer) progressContainer.style.display = 'none';
+            },
+
+            skip() {
+                if (!this.isPlaying) return;
+
+                // Cancel current speech
+                this.synth.cancel();
+
+                // Clear any pause timeout
+                if (this.pauseTimeout) {
+                    clearTimeout(this.pauseTimeout);
+                    this.pauseTimeout = null;
+                }
+            },
+
+            saveSettings() {
+                const settings = {
+                    rate: this.rate,
+                    pitch: this.pitch,
+                    pauseAfterQuestion: parseInt(document.getElementById('pause-after-question')?.value || 3),
+                    pauseAfterCard: parseInt(document.getElementById('pause-after-card')?.value || 2)
+                };
+                this.pauseAfterQuestion = settings.pauseAfterQuestion;
+                this.pauseAfterCard = settings.pauseAfterCard;
+                localStorage.setItem('audioSettings', JSON.stringify(settings));
+            },
+
+            loadSettings() {
+                const saved = localStorage.getItem('audioSettings');
+                if (saved) {
+                    try {
+                        const settings = JSON.parse(saved);
+                        this.rate = settings.rate || 1.0;
+                        this.pitch = settings.pitch || 1.0;
+                        this.pauseAfterQuestion = settings.pauseAfterQuestion || 3;
+                        this.pauseAfterCard = settings.pauseAfterCard || 2;
+
+                        // Update UI
+                        const slider = document.getElementById('audio-speed-slider');
+                        const sliderValue = document.getElementById('audio-speed-value');
+                        if (slider) slider.value = this.rate;
+                        if (sliderValue) sliderValue.textContent = `${this.rate.toFixed(1)}x`;
+
+                        const pauseQ = document.getElementById('pause-after-question');
+                        const pauseC = document.getElementById('pause-after-card');
+                        if (pauseQ) pauseQ.value = this.pauseAfterQuestion;
+                        if (pauseC) pauseC.value = this.pauseAfterCard;
+                    } catch (e) {
+                        console.warn('Failed to load audio settings:', e);
+                    }
+                }
+            }
+        };
+
+        // Audio panel toggle functions
+        function toggleAudioPanel() {
+            const panel = document.getElementById('audio-panel');
+            if (panel) {
+                panel.classList.toggle('collapsed');
+            }
+        }
+
+        function hideAudioPanel() {
+            const panel = document.getElementById('audio-panel');
+            if (panel) {
+                panel.style.display = 'none';
+            }
+        }
+
+        function showAudioPanel() {
+            const panel = document.getElementById('audio-panel');
+            if (panel) {
+                panel.style.display = 'block';
+            }
+        }
+
         // ========== KEYBOARD SHORTCUTS ==========
         function handleKeyboardShortcuts(e) {
             // Don't handle if user is typing in an input (except for specific keys)
@@ -5202,6 +6295,22 @@ Proč třídíme,Co je informační exploze?,Růst množství dat...,Vysvětlen�
                         showCard(currentDueIndex - 1);
                     }
                     break;
+                case 'KeyP':
+                    // Play/Pause audio
+                    e.preventDefault();
+                    if (AudioStudy.isPlaying && !AudioStudy.isPaused) {
+                        AudioStudy.pause();
+                    } else if (AudioStudy.isPaused) {
+                        AudioStudy.resume();
+                    } else {
+                        AudioStudy.play();
+                    }
+                    break;
+                case 'KeyS':
+                    // Stop audio
+                    e.preventDefault();
+                    AudioStudy.stop();
+                    break;
             }
         }
 
@@ -5213,6 +6322,9 @@ Proč třídíme,Co je informační exploze?,Růst množství dat...,Vysvětlen�
             renderTopics();
             updateStats();
             updateDashboardCTAs();
+
+            // Initialize Audio Study Mode
+            AudioStudy.init();
 
             // Show first card when switching to flashcards
             document.querySelectorAll('.nav-tab').forEach(tab => {
@@ -5249,4 +6361,5 @@ Proč třídíme,Co je informační exploze?,Růst množství dat...,Vysvětlen�
         init();
     </script>
 </body>
+
 </html>
