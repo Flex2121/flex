@@ -3909,7 +3909,62 @@ Proč třídíme,Co je informační exploze?,Růst množství dat...,Vysvětlen�
             { q: "Pro popis sbírky obrazů z hlediska jejich námětů použijeme:", options: ["DDC", "MARC", "Iconclass", "Dublin Core"], correct: 2, cat: "Zkouška", exp: "Iconclass = klasifikace ikonografického obsahu (co je na obraze zobrazeno - náměty, symboly, postavy)." },
             { q: "MARC 21 je:", options: ["klasifikační systém", "tezaurus", "bibliografický/metadatový formát", "typ notace"], correct: 2, cat: "Zkouška", exp: "MARC 21 = Machine-Readable Cataloging - formát pro strojově čitelné bibliografické záznamy." },
             { q: "Dublin Core je:", options: ["klasifikace pro knihovny", "jednoduchý metadatový standard", "americký tezaurus", "typ abstraktu"], correct: 1, cat: "Zkouška", exp: "Dublin Core = jednoduchý metadatový standard s 15 základními prvky (Title, Creator, Subject...)." },
-            { q: "Dokument popisující jiné dokumenty (bibliografie, katalog) označujeme jako:", options: ["primární dokument", "sekundární dokument", "terciární dokument", "informační zdroj"], correct: 1, cat: "Zkouška", exp: "Sekundární dokument = popisuje primární dokumenty. Terciární = popisuje sekundární (bibliografie bibliografií)." }
+            { q: "Dokument popisující jiné dokumenty (bibliografie, katalog) označujeme jako:", options: ["primární dokument", "sekundární dokument", "terciární dokument", "informační zdroj"], correct: 1, cat: "Zkouška", exp: "Sekundární dokument = popisuje primární dokumenty. Terciární = popisuje sekundární (bibliografie bibliografií)." },
+
+            // === OTÁZKY Z PŘEDNÁŠKY 1: ÚVOD DO ORGANIZACE INFORMACÍ ===
+
+            // Informace a sdělení
+            { q: "Slovo 'informace' etymologicky znamená:", options: ["přenos dat", "vtiskávání formy", "skladování znalostí", "komunikace"], correct: 1, cat: "Přednáška 1", exp: "IN-FORMACE = vtiskává formu. Informace formuje příjemce - mění jeho poznatkový systém." },
+            { q: "Pokud slyším zprávu 'dnes je pátek' podruhé ten samý den, jde o:", options: ["informaci", "sdělení/zprávu", "znalost", "data"], correct: 1, cat: "Přednáška 1", exp: "Poprvé = informace (změnila můj poznatkový systém). Podruhé = jen sdělení (už to vím, nic se nezměnilo)." },
+            { q: "Šanonův model komunikace NEOBSAHUJE:", options: ["vysílač", "příjemce", "kanál", "kontext/význam"], correct: 3, cat: "Přednáška 1", exp: "Shannon řešil technický přenos signálu (vysílač, kanál, šum, příjemce). Význam/kontext neřešil - to je pro nás důležité." },
+            { q: "Informace se označuje jako:", options: ["entropie", "negentropie", "energie", "entroda"], correct: 1, cat: "Přednáška 1", exp: "Negentropie = záporná entropie. Entropie = neuspořádanost. Informace/organizace snižuje entropii." },
+            { q: "Čím se zabývá organizace informací?", options: ["všemi informacemi", "zaznamenanými informacemi", "pouze digitálními daty", "ústním podáním"], correct: 1, cat: "Přednáška 1", exp: "Zabýváme se zaznamenanými informacemi - dokumenty, texty, artefakty. Ne 'informacemi ve vzduchu'." },
+            { q: "Může organizace informací rozlišovat pravdivost informace?", options: ["ano, vždy", "ne, zpracováváme záznamy bez hodnocení", "pouze u vědeckých textů", "záleží na typu dokumentu"], correct: 1, cat: "Přednáška 1", exp: "Nemůžeme hodnotit pravdivost ani odlišovat informaci od dezinformace - popisujeme záznamy." },
+
+            // Znalosti
+            { q: "Tacitní znalosti jsou:", options: ["znalosti v knihách", "znalosti v databázích", "znalosti, které člověk neumí explicitně formulovat", "falešné znalosti"], correct: 2, cat: "Přednáška 1", exp: "Tacitní = skryté znalosti. Člověk je používá (expertní intuice), ale neumí je slovně vyjádřit." },
+            { q: "Příkladem tacitní znalosti je:", options: ["vzorec na výpočet plochy", "expertní intuice, 'cit pro věc'", "definice v učebnici", "katalogizační pravidla"], correct: 1, cat: "Přednáška 1", exp: "Tacitní znalosti = intuice, zkušenostní know-how, které nelze snadno formalizovat a předat." },
+
+            // Arbitrárnost
+            { q: "Arbitrárnost znaku znamená, že:", options: ["znak má přirozený vztah k věci", "vztah znaku a věci je konvenční/nahodilý", "znak je vždy písemný", "znak musí být mezinárodní"], correct: 1, cat: "Přednáška 1", exp: "Arbitrární = dohodnutý, konvenční. Slovo 'tužka' nijak nepřipomíná skutečnou tužku." },
+            { q: "Výjimkou z arbitrárnosti znaků jsou:", options: ["čísla", "citoslovce (onomatopoie)", "vlastní jména", "odborné termíny"], correct: 1, cat: "Přednáška 1", exp: "Citoslovce napodobují zvuky: 'gdákat' připomíná zvuk slepice, 'bum' připomíná výbuch." },
+            { q: "V sémiotickém trojúhelníku je vztah mezi znakem a věcí:", options: ["přímý a silný", "přerušovaný/nepřímý", "hierarchický", "neexistující"], correct: 1, cat: "Přednáška 1", exp: "Znak se nevztahuje k věci přímo, ale přes význam (pojem). Proto je linka znak-věc čárkovaná." },
+
+            // Úrovně zpracování
+            { q: "Ornitolog pozorující datla a zapisující do databáze pracuje na úrovni:", options: ["sekundární", "primární", "terciární", "kvartérní"], correct: 1, cat: "Přednáška 1", exp: "Primární úroveň = badatel pracuje s primárním objektem (jev) a vytváří primární záznam." },
+            { q: "Katalogizátor popisující knihu pracuje na úrovni:", options: ["primární", "sekundární", "terciární", "kvartérní"], correct: 1, cat: "Přednáška 1", exp: "Sekundární úroveň = informační specialista pracuje s dokumentem a vytváří metadata." },
+
+            // Praktické příklady
+            { q: "Proč je těhotenství zařazeno v Mezinárodní klasifikaci nemocí (MKN)?", options: ["je to nemoc", "lékaři s ním pracují při diagnostice", "historická chyba", "WHO to vyžaduje"], correct: 1, cat: "Přednáška 1", exp: "Pragmatický kontext: lékaři potřebují těhotenství v systému pro práci s pacientkami." },
+            { q: "Příklad 'nealkoholické pivo obsahuje 0,5% alkoholu' ilustruje:", options: ["správnou klasifikaci", "matoucí pojmenování vs skutečný obsah", "marketingovou strategii", "legislativní problém"], correct: 1, cat: "Přednáška 1", exp: "Pro klasifikaci musíme chápat skutečný obsah, ne jen název - 'nealkoholické' je zavádějící." },
+
+            // === OTÁZKY Z PŘEDNÁŠKY 2: SBÍRKY A INFORMAČNÍ OBJEKTY ===
+
+            // Sbírky
+            { q: "Sbírka se od běžného souboru předmětů liší především:", options: ["velikostí", "primární informační funkcí", "materiálem objektů", "vlastnictvím"], correct: 1, cat: "Přednáška 2", exp: "Sbírka má primárně informační funkci - podpora poznání. Sklad materiálu ji nemá." },
+            { q: "Metafora 'sbírka jako paměť' vyjadřuje, že sbírka:", options: ["je stará", "uchovává a zpřístupňuje poznání", "obsahuje vzpomínky", "je subjektivní"], correct: 1, cat: "Přednáška 2", exp: "Sbírka jako paměť = uložené poznání, které můžeme vyvolat a použít pro svou potřebu." },
+            { q: "Antikvariát NENÍ sbírka, protože:", options: ["je příliš malý", "má primárně komerční funkci", "nemá katalog", "prodává staré věci"], correct: 1, cat: "Přednáška 2", exp: "Antikvariát má primární funkci komerční (prodej), ne informační. Knihovna informuje, antikvariát prodává." },
+            { q: "Zvíře v ZOO je informační objekt, protože:", options: ["je živé", "slouží primárně ke vzdělávání", "má latinský název", "je v kleci"], correct: 1, cat: "Přednáška 2", exp: "ZOO má informační funkci - cedulky u zvířat jsou metadata. Zverimex má funkci komerční." },
+            { q: "Sbírka může mít sekundární funkci:", options: ["pouze informační", "estetickou, ekonomickou, archivační, sociální", "pouze archivační", "žádnou"], correct: 1, cat: "Přednáška 2", exp: "Kromě primární informační funkce má sbírka i sekundární: estetickou (krása), ekonomickou (monetizace), archivační, sociální." },
+
+            // LRM model
+            { q: "Podle LRM modelu je 'Máj' jako intelektuální koncept:", options: ["vyjádření", "dílo", "provedení", "jednotka"], correct: 1, cat: "Přednáška 2", exp: "Dílo = abstraktní intelektuální jednota (Máj jako koncept), nezávisle na konkrétním textu." },
+            { q: "Překlad Máje do angličtiny je v LRM:", options: ["jiné dílo", "jiné vyjádření", "jiné provedení", "jiná jednotka"], correct: 1, cat: "Přednáška 2", exp: "Překlady jsou různá Vyjádření téhož Díla. Změna jazyka = nové vyjádření." },
+            { q: "Proč existují stovky různých textů Máje?", options: ["Mácha psal více verzí", "ediční úpravy, cenzura, modernizace pravopisu", "jsou to překlady", "záměrné plagiáty"], correct: 1, cat: "Přednáška 2", exp: "Ediční úpravy textu, cenzurní zásahy (nacisté), modernizace pravopisu. Mácha psal 'Mágy'." },
+            { q: "Konkrétní výtisk knihy v mých rukou je v LRM:", options: ["dílo", "vyjádření", "provedení", "jednotka"], correct: 3, cat: "Přednáška 2", exp: "Jednotka (Item) = konkrétní exemplář. Může se lišit od ostatních (vakáty, vpisky, poškození)." },
+
+            // Originál a kopie
+            { q: "Faksimile se od falzifikátu liší tím, že:", options: ["je starší", "přiznává, že jde o kopii", "je dražší", "je digitální"], correct: 1, cat: "Přednáška 2", exp: "Faksimile = přesná kopie, ale PŘIZNANÁ. Falzifikát = napodobenina vydávaná za originál (podvod)." },
+            { q: "Faksimile se používá na výstavách proto, že:", options: ["jsou levnější", "chrání vzácné originály", "jsou barevnější", "návštěvníci nepoznají rozdíl"], correct: 1, cat: "Přednáška 2", exp: "Faksimile nahrazuje vzácné originály (rukopisy), které by mohly být poškozeny." },
+
+            // McLuhan a média
+            { q: "Performance s roztrženou knihou ukázala, že:", options: ["knihy jsou zbytečné", "kniha nese kulturní hodnoty nad rámec obsahu", "CD jsou lepší", "digitalizace je nutná"], correct: 1, cat: "Přednáška 2", exp: "Roztržení knihy šokovalo, zlomení CD ne. V knize jsou vázány kulturní hodnoty a tradice." },
+            { q: "McLuhanovo 'médium je poselství' znamená:", options: ["obsah je nedůležitý", "forma média ovlivňuje vnímání obsahu", "média lžou", "knihy jsou nejlepší"], correct: 1, cat: "Přednáška 2", exp: "Každé médium má vlastnosti předurčující, jak vnímáme obsah. Stejný text v knize a na čtečce působí jinak." },
+            { q: "Problém elektronických knih z hlediska typografie je:", options: ["špatné rozlišení", "často nemají typografii vůbec", "jsou příliš drahé", "nelze je číst"], correct: 1, cat: "Přednáška 2", exp: "E-knihy se přizpůsobují displeji - ztrácí se vrstva typografie podporující vnímání obsahu." },
+
+            // Struktura dokumentu
+            { q: "'Formát obsahu' dokumentu určuje:", options: ["rozměry stránky", "způsob záznamu (text, obraz, zvuk)", "typ vazby", "rok vydání"], correct: 1, cat: "Přednáška 2", exp: "Formát obsahu = jak jsou informace zaznamenány: text, obraz, zvuk, data, komiks." },
+            { q: "Časopis na rozdíl od monografie má:", options: ["více stran", "opakované vydávání (kontinuitu)", "tvrdou vazbu", "více autorů"], correct: 1, cat: "Přednáška 2", exp: "Kontinuita = rozlišení jednorázově vydaných (monografie) a opakovaně vycházejících (časopisy) dokumentů." }
         ];
 
 
