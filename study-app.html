@@ -3320,6 +3320,7 @@ Proč třídíme,Co je informační exploze?,Růst množství dat...,Vysvětlen�
         </div>
     </div>
 
+    <script src="js/terms.js"></script>
     <script>
         // ========== DATA ==========
         const flashcardsData = [
@@ -4570,8 +4571,21 @@ Proč třídíme,Co je informační exploze?,Růst množství dat...,Vysvětlen�
 
         function getDueCards() {
             const now = Date.now();
-            return flashcardsData.map((card, i) => ({ ...card, index: i }))
+            let cards = flashcardsData.map((card, i) => ({ ...card, index: i }))
                 .filter((_, i) => cardStats[i].nextReview <= now);
+
+            if (window.flashcardFilterTermId && window.TermSystem) {
+                const termId = window.flashcardFilterTermId;
+                const term = TermSystem.getTerm(termId);
+                const keywords = term ? [term.label, ...(term.aliases || [])] : [];
+                if (keywords.length > 0) {
+                    cards = cards.filter(c => {
+                        const text = (c.q + ' ' + c.a + ' ' + (c.exp || '')).toLowerCase();
+                        return keywords.some(k => text.includes(k.toLowerCase()));
+                    });
+                }
+            }
+            return cards;
         }
 
         function rateCard(rating) {
@@ -4648,15 +4662,15 @@ Proč třídíme,Co je informační exploze?,Růst množství dat...,Vysvětlen�
             currentDueIndex = index % dueCards.length;
 
             document.getElementById('fc-category').textContent = card.category;
-            document.getElementById('fc-question').textContent = card.q;
-            document.getElementById('fc-answer').textContent = card.a;
+            document.getElementById('fc-question').innerHTML = TermSystem.linkifyHTML(card.q);
+            document.getElementById('fc-answer').innerHTML = TermSystem.linkifyHTML(card.a);
             document.getElementById('fc-current').textContent = index + 1;
             document.getElementById('fc-total').textContent = dueCards.length;
 
             // Zobrazení vysvětlení (pokud existuje)
             const expEl = document.getElementById('fc-explanation');
             if (card.exp) {
-                expEl.innerHTML = '<strong>Proč je to důležité:</strong> ' + card.exp;
+                expEl.innerHTML = '<strong>Proč je to důležité:</strong> ' + TermSystem.linkifyHTML(card.exp);
                 expEl.style.display = 'block';
             } else {
                 expEl.style.display = 'none';
@@ -4687,6 +4701,18 @@ Proč třídíme,Co je informační exploze?,Růst množství dat...,Vysvětlen�
         function getFilteredQuestions() {
             const category = document.getElementById('quiz-category').value;
             let questions = category === 'all' ? quizData : quizData.filter(q => q.cat === category);
+
+            if (window.quizFilterTermId && window.TermSystem) {
+                const termId = window.quizFilterTermId;
+                const term = TermSystem.getTerm(termId);
+                const keywords = term ? [term.label, ...(term.aliases || [])] : [];
+                if (keywords.length > 0) {
+                    questions = questions.filter(q => {
+                        const text = (q.q + ' ' + (q.exp || '')).toLowerCase();
+                        return keywords.some(k => text.includes(k.toLowerCase()));
+                    });
+                }
+            }
 
             // For weakness mode, filter by low accuracy
             if (quizSettings.mode === 'weakness') {
@@ -4840,7 +4866,7 @@ Proč třídíme,Co je informační exploze?,Růst množství dat...,Vysvětlen�
             document.getElementById('quiz-q-num').textContent = `Otázka ${quizState.current + 1}`;
             document.getElementById('quiz-q-cat').textContent = q.cat || 'Obecné';
             document.getElementById('quiz-counter').textContent = `Otázka ${quizState.current + 1}/${total}`;
-            document.getElementById('quiz-question').textContent = q.q;
+            document.getElementById('quiz-question').innerHTML = TermSystem.linkifyHTML(q.q);
             document.getElementById('quiz-progress').style.width = `${((quizState.current + 1) / total) * 100}%`;
 
             // Hint handling
@@ -4884,7 +4910,7 @@ Proč třídíme,Co je informační exploze?,Růst množství dat...,Vysvětlen�
                 q.options.forEach((opt, i) => {
                     const btn = document.createElement('div');
                     btn.className = 'quiz-option';
-                    btn.textContent = opt;
+                    btn.innerHTML = TermSystem.linkifyHTML(opt);
                     btn.onclick = () => selectOption(i);
                     optionsDiv.appendChild(btn);
                 });
