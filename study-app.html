@@ -1125,6 +1125,333 @@
             border-color: var(--primary);
         }
 
+        /* ========================================
+           QUIZ V2 - MODES, OPEN ANSWER, MISTAKE BANK
+           ======================================== */
+
+        /* Quiz Mode Selection */
+        .quiz-modes-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .quiz-mode-btn {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 1.25rem;
+            background: var(--bg-glass);
+            border: 2px solid var(--border);
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            color: var(--text);
+        }
+
+        .quiz-mode-btn:hover {
+            border-color: var(--primary);
+            transform: translateY(-2px);
+        }
+
+        .quiz-mode-btn.selected {
+            border-color: var(--primary);
+            background: rgba(139, 92, 246, 0.15);
+        }
+
+        .quiz-mode-btn .mode-icon {
+            font-size: 1.5rem;
+        }
+
+        .quiz-mode-btn .mode-label {
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        .quiz-mode-btn .mode-desc {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            text-align: center;
+        }
+
+        /* Open Answer Input */
+        .quiz-open-answer {
+            width: 100%;
+            padding: 1rem;
+            background: var(--bg-light);
+            border: 2px solid var(--border);
+            border-radius: 12px;
+            color: var(--text);
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+            resize: none;
+            min-height: 80px;
+        }
+
+        .quiz-open-answer:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+
+        .quiz-open-answer.correct {
+            border-color: var(--secondary);
+            background: rgba(16, 185, 129, 0.1);
+        }
+
+        .quiz-open-answer.incorrect {
+            border-color: var(--danger);
+            background: rgba(239, 68, 68, 0.1);
+        }
+
+        .quiz-open-answer.partial {
+            border-color: var(--warning);
+            background: rgba(245, 158, 11, 0.1);
+        }
+
+        /* Answer Feedback */
+        .quiz-feedback {
+            margin-top: 1rem;
+            padding: 1rem;
+            border-radius: 12px;
+            background: var(--bg-light);
+            border-left: 4px solid var(--border);
+        }
+
+        .quiz-feedback.correct {
+            border-left-color: var(--secondary);
+        }
+
+        .quiz-feedback.incorrect {
+            border-left-color: var(--danger);
+        }
+
+        .quiz-feedback.partial {
+            border-left-color: var(--warning);
+        }
+
+        .quiz-feedback-title {
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .quiz-feedback-actions {
+            display: flex;
+            gap: 0.5rem;
+            margin-top: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .quiz-action-btn {
+            padding: 0.5rem 1rem;
+            background: var(--bg-glass);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            color: var(--text);
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+
+        .quiz-action-btn:hover {
+            background: var(--bg-light);
+            border-color: var(--primary);
+        }
+
+        /* Match Score Indicator */
+        .match-score {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.25rem;
+            padding: 0.25rem 0.5rem;
+            background: var(--bg-light);
+            border-radius: 4px;
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+
+        .match-score.high {
+            background: rgba(16, 185, 129, 0.2);
+            color: var(--secondary);
+        }
+
+        .match-score.medium {
+            background: rgba(245, 158, 11, 0.2);
+            color: var(--warning);
+        }
+
+        .match-score.low {
+            background: rgba(239, 68, 68, 0.2);
+            color: var(--danger);
+        }
+
+        /* Mistake Bank */
+        .mistake-bank-container {
+            margin-top: 1.5rem;
+        }
+
+        .mistake-item {
+            padding: 1rem;
+            background: var(--bg-glass);
+            border: 1px solid var(--border);
+            border-left: 4px solid var(--danger);
+            border-radius: 12px;
+            margin-bottom: 0.75rem;
+            transition: all 0.3s ease;
+        }
+
+        .mistake-item:hover {
+            border-left-color: var(--primary);
+        }
+
+        .mistake-item.resolved {
+            opacity: 0.6;
+            border-left-color: var(--secondary);
+        }
+
+        .mistake-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 0.5rem;
+        }
+
+        .mistake-category {
+            font-size: 0.75rem;
+            padding: 0.2rem 0.6rem;
+            background: var(--primary);
+            color: white;
+            border-radius: 12px;
+        }
+
+        .mistake-date {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+        }
+
+        .mistake-question {
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .mistake-answers {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0.5rem;
+            font-size: 0.9rem;
+        }
+
+        .mistake-your-answer {
+            color: var(--danger);
+        }
+
+        .mistake-correct-answer {
+            color: var(--secondary);
+        }
+
+        .mistake-actions {
+            display: flex;
+            gap: 0.5rem;
+            margin-top: 0.75rem;
+        }
+
+        /* Quiz Timer */
+        .quiz-timer {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.9rem;
+            color: var(--text-muted);
+        }
+
+        .quiz-timer.warning {
+            color: var(--warning);
+        }
+
+        .quiz-timer.danger {
+            color: var(--danger);
+            animation: pulse 1s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        /* Question Type Toggle */
+        .question-type-toggle {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .type-toggle-btn {
+            padding: 0.5rem 1rem;
+            background: var(--bg-glass);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .type-toggle-btn.active {
+            background: var(--primary);
+            border-color: var(--primary);
+            color: white;
+        }
+
+        /* Manual Override Button */
+        .override-btn {
+            padding: 0.4rem 0.8rem;
+            background: transparent;
+            border: 1px dashed var(--border);
+            border-radius: 6px;
+            color: var(--text-muted);
+            font-size: 0.8rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .override-btn:hover {
+            border-color: var(--secondary);
+            color: var(--secondary);
+        }
+
+        /* Quiz Stats Summary */
+        .quiz-stats-summary {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 1rem;
+            padding: 1.5rem;
+            background: var(--bg-glass);
+            border-radius: 16px;
+            margin-bottom: 1.5rem;
+        }
+
+        .stat-box {
+            text-align: center;
+        }
+
+        .stat-box-value {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .stat-box-label {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+
         /* Responsive */
         @media (max-width: 768px) {
             .navbar {
@@ -1354,10 +1681,42 @@
                     <div id="quiz-setup" class="quiz-question-card">
                         <h2 style="margin-bottom: 1.5rem; text-align: center;">Nastavení kvízu</h2>
 
+                        <!-- Quiz Mode Selection -->
+                        <div style="margin-bottom: 1.5rem;">
+                            <label style="display: block; margin-bottom: 0.5rem; color: var(--text-muted);">Režim kvízu:</label>
+                            <div class="quiz-modes-grid">
+                                <button class="quiz-mode-btn selected" data-mode="drill" onclick="selectQuizMode('drill')">
+                                    <span class="mode-icon">⚡</span>
+                                    <span class="mode-label">Rychlý drill</span>
+                                    <span class="mode-desc">10 otázek, okamžitá zpětná vazba</span>
+                                </button>
+                                <button class="quiz-mode-btn" data-mode="exam" onclick="selectQuizMode('exam')">
+                                    <span class="mode-icon">📝</span>
+                                    <span class="mode-label">Zkouškový režim</span>
+                                    <span class="mode-desc">Bez nápověd, výsledky až na konci</span>
+                                </button>
+                                <button class="quiz-mode-btn" data-mode="weakness" onclick="selectQuizMode('weakness')">
+                                    <span class="mode-icon">🎯</span>
+                                    <span class="mode-label">Procvičit slabiny</span>
+                                    <span class="mode-desc">Otázky s nízkou úspěšností</span>
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Question Type Toggle -->
+                        <div style="margin-bottom: 1.5rem;">
+                            <label style="display: block; margin-bottom: 0.5rem; color: var(--text-muted);">Typ otázek:</label>
+                            <div class="question-type-toggle">
+                                <button class="type-toggle-btn active" data-type="mc" onclick="selectQuestionType('mc')">Výběr z možností</button>
+                                <button class="type-toggle-btn" data-type="open" onclick="selectQuestionType('open')">Otevřená odpověď</button>
+                                <button class="type-toggle-btn" data-type="mixed" onclick="selectQuestionType('mixed')">Kombinace</button>
+                            </div>
+                        </div>
+
                         <div style="margin-bottom: 1.5rem;">
                             <label style="display: block; margin-bottom: 0.5rem; color: var(--text-muted);">Téma:</label>
                             <select id="quiz-category" style="width: 100%; padding: 0.75rem; background: var(--bg-light); border: 1px solid var(--border); border-radius: 8px; color: var(--text); font-size: 1rem;">
-                                <option value="all">Všechna témata (120 otázek)</option>
+                                <option value="all">Všechna témata</option>
                                 <option value="Proč třídíme">Proč třídíme</option>
                                 <option value="Co kdo třídí">Co kdo třídí</option>
                                 <option value="Co třídíme">Co třídíme</option>
@@ -1377,20 +1736,89 @@
                         <div style="margin-bottom: 1.5rem;">
                             <label style="display: block; margin-bottom: 0.5rem; color: var(--text-muted);">Počet otázek:</label>
                             <select id="quiz-count" style="width: 100%; padding: 0.75rem; background: var(--bg-light); border: 1px solid var(--border); border-radius: 8px; color: var(--text); font-size: 1rem;">
-                                <option value="10">10 otázek (rychlý test)</option>
+                                <option value="10">10 otázek</option>
                                 <option value="20">20 otázek</option>
                                 <option value="30">30 otázek</option>
                                 <option value="50">50 otázek</option>
-                                <option value="all">Všechny dostupné otázky</option>
+                                <option value="all">Všechny dostupné</option>
                             </select>
+                        </div>
+
+                        <!-- Exam Mode Options -->
+                        <div id="exam-options" style="display: none; margin-bottom: 1.5rem; padding: 1rem; background: var(--bg); border-radius: 8px;">
+                            <label style="display: flex; align-items: center; gap: 0.5rem; cursor: pointer;">
+                                <input type="checkbox" id="quiz-timer-enabled" style="width: 18px; height: 18px;">
+                                <span>Časový limit</span>
+                            </label>
+                            <select id="quiz-timer-minutes" style="margin-top: 0.5rem; padding: 0.5rem; background: var(--bg-light); border: 1px solid var(--border); border-radius: 6px; color: var(--text);">
+                                <option value="10">10 minut</option>
+                                <option value="15">15 minut</option>
+                                <option value="20" selected>20 minut</option>
+                                <option value="30">30 minut</option>
+                            </select>
+                        </div>
+
+                        <!-- Open Answer Options -->
+                        <div id="open-answer-options" style="display: none; margin-bottom: 1.5rem; padding: 1rem; background: var(--bg); border-radius: 8px;">
+                            <label style="display: flex; align-items: center; gap: 0.5rem; cursor: pointer; margin-bottom: 0.5rem;">
+                                <input type="checkbox" id="ignore-diacritics" style="width: 18px; height: 18px;" checked>
+                                <span>Ignorovat diakritiku (háčky, čárky)</span>
+                            </label>
+                            <label style="display: flex; align-items: center; gap: 0.5rem; cursor: pointer;">
+                                <input type="checkbox" id="fuzzy-matching" style="width: 18px; height: 18px;" checked>
+                                <span>Povolit překlepy (fuzzy matching)</span>
+                            </label>
                         </div>
 
                         <div id="quiz-category-info" style="background: var(--bg); padding: 1rem; border-radius: 8px; margin-bottom: 1.5rem;">
                             <span style="color: var(--secondary); font-weight: 600;" id="available-count">120</span>
                             <span style="color: var(--text-muted);"> otázek k dispozici</span>
+                            <span id="weakness-count" style="display: none; margin-left: 1rem; color: var(--warning);">(<span id="weak-questions-num">0</span> slabých)</span>
                         </div>
 
-                        <button class="quiz-btn" onclick="startQuizWithSettings()">Spustit kvíz</button>
+                        <div style="display: flex; gap: 0.75rem; flex-wrap: wrap;">
+                            <button class="quiz-btn" onclick="startQuizWithSettings()" style="flex: 1;">Spustit kvíz</button>
+                            <button class="btn-secondary" onclick="showMistakeBank()" style="display: flex; align-items: center; gap: 0.5rem;">
+                                📋 Banka chyb <span id="mistake-count-badge" style="background: var(--danger); color: white; padding: 0.15rem 0.5rem; border-radius: 10px; font-size: 0.75rem;">0</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Mistake Bank View -->
+                    <div id="mistake-bank-view" class="quiz-question-card" style="display: none;">
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
+                            <h2 style="margin: 0;">📋 Banka chyb</h2>
+                            <button class="btn-secondary" onclick="hideMistakeBank()">← Zpět</button>
+                        </div>
+
+                        <div class="quiz-stats-summary" id="mistake-stats">
+                            <div class="stat-box">
+                                <div class="stat-box-value" id="total-mistakes">0</div>
+                                <div class="stat-box-label">Celkem chyb</div>
+                            </div>
+                            <div class="stat-box">
+                                <div class="stat-box-value" id="unresolved-mistakes">0</div>
+                                <div class="stat-box-label">Nevyřešených</div>
+                            </div>
+                            <div class="stat-box">
+                                <div class="stat-box-value" id="resolved-mistakes">0</div>
+                                <div class="stat-box-label">Vyřešených</div>
+                            </div>
+                        </div>
+
+                        <div class="btn-row" style="margin-bottom: 1rem;">
+                            <button class="btn-secondary" onclick="practiceMistakes()">🎯 Procvičit chyby</button>
+                            <button class="btn-secondary" onclick="exportMistakesCSV()">📥 Export CSV</button>
+                            <button class="btn-secondary" onclick="clearResolvedMistakes()">🗑️ Smazat vyřešené</button>
+                        </div>
+
+                        <div class="mistake-bank-container" id="mistake-list">
+                            <div class="ui-state">
+                                <span class="ui-state-icon">✨</span>
+                                <div class="ui-state-title">Žádné chyby!</div>
+                                <div class="ui-state-desc">Zatím jsi neudělal/a žádné chyby v kvízech.</div>
+                            </div>
+                        </div>
                     </div>
 
                     <!-- Quiz Header -->
@@ -1399,17 +1827,49 @@
                         <div class="quiz-progress-bar">
                             <div class="quiz-progress-fill" id="quiz-progress" style="width: 10%;"></div>
                         </div>
-                        <span id="quiz-score">Skóre: 0</span>
+                        <div style="display: flex; align-items: center; gap: 1rem;">
+                            <span id="quiz-score">Skóre: 0</span>
+                            <div class="quiz-timer" id="quiz-timer" style="display: none;">
+                                ⏱️ <span id="quiz-time-remaining">20:00</span>
+                            </div>
+                        </div>
                     </div>
 
                     <div class="quiz-question-card" id="quiz-card" style="display: none;">
                         <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
                             <div class="quiz-question-number" id="quiz-q-num">Otázka 1</div>
-                            <span style="background: var(--primary); padding: 0.25rem 0.75rem; border-radius: 20px; font-size: 0.8rem;" id="quiz-q-cat">Kategorie</span>
+                            <div style="display: flex; align-items: center; gap: 0.5rem;">
+                                <span id="quiz-q-type-badge" style="background: var(--secondary); padding: 0.2rem 0.5rem; border-radius: 8px; font-size: 0.7rem;">MC</span>
+                                <span style="background: var(--primary); padding: 0.25rem 0.75rem; border-radius: 20px; font-size: 0.8rem;" id="quiz-q-cat">Kategorie</span>
+                            </div>
                         </div>
                         <div class="quiz-question-text" id="quiz-question">Načítám otázku...</div>
+
+                        <!-- Multiple Choice Options -->
                         <div class="quiz-options" id="quiz-options"></div>
-                        <button class="quiz-btn" id="quiz-btn" onclick="nextQuestion()" disabled>Další otázka</button>
+
+                        <!-- Open Answer Input -->
+                        <div id="quiz-open-container" style="display: none;">
+                            <textarea class="quiz-open-answer" id="quiz-open-input" placeholder="Napiš svou odpověď..." rows="3"></textarea>
+                            <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 0.5rem;">
+                                <div class="keyboard-hints" style="margin: 0; font-size: 0.75rem;">
+                                    <span><kbd class="kbd">Enter</kbd> Odeslat</span>
+                                </div>
+                                <button class="quiz-btn" id="submit-open-btn" onclick="submitOpenAnswer()" style="padding: 0.5rem 1.5rem;">Odeslat odpověď</button>
+                            </div>
+                        </div>
+
+                        <!-- Feedback Container -->
+                        <div id="quiz-feedback-container" style="display: none;"></div>
+
+                        <button class="quiz-btn" id="quiz-btn" onclick="nextQuestion()" disabled style="margin-top: 1rem;">Další otázka</button>
+
+                        <!-- Keyboard Hints -->
+                        <div class="keyboard-hints" id="quiz-keyboard-hints" style="margin-top: 0.75rem;">
+                            <span><kbd class="kbd">1-4</kbd> Vybrat možnost</span>
+                            <span><kbd class="kbd">Enter</kbd> Další</span>
+                            <span><kbd class="kbd">Esc</kbd> Ukončit</span>
+                        </div>
                     </div>
 
                     <div class="results-container" id="quiz-results" style="display: none;">
@@ -1955,6 +2415,150 @@ Proč třídíme,Co je informační exploze?,Růst množství dat...,Vysvětlen�
         let cardsStudiedToday = 0;
         let currentSection = 'dashboard';
 
+        // Quiz V2 State
+        let quizSettings = {
+            mode: 'drill',        // drill, exam, weakness
+            questionType: 'mc',   // mc, open, mixed
+            ignoreDiacritics: true,
+            fuzzyMatching: true,
+            timerEnabled: false,
+            timerMinutes: 20
+        };
+        let quizTimer = null;
+        let quizTimeRemaining = 0;
+
+        // Mistake Bank
+        let mistakeBank = [];
+
+        // Question Statistics (per-question)
+        let questionStats = {};
+
+        // Topic Statistics (per-topic)
+        let topicStats = {};
+
+        // ========== UTILITY FUNCTIONS - Czech Text Normalization ==========
+        const czechDiacriticsMap = {
+            'á': 'a', 'č': 'c', 'ď': 'd', 'é': 'e', 'ě': 'e', 'í': 'i',
+            'ň': 'n', 'ó': 'o', 'ř': 'r', 'š': 's', 'ť': 't', 'ú': 'u',
+            'ů': 'u', 'ý': 'y', 'ž': 'z',
+            'Á': 'A', 'Č': 'C', 'Ď': 'D', 'É': 'E', 'Ě': 'E', 'Í': 'I',
+            'Ň': 'N', 'Ó': 'O', 'Ř': 'R', 'Š': 'S', 'Ť': 'T', 'Ú': 'U',
+            'Ů': 'U', 'Ý': 'Y', 'Ž': 'Z'
+        };
+
+        function removeDiacritics(str) {
+            return str.split('').map(char => czechDiacriticsMap[char] || char).join('');
+        }
+
+        function normalizeText(text, options = {}) {
+            let normalized = text.trim().toLowerCase();
+            // Remove extra whitespace
+            normalized = normalized.replace(/\s+/g, ' ');
+            // Remove punctuation
+            normalized = normalized.replace(/[.,!?;:()'"„"–—\-\/\\]/g, '');
+            // Optionally remove diacritics
+            if (options.ignoreDiacritics) {
+                normalized = removeDiacritics(normalized);
+            }
+            return normalized;
+        }
+
+        // Levenshtein distance for fuzzy matching
+        function levenshteinDistance(str1, str2) {
+            const m = str1.length;
+            const n = str2.length;
+            const dp = Array(m + 1).fill(null).map(() => Array(n + 1).fill(0));
+
+            for (let i = 0; i <= m; i++) dp[i][0] = i;
+            for (let j = 0; j <= n; j++) dp[0][j] = j;
+
+            for (let i = 1; i <= m; i++) {
+                for (let j = 1; j <= n; j++) {
+                    if (str1[i - 1] === str2[j - 1]) {
+                        dp[i][j] = dp[i - 1][j - 1];
+                    } else {
+                        dp[i][j] = 1 + Math.min(dp[i - 1][j], dp[i][j - 1], dp[i - 1][j - 1]);
+                    }
+                }
+            }
+            return dp[m][n];
+        }
+
+        function calculateSimilarity(str1, str2) {
+            const maxLen = Math.max(str1.length, str2.length);
+            if (maxLen === 0) return 1;
+            const distance = levenshteinDistance(str1, str2);
+            return 1 - (distance / maxLen);
+        }
+
+        function evaluateAnswer(userAnswer, correctAnswer, options = {}) {
+            const normUser = normalizeText(userAnswer, options);
+            const normCorrect = normalizeText(correctAnswer, options);
+
+            // Exact match
+            if (normUser === normCorrect) {
+                return { correct: true, score: 1, matchType: 'exact' };
+            }
+
+            // Fuzzy matching if enabled
+            if (options.fuzzyMatching) {
+                const similarity = calculateSimilarity(normUser, normCorrect);
+                if (similarity >= 0.85) {
+                    return { correct: true, score: similarity, matchType: 'fuzzy' };
+                }
+                if (similarity >= 0.6) {
+                    return { correct: false, score: similarity, matchType: 'partial' };
+                }
+            }
+
+            // Keyword matching - check if key parts are present
+            const correctWords = normCorrect.split(' ').filter(w => w.length > 3);
+            const userWords = normUser.split(' ');
+            const matchedWords = correctWords.filter(cw =>
+                userWords.some(uw => uw.includes(cw) || cw.includes(uw))
+            );
+            const keywordScore = matchedWords.length / Math.max(correctWords.length, 1);
+
+            if (keywordScore >= 0.7) {
+                return { correct: false, score: keywordScore, matchType: 'keywords' };
+            }
+
+            return { correct: false, score: 0, matchType: 'wrong' };
+        }
+
+        // ========== DATA PERSISTENCE ==========
+        function initQuizStats() {
+            const savedMistakes = localStorage.getItem('mistakeBank');
+            if (savedMistakes) mistakeBank = JSON.parse(savedMistakes);
+
+            const savedQuestionStats = localStorage.getItem('questionStats');
+            if (savedQuestionStats) questionStats = JSON.parse(savedQuestionStats);
+
+            const savedTopicStats = localStorage.getItem('topicStats');
+            if (savedTopicStats) topicStats = JSON.parse(savedTopicStats);
+
+            updateMistakeBadge();
+        }
+
+        function saveMistakeBank() {
+            localStorage.setItem('mistakeBank', JSON.stringify(mistakeBank));
+            updateMistakeBadge();
+        }
+
+        function saveQuestionStats() {
+            localStorage.setItem('questionStats', JSON.stringify(questionStats));
+        }
+
+        function saveTopicStats() {
+            localStorage.setItem('topicStats', JSON.stringify(topicStats));
+        }
+
+        function updateMistakeBadge() {
+            const badge = document.getElementById('mistake-count-badge');
+            const unresolvedCount = mistakeBank.filter(m => !m.resolved).length;
+            if (badge) badge.textContent = unresolvedCount;
+        }
+
         // ========== SPACED REPETITION (SM-2) ==========
         function initCardStats() {
             const saved = localStorage.getItem('cardStats');
@@ -2077,25 +2681,102 @@ Proč třídíme,Co je informační exploze?,Růst množství dat...,Vysvětlen�
 
         function getFilteredQuestions() {
             const category = document.getElementById('quiz-category').value;
-            if (category === 'all') return quizData;
-            return quizData.filter(q => q.cat === category);
+            let questions = category === 'all' ? quizData : quizData.filter(q => q.cat === category);
+
+            // For weakness mode, filter by low accuracy
+            if (quizSettings.mode === 'weakness') {
+                questions = questions.filter(q => {
+                    const qId = hashQuestion(q);
+                    const stats = questionStats[qId];
+                    if (!stats) return false;
+                    const accuracy = stats.correct / Math.max(stats.attempts, 1);
+                    return accuracy < 0.7 || stats.streakCorrect < 2;
+                });
+            }
+
+            return questions;
+        }
+
+        function getWeakQuestionCount() {
+            return quizData.filter(q => {
+                const qId = hashQuestion(q);
+                const stats = questionStats[qId];
+                if (!stats) return false;
+                const accuracy = stats.correct / Math.max(stats.attempts, 1);
+                return accuracy < 0.7 || stats.streakCorrect < 2;
+            }).length;
+        }
+
+        function hashQuestion(q) {
+            return btoa(encodeURIComponent(q.q)).slice(0, 16);
         }
 
         function updateAvailableCount() {
             const filtered = getFilteredQuestions();
             document.getElementById('available-count').textContent = filtered.length;
+
+            // Update weakness count
+            const weakCount = getWeakQuestionCount();
+            document.getElementById('weak-questions-num').textContent = weakCount;
+        }
+
+        // Quiz Mode Selection
+        function selectQuizMode(mode) {
+            quizSettings.mode = mode;
+            document.querySelectorAll('.quiz-mode-btn').forEach(btn => {
+                btn.classList.toggle('selected', btn.dataset.mode === mode);
+            });
+
+            // Show/hide exam options
+            document.getElementById('exam-options').style.display = mode === 'exam' ? 'block' : 'none';
+
+            // Show weakness count
+            document.getElementById('weakness-count').style.display = mode === 'weakness' ? 'inline' : 'none';
+
+            // Update question count for drill mode
+            if (mode === 'drill') {
+                document.getElementById('quiz-count').value = '10';
+            }
+
+            updateAvailableCount();
+        }
+
+        // Question Type Selection
+        function selectQuestionType(type) {
+            quizSettings.questionType = type;
+            document.querySelectorAll('.type-toggle-btn').forEach(btn => {
+                btn.classList.toggle('active', btn.dataset.type === type);
+            });
+
+            // Show/hide open answer options
+            document.getElementById('open-answer-options').style.display =
+                (type === 'open' || type === 'mixed') ? 'block' : 'none';
         }
 
         function showQuizSetup() {
             document.getElementById('quiz-setup').style.display = 'block';
+            document.getElementById('mistake-bank-view').style.display = 'none';
             document.getElementById('quiz-header-bar').style.display = 'none';
             document.getElementById('quiz-card').style.display = 'none';
             document.getElementById('quiz-results').style.display = 'none';
+            stopQuizTimer();
             updateAvailableCount();
+            renderMistakeBank();
         }
 
         function startQuizWithSettings() {
+            // Get settings from UI
+            quizSettings.ignoreDiacritics = document.getElementById('ignore-diacritics')?.checked ?? true;
+            quizSettings.fuzzyMatching = document.getElementById('fuzzy-matching')?.checked ?? true;
+            quizSettings.timerEnabled = document.getElementById('quiz-timer-enabled')?.checked ?? false;
+            quizSettings.timerMinutes = parseInt(document.getElementById('quiz-timer-minutes')?.value ?? 20);
+
             const filtered = getFilteredQuestions();
+            if (filtered.length === 0) {
+                alert('Žádné otázky k dispozici pro zvolená nastavení.');
+                return;
+            }
+
             const countSelect = document.getElementById('quiz-count').value;
             const count = countSelect === 'all' ? filtered.length : Math.min(parseInt(countSelect), filtered.length);
 
@@ -2105,13 +2786,23 @@ Proč třídíme,Co je informační exploze?,Růst množství dat...,Vysvětlen�
                 answered: false,
                 questions: shuffleArray(filtered).slice(0, count),
                 total: count,
-                wrongAnswers: []
+                wrongAnswers: [],
+                mode: quizSettings.mode,
+                questionType: quizSettings.questionType,
+                examAnswers: [] // For exam mode - store answers to show at end
             };
 
             document.getElementById('quiz-setup').style.display = 'none';
+            document.getElementById('mistake-bank-view').style.display = 'none';
             document.getElementById('quiz-header-bar').style.display = 'flex';
             document.getElementById('quiz-card').style.display = 'block';
             document.getElementById('quiz-results').style.display = 'none';
+
+            // Start timer for exam mode
+            if (quizSettings.mode === 'exam' && quizSettings.timerEnabled) {
+                startQuizTimer(quizSettings.timerMinutes * 60);
+            }
+
             showQuestion();
         }
 
@@ -2119,35 +2810,71 @@ Proč třídíme,Co je informační exploze?,Růst množství dat...,Vysvětlen�
             showQuizSetup();
         }
 
+        // Determine question type for current question
+        function getCurrentQuestionType() {
+            if (quizState.questionType === 'mc') return 'mc';
+            if (quizState.questionType === 'open') return 'open';
+            // Mixed - alternate or random
+            return quizState.current % 2 === 0 ? 'mc' : 'open';
+        }
+
         function showQuestion() {
             const q = quizState.questions[quizState.current];
             const total = quizState.total;
+            const qType = getCurrentQuestionType();
 
             document.getElementById('quiz-q-num').textContent = `Otázka ${quizState.current + 1}`;
             document.getElementById('quiz-q-cat').textContent = q.cat || 'Obecné';
             document.getElementById('quiz-counter').textContent = `Otázka ${quizState.current + 1}/${total}`;
             document.getElementById('quiz-question').textContent = q.q;
             document.getElementById('quiz-progress').style.width = `${((quizState.current + 1) / total) * 100}%`;
-            document.getElementById('quiz-score').textContent = `Skóre: ${quizState.score}/${quizState.current}`;
 
-            // Odstranit předchozí vysvětlení
-            const oldExp = document.querySelector('.quiz-explanation');
-            if (oldExp) oldExp.remove();
+            // Update score display (hide in exam mode until end)
+            if (quizState.mode === 'exam') {
+                document.getElementById('quiz-score').textContent = `Odpovědi: ${quizState.current}`;
+            } else {
+                document.getElementById('quiz-score').textContent = `Skóre: ${quizState.score}/${quizState.current}`;
+            }
+
+            // Update type badge
+            const typeBadge = document.getElementById('quiz-q-type-badge');
+            typeBadge.textContent = qType === 'mc' ? 'Výběr' : 'Otevřená';
+            typeBadge.style.background = qType === 'mc' ? 'var(--secondary)' : 'var(--warning)';
+
+            // Clear previous feedback
+            document.getElementById('quiz-feedback-container').style.display = 'none';
+            document.getElementById('quiz-feedback-container').innerHTML = '';
 
             const optionsDiv = document.getElementById('quiz-options');
-            optionsDiv.innerHTML = '';
+            const openContainer = document.getElementById('quiz-open-container');
+            const openInput = document.getElementById('quiz-open-input');
 
-            q.options.forEach((opt, i) => {
-                const btn = document.createElement('div');
-                btn.className = 'quiz-option';
-                btn.textContent = opt;
-                btn.onclick = () => selectOption(i);
-                optionsDiv.appendChild(btn);
-            });
+            if (qType === 'mc') {
+                // Multiple choice
+                optionsDiv.style.display = 'flex';
+                openContainer.style.display = 'none';
+                optionsDiv.innerHTML = '';
+
+                q.options.forEach((opt, i) => {
+                    const btn = document.createElement('div');
+                    btn.className = 'quiz-option';
+                    btn.textContent = opt;
+                    btn.onclick = () => selectOption(i);
+                    optionsDiv.appendChild(btn);
+                });
+            } else {
+                // Open answer
+                optionsDiv.style.display = 'none';
+                openContainer.style.display = 'block';
+                openInput.value = '';
+                openInput.classList.remove('correct', 'incorrect', 'partial');
+                openInput.disabled = false;
+                openInput.focus();
+            }
 
             quizState.answered = false;
             document.getElementById('quiz-btn').disabled = true;
-            document.getElementById('quiz-btn').textContent = 'Vyberte odpověď';
+            document.getElementById('quiz-btn').textContent = qType === 'mc' ? 'Vyberte odpověď' : 'Napište odpověď';
         }
 
         function selectOption(index) {
@@ -2155,40 +2882,283 @@ Proč třídíme,Co je informační exploze?,Růst množství dat...,Vysvětlen�
             quizState.answered = true;
 
             const q = quizState.questions[quizState.current];
+            const isCorrect = index === q.correct;
+
+            // Update question stats
+            updateQuestionStats(q, isCorrect);
+
             const options = document.querySelectorAll('.quiz-option');
 
-            options.forEach((opt, i) => {
-                opt.style.pointerEvents = 'none';
-                if (i === q.correct) {
-                    opt.classList.add('correct');
-                } else if (i === index && i !== q.correct) {
-                    opt.classList.add('incorrect');
+            // In exam mode, don't show feedback
+            if (quizState.mode === 'exam') {
+                options.forEach(opt => opt.style.pointerEvents = 'none');
+                quizState.examAnswers.push({
+                    question: q,
+                    selectedIndex: index,
+                    isCorrect: isCorrect
+                });
+                if (isCorrect) quizState.score++;
+            } else {
+                // Normal mode - show feedback immediately
+                options.forEach((opt, i) => {
+                    opt.style.pointerEvents = 'none';
+                    if (i === q.correct) {
+                        opt.classList.add('correct');
+                    } else if (i === index && !isCorrect) {
+                        opt.classList.add('incorrect');
+                    }
+                });
+
+                if (isCorrect) {
+                    quizState.score++;
+                } else {
+                    const wrongAnswer = {
+                        question: q.q,
+                        yourAnswer: q.options[index],
+                        correctAnswer: q.options[q.correct],
+                        category: q.cat,
+                        explanation: q.exp || ''
+                    };
+                    quizState.wrongAnswers.push(wrongAnswer);
                 }
+
+                // Show feedback with actions
+                showQuestionFeedback(isCorrect, q, q.options[index]);
+            }
+
+            document.getElementById('quiz-score').textContent =
+                quizState.mode === 'exam'
+                    ? `Odpovědi: ${quizState.current + 1}`
+                    : `Skóre: ${quizState.score}/${quizState.current + 1}`;
+
+            document.getElementById('quiz-btn').disabled = false;
+            document.getElementById('quiz-btn').textContent = quizState.current < quizState.total - 1 ? 'Další otázka' : 'Zobrazit výsledky';
+        }
+
+        function submitOpenAnswer() {
+            if (quizState.answered) return;
+
+            const input = document.getElementById('quiz-open-input');
+            const userAnswer = input.value.trim();
+
+            if (!userAnswer) {
+                input.style.borderColor = 'var(--danger)';
+                return;
+            }
+
+            quizState.answered = true;
+            input.disabled = true;
+
+            const q = quizState.questions[quizState.current];
+            const correctAnswer = q.options[q.correct];
+
+            const evaluation = evaluateAnswer(userAnswer, correctAnswer, {
+                ignoreDiacritics: quizSettings.ignoreDiacritics,
+                fuzzyMatching: quizSettings.fuzzyMatching
             });
 
-            if (index === q.correct) {
+            // Update question stats
+            updateQuestionStats(q, evaluation.correct);
+
+            // Apply styling based on result
+            input.classList.remove('correct', 'incorrect', 'partial');
+            if (evaluation.correct) {
+                input.classList.add('correct');
                 quizState.score++;
+            } else if (evaluation.matchType === 'partial' || evaluation.matchType === 'keywords') {
+                input.classList.add('partial');
             } else {
+                input.classList.add('incorrect');
+            }
+
+            if (!evaluation.correct) {
                 quizState.wrongAnswers.push({
                     question: q.q,
-                    yourAnswer: q.options[index],
-                    correctAnswer: q.options[q.correct],
+                    yourAnswer: userAnswer,
+                    correctAnswer: correctAnswer,
                     category: q.cat,
-                    explanation: q.exp || ''
+                    explanation: q.exp || '',
+                    matchScore: evaluation.score,
+                    matchType: evaluation.matchType
                 });
             }
 
-            // Zobrazit vysvětlení
-            if (q.exp) {
-                const expDiv = document.createElement('div');
-                expDiv.className = 'quiz-explanation';
-                expDiv.innerHTML = `<strong>Vysvětlení:</strong> ${q.exp}`;
-                document.getElementById('quiz-options').after(expDiv);
+            // Show feedback (unless exam mode)
+            if (quizState.mode !== 'exam') {
+                showQuestionFeedback(evaluation.correct, q, userAnswer, evaluation);
             }
 
-            document.getElementById('quiz-score').textContent = `Skóre: ${quizState.score}/${quizState.current + 1}`;
+            document.getElementById('quiz-score').textContent =
+                quizState.mode === 'exam'
+                    ? `Odpovědi: ${quizState.current + 1}`
+                    : `Skóre: ${quizState.score}/${quizState.current + 1}`;
+
             document.getElementById('quiz-btn').disabled = false;
             document.getElementById('quiz-btn').textContent = quizState.current < quizState.total - 1 ? 'Další otázka' : 'Zobrazit výsledky';
+        }
+
+        function showQuestionFeedback(isCorrect, question, userAnswer, evaluation = null) {
+            const container = document.getElementById('quiz-feedback-container');
+
+            let feedbackClass = isCorrect ? 'correct' : 'incorrect';
+            let feedbackIcon = isCorrect ? '✅' : '❌';
+            let feedbackTitle = isCorrect ? 'Správně!' : 'Špatně';
+
+            if (evaluation && evaluation.matchType === 'partial') {
+                feedbackClass = 'partial';
+                feedbackIcon = '⚠️';
+                feedbackTitle = 'Téměř správně';
+            }
+
+            let html = `
+                <div class="quiz-feedback ${feedbackClass}">
+                    <div class="quiz-feedback-title">
+                        ${feedbackIcon} ${feedbackTitle}
+                        ${evaluation ? `<span class="match-score ${evaluation.score > 0.8 ? 'high' : evaluation.score > 0.5 ? 'medium' : 'low'}">${Math.round(evaluation.score * 100)}% shoda</span>` : ''}
+                    </div>
+            `;
+
+            if (!isCorrect) {
+                html += `<div style="margin-bottom: 0.5rem;"><strong>Správná odpověď:</strong> ${question.options[question.correct]}</div>`;
+            }
+
+            if (question.exp) {
+                html += `<div style="color: var(--text-muted); font-size: 0.9rem;"><strong>Vysvětlení:</strong> ${question.exp}</div>`;
+            }
+
+            // Action buttons
+            html += `
+                <div class="quiz-feedback-actions">
+                    ${!isCorrect ? `<button class="quiz-action-btn" onclick="addCurrentToMistakeBank()">📋 Do banky chyb</button>` : ''}
+                    <button class="quiz-action-btn" onclick="createFlashcardFromQuestion()">🎴 Vytvořit kartičku</button>
+                    ${evaluation && !evaluation.correct && (evaluation.matchType === 'partial' || evaluation.matchType === 'keywords') ?
+                        `<button class="override-btn" onclick="overrideAsCorrect()">✓ Označit jako správné</button>` : ''}
+                </div>
+            `;
+
+            html += '</div>';
+
+            container.innerHTML = html;
+            container.style.display = 'block';
+        }
+
+        function overrideAsCorrect() {
+            // Remove from wrong answers
+            quizState.wrongAnswers.pop();
+            quizState.score++;
+
+            // Update UI
+            document.getElementById('quiz-score').textContent = `Skóre: ${quizState.score}/${quizState.current + 1}`;
+
+            // Update feedback
+            const container = document.getElementById('quiz-feedback-container');
+            const feedback = container.querySelector('.quiz-feedback');
+            if (feedback) {
+                feedback.classList.remove('incorrect', 'partial');
+                feedback.classList.add('correct');
+                feedback.querySelector('.quiz-feedback-title').innerHTML = '✅ Správně (ručně označeno)';
+            }
+
+            // Update question stats
+            const q = quizState.questions[quizState.current];
+            updateQuestionStats(q, true);
+        }
+
+        function updateQuestionStats(question, isCorrect) {
+            const qId = hashQuestion(question);
+
+            if (!questionStats[qId]) {
+                questionStats[qId] = {
+                    attempts: 0,
+                    correct: 0,
+                    streakCorrect: 0,
+                    lastAttemptAt: null,
+                    history: []
+                };
+            }
+
+            const stats = questionStats[qId];
+            stats.attempts++;
+            stats.lastAttemptAt = Date.now();
+
+            if (isCorrect) {
+                stats.correct++;
+                stats.streakCorrect++;
+            } else {
+                stats.streakCorrect = 0;
+            }
+
+            // Keep last 10 attempts in history
+            stats.history.push({ correct: isCorrect, at: Date.now() });
+            if (stats.history.length > 10) stats.history.shift();
+
+            saveQuestionStats();
+
+            // Update topic stats
+            updateTopicStats(question.cat, isCorrect);
+        }
+
+        function updateTopicStats(topic, isCorrect) {
+            if (!topic) return;
+
+            if (!topicStats[topic]) {
+                topicStats[topic] = {
+                    attempts: 0,
+                    correct: 0,
+                    lastStudiedAt: null
+                };
+            }
+
+            const stats = topicStats[topic];
+            stats.attempts++;
+            stats.lastStudiedAt = Date.now();
+            if (isCorrect) stats.correct++;
+
+            saveTopicStats();
+        }
+
+        function addCurrentToMistakeBank() {
+            const q = quizState.questions[quizState.current];
+            const lastWrong = quizState.wrongAnswers[quizState.wrongAnswers.length - 1];
+
+            if (!lastWrong) return;
+
+            const mistake = {
+                id: Date.now(),
+                question: q.q,
+                yourAnswer: lastWrong.yourAnswer,
+                correctAnswer: lastWrong.correctAnswer,
+                category: q.cat,
+                explanation: q.exp || '',
+                date: new Date().toISOString(),
+                resolved: false,
+                questionData: q
+            };
+
+            // Check if already exists
+            const exists = mistakeBank.some(m => m.question === mistake.question && !m.resolved);
+            if (!exists) {
+                mistakeBank.push(mistake);
+                saveMistakeBank();
+                alert('Přidáno do banky chyb!');
+            } else {
+                alert('Tato chyba už je v bance.');
+            }
+        }
+
+        function createFlashcardFromQuestion() {
+            const q = quizState.questions[quizState.current];
+
+            // Add to flashcardsData (in memory - would need proper persistence)
+            const newCard = {
+                category: q.cat,
+                q: q.q,
+                a: q.options[q.correct],
+                exp: q.exp || ''
+            };
+
+            // For now, just show alert with the card info
+            alert(`Kartička vytvořena!\n\nOtázka: ${newCard.q}\nOdpověď: ${newCard.a}`);
         }
 
         function nextQuestion() {
@@ -2198,6 +3168,178 @@ Proč třídíme,Co je informační exploze?,Růst množství dat...,Vysvětlen�
             } else {
                 showResults();
             }
+        }
+
+        // Timer functions
+        function startQuizTimer(seconds) {
+            quizTimeRemaining = seconds;
+            updateTimerDisplay();
+            document.getElementById('quiz-timer').style.display = 'flex';
+
+            quizTimer = setInterval(() => {
+                quizTimeRemaining--;
+                updateTimerDisplay();
+
+                if (quizTimeRemaining <= 0) {
+                    stopQuizTimer();
+                    alert('Čas vypršel!');
+                    showResults();
+                }
+            }, 1000);
+        }
+
+        function stopQuizTimer() {
+            if (quizTimer) {
+                clearInterval(quizTimer);
+                quizTimer = null;
+            }
+            document.getElementById('quiz-timer').style.display = 'none';
+        }
+
+        function updateTimerDisplay() {
+            const minutes = Math.floor(quizTimeRemaining / 60);
+            const seconds = quizTimeRemaining % 60;
+            const display = `${minutes}:${seconds.toString().padStart(2, '0')}`;
+            document.getElementById('quiz-time-remaining').textContent = display;
+
+            const timerEl = document.getElementById('quiz-timer');
+            timerEl.classList.remove('warning', 'danger');
+            if (quizTimeRemaining <= 60) {
+                timerEl.classList.add('danger');
+            } else if (quizTimeRemaining <= 180) {
+                timerEl.classList.add('warning');
+            }
+        }
+
+        // Mistake Bank functions
+        function showMistakeBank() {
+            document.getElementById('quiz-setup').style.display = 'none';
+            document.getElementById('mistake-bank-view').style.display = 'block';
+            renderMistakeBank();
+        }
+
+        function hideMistakeBank() {
+            document.getElementById('mistake-bank-view').style.display = 'none';
+            document.getElementById('quiz-setup').style.display = 'block';
+        }
+
+        function renderMistakeBank() {
+            const container = document.getElementById('mistake-list');
+            const unresolved = mistakeBank.filter(m => !m.resolved);
+            const resolved = mistakeBank.filter(m => m.resolved);
+
+            document.getElementById('total-mistakes').textContent = mistakeBank.length;
+            document.getElementById('unresolved-mistakes').textContent = unresolved.length;
+            document.getElementById('resolved-mistakes').textContent = resolved.length;
+
+            if (mistakeBank.length === 0) {
+                container.innerHTML = `
+                    <div class="ui-state">
+                        <span class="ui-state-icon">✨</span>
+                        <div class="ui-state-title">Žádné chyby!</div>
+                        <div class="ui-state-desc">Zatím jsi neudělal/a žádné chyby v kvízech.</div>
+                    </div>
+                `;
+                return;
+            }
+
+            container.innerHTML = [...unresolved, ...resolved].map(m => `
+                <div class="mistake-item ${m.resolved ? 'resolved' : ''}" data-id="${m.id}">
+                    <div class="mistake-header">
+                        <span class="mistake-category">${m.category}</span>
+                        <span class="mistake-date">${new Date(m.date).toLocaleDateString('cs-CZ')}</span>
+                    </div>
+                    <div class="mistake-question">${m.question}</div>
+                    <div class="mistake-answers">
+                        <div class="mistake-your-answer">Tvá odpověď: ${m.yourAnswer}</div>
+                        <div class="mistake-correct-answer">Správně: ${m.correctAnswer}</div>
+                    </div>
+                    ${m.explanation ? `<div style="font-size: 0.85rem; color: var(--text-muted); margin-top: 0.5rem;">${m.explanation}</div>` : ''}
+                    <div class="mistake-actions">
+                        ${!m.resolved ?
+                            `<button class="quiz-action-btn" onclick="markMistakeResolved(${m.id})">✓ Vyřešeno</button>` :
+                            `<button class="quiz-action-btn" onclick="markMistakeUnresolved(${m.id})">↩ Znovu otevřít</button>`
+                        }
+                        <button class="quiz-action-btn" onclick="deleteMistake(${m.id})">🗑️ Smazat</button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function markMistakeResolved(id) {
+            const mistake = mistakeBank.find(m => m.id === id);
+            if (mistake) {
+                mistake.resolved = true;
+                saveMistakeBank();
+                renderMistakeBank();
+            }
+        }
+
+        function markMistakeUnresolved(id) {
+            const mistake = mistakeBank.find(m => m.id === id);
+            if (mistake) {
+                mistake.resolved = false;
+                saveMistakeBank();
+                renderMistakeBank();
+            }
+        }
+
+        function deleteMistake(id) {
+            mistakeBank = mistakeBank.filter(m => m.id !== id);
+            saveMistakeBank();
+            renderMistakeBank();
+        }
+
+        function clearResolvedMistakes() {
+            if (confirm('Opravdu smazat všechny vyřešené chyby?')) {
+                mistakeBank = mistakeBank.filter(m => !m.resolved);
+                saveMistakeBank();
+                renderMistakeBank();
+            }
+        }
+
+        function practiceMistakes() {
+            const unresolvedMistakes = mistakeBank.filter(m => !m.resolved && m.questionData);
+            if (unresolvedMistakes.length === 0) {
+                alert('Žádné nevyřešené chyby k procvičení.');
+                return;
+            }
+
+            // Create quiz from mistakes
+            quizState = {
+                current: 0,
+                score: 0,
+                answered: false,
+                questions: shuffleArray(unresolvedMistakes.map(m => m.questionData)),
+                total: unresolvedMistakes.length,
+                wrongAnswers: [],
+                mode: 'drill',
+                questionType: 'mc'
+            };
+
+            document.getElementById('mistake-bank-view').style.display = 'none';
+            document.getElementById('quiz-header-bar').style.display = 'flex';
+            document.getElementById('quiz-card').style.display = 'block';
+            showQuestion();
+        }
+
+        function exportMistakesCSV() {
+            if (mistakeBank.length === 0) {
+                alert('Žádné chyby k exportu.');
+                return;
+            }
+
+            const header = 'Otázka,Tvá odpověď,Správná odpověď,Kategorie,Vysvětlení,Datum,Vyřešeno\n';
+            const rows = mistakeBank.map(m =>
+                `"${m.question.replace(/"/g, '""')}","${m.yourAnswer.replace(/"/g, '""')}","${m.correctAnswer.replace(/"/g, '""')}","${m.category}","${(m.explanation || '').replace(/"/g, '""')}","${m.date}","${m.resolved ? 'Ano' : 'Ne'}"`
+            ).join('\n');
+
+            const csv = header + rows;
+            const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+            const link = document.createElement('a');
+            link.href = URL.createObjectURL(blob);
+            link.download = 'banka_chyb.csv';
+            link.click();
         }
 
         function showResults() {
@@ -2987,11 +4129,61 @@ Proč třídíme,Co je informační exploze?,Růst množství dat...,Vysvětlen�
 
         // ========== KEYBOARD SHORTCUTS ==========
         function handleKeyboardShortcuts(e) {
-            // Only handle shortcuts when in flashcards section
-            if (currentSection !== 'flashcards') return;
+            // Don't handle if user is typing in an input (except for specific keys)
+            const isTyping = e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA' || e.target.tagName === 'SELECT';
 
-            // Don't handle if user is typing in an input
-            if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA' || e.target.tagName === 'SELECT') return;
+            // Handle quiz shortcuts
+            if (currentSection === 'quiz') {
+                // Allow Enter in open answer mode
+                if (isTyping && e.code === 'Enter' && e.target.id === 'quiz-open-input') {
+                    e.preventDefault();
+                    submitOpenAnswer();
+                    return;
+                }
+
+                if (isTyping) return;
+
+                const quizCard = document.getElementById('quiz-card');
+                if (quizCard.style.display === 'none') return;
+
+                switch (e.code) {
+                    case 'Digit1':
+                    case 'Numpad1':
+                        if (!quizState.answered) selectOption(0);
+                        break;
+                    case 'Digit2':
+                    case 'Numpad2':
+                        if (!quizState.answered) selectOption(1);
+                        break;
+                    case 'Digit3':
+                    case 'Numpad3':
+                        if (!quizState.answered) selectOption(2);
+                        break;
+                    case 'Digit4':
+                    case 'Numpad4':
+                        if (!quizState.answered) selectOption(3);
+                        break;
+                    case 'Enter':
+                    case 'Space':
+                        if (quizState.answered && !document.getElementById('quiz-btn').disabled) {
+                            e.preventDefault();
+                            nextQuestion();
+                        }
+                        break;
+                    case 'Escape':
+                        e.preventDefault();
+                        if (confirm('Opravdu chceš ukončit kvíz?')) {
+                            stopQuizTimer();
+                            showQuizSetup();
+                        }
+                        break;
+                }
+                return;
+            }
+
+            // Handle flashcard shortcuts
+            if (currentSection !== 'flashcards') return;
+            if (isTyping) return;
 
             const dueCards = getDueCards();
             if (dueCards.length === 0) return;
@@ -3033,6 +4225,7 @@ Proč třídíme,Co je informační exploze?,Růst množství dat...,Vysvětlen�
         function init() {
             loadTheme();
             initCardStats();
+            initQuizStats();
             renderTopics();
             updateStats();
             updateDashboardCTAs();
