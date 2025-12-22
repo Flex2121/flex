@@ -3525,7 +3525,38 @@ Proč třídíme,Co je informační exploze?,Růst množství dat...,Vysvětlen�
             { category: "Praktické OI", q: "Je nealkoholické pivo nealkoholický nápoj?", a: "Obsahuje až 0,5% alkoholu - název je marketingový. Správně by mělo být 'pivo se sníženým obsahem alkoholu'.", exp: "Příklad matoucího pojmenování. Pro klasifikaci musíme chápat skutečný obsah, ne jen název." },
 
             // Formátové a obsahové stavění
-            { category: "Praktické OI", q: "Co je formátové stavění fondu?", a: "Uspořádání dokumentů podle jejich fyzické velikosti (formátu) - velké knihy spolu, malé spolu.", exp: "Viditelné třeba v barokních knihovnách. Výhoda: efektivní využití prostoru, estetický vzhled." }
+            { category: "Praktické OI", q: "Co je formátové stavění fondu?", a: "Uspořádání dokumentů podle jejich fyzické velikosti (formátu) - velké knihy spolu, malé spolu.", exp: "Viditelné třeba v barokních knihovnách. Výhoda: efektivní využití prostoru, estetický vzhled." },
+
+            // === Z PŘEDNÁŠKY 2: SBÍRKY A INFORMAČNÍ OBJEKTY ===
+
+            // Sbírky - základy
+            { category: "Sbírky", q: "Co je primární funkce sbírky?", a: "Informační funkce - pomáhá při poznávání světa, umožňuje uživateli najít informace, které potřebuje.", exp: "Tím se sbírka liší od nesbírky. Knihovna má primární informační funkci, antikvariát má primární komerční funkci." },
+            { category: "Sbírky", q: "Jaký je rozdíl mezi knihovnou a antikvariátem z hlediska sbírek?", a: "Knihovna je sbírka (primární informační funkce), antikvariát není sbírka (primární komerční funkce).", exp: "Oba mívají knihy utříděné, ale účel je jiný - knihovna informuje, antikvariát prodává." },
+            { category: "Sbírky", q: "Je zoologická zahrada sbírka?", a: "Ano - zvířata v ZOO jsou informační objekty, primární funkcí je vzdělávání (cedulky, informace o druzích).", exp: "Borges: zvířata v ZOO jsou dokumenty. Zverimex naopak sbírka není - primární funkce je komerční." },
+            { category: "Sbírky", q: "Jaké sekundární funkce může mít sbírka?", a: "Estetická (krása), ekonomická (monetizace), archivační (uchování pro budoucnost), sociální (vzdělávací akce).", exp: "Primární je informační, ale sbírka může plnit i další funkce - rokoková knihovna byla i estetická." },
+            { category: "Sbírky", q: "Co je metafora paměti ve vztahu ke sbírkám?", a: "Sbírka jako paměť - máme uložené něco, co můžeme vyvolat a použít pro svou potřebu.", exp: "Tato metafora se používá i v odborné literatuře - sbírka uchovává a zpřístupňuje poznání." },
+            { category: "Sbírky", q: "Co je virtuální sbírka?", a: "Sbírka propojující objekty digitálně bez ohledu na fyzické umístění originálů (např. databáze tkanin z různých farností).", exp: "Virtuální sbírka obsahuje reprezentace objektů, ne originály. Umožňuje spojit roztroušené fondy." },
+
+            // LRM Model
+            { category: "LRM", q: "Jaké jsou čtyři úrovně LRM modelu?", a: "Dílo (abstraktní) → Vyjádření (realizace textu) → Provedení (konkrétní vydání) → Jednotka (jeden exemplář).", exp: "LRM = Library Reference Model. Nahradil FRBR. Rozlišuje abstraktní myšlenku od fyzické realizace." },
+            { category: "LRM", q: "Co je Dílo v LRM modelu?", a: "Myšlená intelektuální jednota - např. 'Máj' jako koncept, nezávisle na konkrétním textu nebo vydání.", exp: "Dílo je abstraktní. Máj existuje jako dílo, i když má stovky vydání s různými texty." },
+            { category: "LRM", q: "Co je Vyjádření (Expression) v LRM?", a: "Konkrétní realizace díla - text v určitém jazyce. Změna jediného písmene = jiné vyjádření.", exp: "Překlady jsou různá vyjádření téhož díla. Mácha psal 'Mágy' (starým pravopisem) - to je jiné vyjádření než dnešní 'Máj'." },
+            { category: "LRM", q: "Co je Provedení (Manifestation) v LRM?", a: "Konkrétní fyzická realizace - typografie, vazba, obálka. Např. vydání Albatros 2020.", exp: "Provedení má specifické fyzické vlastnosti. Různá nakladatelství = různá provedení téhož vyjádření." },
+            { category: "LRM", q: "Co je Jednotka (Item) v LRM?", a: "Jeden konkrétní exemplář - tento výtisk knihy v mých rukou.", exp: "I identické výtisky se mohou lišit (vakáty, vpisky, poškození). Každý exemplář je unikátní jednotka." },
+            { category: "LRM", q: "Proč měl Máj stovky různých vydání s různými texty?", a: "Ediční úpravy textu, cenzurní zásahy (nacisté změnili 'vůdce zhynul' na 'náš pán zhynul'), vypouštění částí.", exp: "Každá změna textu = jiné Vyjádření. Mácha napsal 'Mágy' starým pravopisem, dnes čteme modernizovaný text." },
+
+            // Informační objekt - vlastnosti
+            { category: "IO vlastnosti", q: "Jaký je rozdíl mezi originálem, kopií, faksimilí a falzifikátem?", a: "Originál = původní. Kopie = reprodukce. Faksimile = přesná kopie (přiznaná). Falzifikát = napodobenina vydávaná za originál.", exp: "Faksimile se používá na výstavách místo vzácných dokumentů. Falzifikát je podvod." },
+            { category: "IO vlastnosti", q: "Jaké jsou funkční vlastnosti informačního objektu?", a: "Dokumentuje (dokládá), deskribuje (popisuje), reprezentuje (zastupuje třídu objektů), komunikuje (sděluje).", exp: "Každý IO by měl alespoň některé z těchto funkcí plnit - to ho odlišuje od běžného předmětu." },
+            { category: "IO vlastnosti", q: "Co znamená, že dokument 'reprezentuje' třídu?", a: "Jeden výtisk z nákladu 2800 ks reprezentuje všechny ostatní - předpokládáme, že jsou totožné.", exp: "V praxi nejsou úplně totožné (vakáty, vpisky), ale pro účely zpracování je považujeme za identické." },
+
+            // Analogové vs digitální
+            { category: "Média", q: "Jaký je rozdíl mezi analogovým a digitálním dokumentem z hlediska kulturní hodnoty?", a: "Kniha nese kulturní hodnoty a emoce (zničení knihy šokuje). CD/digitální verze tyto vrstvy postrádá.", exp: "Performance: roztržení knihy vyvolalo šok, zlomení CD nikoho nerozrušilo. Médium nese poselství (McLuhan)." },
+            { category: "Média", q: "Co znamená McLuhanovo 'médium je poselství'?", a: "Každé médium má vlastnosti, které předurčují, jak vnímáme obsah. Forma ovlivňuje pochopení.", exp: "Stejný text v knize a na e-readeru působí jinak. Typografie knihy podporuje vnímání obsahu." },
+            { category: "Média", q: "Jaký je problém elektronických knih z hlediska typografie?", a: "Často nemají typografii vůbec - přizpůsobují se displeji. Tím se ztrácí vrstva podporující vnímání obsahu.", exp: "Typografie není samoúčelná - je navržená tak, aby podporovala informační funkci textu." },
+
+            // Kontinuita dokumentů
+            { category: "Dokumenty", q: "Co je kontinuita dokumentu?", a: "Rozlišení, zda byl dokument vydán jednorázově (monografie) nebo opakovaně (časopis, ročenka).", exp: "Důležité hledisko pro třídění - periodika a seriály se zpracovávají jinak než monografie." }
         ];
 
 
