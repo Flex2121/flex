@@ -966,6 +966,37 @@
             border-left: 4px solid var(--secondary);
         }
 
+        .quiz-hint-btn {
+            background: transparent;
+            border: 1px solid var(--warning);
+            color: var(--warning);
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+            transition: all 0.2s ease;
+        }
+
+        .quiz-hint-btn:hover {
+            background: rgba(245, 158, 11, 0.1);
+        }
+
+        .quiz-hint-box {
+            background: rgba(245, 158, 11, 0.1);
+            border-left: 3px solid var(--warning);
+            padding: 1rem;
+            border-radius: 0 8px 8px 0;
+            margin-bottom: 1.5rem;
+            font-size: 0.9rem;
+            color: var(--text);
+            display: none;
+            animation: slideIn 0.3s ease;
+        }
+
         .quiz-explanation strong {
             color: var(--secondary);
         }
@@ -3059,6 +3090,14 @@
                         </div>
                         <div class="quiz-question-text" id="quiz-question">Načítám otázku...</div>
 
+                        <!-- Hint Section -->
+                        <div id="quiz-hint-container" style="display: none;">
+                            <button class="quiz-hint-btn" onclick="toggleHint()">
+                                💡 Zobrazit nápovědu
+                            </button>
+                            <div class="quiz-hint-box" id="quiz-hint-text"></div>
+                        </div>
+
                         <!-- Multiple Choice Options -->
                         <div class="quiz-options" id="quiz-options"></div>
 
@@ -3562,12 +3601,12 @@ Proč třídíme,Co je informační exploze?,Růst množství dat...,Vysvětlen�
 
         const quizData = [
             // === PROČ TŘÍDÍME ===
-            { q: "Co je hlavní příčinou informační exploze?", options: ["Růst populace", "Technologický vývoj", "Vznik internetu", "Globalizace"], correct: 1, cat: "Proč třídíme", exp: "Technologický vývoj umožnil rapidní nárůst kapacity přijímat, ukládat a komunikovat informace. Šlo zejména o rozvoj tisku, elektronických médií a později digitálních technologií." },
-            { q: "Kdy začala informační exploze?", options: ["Po 1. světové válce", "Po 2. světové válce", "V 19. století", "V roce 2000"], correct: 1, cat: "Proč třídíme", exp: "Informační exploze se datuje zejména po 2. světové válce, kdy došlo k masivnímu rozvoji vědy, techniky a médií pro šíření informací." },
-            { q: "Co je informační přetížení?", options: ["Subjektivní psychologický stav", "Objektivní důsledek informační exploze", "Nedostatek informací", "Typ dokumentu"], correct: 1, cat: "Proč třídíme", exp: "Informační přetížení je objektivní jev - reálně existuje příliš mnoho informací, což komplikuje efektivní vyhledávání. Nezávisí na vnímání jedince." },
-            { q: "Co je informační deprivace/neuróza?", options: ["Objektivní důsledek exploze", "Subjektivní psychologický důsledek", "Typ vyhledávání", "Metoda indexace"], correct: 1, cat: "Proč třídíme", exp: "Informační deprivace je subjektivní psychologický stav - pocit, že nemáme dostatek relevantních informací nebo jsme jimi naopak zahlceni. Jde o osobní prožitek." },
-            { q: "Jaký je správný vztah: Data → Informace → Znalosti?", options: ["Přidání kontextu → Přidání významu", "Přidání významu → Přidání kontextu", "Přidání formátu → Přidání struktury", "Přidání média → Přidání formy"], correct: 1, cat: "Proč třídíme", exp: "Data jsou surové symboly. Přidáním významu vznikají informace. Přidáním kontextu (propojením s našimi zkušenostmi) vznikají znalosti." },
-            { q: "Co jsou data?", options: ["Informace s kontextem", "Zaznamenané symbolické reprezentace", "Znalosti bez významu", "Typ dokumentu"], correct: 1, cat: "Proč třídíme", exp: "Data jsou zaznamenané symbolické reprezentace - řetězce znaků bez přiděleného významu. Například číslo '42' samo o sobě je jen datum." },
+            { q: "Co je hlavní příčinou informační exploze?", options: ["Růst populace", "Technologický vývoj", "Vznik internetu", "Globalizace"], correct: 1, cat: "Proč třídíme", exp: "Technologický vývoj umožnil rapidní nárůst kapacity přijímat, ukládat a komunikovat informace. Šlo zejména o rozvoj tisku, elektronických médií a později digitálních technologií.", hint: "Souvisí to s technikou a schopností uchovávat informace." },
+            { q: "Kdy začala informační exploze?", options: ["Po 1. světové válce", "Po 2. světové válce", "V 19. století", "V roce 2000"], correct: 1, cat: "Proč třídíme", exp: "Informační exploze se datuje zejména po 2. světové válce, kdy došlo k masivnímu rozvoji vědy, techniky a médií pro šíření informací.", hint: "Bylo to v polovině 20. století." },
+            { q: "Co je informační přetížení?", options: ["Subjektivní psychologický stav", "Objektivní důsledek informační exploze", "Nedostatek informací", "Typ dokumentu"], correct: 1, cat: "Proč třídíme", exp: "Informační přetížení je objektivní jev - reálně existuje příliš mnoho informací, což komplikuje efektivní vyhledávání. Nezávisí na vnímání jedince.", hint: "Je to měřitelný stav, ne jen pocit." },
+            { q: "Co je informační deprivace/neuróza?", options: ["Objektivní důsledek exploze", "Subjektivní psychologický důsledek", "Typ vyhledávání", "Metoda indexace"], correct: 1, cat: "Proč třídíme", exp: "Informační deprivace je subjektivní psychologický stav - pocit, že nemáme dostatek relevantních informací nebo jsme jimi naopak zahlceni. Jde o osobní prožitek.", hint: "Týká se to psychiky jedince." },
+            { q: "Jaký je správný vztah: Data → Informace → Znalosti?", options: ["Přidání kontextu → Přidání významu", "Přidání významu → Přidání kontextu", "Přidání formátu → Přidání struktury", "Přidání média → Přidání formy"], correct: 1, cat: "Proč třídíme", exp: "Data jsou surové symboly. Přidáním významu vznikají informace. Přidáním kontextu (propojením s našimi zkušenostmi) vznikají znalosti.", hint: "Nejdřív musíme vědět, co to znamená, pak to zasadíme do souvislostí." },
+            { q: "Co jsou data?", options: ["Informace s kontextem", "Zaznamenané symbolické reprezentace", "Znalosti bez významu", "Typ dokumentu"], correct: 1, cat: "Proč třídíme", exp: "Data jsou zaznamenané symbolické reprezentace - řetězce znaků bez přiděleného významu. Například číslo '42' samo o sobě je jen datum.", hint: "Jsou to jen surové znaky bez významu." },
             { q: "Jaké je médium pro znalosti?", options: ["Papír", "Digitální nosič", "Mozek", "Databáze"], correct: 2, cat: "Proč třídíme", exp: "Znalosti existují v lidském mozku - jsou to informace propojené s kontextem a zkušenostmi člověka. Data a informace můžeme ukládat na nosiče, znalosti nikoli." },
             { q: "Co NENÍ součástí sémiotického trojúhelníku?", options: ["Jev (věc)", "Pojem (význam)", "Znak (reprezentace)", "Kontext (situace)"], correct: 3, cat: "Proč třídíme", exp: "Sémiotický trojúhelník má tři vrcholy: jev (věc v realitě), pojem (význam v mysli) a znak (reprezentace). Kontext není jeho součástí." },
             { q: "Co zkoumá sémiotika?", options: ["Vztahy mezi formou a významem", "Znaky a znakové soustavy", "Strukturu vět", "Tvary slov"], correct: 1, cat: "Proč třídíme", exp: "Sémiotika je obecná věda o znacích a znakových soustavách. Zahrnuje sémantiku (význam), syntaktiku (strukturu) a pragmatiku (užití)." },
@@ -4721,6 +4760,15 @@ Proč třídíme,Co je informační exploze?,Růst množství dat...,Vysvětlen�
             showQuizSetup();
         }
 
+        function toggleHint() {
+            const hintText = document.getElementById('quiz-hint-text');
+            if (hintText.style.display === 'none') {
+                hintText.style.display = 'block';
+            } else {
+                hintText.style.display = 'none';
+            }
+        }
+
         // Determine question type for current question
         function getCurrentQuestionType() {
             if (quizState.questionType === 'mc') return 'mc';
@@ -4739,6 +4787,18 @@ Proč třídíme,Co je informační exploze?,Růst množství dat...,Vysvětlen�
             document.getElementById('quiz-counter').textContent = `Otázka ${quizState.current + 1}/${total}`;
             document.getElementById('quiz-question').textContent = q.q;
             document.getElementById('quiz-progress').style.width = `${((quizState.current + 1) / total) * 100}%`;
+
+            // Hint handling
+            const hintContainer = document.getElementById('quiz-hint-container');
+            const hintText = document.getElementById('quiz-hint-text');
+
+            if (q.hint) {
+                hintContainer.style.display = 'block';
+                hintText.textContent = q.hint;
+                hintText.style.display = 'none'; // Always hide text initially
+            } else {
+                hintContainer.style.display = 'none';
+            }
 
             // Update score display (hide in exam mode until end)
             if (quizState.mode === 'exam') {
