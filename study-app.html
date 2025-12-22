@@ -129,6 +129,49 @@
         }
 
         /* ========================================
+           SELECT/DROPDOWN STYLING
+           ======================================== */
+        select {
+            background-color: var(--bg-light);
+            color: var(--text);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 0.5rem;
+            font-family: inherit;
+            cursor: pointer;
+        }
+
+        select option {
+            background-color: var(--card-bg);
+            color: var(--text);
+            padding: 0.5rem;
+        }
+
+        /* Dark mode specific - ensure dropdown options are visible */
+        [data-theme="dark"] select,
+        :root select {
+            background-color: #1a1a2e;
+            color: #f8fafc;
+        }
+
+        [data-theme="dark"] select option,
+        :root select option {
+            background-color: #1a1a2e;
+            color: #f8fafc;
+        }
+
+        /* Light mode specific */
+        [data-theme="light"] select {
+            background-color: #ffffff;
+            color: #1e293b;
+        }
+
+        [data-theme="light"] select option {
+            background-color: #ffffff;
+            color: #1e293b;
+        }
+
+        /* ========================================
            AUDIO LOOP CONTROLS
            ======================================== */
         .audio-controls {
