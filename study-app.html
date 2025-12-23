@@ -2609,8 +2609,195 @@
 
         /* Formula boxes - make text visible */
         #map-content [style*="font-size: 1.3rem"],
-        #map-content [style*="font-size: 1.5rem"] {
+        #map-content [style*="font-size: 1.5rem"],
+        .concept-map-content [style*="font-size: 1.3rem"],
+        .concept-map-content [style*="font-size: 1.5rem"] {
             color: var(--text) !important;
+        }
+
+        /* ========================================
+           CONCEPT MAPS - ACCORDION STYLE
+           ======================================== */
+        .concept-maps-container {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .concept-map-card {
+            background: var(--bg-glass);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-radius: 16px;
+            border: 1px solid var(--border);
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .concept-map-card:hover {
+            border-color: rgba(139, 92, 246, 0.3);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+        }
+
+        .concept-map-card.expanded {
+            border-color: var(--primary);
+            box-shadow: 0 12px 40px rgba(139, 92, 246, 0.2);
+        }
+
+        .concept-map-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1.25rem 1.5rem;
+            cursor: pointer;
+            transition: background 0.2s ease;
+        }
+
+        .concept-map-header:hover {
+            background: var(--bg-light);
+        }
+
+        .concept-map-icon {
+            width: 50px;
+            height: 50px;
+            background: var(--gradient-1);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.4rem;
+            flex-shrink: 0;
+            box-shadow: 0 4px 12px rgba(139, 92, 246, 0.3);
+        }
+
+        .concept-map-info {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .concept-map-title {
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-bottom: 0.25rem;
+            color: var(--text);
+        }
+
+        .concept-map-desc {
+            font-size: 0.85rem;
+            color: #c4c4cc;
+        }
+
+        .concept-map-toggle {
+            width: 36px;
+            height: 36px;
+            background: var(--bg-light);
+            border: 1px solid var(--border);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1rem;
+            color: var(--text);
+            transition: all 0.3s ease;
+            flex-shrink: 0;
+        }
+
+        .concept-map-card.expanded .concept-map-toggle {
+            background: var(--primary);
+            transform: rotate(180deg);
+        }
+
+        .concept-map-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease-out, padding 0.3s ease;
+            background: var(--bg-card);
+            border-top: 1px solid transparent;
+        }
+
+        .concept-map-card.expanded .concept-map-content {
+            max-height: 2000px;
+            border-top-color: var(--border);
+            transition: max-height 0.5s ease-in, padding 0.3s ease;
+        }
+
+        .concept-map-content-inner {
+            padding: 1.5rem;
+        }
+
+        .concept-map-close-btn {
+            display: block;
+            width: 100%;
+            padding: 0.75rem;
+            margin-top: 1rem;
+            background: var(--bg-light);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            color: var(--text);
+            font-size: 0.9rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .concept-map-close-btn:hover {
+            background: var(--primary);
+            border-color: var(--primary);
+        }
+
+        /* Light theme adjustments for accordion maps */
+        [data-theme="light"] .concept-map-header:hover {
+            background: rgba(109, 40, 217, 0.05);
+        }
+
+        [data-theme="light"] .concept-map-desc {
+            color: #475569;
+        }
+
+        [data-theme="light"] .concept-map-content {
+            background: #f8fafc;
+        }
+
+        [data-theme="light"] .concept-map-content-inner {
+            color: #1e293b;
+        }
+
+        /* Fix text colors in accordion content for dark mode */
+        .concept-map-content [style*="color: #c4c4cc"] {
+            color: #c4c4cc !important;
+        }
+
+        [data-theme="light"] .concept-map-content [style*="color: #c4c4cc"] {
+            color: #475569 !important;
+        }
+
+        .concept-map-content strong {
+            color: var(--text) !important;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .concept-map-header {
+                padding: 1rem;
+            }
+
+            .concept-map-icon {
+                width: 44px;
+                height: 44px;
+                font-size: 1.2rem;
+            }
+
+            .concept-map-title {
+                font-size: 1rem;
+            }
+
+            .concept-map-desc {
+                font-size: 0.8rem;
+            }
+
+            .concept-map-content-inner {
+                padding: 1rem;
+            }
         }
     </style>
 </head>
@@ -3142,80 +3329,12 @@
 
             <!-- Concept Maps -->
             <section id="maps" class="section">
-                <h1 style="margin-bottom: 2rem;">Konceptové mapy</h1>
-                <p style="color: #c4c4cc; margin-bottom: 2rem;">Vizuální přehled klíčových konceptů a jejich
-                    vztahů (Dual Coding)</p>
+                <h1 style="margin-bottom: 1rem;">Konceptové mapy</h1>
+                <p style="color: #c4c4cc; margin-bottom: 2rem;">Vizuální přehled klíčových konceptů a jejich vztahů
+                    (Dual Coding). Klikni na kartu pro rozbalení obsahu.</p>
 
-                <div class="topics-grid">
-                    <div class="topic-card" onclick="showConceptMap('hierarchy')">
-                        <div class="topic-icon">🌳</div>
-                        <div class="topic-title">Hierarchie selekčních jazyků</div>
-                        <div class="topic-description">Přehled typů SJ a jejich vztahů</div>
-                    </div>
-                    <div class="topic-card" onclick="showConceptMap('triangle')">
-                        <div class="topic-icon">🔺</div>
-                        <div class="topic-title">Sémiotický trojúhelník</div>
-                        <div class="topic-description">Jev - Pojem - Znak a Popperovy světy</div>
-                    </div>
-                    <div class="topic-card" onclick="showConceptMap('dataflow')">
-                        <div class="topic-icon">📊</div>
-                        <div class="topic-title">Data → Informace → Znalosti</div>
-                        <div class="topic-description">Transformace a jejich charakteristiky</div>
-                    </div>
-                    <div class="topic-card" onclick="showConceptMap('indexing')">
-                        <div class="topic-icon">📝</div>
-                        <div class="topic-title">Proces indexace</div>
-                        <div class="topic-description">Od obsahové analýzy k SOD</div>
-                    </div>
-                    <div class="topic-card" onclick="showConceptMap('thesaurus')">
-                        <div class="topic-icon">🔗</div>
-                        <div class="topic-title">Struktura tezauru</div>
-                        <div class="topic-description">Vztahy mezi lexikálními jednotkami</div>
-                    </div>
-                    <div class="topic-card" onclick="showConceptMap('classifications')">
-                        <div class="topic-icon">📚</div>
-                        <div class="topic-title">Přehled klasifikací</div>
-                        <div class="topic-description">DDC, LCC, MDT, CC, BBC</div>
-                    </div>
-                    <div class="topic-card" onclick="showConceptMap('lrm')">
-                        <div class="topic-icon">📖</div>
-                        <div class="topic-title">LRM Model</div>
-                        <div class="topic-description">Dílo → Vyjádření → Provedení → Jednotka</div>
-                    </div>
-                    <div class="topic-card" onclick="showConceptMap('doclevels')">
-                        <div class="topic-icon">📋</div>
-                        <div class="topic-title">Dokumentografické úrovně</div>
-                        <div class="topic-description">A-F: Nosič až Obsah</div>
-                    </div>
-                    <div class="topic-card" onclick="showConceptMap('recallprecision')">
-                        <div class="topic-icon">📊</div>
-                        <div class="topic-title">Recall vs Precision</div>
-                        <div class="topic-description">Úplnost a přesnost vyhledávání</div>
-                    </div>
-                    <div class="topic-card" onclick="showConceptMap('prepost')">
-                        <div class="topic-icon">🔄</div>
-                        <div class="topic-title">Pre vs Postkoordinace</div>
-                        <div class="topic-description">Kombinování pojmů při indexaci/vyhledávání</div>
-                    </div>
-                    <div class="topic-card" onclick="showConceptMap('consistency')">
-                        <div class="topic-icon">📏</div>
-                        <div class="topic-title">Konzistence indexace</div>
-                        <div class="topic-description">Vzorec C = a/b, inter/intraindexer</div>
-                    </div>
-                </div>
-
-                <!-- Concept Map Display -->
-                <div id="concept-map-container" style="display: none; margin-top: 2rem;">
-                    <div
-                        style="background: var(--bg-card); border-radius: 16px; padding: 2rem; border: 1px solid var(--border);">
-                        <div
-                            style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
-                            <h2 id="map-title" style="color: var(--primary);">Název mapy</h2>
-                            <button onclick="hideConceptMap()"
-                                style="background: var(--bg-light); border: none; color: var(--text); padding: 0.5rem 1rem; border-radius: 8px; cursor: pointer;">Zavřít</button>
-                        </div>
-                        <div id="map-content" style="min-height: 400px;"></div>
-                    </div>
+                <div class="concept-maps-container" id="concept-maps-container">
+                    <!-- Dynamicky generováno JavaScriptem -->
                 </div>
             </section>
 
@@ -6009,17 +6128,93 @@ Proč třídíme,Co je informační exploze?,Růst množství dat...,Vysvětlen�
             }
         };
 
-        function showConceptMap(mapId) {
-            const map = conceptMaps[mapId];
-            if (!map) return;
+        // Map metadata for accordion cards
+        const conceptMapsMetadata = {
+            hierarchy: { icon: "🌳", desc: "Přehled typů SJ a jejich vztahů" },
+            triangle: { icon: "🔺", desc: "Jev - Pojem - Znak a Popperovy světy" },
+            dataflow: { icon: "📊", desc: "Transformace a jejich charakteristiky" },
+            indexing: { icon: "📝", desc: "Od obsahové analýzy k SOD" },
+            thesaurus: { icon: "🔗", desc: "Vztahy mezi lexikálními jednotkami" },
+            classifications: { icon: "📚", desc: "DDC, LCC, MDT, CC, BBC" },
+            lrm: { icon: "📖", desc: "Dílo → Vyjádření → Provedení → Jednotka" },
+            doclevels: { icon: "📋", desc: "A-F: Nosič až Obsah" },
+            recallprecision: { icon: "📊", desc: "Úplnost a přesnost vyhledávání" },
+            prepost: { icon: "🔄", desc: "Kombinování pojmů při indexaci/vyhledávání" },
+            consistency: { icon: "📏", desc: "Vzorec C = a/b, inter/intraindexer" }
+        };
 
-            document.getElementById('map-title').textContent = map.title;
-            document.getElementById('map-content').innerHTML = map.content;
-            document.getElementById('concept-map-container').style.display = 'block';
+        function renderConceptMapsAccordion() {
+            const container = document.getElementById('concept-maps-container');
+            if (!container) return;
+
+            let html = '';
+            for (const [mapId, map] of Object.entries(conceptMaps)) {
+                const meta = conceptMapsMetadata[mapId] || { icon: "📄", desc: "" };
+                html += `
+                    <div class="concept-map-card" id="map-card-${mapId}">
+                        <div class="concept-map-header" onclick="toggleConceptMap('${mapId}')">
+                            <div class="concept-map-icon">${meta.icon}</div>
+                            <div class="concept-map-info">
+                                <div class="concept-map-title">${map.title}</div>
+                                <div class="concept-map-desc">${meta.desc}</div>
+                            </div>
+                            <div class="concept-map-toggle">▼</div>
+                        </div>
+                        <div class="concept-map-content">
+                            <div class="concept-map-content-inner">
+                                ${map.content}
+                                <button class="concept-map-close-btn" onclick="closeConceptMap('${mapId}')">
+                                    ▲ Zavřít
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }
+            container.innerHTML = html;
+        }
+
+        function toggleConceptMap(mapId) {
+            const card = document.getElementById(`map-card-${mapId}`);
+            if (!card) return;
+
+            const isExpanded = card.classList.contains('expanded');
+
+            // Close all other expanded cards
+            document.querySelectorAll('.concept-map-card.expanded').forEach(otherCard => {
+                if (otherCard.id !== `map-card-${mapId}`) {
+                    otherCard.classList.remove('expanded');
+                }
+            });
+
+            // Toggle current card
+            if (isExpanded) {
+                card.classList.remove('expanded');
+            } else {
+                card.classList.add('expanded');
+                // Scroll the card into view smoothly
+                setTimeout(() => {
+                    card.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }, 100);
+            }
+        }
+
+        function closeConceptMap(mapId) {
+            const card = document.getElementById(`map-card-${mapId}`);
+            if (card) {
+                card.classList.remove('expanded');
+            }
+        }
+
+        // Legacy functions for backwards compatibility
+        function showConceptMap(mapId) {
+            toggleConceptMap(mapId);
         }
 
         function hideConceptMap() {
-            document.getElementById('concept-map-container').style.display = 'none';
+            document.querySelectorAll('.concept-map-card.expanded').forEach(card => {
+                card.classList.remove('expanded');
+            });
         }
 
         // ========== THEME TOGGLE ==========
@@ -6948,6 +7143,7 @@ Proč třídíme,Co je informační exploze?,Růst množství dat...,Vysvětlen�
             initCardStats();
             initQuizStats();
             renderTopics();
+            renderConceptMapsAccordion(); // Initialize accordion-style concept maps
             updateStats();
             updateDashboardCTAs();
 
