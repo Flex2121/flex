@@ -6,7 +6,7 @@
 
 window.studyData = {
     // Název předmětu
-    topic: "Etika a Informační etika",
+    topic: "Informační etika",
 
     // Kartičky (Flashcards)
     flashcards: [
