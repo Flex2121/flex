@@ -1766,116 +1766,10 @@ function loadTheme() {
     document.getElementById('theme-toggle').textContent = savedTheme === 'dark' ? '🌗' : '☀️';
 }
 
-// ========== AUDIO LOOP (Web Speech API) ==========
-let audioLoopRunning = false;
-let audioLoopIndex = 0;
-let audioSpeed = 1;
-let speechSynthesis = window.speechSynthesis;
 
-function speak(text, onEnd) {
-    if (!speechSynthesis) {
-        console.error('Web Speech API nenĂ­ podporovĂˇno');
-        if (onEnd) onEnd();
-        return;
-    }
 
-    const utterance = new SpeechSynthesisUtterance(text);
-    utterance.lang = 'cs-CZ';
-    utterance.rate = audioSpeed;
-    utterance.onend = onEnd;
-    utterance.onerror = onEnd;
-    speechSynthesis.speak(utterance);
-}
 
-function startAudioLoop() {
-    if (!speechSynthesis) {
-        alert('Váš prohlížeč nepodporuje Web Speech API');
-        return;
-    }
 
-    audioLoopRunning = true;
-    audioLoopIndex = 0;
-
-    document.getElementById('audio-start').style.display = 'none';
-    document.getElementById('audio-stop').style.display = 'inline-flex';
-    updateAudioStatus('Přehrávám...', true);
-
-    playNextCard();
-}
-
-function stopAudioLoop() {
-    audioLoopRunning = false;
-    speechSynthesis.cancel();
-
-    document.getElementById('audio-start').style.display = 'inline-flex';
-    document.getElementById('audio-stop').style.display = 'none';
-    updateAudioStatus('Zastaveno', false);
-}
-
-function playNextCard() {
-    if (!audioLoopRunning) return;
-
-    const dueCards = getDueCards();
-    if (dueCards.length === 0 || audioLoopIndex >= dueCards.length) {
-        stopAudioLoop();
-        updateAudioStatus('DokonÄŤeno', false);
-        return;
-    }
-
-    const card = dueCards[audioLoopIndex];
-    showCard(audioLoopIndex);
-
-    updateAudioStatus(`Karta ${audioLoopIndex + 1}/${dueCards.length}: Otázka`, true);
-
-    // PĹ™eÄŤti otĂˇzku
-    speak(card.q, () => {
-        if (!audioLoopRunning) return;
-
-        updateAudioStatus(`Karta ${audioLoopIndex + 1}/${dueCards.length}: Pauza...`, true);
-
-        // Pauza pĹ™ed odpovÄ›dĂ­ (3 sekundy)
-        setTimeout(() => {
-            if (!audioLoopRunning) return;
-
-            // OtoÄŤ kartu
-            if (!cardFlipped) flipCard();
-
-            updateAudioStatus(`Karta ${audioLoopIndex + 1}/${dueCards.length}: OdpovÄ›ÄŹ`, true);
-
-            // PĹ™eÄŤti odpovÄ›ÄŹ
-            speak(card.a, () => {
-                if (!audioLoopRunning) return;
-
-                // Pauza pĹ™ed Další­ kartou (2 sekundy)
-                setTimeout(() => {
-                    if (!audioLoopRunning) return;
-
-                    // Reset karty pro Další­
-                    if (cardFlipped) {
-                        cardFlipped = false;
-                        document.getElementById('flashcard').classList.remove('flipped');
-                        document.getElementById('fc-controls').style.display = 'none';
-                    }
-
-                    audioLoopIndex++;
-                    playNextCard();
-                }, 2000);
-            });
-        }, 3000);
-    });
-}
-
-function updateAudioSpeed() {
-    audioSpeed = parseFloat(document.getElementById('audio-speed').value);
-}
-
-function updateAudioStatus(text, isPlaying) {
-    const status = document.getElementById('audio-status');
-    status.innerHTML = isPlaying
-        ? `<span class="pulse"></span><span>${text}</span>`
-        : `<span>${text}</span>`;
-    status.className = isPlaying ? 'audio-status playing' : 'audio-status';
-}
 
 // ========== DASHBOARD CTA FUNCTIONS ==========
 function startReviewSession() {
@@ -1904,7 +1798,7 @@ function updateDashboardCTAs() {
     const timeEstimate = document.getElementById('time-estimate');
 
     // Update review button
-    ctaReviewCount.textContent = `${dueCount} kartiček k opakování­`;
+    ctaReviewCount.textContent = `${dueCount} kartiček k opakování`;
 
     if (dueCount === 0) {
         ctaReview.classList.add('disabled');
@@ -1921,7 +1815,7 @@ function updateDashboardCTAs() {
 
     // Update topics count
     const uniqueTopics = [...new Set(flashcardsData.map(c => c.category))];
-    document.getElementById('cta-topics-count').textContent = `${uniqueTopics.length} tĂ©mat`;
+    document.getElementById('cta-topics-count').textContent = `${uniqueTopics.length} témat`;
 }
 
 // ========== HELP MODAL ==========

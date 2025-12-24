@@ -147,146 +147,62 @@
                     <div class="audio-panel-body">
                         <!-- Main Controls -->
                         <div class="audio-main-controls">
-                            <button class="audio-btn-lg play" id="audio-play-btn" onclick="AudioStudy.play()">
-                                ▶️ Spustit
-                            </button>
-                            <button class="audio-btn-lg pause" id="audio-pause-btn" onclick="AudioStudy.pause()"
-                                style="display: none;">
-                                ⏸️ Pauza
-                            </button>
-                            <button class="audio-btn-lg play" id="audio-resume-btn" onclick="AudioStudy.resume()"
-                                style="display: none;">
-                                ▶️ Pokračovat
-                            </button>
-                            <button class="audio-btn-lg stop" id="audio-stop-btn" onclick="AudioStudy.stop()" disabled>
-                                ⏹️ Stop
-                            </button>
-                            <button class="audio-btn-lg skip" id="audio-skip-btn" onclick="AudioStudy.skip()" disabled>
-                                ⏭️ Další
-                            </button>
+
                         </div>
 
-                        <!-- Voice and Speed Settings -->
-                        <div class="audio-settings-grid">
-                            <div class="audio-setting">
-                                <span class="audio-setting-label">🗣️ Hlas</span>
-                                <div style="display: flex; gap: 0.5rem;">
-                                    <select class="audio-voice-select" id="audio-voice-select"
-                                        onchange="AudioStudy.setVoice(this.value)">
-                                        <option value="">Načítání hlasů...</option>
-                                    </select>
-                                    <button class="audio-test-btn" onclick="AudioStudy.testVoice()">🔊 Test</button>
+                        <!-- Empty State -->
+                        <div class="ui-state" id="fc-empty-state" style="display: none;">
+                            <span class="ui-state-icon">🎉</span>
+                            <div class="ui-state-title">Výborně!</div>
+                            <div class="ui-state-desc">Všechny kartičky pro dnešek jsou zvládnuty.<br>Vrať se zítra nebo
+                                zkus
+                                kvíz.</div>
+                            <div class="btn-row" style="justify-content: center;">
+                                <button class="btn-secondary" onclick="switchSection('quiz')">Spustit kvíz</button>
+                                <button class="btn-secondary" onclick="switchSection('dashboard')">Zpět na
+                                    dashboard</button>
+                            </div>
+                        </div>
+
+                        <!-- Flashcard Container -->
+                        <div id="fc-active-container">
+                            <div class="flashcard-progress">
+                                <span id="fc-current">1</span> / <span id="fc-total">0</span> k opakování
+                            </div>
+
+                            <div class="flashcard-container">
+                                <div class="flashcard" id="flashcard" onclick="flipCard()">
+                                    <div class="flashcard-face flashcard-front">
+                                        <span class="flashcard-category" id="fc-category">Kategorie</span>
+                                        <p class="flashcard-question" id="fc-question">Připravuji kartičky...</p>
+                                        <span class="flashcard-hint">Klikni nebo stiskni <kbd
+                                                class="kbd">Space</kbd></span>
+                                    </div>
+                                    <div class="flashcard-face flashcard-back">
+                                        <p class="flashcard-answer" id="fc-answer">Odpověď...</p>
+                                        <div class="flashcard-explanation" id="fc-explanation" style="display: none;">
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="audio-setting">
-                                <span class="audio-setting-label">🕊 Rychlost čtení</span>
-                                <div class="audio-speed-container">
-                                    <input type="range" class="audio-speed-slider" id="audio-speed-slider" min="0.5"
-                                        max="2" step="0.1" value="1" oninput="AudioStudy.setRate(this.value)">
-                                    <span class="audio-speed-value" id="audio-speed-value">1.0x</span>
-                                </div>
+
+                            <div class="flashcard-controls" id="fc-controls" style="display: none;">
+                                <button class="fc-btn again" onclick="rateCard(0)">Znovu<br><small>
+                                        &lt; 1 min</small><kbd class="kbd">1</kbd></button>
+                                <button class="fc-btn hard" onclick="rateCard(1)">Těžké<br><small>
+                                        &lt; 10 min</small><kbd class="kbd">2</kbd></button>
+                                <button class="fc-btn good" onclick="rateCard(2)">Dobře<br><small>1 den</small><kbd
+                                        class="kbd">3</kbd></button>
+                                <button class="fc-btn easy" onclick="rateCard(3)">Snadné<br><small>4 dny</small><kbd
+                                        class="kbd">4</kbd></button>
+                            </div>
+
+                            <div class="keyboard-hints" id="fc-keyboard-hints">
+                                <span><kbd class="kbd">Space</kbd> Otočit</span>
+                                <span><kbd class="kbd">1-4</kbd> Hodnotit</span>
+                                <span><kbd class="kbd">→</kbd> Další</span>
                             </div>
                         </div>
-
-                        <!-- Pause Settings -->
-                        <div class="audio-pause-settings">
-                            <div class="pause-setting">
-                                <label>⏳ Pauza po otázce:</label>
-                                <input type="number" id="pause-after-question" value="3" min="0" max="10"
-                                    onchange="AudioStudy.saveSettings()"> sec
-                            </div>
-                            <div class="pause-setting">
-                                <label>⏳ Pauza po kartičce:</label>
-                                <input type="number" id="pause-after-card" value="2" min="0" max="10"
-                                    onchange="AudioStudy.saveSettings()"> sec
-                            </div>
-                        </div>
-
-                        <!-- Podcast Mode -->
-                        <div class="audio-podcast-mode">
-                            <div class="podcast-info">
-                                <span class="podcast-icon">📻</span>
-                                <div class="podcast-text">
-                                    <h4>Podcast mód</h4>
-                                    <p>Přehraje všechny kartičky jako audio přednášku</p>
-                                </div>
-                            </div>
-                            <button class="podcast-btn" id="podcast-btn" onclick="AudioStudy.startPodcast()">
-                                🎙️ Spustit podcast
-                            </button>
-                        </div>
-
-                        <!-- Progress -->
-                        <div class="audio-progress-container" id="audio-progress-container" style="display: none;">
-                            <div class="audio-progress-info">
-                                <span id="audio-progress-text">Kartička 0 z 0</span>
-                                <span id="audio-progress-percent">0%</span>
-                            </div>
-                            <div class="audio-progress-bar">
-                                <div class="audio-progress-fill" id="audio-progress-fill" style="width: 0%;"></div>
-                            </div>
-                        </div>
-
-                        <!-- Now Playing -->
-                        <div class="audio-now-playing hidden" id="audio-now-playing">
-                            <div class="now-playing-pulse"></div>
-                            <div class="now-playing-text">
-                                <div class="now-playing-label">Právě čte:</div>
-                                <div class="now-playing-content" id="now-playing-content">-</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Empty State -->
-                <div class="ui-state" id="fc-empty-state" style="display: none;">
-                    <span class="ui-state-icon">🎉</span>
-                    <div class="ui-state-title">Výborně!</div>
-                    <div class="ui-state-desc">Všechny kartičky pro dnešek jsou zvládnuty.<br>Vrať se zítra nebo zkus
-                        kvíz.</div>
-                    <div class="btn-row" style="justify-content: center;">
-                        <button class="btn-secondary" onclick="switchSection('quiz')">Spustit kvíz</button>
-                        <button class="btn-secondary" onclick="switchSection('dashboard')">Zpět na dashboard</button>
-                    </div>
-                </div>
-
-                <!-- Flashcard Container -->
-                <div id="fc-active-container">
-                    <div class="flashcard-progress">
-                        <span id="fc-current">1</span> / <span id="fc-total">0</span> k opakování
-                    </div>
-
-                    <div class="flashcard-container">
-                        <div class="flashcard" id="flashcard" onclick="flipCard()">
-                            <div class="flashcard-face flashcard-front">
-                                <span class="flashcard-category" id="fc-category">Kategorie</span>
-                                <p class="flashcard-question" id="fc-question">Připravuji kartičky...</p>
-                                <span class="flashcard-hint">Klikni nebo stiskni <kbd class="kbd">Space</kbd></span>
-                            </div>
-                            <div class="flashcard-face flashcard-back">
-                                <p class="flashcard-answer" id="fc-answer">Odpověď...</p>
-                                <div class="flashcard-explanation" id="fc-explanation" style="display: none;"></div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="flashcard-controls" id="fc-controls" style="display: none;">
-                        <button class="fc-btn again" onclick="rateCard(0)">Znovu<br><small>
-                                &lt; 1 min</small><kbd class="kbd">1</kbd></button>
-                        <button class="fc-btn hard" onclick="rateCard(1)">Těžké<br><small>
-                                &lt; 10 min</small><kbd class="kbd">2</kbd></button>
-                        <button class="fc-btn good" onclick="rateCard(2)">Dobře<br><small>1 den</small><kbd
-                                class="kbd">3</kbd></button>
-                        <button class="fc-btn easy" onclick="rateCard(3)">Snadné<br><small>4 dny</small><kbd
-                                class="kbd">4</kbd></button>
-                    </div>
-
-                    <div class="keyboard-hints" id="fc-keyboard-hints">
-                        <span><kbd class="kbd">Space</kbd> Otočit</span>
-                        <span><kbd class="kbd">1-4</kbd> Hodnotit</span>
-                        <span><kbd class="kbd">→</kbd> Další</span>
-                    </div>
-                </div>
             </section>
 
             <!-- Quiz -->
