@@ -1751,11 +1751,11 @@ function toggleTheme() {
 
     if (currentTheme === 'dark') {
         html.setAttribute('data-theme', 'light');
-        btn.textContent = 'â€ď¸Ź';
+        btn.textContent = '☀️';
         localStorage.setItem('theme', 'light');
     } else {
         html.setAttribute('data-theme', 'dark');
-        btn.textContent = 'đźŚ™';
+        btn.textContent = '🌗';
         localStorage.setItem('theme', 'dark');
     }
 }
@@ -1763,7 +1763,7 @@ function toggleTheme() {
 function loadTheme() {
     const savedTheme = localStorage.getItem('theme') || 'dark';
     document.documentElement.setAttribute('data-theme', savedTheme);
-    document.getElementById('theme-toggle').textContent = savedTheme === 'dark' ? 'đźŚ™' : 'â€ď¸Ź';
+    document.getElementById('theme-toggle').textContent = savedTheme === 'dark' ? '🌗' : '☀️';
 }
 
 // ========== AUDIO LOOP (Web Speech API) ==========
