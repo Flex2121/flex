@@ -1,0 +1,31 @@
+{
+  "terms": [
+    {
+      "id": "t_srs",
+      "label": "Spaced Repetition System",
+      "aliases": ["SRS", "rozložené opakování", "spaced repetition"],
+      "definition": "Metoda učení založená na prodlužujících se intervalech mezi opakováními, která maximalizuje zapamatování (efekt křivky zapomínání).",
+      "relations": [],
+      "tags": ["metodika", "paměť"]
+    },
+    {
+      "id": "t_active_recall",
+      "label": "Active Recall",
+      "aliases": ["aktivní vybavování", "testování"],
+      "definition": "Proces aktivního vyvolávání informací z paměti (např. pomocí flashcards), který je efektivnější než pasivní čtení.",
+      "relations": [
+        { "type": "relatedTo", "targetId": "t_srs" }
+      ],
+      "tags": ["metodika", "paměť"]
+    },
+    {
+      "id": "t_cognitive_load",
+      "label": "Kognitivní zátěž",
+      "aliases": ["cognitive load", "kognitivní přetížení"],
+      "definition": "Množství mentálního úsilí využívaného v pracovní paměti. Dělí se na intrinsic, extraneous a germane.",
+      "relations": [],
+      "tags": ["psychologie"]
+    }
+  ],
+  "version": 1
+}
