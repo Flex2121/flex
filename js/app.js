@@ -312,7 +312,7 @@ function showCard(index) {
     document.getElementById('fc-current').textContent = index + 1;
     document.getElementById('fc-total').textContent = dueCards.length;
 
-    // ZobrazenĂ­ vysvÄ›tlenĂ­ (pokud existuje)
+    // ZobrazenĂ­ Vysvětlení­ (pokud existuje)
     const expEl = document.getElementById('fc-explanation');
     if (card.exp) {
         expEl.innerHTML = '<strong>ProÄŤ je to dĹŻleĹľitĂ©:</strong> ' + TermSystem.linkifyHTML(card.exp);
@@ -508,9 +508,9 @@ function showQuestion() {
     const total = quizState.total;
     const qType = getCurrentQuestionType();
 
-    document.getElementById('quiz-q-num').textContent = `OtĂˇzka ${quizState.current + 1}`;
-    document.getElementById('quiz-q-cat').textContent = q.cat || 'ObecnĂ©';
-    document.getElementById('quiz-counter').textContent = `OtĂˇzka ${quizState.current + 1}/${total}`;
+    document.getElementById('quiz-q-num').textContent = `Otázka ${quizState.current + 1}`;
+    document.getElementById('quiz-q-cat').textContent = q.cat || 'Obecné';
+    document.getElementById('quiz-counter').textContent = `Otázka ${quizState.current + 1}/${total}`;
     document.getElementById('quiz-question').innerHTML = TermSystem.linkifyHTML(q.q);
     document.getElementById('quiz-progress').style.width = `${((quizState.current + 1) / total) * 100}%`;
 
@@ -530,7 +530,7 @@ function showQuestion() {
     if (quizState.mode === 'exam') {
         document.getElementById('quiz-score').textContent = `OdpovÄ›di: ${quizState.current}`;
     } else {
-        document.getElementById('quiz-score').textContent = `SkĂłre: ${quizState.score}/${quizState.current}`;
+        document.getElementById('quiz-score').textContent = `Skóre: ${quizState.score}/${quizState.current}`;
     }
 
     // Update type badge
@@ -626,10 +626,10 @@ function selectOption(index) {
     document.getElementById('quiz-score').textContent =
         quizState.mode === 'exam'
             ? `OdpovÄ›di: ${quizState.current + 1}`
-            : `SkĂłre: ${quizState.score}/${quizState.current + 1}`;
+            : `Skóre: ${quizState.score}/${quizState.current + 1}`;
 
     document.getElementById('quiz-btn').disabled = false;
-    document.getElementById('quiz-btn').textContent = quizState.current < quizState.total - 1 ? 'DalĹˇĂ­ otĂˇzka' : 'Zobrazit vĂ˝sledky';
+    document.getElementById('quiz-btn').textContent = quizState.current < quizState.total - 1 ? 'Další­ Otázka' : 'Zobrazit Výsledky';
 }
 
 function submitOpenAnswer() {
@@ -688,10 +688,10 @@ function submitOpenAnswer() {
     document.getElementById('quiz-score').textContent =
         quizState.mode === 'exam'
             ? `OdpovÄ›di: ${quizState.current + 1}`
-            : `SkĂłre: ${quizState.score}/${quizState.current + 1}`;
+            : `Skóre: ${quizState.score}/${quizState.current + 1}`;
 
     document.getElementById('quiz-btn').disabled = false;
-    document.getElementById('quiz-btn').textContent = quizState.current < quizState.total - 1 ? 'DalĹˇĂ­ otĂˇzka' : 'Zobrazit vĂ˝sledky';
+    document.getElementById('quiz-btn').textContent = quizState.current < quizState.total - 1 ? 'Další­ Otázka' : 'Zobrazit Výsledky';
 }
 
 function showQuestionFeedback(isCorrect, question, userAnswer, evaluation = null) {
@@ -699,12 +699,12 @@ function showQuestionFeedback(isCorrect, question, userAnswer, evaluation = null
 
     let feedbackClass = isCorrect ? 'correct' : 'incorrect';
     let feedbackIcon = isCorrect ? 'âś…' : 'âťŚ';
-    let feedbackTitle = isCorrect ? 'SprĂˇvnÄ›!' : 'Ĺ patnÄ›';
+    let feedbackTitle = isCorrect ? 'Správně!' : 'Ĺ patnÄ›';
 
     if (evaluation && evaluation.matchType === 'partial') {
         feedbackClass = 'partial';
         feedbackIcon = 'âš ď¸Ź';
-        feedbackTitle = 'TĂ©mÄ›Ĺ™ sprĂˇvnÄ›';
+        feedbackTitle = 'TĂ©mÄ›Ĺ™ Správně';
     }
 
     let html = `
@@ -716,11 +716,11 @@ function showQuestionFeedback(isCorrect, question, userAnswer, evaluation = null
             `;
 
     if (!isCorrect) {
-        html += `<div style="margin-bottom: 0.5rem;"><strong>SprĂˇvnĂˇ odpovÄ›ÄŹ:</strong> ${question.options[question.correct]}</div>`;
+        html += `<div style="margin-bottom: 0.5rem;"><strong>Správná odpověď:</strong> ${question.options[question.correct]}</div>`;
     }
 
     if (question.exp) {
-        html += `<div style="color: #c4c4cc; font-size: 0.9rem;"><strong>VysvÄ›tlenĂ­:</strong> ${question.exp}</div>`;
+        html += `<div style="color: #c4c4cc; font-size: 0.9rem;"><strong>Vysvětlení­:</strong> ${question.exp}</div>`;
     }
 
     // Action buttons
@@ -729,7 +729,7 @@ function showQuestionFeedback(isCorrect, question, userAnswer, evaluation = null
                     ${!isCorrect ? `<button class="quiz-action-btn" onclick="addCurrentToMistakeBank()">đź“‹ Do banky chyb</button>` : ''}
                     <button class="quiz-action-btn" onclick="createFlashcardFromQuestion()">đźŽ´ VytvoĹ™it kartiÄŤku</button>
                     ${evaluation && !evaluation.correct && (evaluation.matchType === 'partial' || evaluation.matchType === 'keywords') ?
-            `<button class="override-btn" onclick="overrideAsCorrect()">âś“ OznaÄŤit jako sprĂˇvnĂ©</button>` : ''}
+            `<button class="override-btn" onclick="overrideAsCorrect()">âś“ Označit jako správné</button>` : ''}
                 </div>
             `;
 
@@ -745,7 +745,7 @@ function overrideAsCorrect() {
     quizState.score++;
 
     // Update UI
-    document.getElementById('quiz-score').textContent = `SkĂłre: ${quizState.score}/${quizState.current + 1}`;
+    document.getElementById('quiz-score').textContent = `Skóre: ${quizState.score}/${quizState.current + 1}`;
 
     // Update feedback
     const container = document.getElementById('quiz-feedback-container');
@@ -753,7 +753,7 @@ function overrideAsCorrect() {
     if (feedback) {
         feedback.classList.remove('incorrect', 'partial');
         feedback.classList.add('correct');
-        feedback.querySelector('.quiz-feedback-title').innerHTML = 'âś… SprĂˇvnÄ› (ruÄŤnÄ› oznaÄŤeno)';
+        feedback.querySelector('.quiz-feedback-title').innerHTML = 'âś… Správně (ručně označeno)';
     }
 
     // Update question stats
@@ -933,7 +933,7 @@ function renderMistakeBank() {
         container.innerHTML = `
                     <div class="ui-state">
                         <span class="ui-state-icon">âś¨</span>
-                        <div class="ui-state-title">Ĺ˝ĂˇdnĂ© chyby!</div>
+                        <div class="ui-state-title">Žádné chyby!</div>
                         <div class="ui-state-desc">ZatĂ­m jsi neudÄ›lal/a ĹľĂˇdnĂ© chyby v kvĂ­zech.</div>
                     </div>
                 `;
@@ -948,14 +948,14 @@ function renderMistakeBank() {
                     </div>
                     <div class="mistake-question">${m.question}</div>
                     <div class="mistake-answers">
-                        <div class="mistake-your-answer">TvĂˇ odpovÄ›ÄŹ: ${m.yourAnswer}</div>
-                        <div class="mistake-correct-answer">SprĂˇvnÄ›: ${m.correctAnswer}</div>
+                        <div class="mistake-your-answer">Tvá odpověď: ${m.yourAnswer}</div>
+                        <div class="mistake-correct-answer">Správně: ${m.correctAnswer}</div>
                     </div>
                     ${m.explanation ? `<div style="font-size: 0.85rem; color: #c4c4cc; margin-top: 0.5rem;">${m.explanation}</div>` : ''}
                     <div class="mistake-actions">
                         ${!m.resolved ?
-            `<button class="quiz-action-btn" onclick="markMistakeResolved(${m.id})">âś“ VyĹ™eĹˇeno</button>` :
-            `<button class="quiz-action-btn" onclick="markMistakeUnresolved(${m.id})">â†© Znovu otevĹ™Ă­t</button>`
+            `<button class="quiz-action-btn" onclick="markMistakeResolved(${m.id})">âś“ Vyřešeno</button>` :
+            `<button class="quiz-action-btn" onclick="markMistakeUnresolved(${m.id})">â†© Znovu otevřít</button>`
         }
                         <button class="quiz-action-btn" onclick="deleteMistake(${m.id})">đź—‘ď¸Ź Smazat</button>
                     </div>
@@ -1026,7 +1026,7 @@ function exportMistakesCSV() {
         return;
     }
 
-    const header = 'OtĂˇzka,TvĂˇ odpovÄ›ÄŹ,SprĂˇvnĂˇ odpovÄ›ÄŹ,Kategorie,VysvÄ›tlenĂ­,Datum,VyĹ™eĹˇeno\n';
+    const header = 'Otázka,Tvá odpověď,Správná odpověď,Kategorie,Vysvětlení­,Datum,Vyřešeno\n';
     const rows = mistakeBank.map(m =>
         `"${m.question.replace(/"/g, '""')}","${m.yourAnswer.replace(/"/g, '""')}","${m.correctAnswer.replace(/"/g, '""')}","${m.category}","${(m.explanation || '').replace(/"/g, '""')}","${m.date}","${m.resolved ? 'Ano' : 'Ne'}"`
     ).join('\n');
@@ -1051,7 +1051,7 @@ function showResults() {
     if (percent >= 90) message = 'VynikajĂ­cĂ­! Jsi pĹ™ipraven/a na zkouĹˇku!';
     else if (percent >= 70) message = 'Velmi dobĹ™e! JeĹˇtÄ› trochu procviÄŤ.';
     else if (percent >= 50) message = 'DobĹ™e, ale je co zlepĹˇovat.';
-    else message = 'VĂ­ce studia potĹ™eba. Zkus flashcards!';
+    else message = 'Více studia potřeba. Zkus flashcards!';
 
     document.getElementById('results-message').textContent = message;
 
@@ -1063,14 +1063,14 @@ function showResults() {
                     ${quizState.wrongAnswers.map(w => `
                         <div style="margin-bottom: 1rem; padding: 1rem; background: var(--bg); border-radius: 8px; border-left: 3px solid var(--danger);">
                             <div style="font-weight: 600; margin-bottom: 0.5rem;">${w.question}</div>
-                            <div style="color: var(--danger); font-size: 0.9rem;">TvĂˇ odpovÄ›ÄŹ: ${w.yourAnswer}</div>
-                            <div style="color: var(--secondary); font-size: 0.9rem;">SprĂˇvnÄ›: ${w.correctAnswer}</div>
+                            <div style="color: var(--danger); font-size: 0.9rem;">Tvá odpověď: ${w.yourAnswer}</div>
+                            <div style="color: var(--secondary); font-size: 0.9rem;">Správně: ${w.correctAnswer}</div>
                             <div style="color: #c4c4cc; font-size: 0.8rem; margin-top: 0.25rem;">${w.category}</div>
                         </div>
                     `).join('')}
                 `;
     } else {
-        detailsDiv.innerHTML = '<p style="color: var(--secondary); text-align: center;">VĹˇechny odpovÄ›di sprĂˇvnÄ›!</p>';
+        detailsDiv.innerHTML = '<p style="color: var(--secondary); text-align: center;">VĹˇechny odpovÄ›di Správně!</p>';
     }
 
     // Save to history
@@ -1690,7 +1690,7 @@ function renderConceptMapsAccordion() {
                             <div class="concept-map-content-inner">
                                 ${map.content}
                                 <button class="concept-map-close-btn" onclick="closeConceptMap('${mapId}')">
-                                    â–˛ ZavĹ™Ă­t
+                                    â–˛ Zavřít
                                 </button>
                             </div>
                         </div>
@@ -1798,7 +1798,7 @@ function startAudioLoop() {
 
     document.getElementById('audio-start').style.display = 'none';
     document.getElementById('audio-stop').style.display = 'inline-flex';
-    updateAudioStatus('PĹ™ehrĂˇvĂˇm...', true);
+    updateAudioStatus('Přehrávám...', true);
 
     playNextCard();
 }
@@ -1825,7 +1825,7 @@ function playNextCard() {
     const card = dueCards[audioLoopIndex];
     showCard(audioLoopIndex);
 
-    updateAudioStatus(`Karta ${audioLoopIndex + 1}/${dueCards.length}: OtĂˇzka`, true);
+    updateAudioStatus(`Karta ${audioLoopIndex + 1}/${dueCards.length}: Otázka`, true);
 
     // PĹ™eÄŤti otĂˇzku
     speak(card.q, () => {
@@ -1846,11 +1846,11 @@ function playNextCard() {
             speak(card.a, () => {
                 if (!audioLoopRunning) return;
 
-                // Pauza pĹ™ed dalĹˇĂ­ kartou (2 sekundy)
+                // Pauza pĹ™ed Další­ kartou (2 sekundy)
                 setTimeout(() => {
                     if (!audioLoopRunning) return;
 
-                    // Reset karty pro dalĹˇĂ­
+                    // Reset karty pro Další­
                     if (cardFlipped) {
                         cardFlipped = false;
                         document.getElementById('flashcard').classList.remove('flipped');
@@ -1904,7 +1904,7 @@ function updateDashboardCTAs() {
     const timeEstimate = document.getElementById('time-estimate');
 
     // Update review button
-    ctaReviewCount.textContent = `${dueCount} kartiÄŤek k opakovĂˇnĂ­`;
+    ctaReviewCount.textContent = `${dueCount} kartiček k opakování­`;
 
     if (dueCount === 0) {
         ctaReview.classList.add('disabled');
@@ -1962,7 +1962,7 @@ function exportFlashcardsCSV() {
     });
 
     downloadFile(csv, 'flashcards.csv', 'text/csv');
-    showImportExportStatus('KartiÄŤky ĂşspÄ›ĹˇnÄ› exportovĂˇny!');
+    showImportExportStatus('Kartičky úspěšně exportovány!');
 }
 
 function exportQuizCSV() {
@@ -2325,7 +2325,7 @@ const AudioStudy = {
         this.updateNowPlaying(card.q);
 
         // Read question
-        await this.speak(`OtĂˇzka: ${card.q}`);
+        await this.speak(`Otázka: ${card.q}`);
 
         if (this.isStopped) return;
 
@@ -2344,7 +2344,7 @@ const AudioStudy = {
 
         // Read explanation if exists
         if (card.exp) {
-            await this.speak(`VysvÄ›tlenĂ­: ${card.exp}`);
+            await this.speak(`Vysvětlení­: ${card.exp}`);
         }
     },
 
