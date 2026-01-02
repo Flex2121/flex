@@ -5774,9 +5774,13 @@ Proč třídíme,Co je informační exploze?,Růst množství dat...,Vysvětlen�
 
             // Filter
             if (currentStatsFilter === 'worst') {
-                items = items.filter(i => i.rate < 60).sort((a, b) => a.rate - b.rate);
+                // Show anything with less than 100% success rate, sorted by lowest rate first
+                items = items.filter(i => i.rate < 100).sort((a, b) => {
+                    if (a.rate === b.rate) return b.stats.attempts - a.stats.attempts; // Same rate? More attempts = more proven bad
+                    return a.rate - b.rate;
+                });
             } else if (currentStatsFilter === 'best') {
-                items = items.filter(i => i.rate >= 80).sort((a, b) => b.rate - a.rate);
+                items = items.filter(i => i.rate === 100).sort((a, b) => b.stats.attempts - a.stats.attempts);
             } else { // all
                 items.sort((a, b) => b.stats.attempts - a.stats.attempts);
             }
