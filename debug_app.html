@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Debug app.js</title>
+    <meta charset="UTF-8">
+</head>
+
+<body>
+    <h1>Debug app.js</h1>
+    <div id="log" style="font-family: monospace; white-space: pre-wrap;"></div>
+
+    <script>
+        const log = document.getElementById('log');
+        function addLog(msg) {
+            log.innerHTML += msg + '\n';
+            console.log(msg);
+        }
+
+        // Override console.log to capture app.js logs
+        const origLog = console.log;
+        console.log = function (...args) {
+            addLog('[LOG] ' + args.join(' '));
+            origLog.apply(console, args);
+        };
+        console.error = function (...args) {
+            addLog('[ERROR] ' + args.join(' '));
+        };
+        window.onerror = function (msg, url, line, col, error) {
+            addLog('[SCRIPT ERROR] ' + msg + ' at line ' + line + ':' + col);
+            addLog('[Error details] ' + (error ? error.stack : 'No stack'));
+            return false;
+        };
+
+        addLog('Starting debug...');
+    </script>
+
+    <!-- Load scripts in order -->
+    <script>addLog('Loading terms.js...');</script>
+    <script src="js/terms.js"></script>
+    <script>addLog('terms.js loaded: TermSystem = ' + (typeof TermSystem));</script>
+
+    <script>addLog('Loading data.js...');</script>
+    <script src="js/data.js"></script>
+    <script>addLog('data.js loaded: window.studyData = ' + (typeof window.studyData));</script>
+
+    <script>addLog('Loading app.js...');</script>
+    <script src="js/app.js"></script>
+    <script>
+        addLog('app.js loaded');
+        addLog('typeof Gamification = ' + (typeof Gamification));
+        addLog('typeof init = ' + (typeof init));
+        addLog('typeof openProfileModal = ' + (typeof openProfileModal));
+        if (typeof Gamification !== 'undefined') {
+            addLog('Gamification.state = ' + JSON.stringify(Gamification.state));
+        }
+    </script>
+</body>
+
+</html>

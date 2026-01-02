@@ -1,6 +1,4 @@
-﻿console.log('App.js execution started');
-// Data references - initialized in init() after data.js loads
-let flashcardsData, quizData, topicsData;
+﻿const flashcardsData = window.studyData.flashcards; const quizData = window.studyData.quizzes; const topicsData = window.studyData.topics;
 // ========== STATE ==========
 let currentCardIndex = 0;
 let currentDueIndex = 0;
@@ -77,7 +75,7 @@ let topicStats = {};
 
 // ========== UTILITY FUNCTIONS - Czech Text Normalization ==========
 const czechDiacriticsMap = {
-    'Ăˇ': 'a', 'ÄŤ': 'c', 'ÄŹ': 'd', 'Ă©': 'e', 'Ä›': 'e', 'Ă­': 'i',
+    'á': 'a', 'č': 'c', 'ď': 'd', 'é': 'e', 'ě': 'e', 'í': 'i',
     'Ĺ': 'n', 'Ăł': 'o', 'Ĺ™': 'r', 'Ĺˇ': 's', 'ĹĄ': 't', 'Ăş': 'u',
     'ĹŻ': 'u', 'Ă˝': 'y', 'Ĺľ': 'z',
     'Ă': 'A', 'ÄŚ': 'C', 'ÄŽ': 'D', 'Ă‰': 'E', 'Äš': 'E', 'ĂŤ': 'I',
@@ -270,10 +268,6 @@ function rateCard(rating) {
 
         cardsStudiedToday++;
         localStorage.setItem('cardsStudiedToday', cardsStudiedToday.toString());
-
-        // Gamification hook
-        Gamification.addXP(10, 'Flashcard Review');
-        Gamification.checkBadges('card');
     }
 
     saveCardStats();
@@ -318,7 +312,7 @@ function showCard(index) {
     document.getElementById('fc-current').textContent = index + 1;
     document.getElementById('fc-total').textContent = dueCards.length;
 
-    // ZobrazenĂ­ vysvÄ›tlenĂ­ (pokud existuje)
+    // ZobrazenĂ­ Vysvětlení­ (pokud existuje)
     const expEl = document.getElementById('fc-explanation');
     if (card.exp) {
         expEl.innerHTML = '<strong>ProÄŤ je to dĹŻleĹľitĂ©:</strong> ' + TermSystem.linkifyHTML(card.exp);
@@ -514,9 +508,9 @@ function showQuestion() {
     const total = quizState.total;
     const qType = getCurrentQuestionType();
 
-    document.getElementById('quiz-q-num').textContent = `OtĂˇzka ${quizState.current + 1}`;
-    document.getElementById('quiz-q-cat').textContent = q.cat || 'ObecnĂ©';
-    document.getElementById('quiz-counter').textContent = `OtĂˇzka ${quizState.current + 1}/${total}`;
+    document.getElementById('quiz-q-num').textContent = `Otázka ${quizState.current + 1}`;
+    document.getElementById('quiz-q-cat').textContent = q.cat || 'Obecné';
+    document.getElementById('quiz-counter').textContent = `Otázka ${quizState.current + 1}/${total}`;
     document.getElementById('quiz-question').innerHTML = TermSystem.linkifyHTML(q.q);
     document.getElementById('quiz-progress').style.width = `${((quizState.current + 1) / total) * 100}%`;
 
@@ -536,7 +530,7 @@ function showQuestion() {
     if (quizState.mode === 'exam') {
         document.getElementById('quiz-score').textContent = `OdpovÄ›di: ${quizState.current}`;
     } else {
-        document.getElementById('quiz-score').textContent = `SkĂłre: ${quizState.score}/${quizState.current}`;
+        document.getElementById('quiz-score').textContent = `Skóre: ${quizState.score}/${quizState.current}`;
     }
 
     // Update type badge
@@ -614,7 +608,6 @@ function selectOption(index) {
 
         if (isCorrect) {
             quizState.score++;
-            Gamification.addXP(20, 'Quiz Answer');
         } else {
             const wrongAnswer = {
                 question: q.q,
@@ -633,10 +626,10 @@ function selectOption(index) {
     document.getElementById('quiz-score').textContent =
         quizState.mode === 'exam'
             ? `OdpovÄ›di: ${quizState.current + 1}`
-            : `SkĂłre: ${quizState.score}/${quizState.current + 1}`;
+            : `Skóre: ${quizState.score}/${quizState.current + 1}`;
 
     document.getElementById('quiz-btn').disabled = false;
-    document.getElementById('quiz-btn').textContent = quizState.current < quizState.total - 1 ? 'DalĹˇĂ­ otĂˇzka' : 'Zobrazit vĂ˝sledky';
+    document.getElementById('quiz-btn').textContent = quizState.current < quizState.total - 1 ? 'Další­ Otázka' : 'Zobrazit Výsledky';
 }
 
 function submitOpenAnswer() {
@@ -669,7 +662,6 @@ function submitOpenAnswer() {
     if (evaluation.correct) {
         input.classList.add('correct');
         quizState.score++;
-        Gamification.addXP(20, 'Quiz Answer');
     } else if (evaluation.matchType === 'partial' || evaluation.matchType === 'keywords') {
         input.classList.add('partial');
     } else {
@@ -696,10 +688,10 @@ function submitOpenAnswer() {
     document.getElementById('quiz-score').textContent =
         quizState.mode === 'exam'
             ? `OdpovÄ›di: ${quizState.current + 1}`
-            : `SkĂłre: ${quizState.score}/${quizState.current + 1}`;
+            : `Skóre: ${quizState.score}/${quizState.current + 1}`;
 
     document.getElementById('quiz-btn').disabled = false;
-    document.getElementById('quiz-btn').textContent = quizState.current < quizState.total - 1 ? 'DalĹˇĂ­ otĂˇzka' : 'Zobrazit vĂ˝sledky';
+    document.getElementById('quiz-btn').textContent = quizState.current < quizState.total - 1 ? 'Další­ Otázka' : 'Zobrazit Výsledky';
 }
 
 function showQuestionFeedback(isCorrect, question, userAnswer, evaluation = null) {
@@ -707,12 +699,12 @@ function showQuestionFeedback(isCorrect, question, userAnswer, evaluation = null
 
     let feedbackClass = isCorrect ? 'correct' : 'incorrect';
     let feedbackIcon = isCorrect ? 'âś…' : 'âťŚ';
-    let feedbackTitle = isCorrect ? 'SprĂˇvnÄ›!' : 'Ĺ patnÄ›';
+    let feedbackTitle = isCorrect ? 'Správně!' : 'Ĺ patnÄ›';
 
     if (evaluation && evaluation.matchType === 'partial') {
         feedbackClass = 'partial';
         feedbackIcon = 'âš ď¸Ź';
-        feedbackTitle = 'TĂ©mÄ›Ĺ™ sprĂˇvnÄ›';
+        feedbackTitle = 'TĂ©mÄ›Ĺ™ Správně';
     }
 
     let html = `
@@ -724,11 +716,11 @@ function showQuestionFeedback(isCorrect, question, userAnswer, evaluation = null
             `;
 
     if (!isCorrect) {
-        html += `<div style="margin-bottom: 0.5rem;"><strong>SprĂˇvnĂˇ odpovÄ›ÄŹ:</strong> ${question.options[question.correct]}</div>`;
+        html += `<div style="margin-bottom: 0.5rem;"><strong>Správná odpověď:</strong> ${question.options[question.correct]}</div>`;
     }
 
     if (question.exp) {
-        html += `<div style="color: #c4c4cc; font-size: 0.9rem;"><strong>VysvÄ›tlenĂ­:</strong> ${question.exp}</div>`;
+        html += `<div style="color: #c4c4cc; font-size: 0.9rem;"><strong>Vysvětlení­:</strong> ${question.exp}</div>`;
     }
 
     // Action buttons
@@ -737,7 +729,7 @@ function showQuestionFeedback(isCorrect, question, userAnswer, evaluation = null
                     ${!isCorrect ? `<button class="quiz-action-btn" onclick="addCurrentToMistakeBank()">đź“‹ Do banky chyb</button>` : ''}
                     <button class="quiz-action-btn" onclick="createFlashcardFromQuestion()">đźŽ´ VytvoĹ™it kartiÄŤku</button>
                     ${evaluation && !evaluation.correct && (evaluation.matchType === 'partial' || evaluation.matchType === 'keywords') ?
-            `<button class="override-btn" onclick="overrideAsCorrect()">âś“ OznaÄŤit jako sprĂˇvnĂ©</button>` : ''}
+            `<button class="override-btn" onclick="overrideAsCorrect()">âś“ Označit jako správné</button>` : ''}
                 </div>
             `;
 
@@ -753,7 +745,7 @@ function overrideAsCorrect() {
     quizState.score++;
 
     // Update UI
-    document.getElementById('quiz-score').textContent = `SkĂłre: ${quizState.score}/${quizState.current + 1}`;
+    document.getElementById('quiz-score').textContent = `Skóre: ${quizState.score}/${quizState.current + 1}`;
 
     // Update feedback
     const container = document.getElementById('quiz-feedback-container');
@@ -761,7 +753,7 @@ function overrideAsCorrect() {
     if (feedback) {
         feedback.classList.remove('incorrect', 'partial');
         feedback.classList.add('correct');
-        feedback.querySelector('.quiz-feedback-title').innerHTML = 'âś… SprĂˇvnÄ› (ruÄŤnÄ› oznaÄŤeno)';
+        feedback.querySelector('.quiz-feedback-title').innerHTML = 'âś… Správně (ručně označeno)';
     }
 
     // Update question stats
@@ -845,9 +837,9 @@ function addCurrentToMistakeBank() {
     if (!exists) {
         mistakeBank.push(mistake);
         saveMistakeBank();
-        alert('PĹ™idĂˇno do banky chyb!');
+        alert('Přidáno do banky chyb!');
     } else {
-        alert('Tato chyba uĹľ je v bance.');
+        alert('Tato chyba už je v bance.');
     }
 }
 
@@ -863,7 +855,7 @@ function createFlashcardFromQuestion() {
     };
 
     // For now, just show alert with the card info
-    alert(`KartiÄŤka vytvoĹ™ena!\n\nOtĂˇzka: ${newCard.q}\nOdpovÄ›ÄŹ: ${newCard.a}`);
+    alert(`Kartička vytvořena!\n\nOtázka: ${newCard.q}\nOdpověď: ${newCard.a}`);
 }
 
 function nextQuestion() {
@@ -941,7 +933,7 @@ function renderMistakeBank() {
         container.innerHTML = `
                     <div class="ui-state">
                         <span class="ui-state-icon">âś¨</span>
-                        <div class="ui-state-title">Ĺ˝ĂˇdnĂ© chyby!</div>
+                        <div class="ui-state-title">Žádné chyby!</div>
                         <div class="ui-state-desc">ZatĂ­m jsi neudÄ›lal/a ĹľĂˇdnĂ© chyby v kvĂ­zech.</div>
                     </div>
                 `;
@@ -956,14 +948,14 @@ function renderMistakeBank() {
                     </div>
                     <div class="mistake-question">${m.question}</div>
                     <div class="mistake-answers">
-                        <div class="mistake-your-answer">TvĂˇ odpovÄ›ÄŹ: ${m.yourAnswer}</div>
-                        <div class="mistake-correct-answer">SprĂˇvnÄ›: ${m.correctAnswer}</div>
+                        <div class="mistake-your-answer">Tvá odpověď: ${m.yourAnswer}</div>
+                        <div class="mistake-correct-answer">Správně: ${m.correctAnswer}</div>
                     </div>
                     ${m.explanation ? `<div style="font-size: 0.85rem; color: #c4c4cc; margin-top: 0.5rem;">${m.explanation}</div>` : ''}
                     <div class="mistake-actions">
                         ${!m.resolved ?
-            `<button class="quiz-action-btn" onclick="markMistakeResolved(${m.id})">âś“ VyĹ™eĹˇeno</button>` :
-            `<button class="quiz-action-btn" onclick="markMistakeUnresolved(${m.id})">â†© Znovu otevĹ™Ă­t</button>`
+            `<button class="quiz-action-btn" onclick="markMistakeResolved(${m.id})">âś“ Vyřešeno</button>` :
+            `<button class="quiz-action-btn" onclick="markMistakeUnresolved(${m.id})">â†© Znovu otevřít</button>`
         }
                         <button class="quiz-action-btn" onclick="deleteMistake(${m.id})">đź—‘ď¸Ź Smazat</button>
                     </div>
@@ -1006,7 +998,7 @@ function clearResolvedMistakes() {
 function practiceMistakes() {
     const unresolvedMistakes = mistakeBank.filter(m => !m.resolved && m.questionData);
     if (unresolvedMistakes.length === 0) {
-        alert('Ĺ˝ĂˇdnĂ© nevyĹ™eĹˇenĂ© chyby k procviÄŤenĂ­.');
+        alert('Žádné nevyřešené chyby k procvičení.');
         return;
     }
 
@@ -1030,11 +1022,11 @@ function practiceMistakes() {
 
 function exportMistakesCSV() {
     if (mistakeBank.length === 0) {
-        alert('Ĺ˝ĂˇdnĂ© chyby k exportu.');
+        alert('Žádné chyby k exportu.');
         return;
     }
 
-    const header = 'OtĂˇzka,TvĂˇ odpovÄ›ÄŹ,SprĂˇvnĂˇ odpovÄ›ÄŹ,Kategorie,VysvÄ›tlenĂ­,Datum,VyĹ™eĹˇeno\n';
+    const header = 'Otázka,Tvá odpověď,Správná odpověď,Kategorie,Vysvětlení­,Datum,Vyřešeno\n';
     const rows = mistakeBank.map(m =>
         `"${m.question.replace(/"/g, '""')}","${m.yourAnswer.replace(/"/g, '""')}","${m.correctAnswer.replace(/"/g, '""')}","${m.category}","${(m.explanation || '').replace(/"/g, '""')}","${m.date}","${m.resolved ? 'Ano' : 'Ne'}"`
     ).join('\n');
@@ -1059,7 +1051,7 @@ function showResults() {
     if (percent >= 90) message = 'VynikajĂ­cĂ­! Jsi pĹ™ipraven/a na zkouĹˇku!';
     else if (percent >= 70) message = 'Velmi dobĹ™e! JeĹˇtÄ› trochu procviÄŤ.';
     else if (percent >= 50) message = 'DobĹ™e, ale je co zlepĹˇovat.';
-    else message = 'VĂ­ce studia potĹ™eba. Zkus flashcards!';
+    else message = 'Více studia potřeba. Zkus flashcards!';
 
     document.getElementById('results-message').textContent = message;
 
@@ -1071,14 +1063,14 @@ function showResults() {
                     ${quizState.wrongAnswers.map(w => `
                         <div style="margin-bottom: 1rem; padding: 1rem; background: var(--bg); border-radius: 8px; border-left: 3px solid var(--danger);">
                             <div style="font-weight: 600; margin-bottom: 0.5rem;">${w.question}</div>
-                            <div style="color: var(--danger); font-size: 0.9rem;">TvĂˇ odpovÄ›ÄŹ: ${w.yourAnswer}</div>
-                            <div style="color: var(--secondary); font-size: 0.9rem;">SprĂˇvnÄ›: ${w.correctAnswer}</div>
+                            <div style="color: var(--danger); font-size: 0.9rem;">Tvá odpověď: ${w.yourAnswer}</div>
+                            <div style="color: var(--secondary); font-size: 0.9rem;">Správně: ${w.correctAnswer}</div>
                             <div style="color: #c4c4cc; font-size: 0.8rem; margin-top: 0.25rem;">${w.category}</div>
                         </div>
                     `).join('')}
                 `;
     } else {
-        detailsDiv.innerHTML = '<p style="color: var(--secondary); text-align: center;">VĹˇechny odpovÄ›di sprĂˇvnÄ›!</p>';
+        detailsDiv.innerHTML = '<p style="color: var(--secondary); text-align: center;">VĹˇechny odpovÄ›di Správně!</p>';
     }
 
     // Save to history
@@ -1087,13 +1079,6 @@ function showResults() {
     if (history.length > 20) history.shift();
     localStorage.setItem('quizHistory', JSON.stringify(history));
     updateStats();
-
-    // Gamification check
-    Gamification.checkBadges('quiz_end', {
-        score: quizState.score,
-        count: quizState.total,
-        scorePercent: percent
-    });
 }
 
 // Initialize category selector
@@ -1168,28 +1153,14 @@ document.querySelectorAll('.nav-tab').forEach(tab => {
 // ========== STATS ==========
 function updateStats() {
     const dueCards = getDueCards();
-
-    // Flashcard mastery (repetitions >= 3)
     const masteredCards = Object.values(cardStats).filter(s => s.repetitions >= 3).length;
-
-    // Quiz mastery (streak >= 2)
-    const masteredQuestions = quizData.filter(q => {
-        const qId = hashQuestion(q);
-        const stats = questionStats[qId];
-        return stats && stats.streakCorrect >= 2;
-    }).length;
-
-    const totalItems = flashcardsData.length + quizData.length;
-    const totalMastered = masteredCards + masteredQuestions;
-    const progressPercent = totalItems > 0 ? Math.round(totalMastered / totalItems * 100) : 0;
+    const totalCards = flashcardsData.length;
 
     document.getElementById('due-today').textContent = dueCards.length;
     document.getElementById('cards-today').textContent = cardsStudiedToday;
     document.getElementById('streak-count').textContent = studyStreak; // Update streak display
-
-    // Update progress with combined stats
-    document.getElementById('total-progress').textContent = `${progressPercent}%`;
-    document.getElementById('mastery-percent').textContent = `${progressPercent}%`;
+    document.getElementById('total-progress').textContent = `${Math.round(masteredCards / totalCards * 100)}%`;
+    document.getElementById('mastery-percent').textContent = `${Math.round(masteredCards / totalCards * 100)}%`;
 
     const studyMinutes = Math.round((Date.now() - studyStartTime) / 60000);
     document.getElementById('study-time').textContent = `${studyMinutes} min`;
@@ -1205,39 +1176,39 @@ function updateStats() {
 // ========== CONCEPT MAPS ==========
 const conceptMaps = {
     hierarchy: {
-        title: "Hierarchie selekÄŤnĂ­ch jazykĹŻ",
+        title: "Hierarchie selekčních jazyků",
         content: `
                     <div style="text-align: center; padding: 1rem;">
-                        <div style="display: inline-block; background: var(--primary); color: white; padding: 1rem 2rem; border-radius: 12px; font-weight: 600; font-size: 1.2rem;">SELEKÄŚNĂŤ JAZYKY</div>
+                        <div style="display: inline-block; background: var(--primary); color: white; padding: 1rem 2rem; border-radius: 12px; font-weight: 600; font-size: 1.2rem;">SELEKČNÍ JAZYKY</div>
                         <div style="display: flex; justify-content: center; margin: 1rem 0;">
                             <div style="width: 2px; height: 40px; background: var(--border);"></div>
                         </div>
                         <div style="display: flex; justify-content: center; gap: 3rem; flex-wrap: wrap;">
                             <div style="text-align: center;">
-                                <div style="background: var(--secondary); color: white; padding: 0.75rem 1.5rem; border-radius: 10px; font-weight: 600;">SYSTEMATICKĂ‰</div>
+                                <div style="background: var(--secondary); color: white; padding: 0.75rem 1.5rem; border-radius: 10px; font-weight: 600;">SYSTEMATICKÉ</div>
                                 <div style="width: 2px; height: 30px; background: var(--border); margin: 0 auto;"></div>
                                 <div style="display: flex; gap: 1rem; margin-top: 0.5rem;">
                                     <div style="background: var(--bg-light); padding: 0.5rem 1rem; border-radius: 8px; font-size: 0.9rem;">
-                                        <strong>PrekoordinovanĂ©</strong><br>
+                                        <strong>Prekoordinované</strong><br>
                                         <span style="color: #c4c4cc; font-size: 0.8rem;">DDC, LCC, MDT</span>
                                     </div>
                                     <div style="background: var(--bg-light); padding: 0.5rem 1rem; border-radius: 8px; font-size: 0.9rem;">
-                                        <strong>PostkoordinovanĂ©</strong><br>
+                                        <strong>Postkoordinované</strong><br>
                                         <span style="color: #c4c4cc; font-size: 0.8rem;">CC, BBC</span>
                                     </div>
                                 </div>
                             </div>
                             <div style="text-align: center;">
-                                <div style="background: var(--warning); color: white; padding: 0.75rem 1.5rem; border-radius: 10px; font-weight: 600;">PĹEDMÄšTOVĂ‰</div>
+                                <div style="background: var(--warning); color: white; padding: 0.75rem 1.5rem; border-radius: 10px; font-weight: 600;">PŘEDMĚTOVÉ</div>
                                 <div style="width: 2px; height: 30px; background: var(--border); margin: 0 auto;"></div>
                                 <div style="display: flex; gap: 1rem; margin-top: 0.5rem;">
                                     <div style="background: var(--bg-light); padding: 0.5rem 1rem; border-radius: 8px; font-size: 0.9rem;">
-                                        <strong>PrekoordinovanĂ©</strong><br>
-                                        <span style="color: #c4c4cc; font-size: 0.8rem;">PĹ™edmÄ›tovĂˇ hesla</span>
+                                        <strong>Prekoordinované</strong><br>
+                                        <span style="color: #c4c4cc; font-size: 0.8rem;">Předmětová hesla</span>
                                     </div>
                                     <div style="background: var(--bg-light); padding: 0.5rem 1rem; border-radius: 8px; font-size: 0.9rem;">
-                                        <strong>PostkoordinovanĂ©</strong><br>
-                                        <span style="color: #c4c4cc; font-size: 0.8rem;">Tezaury, KlĂ­ÄŤ. slova</span>
+                                        <strong>Postkoordinované</strong><br>
+                                        <span style="color: #c4c4cc; font-size: 0.8rem;">Tezaury, Klíč. slova</span>
                                     </div>
                                 </div>
                             </div>
@@ -1246,40 +1217,40 @@ const conceptMaps = {
                 `
     },
     triangle: {
-        title: "SĂ©miotickĂ˝ trojĂşhelnĂ­k a Popperovy svÄ›ty",
+        title: "Sémiotický trojúhelník a Popperovy světy",
         content: `
                     <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; padding: 1rem;">
                         <div style="text-align: center;">
-                            <h3 style="color: var(--primary); margin-bottom: 1rem;">SĂ©miotickĂ˝ trojĂşhelnĂ­k</h3>
+                            <h3 style="color: var(--primary); margin-bottom: 1rem;">Sémiotický trojúhelník</h3>
                             <svg viewBox="0 0 300 260" style="max-width: 300px;">
                                 <polygon points="150,20 280,230 20,230" fill="none" stroke="#6366f1" stroke-width="3"/>
                                 <circle cx="150" cy="20" r="40" fill="#1e293b" stroke="#10b981" stroke-width="2"/>
                                 <circle cx="280" cy="230" r="40" fill="#1e293b" stroke="#f59e0b" stroke-width="2"/>
                                 <circle cx="20" cy="230" r="40" fill="#1e293b" stroke="#ef4444" stroke-width="2"/>
                                 <text x="150" y="25" text-anchor="middle" fill="#10b981" font-weight="600">POJEM</text>
-                                <text x="150" y="40" text-anchor="middle" fill="#94a3b8" font-size="10">(vĂ˝znam)</text>
+                                <text x="150" y="40" text-anchor="middle" fill="#94a3b8" font-size="10">(význam)</text>
                                 <text x="280" y="235" text-anchor="middle" fill="#f59e0b" font-weight="600">ZNAK</text>
                                 <text x="280" y="250" text-anchor="middle" fill="#94a3b8" font-size="10">(reprezentace)</text>
                                 <text x="20" y="235" text-anchor="middle" fill="#ef4444" font-weight="600">JEV</text>
-                                <text x="20" y="250" text-anchor="middle" fill="#94a3b8" font-size="10">(vÄ›c)</text>
+                                <text x="20" y="250" text-anchor="middle" fill="#94a3b8" font-size="10">(věc)</text>
                                 <line x1="110" y1="230" x2="190" y2="230" stroke="#475569" stroke-width="2" stroke-dasharray="5,5"/>
                             </svg>
-                            <p style="color: #c4c4cc; font-size: 0.85rem; margin-top: 1rem;">Znak nemĂˇ pĹ™Ă­mĂ˝ vztah k vÄ›ci (arbitrĂˇrnĂ­ povaha)</p>
+                            <p style="color: #c4c4cc; font-size: 0.85rem; margin-top: 1rem;">Znak nemá přímý vztah k věci (arbitrární povaha)</p>
                         </div>
                         <div>
-                            <h3 style="color: var(--primary); margin-bottom: 1rem;">Popperovy svÄ›ty</h3>
+                            <h3 style="color: var(--primary); margin-bottom: 1rem;">Popperovy světy</h3>
                             <div style="display: flex; flex-direction: column; gap: 1rem;">
                                 <div style="background: linear-gradient(90deg, #ef4444 0%, #1e293b 100%); padding: 1rem; border-radius: 10px;">
-                                    <strong style="color: #ffffff;">PI - SvÄ›t vÄ›cĂ­</strong>
-                                    <p style="color: #e2e8f0; font-size: 0.85rem; margin: 0;">VÄ›ci, jevy, pĹ™edmÄ›ty, skuteÄŤnosti</p>
+                                    <strong style="color: #ffffff;">PI - Svět věcí</strong>
+                                    <p style="color: #e2e8f0; font-size: 0.85rem; margin: 0;">Věci, jevy, předměty, skutečnosti</p>
                                 </div>
                                 <div style="background: linear-gradient(90deg, #f59e0b 0%, #1e293b 100%); padding: 1rem; border-radius: 10px;">
-                                    <strong style="color: #ffffff;">PII - PoznĂˇvajĂ­cĂ­ subjekt</strong>
-                                    <p style="color: #e2e8f0; font-size: 0.85rem; margin: 0;">Manipuluje s vÄ›cmi, pojmy a znaky</p>
+                                    <strong style="color: #ffffff;">PII - Poznávající subjekt</strong>
+                                    <p style="color: #e2e8f0; font-size: 0.85rem; margin: 0;">Manipuluje s věcmi, pojmy a znaky</p>
                                 </div>
                                 <div style="background: linear-gradient(90deg, #10b981 0%, #1e293b 100%); padding: 1rem; border-radius: 10px;">
-                                    <strong style="color: #ffffff;">PIII - ZaznamenanĂ© poznĂˇnĂ­</strong>
-                                    <p style="color: #e2e8f0; font-size: 0.85rem; margin: 0;">KomunikaÄŤnĂ­ nĂˇstroje, dokumenty</p>
+                                    <strong style="color: #ffffff;">PIII - Zaznamenané poznání</strong>
+                                    <p style="color: #e2e8f0; font-size: 0.85rem; margin: 0;">Komunikační nástroje, dokumenty</p>
                                 </div>
                             </div>
                         </div>
@@ -1287,41 +1258,41 @@ const conceptMaps = {
                 `
     },
     dataflow: {
-        title: "Data â†’ Informace â†’ Znalosti",
+        title: "Data → Informace → Znalosti",
         content: `
                     <div style="padding: 1rem;">
                         <div style="display: flex; align-items: center; justify-content: center; gap: 1rem; flex-wrap: wrap;">
                             <div style="background: var(--bg-light); padding: 1.5rem; border-radius: 12px; text-align: center; min-width: 200px; border: 2px solid var(--danger);">
-                                <div style="font-size: 2rem; margin-bottom: 0.5rem;">đź“Š</div>
+                                <div style="font-size: 2rem; margin-bottom: 0.5rem;">📊</div>
                                 <div style="font-weight: 700; color: var(--danger); font-size: 1.2rem;">DATA</div>
                                 <div style="color: #c4c4cc; font-size: 0.85rem; margin-top: 0.5rem;">
-                                    SymbolickĂ© reprezentace<br>
-                                    ĹetÄ›zec znakĹŻ<br>
-                                    <em>PĹ™: 460,8</em>
+                                    Symbolické reprezentace<br>
+                                    Řetězec znaků<br>
+                                    <em>Př: 460,8</em>
                                 </div>
                             </div>
-                            <div style="font-size: 2rem; color: var(--primary);">â†’</div>
-                            <div style="background: var(--primary); color: white; padding: 0.5rem 1rem; border-radius: 20px; font-size: 0.9rem;">+ VĂťZNAM</div>
-                            <div style="font-size: 2rem; color: var(--primary);">â†’</div>
+                            <div style="font-size: 2rem; color: var(--primary);">→</div>
+                            <div style="background: var(--primary); color: white; padding: 0.5rem 1rem; border-radius: 20px; font-size: 0.9rem;">+ VÝZNAM</div>
+                            <div style="font-size: 2rem; color: var(--primary);">→</div>
                             <div style="background: var(--bg-light); padding: 1.5rem; border-radius: 12px; text-align: center; min-width: 200px; border: 2px solid var(--warning);">
-                                <div style="font-size: 2rem; margin-bottom: 0.5rem;">đź“„</div>
+                                <div style="font-size: 2rem; margin-bottom: 0.5rem;">📄</div>
                                 <div style="font-weight: 700; color: var(--warning); font-size: 1.2rem;">INFORMACE</div>
                                 <div style="color: #c4c4cc; font-size: 0.85rem; margin-top: 0.5rem;">
-                                    Data s vĂ˝znamem<br>
-                                    FaktografickĂ©, bibliografickĂ©<br>
-                                    <em>PĹ™: 460,8 m.n.m.</em>
+                                    Data s významem<br>
+                                    Faktografické, bibliografické<br>
+                                    <em>Př: 460,8 m.n.m.</em>
                                 </div>
                             </div>
-                            <div style="font-size: 2rem; color: var(--primary);">â†’</div>
+                            <div style="font-size: 2rem; color: var(--primary);">→</div>
                             <div style="background: var(--secondary); color: white; padding: 0.5rem 1rem; border-radius: 20px; font-size: 0.9rem;">+ KONTEXT</div>
-                            <div style="font-size: 2rem; color: var(--primary);">â†’</div>
+                            <div style="font-size: 2rem; color: var(--primary);">→</div>
                             <div style="background: var(--bg-light); padding: 1.5rem; border-radius: 12px; text-align: center; min-width: 200px; border: 2px solid var(--secondary);">
-                                <div style="font-size: 2rem; margin-bottom: 0.5rem;">đź§ </div>
+                                <div style="font-size: 2rem; margin-bottom: 0.5rem;">🧠</div>
                                 <div style="font-weight: 700; color: var(--secondary); font-size: 1.2rem;">ZNALOSTI</div>
                                 <div style="color: #c4c4cc; font-size: 0.85rem; margin-top: 0.5rem;">
                                     Informace s kontextem<br>
-                                    MĂ©dium: mozek<br>
-                                    <em>PĹ™: 460,8 m.n.m., ĹĂ­p</em>
+                                    Médium: mozek<br>
+                                    <em>Př: 460,8 m.n.m., Říp</em>
                                 </div>
                             </div>
                         </div>
@@ -1336,40 +1307,40 @@ const conceptMaps = {
                             <div style="display: flex; align-items: center; gap: 1rem;">
                                 <div style="background: var(--primary); color: white; width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; flex-shrink: 0;">1</div>
                                 <div style="flex: 1; background: var(--bg-light); padding: 1rem; border-radius: 10px; border-left: 3px solid var(--primary);">
-                                    <strong style="color: var(--text);">ObsahovĂˇ analĂ˝za</strong>
-                                    <p style="color: #c4c4cc; font-size: 0.85rem; margin: 0.25rem 0 0 0;">Typy ÄŤtenĂ­: orientaÄŤnĂ­, kurzorickĂ©, selektivnĂ­, statarickĂ©, racionĂˇlnĂ­</p>
+                                    <strong style="color: var(--text);">Obsahová analýza</strong>
+                                    <p style="color: #c4c4cc; font-size: 0.85rem; margin: 0.25rem 0 0 0;">Typy čtení: orientační, kurzorické, selektivní, statarické, racionální</p>
                                 </div>
                             </div>
                             <div style="display: flex; align-items: center; gap: 1rem;">
                                 <div style="background: var(--primary); color: white; width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; flex-shrink: 0;">2</div>
                                 <div style="flex: 1; background: var(--bg-light); padding: 1rem; border-radius: 10px; border-left: 3px solid var(--primary);">
-                                    <strong style="color: var(--text);">Identifikace pojmĹŻ</strong>
-                                    <p style="color: #c4c4cc; font-size: 0.85rem; margin: 0.25rem 0 0 0;">Zde vznikĂˇ 42,3% chyb! OpominutĂ­ hledisek je nejÄŤastÄ›jĹˇĂ­ chyba.</p>
+                                    <strong style="color: var(--text);">Identifikace pojmů</strong>
+                                    <p style="color: #c4c4cc; font-size: 0.85rem; margin: 0.25rem 0 0 0;">Zde vzniká 42,3% chyb! Opominutí hledisek je nejčastější chyba.</p>
                                 </div>
                             </div>
                             <div style="display: flex; align-items: center; gap: 1rem;">
                                 <div style="background: var(--primary); color: white; width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; flex-shrink: 0;">3</div>
                                 <div style="flex: 1; background: var(--bg-light); padding: 1rem; border-radius: 10px; border-left: 3px solid var(--primary);">
-                                    <strong style="color: var(--text);">VĂ˝bÄ›r znakĹŻ SJ</strong>
-                                    <p style="color: #c4c4cc; font-size: 0.85rem; margin: 0.25rem 0 0 0;">Ăšplnost, specifiÄŤnost, indexaÄŤnĂ­ hlediska</p>
+                                    <strong style="color: var(--text);">Výběr znaků SJ</strong>
+                                    <p style="color: #c4c4cc; font-size: 0.85rem; margin: 0.25rem 0 0 0;">Úplnost, specifičnost, indexační hlediska</p>
                                 </div>
                             </div>
                             <div style="display: flex; align-items: center; gap: 1rem;">
-                                <div style="background: var(--secondary); color: white; width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; flex-shrink: 0;">âś“</div>
+                                <div style="background: var(--secondary); color: white; width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; flex-shrink: 0;">✔️</div>
                                 <div style="flex: 1; background: var(--bg-light); padding: 1rem; border-radius: 10px; border-left: 3px solid var(--secondary);">
-                                    <strong style="color: var(--secondary);">SOD (SelekÄŤnĂ­ obraz dokumentu)</strong>
-                                    <p style="color: #c4c4cc; font-size: 0.85rem; margin: 0.25rem 0 0 0;">Soubor lexikĂˇlnĂ­ch jednotek nebo klasifikaÄŤnĂ­ch znakĹŻ</p>
+                                    <strong style="color: var(--secondary);">SOD (Selekční obraz dokumentu)</strong>
+                                    <p style="color: #c4c4cc; font-size: 0.85rem; margin: 0.25rem 0 0 0;">Soubor lexikálních jednotek nebo klasifikačních znaků</p>
                                 </div>
                             </div>
                         </div>
                         <div style="display: flex; justify-content: center; gap: 3rem; margin-top: 2rem; flex-wrap: wrap;">
                             <div style="text-align: center; background: var(--bg-light); padding: 1rem 1.5rem; border-radius: 10px; border-top: 3px solid var(--primary);">
-                                <div style="font-size: 1.1rem; font-weight: 700; color: var(--primary);">Recall (Ăšplnost)</div>
-                                <div style="color: #c4c4cc; font-size: 0.9rem;">vyhledanĂ© rel. / vĹˇechny rel.</div>
+                                <div style="font-size: 1.1rem; font-weight: 700; color: var(--primary);">Recall (Úplnost)</div>
+                                <div style="color: #c4c4cc; font-size: 0.9rem;">vyhledané rel. / všechny rel.</div>
                             </div>
                             <div style="text-align: center; background: var(--bg-light); padding: 1rem 1.5rem; border-radius: 10px; border-top: 3px solid var(--warning);">
-                                <div style="font-size: 1.1rem; font-weight: 700; color: var(--warning);">Precision (PĹ™esnost)</div>
-                                <div style="color: #c4c4cc; font-size: 0.9rem;">vyhledanĂ© rel. / vĹˇechny vyhled.</div>
+                                <div style="font-size: 1.1rem; font-weight: 700; color: var(--warning);">Precision (Přesnost)</div>
+                                <div style="color: #c4c4cc; font-size: 0.9rem;">vyhledané rel. / všechny vyhled.</div>
                             </div>
                         </div>
                     </div>
@@ -1379,100 +1350,100 @@ const conceptMaps = {
         title: "Struktura tezauru",
         content: `
                     <div style="padding: 1rem; text-align: center;">
-                        <div style="display: inline-block; background: var(--primary); color: white; padding: 1rem 2rem; border-radius: 12px; font-weight: 600; font-size: 1.1rem;">DESKRIPTOR (preferovanĂ˝ termĂ­n)</div>
+                        <div style="display: inline-block; background: var(--primary); color: white; padding: 1rem 2rem; border-radius: 12px; font-weight: 600; font-size: 1.1rem;">DESKRIPTOR (preferovaný termín)</div>
                         <div style="display: flex; justify-content: center; gap: 3rem; margin-top: 2rem; flex-wrap: wrap;">
                             <div style="text-align: center;">
                                 <div style="background: var(--secondary); color: white; padding: 0.5rem 1rem; border-radius: 8px; font-weight: 600;">BT (Broader Term)</div>
-                                <div style="color: #c4c4cc; font-size: 0.85rem; margin-top: 0.5rem;">NadĹ™azenĂ˝ deskriptor</div>
-                                <div style="font-size: 1.5rem; margin: 0.5rem 0;">â†‘</div>
+                                <div style="color: #c4c4cc; font-size: 0.85rem; margin-top: 0.5rem;">Nadřazený deskriptor</div>
+                                <div style="font-size: 1.5rem; margin: 0.5rem 0;">↑</div>
                             </div>
                             <div style="text-align: center;">
                                 <div style="background: var(--warning); color: white; padding: 0.5rem 1rem; border-radius: 8px; font-weight: 600;">NT (Narrower Term)</div>
-                                <div style="color: #c4c4cc; font-size: 0.85rem; margin-top: 0.5rem;">PodĹ™azenĂ˝ deskriptor</div>
-                                <div style="font-size: 1.5rem; margin: 0.5rem 0;">â†“</div>
+                                <div style="color: #c4c4cc; font-size: 0.85rem; margin-top: 0.5rem;">Podřazený deskriptor</div>
+                                <div style="font-size: 1.5rem; margin: 0.5rem 0;">↓</div>
                             </div>
                             <div style="text-align: center;">
                                 <div style="background: var(--danger); color: white; padding: 0.5rem 1rem; border-radius: 8px; font-weight: 600;">RT (Related Term)</div>
-                                <div style="color: #c4c4cc; font-size: 0.85rem; margin-top: 0.5rem;">PĹ™Ă­buznĂ˝ deskriptor</div>
-                                <div style="font-size: 1.5rem; margin: 0.5rem 0;">â†”</div>
+                                <div style="color: #c4c4cc; font-size: 0.85rem; margin-top: 0.5rem;">Příbuzný deskriptor</div>
+                                <div style="font-size: 1.5rem; margin: 0.5rem 0;">↔</div>
                             </div>
                             <div style="text-align: center;">
                                 <div style="background: var(--bg-light); border: 2px dashed var(--border); padding: 0.5rem 1rem; border-radius: 8px; font-weight: 600;">UF (Used For)</div>
                                 <div style="color: #c4c4cc; font-size: 0.85rem; margin-top: 0.5rem;">Nedeskriptor (ekvivalent)</div>
-                                <div style="font-size: 1.5rem; margin: 0.5rem 0;">â‰</div>
+                                <div style="font-size: 1.5rem; margin: 0.5rem 0;">≈</div>
                             </div>
                         </div>
                         <div style="margin-top: 2rem; padding: 1rem; background: var(--bg-light); border-radius: 12px;">
-                            <h4 style="color: var(--primary); margin-bottom: 0.5rem;">PĹ™Ă­klad deskriptorovĂ©ho odstavce:</h4>
+                            <h4 style="color: var(--primary); margin-bottom: 0.5rem;">Příklad deskriptorového odstavce:</h4>
                             <div style="text-align: left; font-family: monospace; color: #c4c4cc;">
-                                <strong style="color: var(--text);">informaÄŤnĂ­ systĂ©my</strong><br>
-                                BT: informaÄŤnĂ­ technologie<br>
-                                NT: databĂˇzovĂ© systĂ©my, knihovnĂ­ systĂ©my<br>
-                                RT: informaÄŤnĂ­ sluĹľby, vyhledĂˇvĂˇnĂ­ informacĂ­<br>
-                                UF: IS, informaÄŤnĂ­ systĂ©m
+                                <strong style="color: var(--text);">informační systémy</strong><br>
+                                BT: informační technologie<br>
+                                NT: databázové systémy, knihovní systémy<br>
+                                RT: informační služby, vyhledávání informací<br>
+                                UF: IS, informační systém
                             </div>
                         </div>
                     </div>
                 `
     },
     classifications: {
-        title: "PĹ™ehled velkĂ˝ch klasifikaÄŤnĂ­ch systĂ©mĹŻ",
+        title: "Přehled velkých klasifikačních systémů",
         content: `
                     <div style="padding: 1rem;">
                         <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1rem;">
                             <div style="background: var(--bg-light); padding: 1.5rem; border-radius: 12px; border-left: 4px solid #ef4444;">
                                 <div style="font-weight: 700; color: #ef4444; font-size: 1.2rem;">DDC</div>
-                                <div style="color: #c4c4cc; font-size: 0.85rem;">Deweyho desetinnĂ© tĹ™Ă­dÄ›nĂ­</div>
+                                <div style="color: #c4c4cc; font-size: 0.85rem;">Deweyho desetinné třídění</div>
                                 <hr style="border-color: var(--border); margin: 0.75rem 0;">
                                 <div style="font-size: 0.9rem;">
                                     <strong>Rok:</strong> 1876 (Melvil Dewey)<br>
-                                    <strong>Typ:</strong> EnumerativnĂ­<br>
-                                    <strong>Notace:</strong> NumerickĂˇ<br>
-                                    <strong>RozĹˇĂ­Ĺ™enĂ­:</strong> CelosvÄ›tovĂ©
+                                    <strong>Typ:</strong> Enumerativní<br>
+                                    <strong>Notace:</strong> Numerická<br>
+                                    <strong>Rozšíření:</strong> Celosvětové
                                 </div>
                             </div>
                             <div style="background: var(--bg-light); padding: 1.5rem; border-radius: 12px; border-left: 4px solid #f59e0b;">
                                 <div style="font-weight: 700; color: #f59e0b; font-size: 1.2rem;">LCC</div>
-                                <div style="color: #c4c4cc; font-size: 0.85rem;">Klasifikace KongresovĂ© knihovny</div>
+                                <div style="color: #c4c4cc; font-size: 0.85rem;">Klasifikace Kongresové knihovny</div>
                                 <hr style="border-color: var(--border); margin: 0.75rem 0;">
                                 <div style="font-size: 0.9rem;">
-                                    <strong>Rok:</strong> pĹ™elom 19./20. st.<br>
-                                    <strong>Typ:</strong> EnumerativnĂ­<br>
-                                    <strong>Notace:</strong> AlfanumerickĂˇ<br>
-                                    <strong>Orientace:</strong> AmerickĂ© reĂˇlie
+                                    <strong>Rok:</strong> přelom 19./20. st.<br>
+                                    <strong>Typ:</strong> Enumerativní<br>
+                                    <strong>Notace:</strong> Alfanumerická<br>
+                                    <strong>Orientace:</strong> Americké reálie
                                 </div>
                             </div>
                             <div style="background: var(--bg-light); padding: 1.5rem; border-radius: 12px; border-left: 4px solid #10b981;">
                                 <div style="font-weight: 700; color: #10b981; font-size: 1.2rem;">MDT</div>
-                                <div style="color: #c4c4cc; font-size: 0.85rem;">MezinĂˇrodnĂ­ desetinnĂ© tĹ™Ă­dÄ›nĂ­</div>
+                                <div style="color: #c4c4cc; font-size: 0.85rem;">Mezinárodní desetinné třídění</div>
                                 <hr style="border-color: var(--border); margin: 0.75rem 0;">
                                 <div style="font-size: 0.9rem;">
-                                    <strong>Rok:</strong> poÄŤ. 20. st. (Otlet, La Fontaine)<br>
-                                    <strong>Typ:</strong> HierarchickĂ˝ + fazetovĂ˝<br>
-                                    <strong>Notace:</strong> SmĂ­ĹˇenĂˇ<br>
-                                    <strong>RozĹˇĂ­Ĺ™enĂ­:</strong> CelosvÄ›tovĂ©
+                                    <strong>Rok:</strong> poč. 20. st. (Otlet, La Fontaine)<br>
+                                    <strong>Typ:</strong> Hierarchický + fazetový<br>
+                                    <strong>Notace:</strong> Smíšená<br>
+                                    <strong>Rozšíření:</strong> Celosvětové
                                 </div>
                             </div>
                             <div style="background: var(--bg-light); padding: 1.5rem; border-radius: 12px; border-left: 4px solid #6366f1;">
                                 <div style="font-weight: 700; color: #6366f1; font-size: 1.2rem;">CC</div>
-                                <div style="color: #c4c4cc; font-size: 0.85rem;">DvojteÄŤkovĂ© tĹ™Ă­dÄ›nĂ­</div>
+                                <div style="color: #c4c4cc; font-size: 0.85rem;">Dvojtečkové třídění</div>
                                 <hr style="border-color: var(--border); margin: 0.75rem 0;">
                                 <div style="font-size: 0.9rem;">
                                     <strong>Rok:</strong> 1933 (Ranganathan)<br>
-                                    <strong>Typ:</strong> FazetovĂ˝ (PMEST)<br>
-                                    <strong>RozĹˇĂ­Ĺ™enĂ­:</strong> OmezenĂ©<br>
-                                    <strong>VĂ˝znam:</strong> TeoretickĂ˝ pĹ™Ă­nos
+                                    <strong>Typ:</strong> Fazetový (PMEST)<br>
+                                    <strong>Rozšíření:</strong> Omezené<br>
+                                    <strong>Význam:</strong> Teoretický přínos
                                 </div>
                             </div>
                             <div style="background: var(--bg-light); padding: 1.5rem; border-radius: 12px; border-left: 4px solid #8b5cf6;">
                                 <div style="font-weight: 700; color: #8b5cf6; font-size: 1.2rem;">BBC</div>
-                                <div style="color: #c4c4cc; font-size: 0.85rem;">Blissovo bibliografickĂ© tĹ™Ă­dÄ›nĂ­</div>
+                                <div style="color: #c4c4cc; font-size: 0.85rem;">Blissovo bibliografické třídění</div>
                                 <hr style="border-color: var(--border); margin: 0.75rem 0;">
                                 <div style="font-size: 0.9rem;">
                                     <strong>Rok:</strong> 1940-1953 (Bliss)<br>
-                                    <strong>Typ:</strong> FazetovĂ˝<br>
-                                    <strong>ZĂˇklad:</strong> FilosofickĂ˝<br>
-                                    <strong>RozĹˇĂ­Ĺ™enĂ­:</strong> MinimĂˇlnĂ­
+                                    <strong>Typ:</strong> Fazetový<br>
+                                    <strong>Základ:</strong> Filosofický<br>
+                                    <strong>Rozšíření:</strong> Minimální
                                 </div>
                             </div>
                         </div>
@@ -1485,34 +1456,34 @@ const conceptMaps = {
                     <div style="padding: 1rem;">
                         <div style="display: flex; flex-direction: column; gap: 1rem; max-width: 600px; margin: 0 auto;">
                             <div style="display: flex; align-items: center; gap: 1rem;">
-                                <div style="background: var(--primary); color: white; width: 50px; height: 50px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; flex-shrink: 0;">đź’ˇ</div>
+                                <div style="background: var(--primary); color: white; width: 50px; height: 50px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; flex-shrink: 0;">💡</div>
                                 <div style="flex: 1; background: var(--bg-light); padding: 1rem; border-radius: 10px; border-left: 3px solid var(--primary);">
-                                    <strong style="color: var(--primary);">DĂŤLO (Work)</strong>
-                                    <p style="color: #c4c4cc; font-size: 0.85rem; margin: 0.25rem 0 0 0;">AbstraktnĂ­ intelektuĂˇlnĂ­/umÄ›leckĂ˝ vĂ˝tvor<br><em>PĹ™: "BabiÄŤka" jako literĂˇrnĂ­ koncept</em></p>
+                                    <strong style="color: var(--primary);">DÍLO (Work)</strong>
+                                    <p style="color: #c4c4cc; font-size: 0.85rem; margin: 0.25rem 0 0 0;">Abstraktní intelektuální/umělecký výtvor<br><em>Př: "Babička" jako literární koncept</em></p>
                                 </div>
                             </div>
-                            <div style="text-align: center; color: #c4c4cc;">â†“ realizovĂˇno jako â†“</div>
+                            <div style="text-align: center; color: #c4c4cc;">↓ realizováno jako ↓</div>
                             <div style="display: flex; align-items: center; gap: 1rem;">
-                                <div style="background: var(--secondary); color: white; width: 50px; height: 50px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; flex-shrink: 0;">đź“ť</div>
+                                <div style="background: var(--secondary); color: white; width: 50px; height: 50px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; flex-shrink: 0;">📝</div>
                                 <div style="flex: 1; background: var(--bg-light); padding: 1rem; border-radius: 10px; border-left: 3px solid var(--secondary);">
-                                    <strong style="color: var(--secondary);">VYJĂDĹENĂŤ (Expression)</strong>
-                                    <p style="color: #c4c4cc; font-size: 0.85rem; margin: 0.25rem 0 0 0;">KonkrĂ©tnĂ­ realizace dĂ­la<br><em>PĹ™: ÄŚeskĂ˝ originĂˇl, anglickĂ˝ pĹ™eklad, audiokniha</em></p>
+                                    <strong style="color: var(--secondary);">VYJÁDŘENÍ (Expression)</strong>
+                                    <p style="color: #c4c4cc; font-size: 0.85rem; margin: 0.25rem 0 0 0;">Konkrétní realizace díla<br><em>Př: Český originál, anglický překlad, audiokniha</em></p>
                                 </div>
                             </div>
-                            <div style="text-align: center; color: #c4c4cc;">â†“ ztÄ›lesnÄ›no v â†“</div>
+                            <div style="text-align: center; color: #c4c4cc;">↓ ztělesněno v ↓</div>
                             <div style="display: flex; align-items: center; gap: 1rem;">
-                                <div style="background: var(--warning); color: white; width: 50px; height: 50px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; flex-shrink: 0;">đź“š</div>
+                                <div style="background: var(--warning); color: white; width: 50px; height: 50px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; flex-shrink: 0;">📚</div>
                                 <div style="flex: 1; background: var(--bg-light); padding: 1rem; border-radius: 10px; border-left: 3px solid var(--warning);">
-                                    <strong style="color: var(--warning);">PROVEDENĂŤ (Manifestation)</strong>
-                                    <p style="color: #c4c4cc; font-size: 0.85rem; margin: 0.25rem 0 0 0;">KonkrĂ©tnĂ­ vydĂˇnĂ­<br><em>PĹ™: Albatros 2020, Odeon 1985</em></p>
+                                    <strong style="color: var(--warning);">PROVEDENÍ (Manifestation)</strong>
+                                    <p style="color: #c4c4cc; font-size: 0.85rem; margin: 0.25rem 0 0 0;">Konkrétní vydání<br><em>Př: Albatros 2020, Odeon 1985</em></p>
                                 </div>
                             </div>
-                            <div style="text-align: center; color: #c4c4cc;">â†“ exemplifikovĂˇno jako â†“</div>
+                            <div style="text-align: center; color: #c4c4cc;">↓ exemplifikováno jako ↓</div>
                             <div style="display: flex; align-items: center; gap: 1rem;">
-                                <div style="background: var(--danger); color: white; width: 50px; height: 50px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; flex-shrink: 0;">đź“–</div>
+                                <div style="background: var(--danger); color: white; width: 50px; height: 50px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; flex-shrink: 0;">📖</div>
                                 <div style="flex: 1; background: var(--bg-light); padding: 1rem; border-radius: 10px; border-left: 3px solid var(--danger);">
                                     <strong style="color: var(--danger);">JEDNOTKA (Item)</strong>
-                                    <p style="color: #c4c4cc; font-size: 0.85rem; margin: 0.25rem 0 0 0;">KonkrĂ©tnĂ­ exemplĂˇĹ™<br><em>PĹ™: Tento vĂ˝tisk v mĂ˝ch rukou</em></p>
+                                    <p style="color: #c4c4cc; font-size: 0.85rem; margin: 0.25rem 0 0 0;">Konkrétní exemplář<br><em>Př: Tento výtisk v mých rukou</em></p>
                                 </div>
                             </div>
                         </div>
@@ -1520,43 +1491,43 @@ const conceptMaps = {
                 `
     },
     doclevels: {
-        title: "DokumentografickĂ© ĂşrovnÄ› IO",
+        title: "Dokumentografické úrovně IO",
         content: `
                     <div style="padding: 1rem;">
                         <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 1rem; max-width: 900px; margin: 0 auto;">
                             <div style="background: var(--bg-light); padding: 1rem; border-radius: 10px; border-top: 4px solid #ef4444; text-align: center;">
                                 <div style="font-weight: 700; color: #ef4444; font-size: 1.5rem;">A</div>
-                                <div style="font-weight: 600; margin: 0.5rem 0;">NosiÄŤ/mĂ©dium</div>
-                                <div style="color: #c4c4cc; font-size: 0.8rem;">papĂ­r, digitĂˇlnĂ­</div>
+                                <div style="font-weight: 600; margin: 0.5rem 0;">Nosič/médium</div>
+                                <div style="color: #c4c4cc; font-size: 0.8rem;">papír, digitální</div>
                             </div>
                             <div style="background: var(--bg-light); padding: 1rem; border-radius: 10px; border-top: 4px solid #f59e0b; text-align: center;">
                                 <div style="font-weight: 700; color: #f59e0b; font-size: 1.5rem;">B</div>
                                 <div style="font-weight: 600; margin: 0.5rem 0;">Forma</div>
-                                <div style="color: #c4c4cc; font-size: 0.8rem;">kniha, databĂˇze</div>
+                                <div style="color: #c4c4cc; font-size: 0.8rem;">kniha, databáze</div>
                             </div>
                             <div style="background: var(--bg-light); padding: 1rem; border-radius: 10px; border-top: 4px solid #10b981; text-align: center;">
                                 <div style="font-weight: 700; color: #10b981; font-size: 1.5rem;">C</div>
                                 <div style="font-weight: 600; margin: 0.5rem 0;">Typ/druh</div>
-                                <div style="color: #c4c4cc; font-size: 0.8rem;">tiĹˇtÄ›nĂˇ kniha, LP</div>
+                                <div style="color: #c4c4cc; font-size: 0.8rem;">tištěná kniha, LP</div>
                             </div>
                             <div style="background: var(--bg-light); padding: 1rem; border-radius: 10px; border-top: 4px solid #6366f1; text-align: center;">
                                 <div style="font-weight: 700; color: #6366f1; font-size: 1.5rem;">D</div>
-                                <div style="font-weight: 600; margin: 0.5rem 0;">FormĂˇt obsahu</div>
+                                <div style="font-weight: 600; margin: 0.5rem 0;">Formát obsahu</div>
                                 <div style="color: #c4c4cc; font-size: 0.8rem;">text, obraz, zvuk</div>
                             </div>
                             <div style="background: var(--bg-light); padding: 1rem; border-radius: 10px; border-top: 4px solid #8b5cf6; text-align: center;">
                                 <div style="font-weight: 700; color: #8b5cf6; font-size: 1.5rem;">E</div>
-                                <div style="font-weight: 600; margin: 0.5rem 0;">Ĺ˝Ăˇnr</div>
+                                <div style="font-weight: 600; margin: 0.5rem 0;">Žánr</div>
                                 <div style="color: #c4c4cc; font-size: 0.8rem;">beletrie, faktografie</div>
                             </div>
                             <div style="background: var(--bg-light); padding: 1rem; border-radius: 10px; border-top: 4px solid #ec4899; text-align: center;">
                                 <div style="font-weight: 700; color: #ec4899; font-size: 1.5rem;">F</div>
                                 <div style="font-weight: 600; margin: 0.5rem 0;">Obsah</div>
-                                <div style="color: #c4c4cc; font-size: 0.8rem;">konkrĂ©tnĂ­ tĂ©ma</div>
+                                <div style="color: #c4c4cc; font-size: 0.8rem;">konkrétní téma</div>
                             </div>
                         </div>
                         <div style="margin-top: 1.5rem; text-align: center; color: #c4c4cc; font-size: 0.9rem;">
-                            Od nejobecnÄ›jĹˇĂ­ch (nosiÄŤ) â†’ po nejkonkrĂ©tnÄ›jĹˇĂ­ (obsah)
+                            Od nejobecnějších (nosič) → po nejkonkrétnější (obsah)
                         </div>
                     </div>
                 `
@@ -1567,31 +1538,31 @@ const conceptMaps = {
                     <div style="padding: 1rem;">
                         <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; max-width: 800px; margin: 0 auto;">
                             <div style="background: var(--bg-light); padding: 1.5rem; border-radius: 12px; border: 2px solid var(--secondary);">
-                                <h3 style="color: var(--secondary); margin-bottom: 1rem; text-align: center;">RECALL (Ăšplnost)</h3>
+                                <h3 style="color: var(--secondary); margin-bottom: 1rem; text-align: center;">RECALL (Úplnost)</h3>
                                 <div style="background: var(--bg-card); padding: 1rem; border-radius: 8px; text-align: center; margin-bottom: 1rem;">
                                     <div style="font-size: 1.3rem; font-weight: 700;">R = a / (a + b)</div>
                                 </div>
                                 <div style="font-size: 0.9rem; color: #c4c4cc;">
-                                    <strong>a</strong> = vyhledanĂ© relevantnĂ­<br>
-                                    <strong>b</strong> = nevyhledanĂ© relevantnĂ­<br><br>
-                                    <em>"Kolik z toho, co jsme MÄšLI najĂ­t, jsme naĹˇli?"</em>
+                                    <strong>a</strong> = vyhledané relevantní<br>
+                                    <strong>b</strong> = nevyhledané relevantní<br><br>
+                                    <em>"Kolik z toho, co jsme MĚLI najít, jsme našli?"</em>
                                 </div>
                             </div>
                             <div style="background: var(--bg-light); padding: 1.5rem; border-radius: 12px; border: 2px solid var(--warning);">
-                                <h3 style="color: var(--warning); margin-bottom: 1rem; text-align: center;">PRECISION (PĹ™esnost)</h3>
+                                <h3 style="color: var(--warning); margin-bottom: 1rem; text-align: center;">PRECISION (Přesnost)</h3>
                                 <div style="background: var(--bg-card); padding: 1rem; border-radius: 8px; text-align: center; margin-bottom: 1rem;">
                                     <div style="font-size: 1.3rem; font-weight: 700;">P = a / (a + c)</div>
                                 </div>
                                 <div style="font-size: 0.9rem; color: #c4c4cc;">
-                                    <strong>a</strong> = vyhledanĂ© relevantnĂ­<br>
-                                    <strong>c</strong> = vyhledanĂ© nerelevantnĂ­<br><br>
-                                    <em>"Kolik z toho, co jsme NAĹ LI, bylo sprĂˇvnÄ›?"</em>
+                                    <strong>a</strong> = vyhledané relevantní<br>
+                                    <strong>c</strong> = vyhledané nerelevantní<br><br>
+                                    <em>"Kolik z toho, co jsme NAŠLI, bylo správně?"</em>
                                 </div>
                             </div>
                         </div>
                         <div style="margin-top: 1.5rem; text-align: center; padding: 1rem; background: var(--bg-light); border-radius: 10px;">
-                            <strong style="color: var(--danger);">NepĹ™Ă­mĂˇ ĂşmÄ›ra:</strong>
-                            <span style="color: #c4c4cc;">VyĹˇĹˇĂ­ recall â†’ niĹľĹˇĂ­ precision a naopak</span>
+                            <strong style="color: var(--danger);">Nepřímá úměra:</strong>
+                            <span style="color: #c4c4cc;">Vyšší recall → nižší precision a naopak</span>
                         </div>
                     </div>
                 `
@@ -1604,34 +1575,34 @@ const conceptMaps = {
                             <div style="background: var(--bg-light); padding: 1.5rem; border-radius: 12px; border-left: 4px solid var(--primary);">
                                 <h3 style="color: var(--primary); margin-bottom: 1rem;">PREKOORDINACE</h3>
                                 <div style="font-size: 0.9rem; margin-bottom: 1rem;">
-                                    <strong>Princip:</strong> Pojmy jsou kombinovĂˇny <strong>pĹ™edem</strong> pĹ™i indexaci
+                                    <strong>Princip:</strong> Pojmy jsou kombinovány <strong>předem</strong> při indexaci
                                 </div>
                                 <div style="background: var(--bg-card); padding: 1rem; border-radius: 8px; margin-bottom: 1rem;">
-                                    <div style="color: #c4c4cc; font-size: 0.85rem;">PĹ™Ă­klad:</div>
-                                    <div style="font-weight: 600;">"dovoznĂ­ daĹâ€”ojetĂ© osobnĂ­ automobily"</div>
+                                    <div style="color: #c4c4cc; font-size: 0.85rem;">Příklad:</div>
+                                    <div style="font-weight: 600;">"dovozní daň—ojeté osobní automobily"</div>
                                 </div>
                                 <div style="font-size: 0.85rem; color: #c4c4cc;">
-                                    <strong>VĂ˝hoda:</strong> PĹ™esnĂ©, jednoznaÄŤnĂ©<br>
-                                    <strong>NevĂ˝hoda:</strong> RigidnĂ­, mĂ©nÄ› flexibilnĂ­
+                                    <strong>Výhoda:</strong> Přesné, jednoznačné<br>
+                                    <strong>Nevýhoda:</strong> Rigidní, méně flexibilní
                                 </div>
                             </div>
                             <div style="background: var(--bg-light); padding: 1.5rem; border-radius: 12px; border-left: 4px solid var(--secondary);">
                                 <h3 style="color: var(--secondary); margin-bottom: 1rem;">POSTKOORDINACE</h3>
                                 <div style="font-size: 0.9rem; margin-bottom: 1rem;">
-                                    <strong>Princip:</strong> Pojmy se kombinujĂ­ <strong>aĹľ pĹ™i vyhledĂˇvĂˇnĂ­</strong>
+                                    <strong>Princip:</strong> Pojmy se kombinují <strong>až při vyhledávání</strong>
                                 </div>
                                 <div style="background: var(--bg-card); padding: 1rem; border-radius: 8px; margin-bottom: 1rem;">
-                                    <div style="color: #c4c4cc; font-size: 0.85rem;">PĹ™Ă­klad:</div>
-                                    <div style="font-weight: 600;">"dovoznĂ­ daĹ" AND "osobnĂ­ automobil" AND "pouĹľitĂ© zboĹľĂ­"</div>
+                                    <div style="color: #c4c4cc; font-size: 0.85rem;">Příklad:</div>
+                                    <div style="font-weight: 600;">"dovozní daň" AND "osobní automobil" AND "použité zboží"</div>
                                 </div>
                                 <div style="font-size: 0.85rem; color: #c4c4cc;">
-                                    <strong>VĂ˝hoda:</strong> FlexibilnĂ­, kombinovatelnĂ©<br>
-                                    <strong>NevĂ˝hoda:</strong> MĹŻĹľe bĂ˝t mĂ©nÄ› pĹ™esnĂ©
+                                    <strong>Výhoda:</strong> Flexibilní, kombinovatelné<br>
+                                    <strong>Nevýhoda:</strong> Může být méně přesné
                                 </div>
                             </div>
                         </div>
                         <div style="margin-top: 1.5rem; padding: 1rem; background: var(--bg-light); border-radius: 10px; text-align: center;">
-                            <strong>Tip:</strong> Neexistuje ÄŤistÄ› pre- nebo postkoordinovanĂ˝ SJ - jde o mĂ­ru uplatnÄ›nĂ­ principu
+                            <strong>Tip:</strong> Neexistuje čistě pre- nebo postkoordinovaný SJ - jde o míru uplatnění principu
                         </div>
                     </div>
                 `
@@ -1647,34 +1618,34 @@ const conceptMaps = {
                                     C = a / b
                                 </div>
                                 <div style="margin-top: 1rem; display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; font-size: 0.9rem;">
-                                    <div><strong>a</strong> = shodnĂ© znaky</div>
-                                    <div><strong>b</strong> = vĹˇechny jedineÄŤnĂ© znaky</div>
+                                    <div><strong>a</strong> = shodné znaky</div>
+                                    <div><strong>b</strong> = všechny jedinečné znaky</div>
                                 </div>
                             </div>
                             <div style="background: var(--bg-light); padding: 1rem; border-radius: 10px; margin-bottom: 1rem;">
-                                <div style="font-weight: 600; margin-bottom: 0.5rem;">PĹ™Ă­klad:</div>
+                                <div style="font-weight: 600; margin-bottom: 0.5rem;">Příklad:</div>
                                 <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; font-size: 0.85rem;">
                                     <div>
-                                        <strong style="color: var(--primary);">IndexĂˇtor 1:</strong><br>
-                                        ostrovy, Robinson, dobrodruĹľnĂ© romĂˇny
+                                        <strong style="color: var(--primary);">Indexátor 1:</strong><br>
+                                        ostrovy, Robinson, dobrodružné romány
                                     </div>
                                     <div>
-                                        <strong style="color: var(--secondary);">IndexĂˇtor 2:</strong><br>
-                                        ostrovy, dobrodruĹľnĂ© romĂˇny, 18. stoletĂ­
+                                        <strong style="color: var(--secondary);">Indexátor 2:</strong><br>
+                                        ostrovy, dobrodružné romány, 18. století
                                     </div>
                                 </div>
                                 <div style="margin-top: 1rem; text-align: center;">
-                                    <strong>a = 2</strong> (shodnĂ©), <strong>b = 4</strong> (jedineÄŤnĂ©) â†’ <strong style="color: var(--warning);">C = 50%</strong>
+                                    <strong>a = 2</strong> (shodné), <strong>b = 4</strong> (jedinečné) → <strong style="color: var(--warning);">C = 50%</strong>
                                 </div>
                             </div>
                             <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
                                 <div style="background: var(--bg-light); padding: 1rem; border-radius: 8px; text-align: center;">
                                     <strong style="color: var(--primary);">Interindexer</strong>
-                                    <div style="font-size: 0.85rem; color: #c4c4cc;">Shoda mezi indexĂˇtory</div>
+                                    <div style="font-size: 0.85rem; color: #c4c4cc;">Shoda mezi indexátory</div>
                                 </div>
                                 <div style="background: var(--bg-light); padding: 1rem; border-radius: 8px; text-align: center;">
                                     <strong style="color: var(--secondary);">Intraindexer</strong>
-                                    <div style="font-size: 0.85rem; color: #c4c4cc;">Konzistence jednoho indexĂˇtora</div>
+                                    <div style="font-size: 0.85rem; color: #c4c4cc;">Konzistence jednoho indexátora</div>
                                 </div>
                             </div>
                         </div>
@@ -1685,17 +1656,17 @@ const conceptMaps = {
 
 // Map metadata for accordion cards
 const conceptMapsMetadata = {
-    hierarchy: { icon: "đźŚł", desc: "PĹ™ehled typĹŻ SJ a jejich vztahĹŻ" },
-    triangle: { icon: "đź”ş", desc: "Jev - Pojem - Znak a Popperovy svÄ›ty" },
-    dataflow: { icon: "đź“Š", desc: "Transformace a jejich charakteristiky" },
-    indexing: { icon: "đź“ť", desc: "Od obsahovĂ© analĂ˝zy k SOD" },
-    thesaurus: { icon: "đź”—", desc: "Vztahy mezi lexikĂˇlnĂ­mi jednotkami" },
-    classifications: { icon: "đź“š", desc: "DDC, LCC, MDT, CC, BBC" },
-    lrm: { icon: "đź“–", desc: "DĂ­lo â†’ VyjĂˇdĹ™enĂ­ â†’ ProvedenĂ­ â†’ Jednotka" },
-    doclevels: { icon: "đź“‹", desc: "A-F: NosiÄŤ aĹľ Obsah" },
-    recallprecision: { icon: "đź“Š", desc: "Ăšplnost a pĹ™esnost vyhledĂˇvĂˇnĂ­" },
-    prepost: { icon: "đź”„", desc: "KombinovĂˇnĂ­ pojmĹŻ pĹ™i indexaci/vyhledĂˇvĂˇnĂ­" },
-    consistency: { icon: "đź“Ź", desc: "Vzorec C = a/b, inter/intraindexer" }
+    hierarchy: { icon: "🧬", desc: "Přehled typů SJ a jejich vztahů" },
+    triangle: { icon: "🔺", desc: "Jev - Pojem - Znak a Popperovy světy" },
+    dataflow: { icon: "📊", desc: "Transformace a jejich charakteristiky" },
+    indexing: { icon: "📝", desc: "Od obsahové analýzy k SOD" },
+    thesaurus: { icon: "🔗", desc: "Vztahy mezi lexikálními jednotkami" },
+    classifications: { icon: "📚", desc: "DDC, LCC, MDT, CC, BBC" },
+    lrm: { icon: "📖", desc: "Dílo → Vyjádření → Provedení → Jednotka" },
+    doclevels: { icon: "📋", desc: "A-F: Nosič až Obsah" },
+    recallprecision: { icon: "📊", desc: "Úplnost a přesnost vyhledávání" },
+    prepost: { icon: "🔄", desc: "Kombinování pojmů při indexaci/vyhledávání" },
+    consistency: { icon: "📮", desc: "Vzorec C = a/b, inter/intraindexer" }
 };
 
 function renderConceptMapsAccordion() {
@@ -1719,7 +1690,7 @@ function renderConceptMapsAccordion() {
                             <div class="concept-map-content-inner">
                                 ${map.content}
                                 <button class="concept-map-close-btn" onclick="closeConceptMap('${mapId}')">
-                                    â–˛ ZavĹ™Ă­t
+                                    â–˛ Zavřít
                                 </button>
                             </div>
                         </div>
@@ -1780,11 +1751,11 @@ function toggleTheme() {
 
     if (currentTheme === 'dark') {
         html.setAttribute('data-theme', 'light');
-        btn.textContent = 'â€ď¸Ź';
+        btn.textContent = '☀️';
         localStorage.setItem('theme', 'light');
     } else {
         html.setAttribute('data-theme', 'dark');
-        btn.textContent = 'đźŚ™';
+        btn.textContent = '🌗';
         localStorage.setItem('theme', 'dark');
     }
 }
@@ -1792,125 +1763,19 @@ function toggleTheme() {
 function loadTheme() {
     const savedTheme = localStorage.getItem('theme') || 'dark';
     document.documentElement.setAttribute('data-theme', savedTheme);
-    document.getElementById('theme-toggle').textContent = savedTheme === 'dark' ? 'đźŚ™' : 'â€ď¸Ź';
+    document.getElementById('theme-toggle').textContent = savedTheme === 'dark' ? '🌗' : '☀️';
 }
 
-// ========== AUDIO LOOP (Web Speech API) ==========
-let audioLoopRunning = false;
-let audioLoopIndex = 0;
-let audioSpeed = 1;
-let speechSynthesis = window.speechSynthesis;
 
-function speak(text, onEnd) {
-    if (!speechSynthesis) {
-        console.error('Web Speech API nenĂ­ podporovĂˇno');
-        if (onEnd) onEnd();
-        return;
-    }
 
-    const utterance = new SpeechSynthesisUtterance(text);
-    utterance.lang = 'cs-CZ';
-    utterance.rate = audioSpeed;
-    utterance.onend = onEnd;
-    utterance.onerror = onEnd;
-    speechSynthesis.speak(utterance);
-}
 
-function startAudioLoop() {
-    if (!speechSynthesis) {
-        alert('VĂˇĹˇ prohlĂ­ĹľeÄŤ nepodporuje Web Speech API');
-        return;
-    }
 
-    audioLoopRunning = true;
-    audioLoopIndex = 0;
-
-    document.getElementById('audio-start').style.display = 'none';
-    document.getElementById('audio-stop').style.display = 'inline-flex';
-    updateAudioStatus('PĹ™ehrĂˇvĂˇm...', true);
-
-    playNextCard();
-}
-
-function stopAudioLoop() {
-    audioLoopRunning = false;
-    speechSynthesis.cancel();
-
-    document.getElementById('audio-start').style.display = 'inline-flex';
-    document.getElementById('audio-stop').style.display = 'none';
-    updateAudioStatus('Zastaveno', false);
-}
-
-function playNextCard() {
-    if (!audioLoopRunning) return;
-
-    const dueCards = getDueCards();
-    if (dueCards.length === 0 || audioLoopIndex >= dueCards.length) {
-        stopAudioLoop();
-        updateAudioStatus('DokonÄŤeno', false);
-        return;
-    }
-
-    const card = dueCards[audioLoopIndex];
-    showCard(audioLoopIndex);
-
-    updateAudioStatus(`Karta ${audioLoopIndex + 1}/${dueCards.length}: OtĂˇzka`, true);
-
-    // PĹ™eÄŤti otĂˇzku
-    speak(card.q, () => {
-        if (!audioLoopRunning) return;
-
-        updateAudioStatus(`Karta ${audioLoopIndex + 1}/${dueCards.length}: Pauza...`, true);
-
-        // Pauza pĹ™ed odpovÄ›dĂ­ (3 sekundy)
-        setTimeout(() => {
-            if (!audioLoopRunning) return;
-
-            // OtoÄŤ kartu
-            if (!cardFlipped) flipCard();
-
-            updateAudioStatus(`Karta ${audioLoopIndex + 1}/${dueCards.length}: OdpovÄ›ÄŹ`, true);
-
-            // PĹ™eÄŤti odpovÄ›ÄŹ
-            speak(card.a, () => {
-                if (!audioLoopRunning) return;
-
-                // Pauza pĹ™ed dalĹˇĂ­ kartou (2 sekundy)
-                setTimeout(() => {
-                    if (!audioLoopRunning) return;
-
-                    // Reset karty pro dalĹˇĂ­
-                    if (cardFlipped) {
-                        cardFlipped = false;
-                        document.getElementById('flashcard').classList.remove('flipped');
-                        document.getElementById('fc-controls').style.display = 'none';
-                    }
-
-                    audioLoopIndex++;
-                    playNextCard();
-                }, 2000);
-            });
-        }, 3000);
-    });
-}
-
-function updateAudioSpeed() {
-    audioSpeed = parseFloat(document.getElementById('audio-speed').value);
-}
-
-function updateAudioStatus(text, isPlaying) {
-    const status = document.getElementById('audio-status');
-    status.innerHTML = isPlaying
-        ? `<span class="pulse"></span><span>${text}</span>`
-        : `<span>${text}</span>`;
-    status.className = isPlaying ? 'audio-status playing' : 'audio-status';
-}
 
 // ========== DASHBOARD CTA FUNCTIONS ==========
 function startReviewSession() {
     const dueCards = getDueCards();
     if (dueCards.length === 0) {
-        alert('NemĂˇĹˇ ĹľĂˇdnĂ© kartiÄŤky k opakovĂˇnĂ­!');
+        alert('Nemáš žádné kartičky k opakování!');
         return;
     }
     switchSection('flashcards');
@@ -1933,7 +1798,7 @@ function updateDashboardCTAs() {
     const timeEstimate = document.getElementById('time-estimate');
 
     // Update review button
-    ctaReviewCount.textContent = `${dueCount} kartiÄŤek k opakovĂˇnĂ­`;
+    ctaReviewCount.textContent = `${dueCount} kartiček k opakování`;
 
     if (dueCount === 0) {
         ctaReview.classList.add('disabled');
@@ -1950,7 +1815,7 @@ function updateDashboardCTAs() {
 
     // Update topics count
     const uniqueTopics = [...new Set(flashcardsData.map(c => c.category))];
-    document.getElementById('cta-topics-count').textContent = `${uniqueTopics.length} tĂ©mat`;
+    document.getElementById('cta-topics-count').textContent = `${uniqueTopics.length} témat`;
 }
 
 // ========== HELP MODAL ==========
@@ -1991,7 +1856,7 @@ function exportFlashcardsCSV() {
     });
 
     downloadFile(csv, 'flashcards.csv', 'text/csv');
-    showImportExportStatus('KartiÄŤky ĂşspÄ›ĹˇnÄ› exportovĂˇny!');
+    showImportExportStatus('Kartičky úspěšně exportovány!');
 }
 
 function exportQuizCSV() {
@@ -2141,784 +2006,7 @@ function resetAllProgress() {
 }
 
 // ========== ENHANCED AUDIO STUDY MODE ==========
-const AudioStudy = {
-    // State
-    voices: [],
-    selectedVoice: null,
-    rate: 1.0,
-    pitch: 1.0,
-    isPlaying: false,
-    isPaused: false,
-    isStopped: true,
-    mode: 'single', // 'single' | 'podcast'
-    currentCardIndex: 0,
-    totalCards: 0,
-    cardsToPlay: [],
-    pauseAfterQuestion: 3,
-    pauseAfterCard: 2,
-    synth: null,
-    currentUtterance: null,
-    pauseTimeout: null,
-
-    // Initialize
-    init() {
-        this.synth = window.speechSynthesis;
-        if (!this.synth) {
-            console.warn('Web Speech API not supported');
-            return;
-        }
-
-        // Load voices (may need to wait for voiceschanged event)
-        this.loadVoices();
-        if (this.synth.onvoiceschanged !== undefined) {
-            this.synth.onvoiceschanged = () => this.loadVoices();
-        }
-
-        // Load saved settings
-        this.loadSettings();
-    },
-
-    loadVoices() {
-        this.voices = this.synth.getVoices();
-        const select = document.getElementById('audio-voice-select');
-        if (!select) return;
-
-        // Filter for Czech voices first, then show all
-        const czechVoices = this.voices.filter(v => v.lang.startsWith('cs'));
-        const otherVoices = this.voices.filter(v => !v.lang.startsWith('cs'));
-        const sortedVoices = [...czechVoices, ...otherVoices];
-
-        select.innerHTML = '';
-
-        if (sortedVoices.length === 0) {
-            select.innerHTML = '<option value="">Ĺ˝ĂˇdnĂ© hlasy</option>';
-            return;
-        }
-
-        sortedVoices.forEach((voice, i) => {
-            const option = document.createElement('option');
-            option.value = i.toString();
-            const langFlag = voice.lang.startsWith('cs') ? 'đź‡¨đź‡ż ' : '';
-            option.textContent = `${langFlag}${voice.name} (${voice.lang})`;
-            if (voice.default) option.selected = true;
-            select.appendChild(option);
-        });
-
-        // Set default voice (prefer Czech)
-        if (czechVoices.length > 0) {
-            this.selectedVoice = czechVoices[0];
-            select.value = '0';
-        } else if (sortedVoices.length > 0) {
-            this.selectedVoice = sortedVoices[0];
-        }
-
-        // Restore saved voice preference
-        const savedVoice = localStorage.getItem('audioVoiceName');
-        if (savedVoice) {
-            const foundIndex = sortedVoices.findIndex(v => v.name === savedVoice);
-            if (foundIndex !== -1) {
-                this.selectedVoice = sortedVoices[foundIndex];
-                select.value = foundIndex.toString();
-            }
-        }
-    },
-
-    setVoice(index) {
-        const czechVoices = this.voices.filter(v => v.lang.startsWith('cs'));
-        const otherVoices = this.voices.filter(v => !v.lang.startsWith('cs'));
-        const sortedVoices = [...czechVoices, ...otherVoices];
-
-        if (sortedVoices[index]) {
-            this.selectedVoice = sortedVoices[index];
-            localStorage.setItem('audioVoiceName', this.selectedVoice.name);
-        }
-    },
-
-    setRate(rate) {
-        this.rate = parseFloat(rate);
-        document.getElementById('audio-speed-value').textContent = `${this.rate.toFixed(1)}x`;
-        this.saveSettings();
-    },
-
-    testVoice() {
-        this.synth.cancel();
-        const utterance = new SpeechSynthesisUtterance('Toto je test vybranĂ©ho hlasu pro studium.');
-        if (this.selectedVoice) utterance.voice = this.selectedVoice;
-        utterance.rate = this.rate;
-        utterance.pitch = this.pitch;
-        utterance.lang = 'cs-CZ';
-        this.synth.speak(utterance);
-    },
-
-    speak(text) {
-        return new Promise((resolve, reject) => {
-            if (!this.synth || this.isStopped) {
-                reject('Stopped');
-                return;
-            }
-
-            const utterance = new SpeechSynthesisUtterance(text);
-            if (this.selectedVoice) utterance.voice = this.selectedVoice;
-            utterance.rate = this.rate;
-            utterance.pitch = this.pitch;
-            utterance.lang = 'cs-CZ';
-
-            this.currentUtterance = utterance;
-
-            utterance.onend = () => {
-                this.currentUtterance = null;
-                resolve();
-            };
-            utterance.onerror = (e) => {
-                this.currentUtterance = null;
-                if (e.error !== 'interrupted') {
-                    reject(e);
-                } else {
-                    resolve();
-                }
-            };
-
-            this.synth.speak(utterance);
-        });
-    },
-
-    updateNowPlaying(text) {
-        const nowPlaying = document.getElementById('audio-now-playing');
-        const content = document.getElementById('now-playing-content');
-        if (nowPlaying && content) {
-            nowPlaying.classList.remove('hidden');
-            content.textContent = text.length > 80 ? text.substring(0, 80) + '...' : text;
-        }
-    },
-
-    hideNowPlaying() {
-        const nowPlaying = document.getElementById('audio-now-playing');
-        if (nowPlaying) {
-            nowPlaying.classList.add('hidden');
-        }
-    },
-
-    updateProgress() {
-        const container = document.getElementById('audio-progress-container');
-        const text = document.getElementById('audio-progress-text');
-        const percent = document.getElementById('audio-progress-percent');
-        const fill = document.getElementById('audio-progress-fill');
-
-        if (container && this.totalCards > 0) {
-            container.style.display = 'block';
-            const pct = Math.round((this.currentCardIndex / this.totalCards) * 100);
-            text.textContent = `KartiÄŤka ${this.currentCardIndex} z ${this.totalCards}`;
-            percent.textContent = `${pct}%`;
-            fill.style.width = `${pct}%`;
-        } else if (container) {
-            container.style.display = 'none';
-        }
-    },
-
-    updateButtons(state) {
-        const playBtn = document.getElementById('audio-play-btn');
-        const pauseBtn = document.getElementById('audio-pause-btn');
-        const resumeBtn = document.getElementById('audio-resume-btn');
-        const stopBtn = document.getElementById('audio-stop-btn');
-        const skipBtn = document.getElementById('audio-skip-btn');
-
-        switch (state) {
-            case 'idle':
-                if (playBtn) playBtn.style.display = 'flex';
-                if (pauseBtn) pauseBtn.style.display = 'none';
-                if (resumeBtn) resumeBtn.style.display = 'none';
-                if (stopBtn) stopBtn.disabled = true;
-                if (skipBtn) skipBtn.disabled = true;
-                break;
-            case 'playing':
-                if (playBtn) playBtn.style.display = 'none';
-                if (pauseBtn) pauseBtn.style.display = 'flex';
-                if (resumeBtn) resumeBtn.style.display = 'none';
-                if (stopBtn) stopBtn.disabled = false;
-                if (skipBtn) skipBtn.disabled = false;
-                break;
-            case 'paused':
-                if (playBtn) playBtn.style.display = 'none';
-                if (pauseBtn) pauseBtn.style.display = 'none';
-                if (resumeBtn) resumeBtn.style.display = 'flex';
-                if (stopBtn) stopBtn.disabled = false;
-                if (skipBtn) skipBtn.disabled = false;
-                break;
-        }
-    },
-
-    async playCard(card) {
-        if (this.isStopped) return;
-
-        // Update now playing
-        this.updateNowPlaying(card.q);
-
-        // Read question
-        await this.speak(`OtĂˇzka: ${card.q}`);
-
-        if (this.isStopped) return;
-
-        // Pause after question
-        await this.wait(this.pauseAfterQuestion * 1000);
-
-        if (this.isStopped) return;
-
-        // Update now playing for answer
-        this.updateNowPlaying(card.a);
-
-        // Read answer
-        await this.speak(`OdpovÄ›ÄŹ: ${card.a}`);
-
-        if (this.isStopped) return;
-
-        // Read explanation if exists
-        if (card.exp) {
-            await this.speak(`VysvÄ›tlenĂ­: ${card.exp}`);
-        }
-    },
-
-    wait(ms) {
-        return new Promise((resolve) => {
-            this.pauseTimeout = setTimeout(() => {
-                this.pauseTimeout = null;
-                resolve();
-            }, ms);
-        });
-    },
-
-    async play() {
-        // Play current flashcard based on currentDueIndex
-        const dueCards = getDueCards();
-        if (dueCards.length === 0) {
-            alert('Ĺ˝ĂˇdnĂ© kartiÄŤky k pĹ™ehrĂˇnĂ­.');
-            return;
-        }
-
-        this.isStopped = false;
-        this.isPaused = false;
-        this.isPlaying = true;
-        this.mode = 'single';
-        this.cardsToPlay = [dueCards[currentDueIndex]];
-        this.currentCardIndex = 1;
-        this.totalCards = 1;
-
-        this.updateButtons('playing');
-        this.updateProgress();
-
-        try {
-            await this.playCard(this.cardsToPlay[0]);
-            this.stop();
-        } catch (e) {
-            if (e !== 'Stopped') console.error('Audio error:', e);
-        }
-    },
-
-    async startPodcast() {
-        const dueCards = getDueCards();
-        if (dueCards.length === 0) {
-            // Use all flashcards if no due cards
-            this.cardsToPlay = [...flashcardsData];
-        } else {
-            this.cardsToPlay = [...dueCards];
-        }
-
-        if (this.cardsToPlay.length === 0) {
-            alert('Ĺ˝ĂˇdnĂ© kartiÄŤky k pĹ™ehrĂˇnĂ­.');
-            return;
-        }
-
-        this.isStopped = false;
-        this.isPaused = false;
-        this.isPlaying = true;
-        this.mode = 'podcast';
-        this.currentCardIndex = 0;
-        this.totalCards = this.cardsToPlay.length;
-
-        this.updateButtons('playing');
-
-        // Intro
-        this.updateNowPlaying('Podcast zaÄŤĂ­nĂˇ...');
-        await this.speak(`VĂ­tejte v podcast mĂłdu. Budeme prochĂˇzet ${this.totalCards} kartiÄŤek. ZaÄŤĂ­nĂˇme.`);
-
-        // Play all cards
-        for (let i = 0; i < this.cardsToPlay.length && !this.isStopped; i++) {
-            this.currentCardIndex = i + 1;
-            this.updateProgress();
-
-            // Also update flashcard UI
-            const cardIndex = flashcardsData.findIndex(c => c.q === this.cardsToPlay[i].q);
-            if (cardIndex !== -1) {
-                showCard(cardIndex);
-            }
-
-            await this.playCard(this.cardsToPlay[i]);
-
-            if (this.isStopped) break;
-
-            // Pause between cards
-            await this.wait(this.pauseAfterCard * 1000);
-        }
-
-        if (!this.isStopped) {
-            await this.speak('Podcast dokonÄŤen. VĂ˝bornĂˇ prĂˇce!');
-        }
-
-        this.stop();
-    },
-
-    pause() {
-        if (!this.isPlaying) return;
-
-        this.isPaused = true;
-        this.synth.pause();
-
-        if (this.pauseTimeout) {
-            clearTimeout(this.pauseTimeout);
-        }
-
-        this.updateButtons('paused');
-    },
-
-    resume() {
-        if (!this.isPaused) return;
-
-        this.isPaused = false;
-        this.synth.resume();
-
-        this.updateButtons('playing');
-    },
-
-    stop() {
-        this.isStopped = true;
-        this.isPlaying = false;
-        this.isPaused = false;
-
-        this.synth.cancel();
-
-        if (this.pauseTimeout) {
-            clearTimeout(this.pauseTimeout);
-            this.pauseTimeout = null;
-        }
-
-        this.hideNowPlaying();
-        this.updateButtons('idle');
-
-        const progressContainer = document.getElementById('audio-progress-container');
-        if (progressContainer) progressContainer.style.display = 'none';
-    },
-
-    skip() {
-        if (!this.isPlaying) return;
-
-        // Cancel current speech
-        this.synth.cancel();
-
-        // Clear any pause timeout
-        if (this.pauseTimeout) {
-            clearTimeout(this.pauseTimeout);
-            this.pauseTimeout = null;
-        }
-    },
-
-    saveSettings() {
-        const settings = {
-            rate: this.rate,
-            pitch: this.pitch,
-            pauseAfterQuestion: parseInt(document.getElementById('pause-after-question')?.value || 3),
-            pauseAfterCard: parseInt(document.getElementById('pause-after-card')?.value || 2)
-        };
-        this.pauseAfterQuestion = settings.pauseAfterQuestion;
-        this.pauseAfterCard = settings.pauseAfterCard;
-        localStorage.setItem('audioSettings', JSON.stringify(settings));
-    },
-
-    loadSettings() {
-        const saved = localStorage.getItem('audioSettings');
-        if (saved) {
-            try {
-                const settings = JSON.parse(saved);
-                this.rate = settings.rate || 1.0;
-                this.pitch = settings.pitch || 1.0;
-                this.pauseAfterQuestion = settings.pauseAfterQuestion || 3;
-                this.pauseAfterCard = settings.pauseAfterCard || 2;
-
-                // Update UI
-                const slider = document.getElementById('audio-speed-slider');
-                const sliderValue = document.getElementById('audio-speed-value');
-                if (slider) slider.value = this.rate;
-                if (sliderValue) sliderValue.textContent = `${this.rate.toFixed(1)}x`;
-
-                const pauseQ = document.getElementById('pause-after-question');
-                const pauseC = document.getElementById('pause-after-card');
-                if (pauseQ) pauseQ.value = this.pauseAfterQuestion;
-                if (pauseC) pauseC.value = this.pauseAfterCard;
-            } catch (e) {
-                console.warn('Failed to load audio settings:', e);
-            }
-        }
-    }
-};
-
-console.log('Defining Gamification object...');
-// Gamification functions
-const Gamification = {
-    state: {
-        xp: 0,
-        level: 1,
-        badges: [], // Array of badge IDs
-        unlockedBadges: {} // Map for easy lookup with timestamps
-    },
-
-    badges: [],
-
-    init() {
-        console.log('Gamification.init called');
-        const saved = localStorage.getItem('userState');
-        if (saved) {
-            this.state = JSON.parse(saved);
-        }
-        this.updateUI();
-        this.renderBadges();
-    },
-
-    addXP(amount, reason) {
-        // Check streak on first activity of the day
-        if (amount > 0) { // Only for positive events
-            this.checkStreak();
-        }
-
-        this.state.xp += amount;
-        this.showToast(`+${amount} XP`, reason || 'Zkušenost', '⚡');
-        this.checkLevelUp();
-        this.save();
-        this.updateUI();
-    },
-
-    checkStreak() {
-        const today = new Date().toLocaleDateString();
-        // Global variables from app.js are available here (studyStreak, lastStudyDate)
-        // But better to read/write them through localStorage to be safe if globals aren't updated yet
-        // However, globals are initialized at top of file.
-
-        // We need to access the global lastStudyDate, but checkDailyProgress might have updated it?
-        // Actually checkDailyProgress only reads it.
-        const storedDate = localStorage.getItem('lastStudyDate');
-
-        if (storedDate !== today) {
-            // First substantial activity of the day!
-            const yesterday = new Date();
-            yesterday.setDate(yesterday.getDate() - 1);
-            const yesterdayStr = yesterday.toLocaleDateString();
-
-            if (storedDate === yesterdayStr) {
-                // Continued streak
-                studyStreak++;
-                this.showToast('Streak Udržen!', `${studyStreak} dní v řadě!`, '🔥');
-                this.addXP(50, 'Daily Streak Bonus');
-            } else {
-                // New streak (or restart)
-                if (storedDate !== today) { // Check again to be sure
-                    studyStreak = 1;
-                    this.showToast('Nový Streak!', 'První den!', '🔥');
-                    this.addXP(20, 'First Activity Bonus');
-                }
-            }
-
-            // Update global and storage
-            lastStudyDate = new Date().toLocaleDateString();
-            localStorage.setItem('studyStreak', studyStreak.toString());
-            localStorage.setItem('lastStudyDate', lastStudyDate);
-
-            // Update UI immediately
-            const streakBadge = document.getElementById('streak-count');
-            if (streakBadge) streakBadge.textContent = studyStreak;
-
-            this.checkBadges('streak');
-        }
-    },
-
-    checkLevelUp() {
-        // Simple level formula: level = floor(1 + sqrt(xp / 100))
-        const newLevel = Math.floor(1 + Math.sqrt(this.state.xp / 100));
-
-        if (newLevel > this.state.level) {
-            const oldLevel = this.state.level;
-            this.state.level = newLevel;
-            this.handleLevelUp(newLevel);
-        }
-    },
-
-    handleLevelUp(level) {
-        this.showToast(`🎉 Level Up! Jsi nyní na úrovni ${level}!`, 'Gratulujeme!', '⭐');
-        this.save();
-        this.updateUI();
-    },
-
-    save() {
-        localStorage.setItem('userState', JSON.stringify(this.state));
-    },
-
-    updateUI() {
-        const xpBar = document.getElementById('nav-xp-bar');
-        const levelBadge = document.getElementById('nav-level');
-        const profileLevel = document.getElementById('profile-level-text');
-        const profileXp = document.getElementById('profile-xp-current');
-        const profileNextXp = document.getElementById('profile-xp-next');
-        const profileBar = document.getElementById('profile-xp-bar');
-
-        // Calculate progress
-        const currentLevelBaseXP = 100 * Math.pow(this.state.level - 1, 2);
-        const nextLevelBaseXP = 100 * Math.pow(this.state.level, 2);
-        const levelXP = this.state.xp - currentLevelBaseXP;
-        const levelRange = nextLevelBaseXP - currentLevelBaseXP;
-        const progress = Math.min(100, Math.max(0, (levelXP / levelRange) * 100));
-
-        if (xpBar) xpBar.style.width = `${progress}%`;
-        if (levelBadge) levelBadge.textContent = this.state.level;
-
-        if (profileLevel) profileLevel.textContent = `Level ${this.state.level} - ${this.getLevelTitle(this.state.level)}`;
-        if (profileXp) profileXp.textContent = Math.floor(this.state.xp);
-        if (profileNextXp) profileNextXp.textContent = Math.floor(nextLevelBaseXP);
-        if (profileBar) profileBar.style.width = `${progress}%`;
-    },
-
-    getLevelTitle(level) {
-        if (level < 5) return 'Nováček';
-        if (level < 10) return 'Student';
-        if (level < 20) return 'Badatel';
-        if (level < 50) return 'Expert';
-        return 'Profesor';
-    },
-
-    checkBadges(type, context = {}) {
-        const ctx = { ...context, type, xp: this.state.xp, level: this.state.level };
-        let newBadges = false;
-
-        this.badges.forEach(badge => {
-            if (this.state.badges.includes(badge.id)) return; // Already unlocked
-
-            // Try/catch for robust badge checking
-            try {
-                if (badge.condition(ctx)) {
-                    this.unlockBadge(badge);
-                    newBadges = true;
-                }
-            } catch (e) {
-                console.warn('Error checking badge:', badge.id, e);
-            }
-        });
-
-        if (newBadges) {
-            this.save();
-            this.renderBadges();
-        }
-    },
-
-    unlockBadge(badge) {
-        this.state.badges.push(badge.id);
-        this.state.unlockedBadges[badge.id] = new Date().toISOString();
-        this.showToast(`Odemčen odznak: ${badge.name}`, 'Úspěch!', badge.icon || '🏆');
-        this.addXP(100, 'Badge Bonus'); // Bonus XP for badge
-    },
-
-    renderBadges() {
-        const grid = document.getElementById('badges-grid');
-        if (!grid) return;
-
-        grid.innerHTML = this.badges.map(badge => {
-            const unlocked = this.state.badges.includes(badge.id);
-            const dateStr = unlocked ? new Date(this.state.unlockedBadges[badge.id]).toLocaleDateString() : '';
-            return `
-                <div class="badge-item ${unlocked ? 'unlocked' : 'locked'}">
-                    <div class="badge-icon">${badge.icon || '🏆'}</div>
-                    <div class="badge-name">${badge.name}</div>
-                    <div class="badge-desc">${badge.desc}</div>
-                    ${unlocked ? `<div class="badge-date">Získáno: ${dateStr}</div>` : ''}
-                </div>
-            `;
-        }).join('');
-    },
-
-    showToast(message, title = 'Info', icon = 'info') {
-        const container = document.getElementById('toast-container');
-        if (!container) return;
-
-        const toast = document.createElement('div');
-        toast.className = 'toast';
-        toast.innerHTML = `
-            <div class="toast-icon">${icon}</div>
-            <div class="toast-content">
-                <div class="toast-title">${title}</div>
-                <div class="toast-message">${message}</div>
-            </div>
-        `;
-
-        container.appendChild(toast);
-
-        // Animate
-        requestAnimationFrame(() => toast.classList.add('show'));
-
-        // Remove
-        setTimeout(() => {
-            toast.classList.remove('show');
-            setTimeout(() => toast.remove(), 400);
-        }, 3000);
-    }
-};
-
-// Profile Modal Functions (Global)
-function openProfileModal() {
-    Gamification.updateUI();
-    Gamification.renderBadges();
-    document.getElementById('profile-modal').classList.add('active');
-}
-
-function closeProfileModal() {
-    document.getElementById('profile-modal').classList.remove('active');
-}
-
-// Audio panel toggle functions
-function toggleAudioPanel() {
-    const panel = document.getElementById('audio-panel');
-    if (panel) {
-        panel.classList.toggle('collapsed');
-    }
-}
-
-function hideAudioPanel() {
-    const panel = document.getElementById('audio-panel');
-    if (panel) {
-        panel.style.display = 'none';
-    }
-}
-
-function showAudioPanel() {
-    const panel = document.getElementById('audio-panel');
-    if (panel) {
-        panel.style.display = 'block';
-    }
-}
-
-// ========== KEYBOARD SHORTCUTS ==========
-function handleKeyboardShortcuts(e) {
-    // Don't handle if user is typing in an input (except for specific keys)
-    const isTyping = e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA' || e.target.tagName === 'SELECT';
-
-    // Handle quiz shortcuts
-    if (currentSection === 'quiz') {
-        // Allow Enter in open answer mode
-        if (isTyping && e.code === 'Enter' && e.target.id === 'quiz-open-input') {
-            e.preventDefault();
-            submitOpenAnswer();
-            return;
-        }
-
-        if (isTyping) return;
-
-        const quizCard = document.getElementById('quiz-card');
-        if (quizCard.style.display === 'none') return;
-
-        switch (e.code) {
-            case 'Digit1':
-            case 'Numpad1':
-                if (!quizState.answered) selectOption(0);
-                break;
-            case 'Digit2':
-            case 'Numpad2':
-                if (!quizState.answered) selectOption(1);
-                break;
-            case 'Digit3':
-            case 'Numpad3':
-                if (!quizState.answered) selectOption(2);
-                break;
-            case 'Digit4':
-            case 'Numpad4':
-                if (!quizState.answered) selectOption(3);
-                break;
-            case 'Enter':
-            case 'Space':
-                if (quizState.answered && !document.getElementById('quiz-btn').disabled) {
-                    e.preventDefault();
-                    nextQuestion();
-                }
-                break;
-            case 'Escape':
-                e.preventDefault();
-                if (confirm('Opravdu chceĹˇ ukonÄŤit kvĂ­z?')) {
-                    stopQuizTimer();
-                    showQuizSetup();
-                }
-                break;
-        }
-        return;
-    }
-
-    // Handle flashcard shortcuts
-    if (currentSection !== 'flashcards') return;
-    if (isTyping) return;
-
-    const dueCards = getDueCards();
-    if (dueCards.length === 0) return;
-
-    switch (e.code) {
-        case 'Space':
-            e.preventDefault();
-            flipCard();
-            break;
-        case 'Digit1':
-        case 'Numpad1':
-            if (cardFlipped) rateCard(0);
-            break;
-        case 'Digit2':
-        case 'Numpad2':
-            if (cardFlipped) rateCard(1);
-            break;
-        case 'Digit3':
-        case 'Numpad3':
-            if (cardFlipped) rateCard(2);
-            break;
-        case 'Digit4':
-        case 'Numpad4':
-            if (cardFlipped) rateCard(3);
-            break;
-        case 'ArrowRight':
-            nextCard();
-            break;
-        case 'ArrowLeft':
-            // Previous card
-            if (currentDueIndex > 0) {
-                showCard(currentDueIndex - 1);
-            }
-            break;
-        case 'KeyP':
-            // Play/Pause audio
-            e.preventDefault();
-            if (AudioStudy.isPlaying && !AudioStudy.isPaused) {
-                AudioStudy.pause();
-            } else if (AudioStudy.isPaused) {
-                AudioStudy.resume();
-            } else {
-                AudioStudy.play();
-            }
-            break;
-        case 'KeyS':
-            // Stop audio
-            e.preventDefault();
-            AudioStudy.stop();
-            break;
-    }
-}
-
-// ========== INIT ==========
 function init() {
-    console.log('init() called');
-
-    // Initialize data references from window.studyData (loaded by data.js)
-    flashcardsData = window.studyData.flashcards;
-    quizData = window.studyData.quizzes;
-    topicsData = window.studyData.topics;
-    console.log('Data references initialized');
-
     checkDailyProgress(); // Check for day change on startup
     loadTheme();
     initCardStats();
@@ -2928,10 +2016,7 @@ function init() {
     updateStats();
     updateDashboardCTAs();
 
-    Gamification.init();
 
-    // Initialize Audio Study Mode
-    AudioStudy.init();
 
     // Show first card when switching to flashcards
     document.querySelectorAll('.nav-tab').forEach(tab => {

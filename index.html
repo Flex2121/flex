@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>StudyPrep - Organizace informacĂ­</title>
+    <title>StudyPrep - Informační etika</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
         rel="stylesheet">
     <link rel="stylesheet" href="css/style.css">
@@ -15,21 +15,15 @@
     <nav class="navbar">
         <div class="logo">StudyPrep</div>
         <div class="nav-tabs">
-            <button class="nav-tab active" data-section="dashboard">đź“Š Dashboard</button>
-            <button class="nav-tab" data-section="flashcards">đźŽ´ Flashcards</button>
-            <button class="nav-tab" data-section="quiz">âť“ Quiz</button>
-            <button class="nav-tab" data-section="maps">đź—şď¸Ź Mapy</button>
-            <button class="nav-tab" data-section="topics">đź“š TĂ©mata</button>
+            <button class="nav-tab active" data-section="dashboard">📊 Dashboard</button>
+            <button class="nav-tab" data-section="flashcards">🎴 Flashcards</button>
+            <button class="nav-tab" data-section="quiz">❓ Quiz</button>
+            <button class="nav-tab" data-section="maps">🗺️ Mapy</button>
+            <button class="nav-tab" data-section="topics">📚 Témata</button>
         </div>
         <div class="stats-bar">
-            <div class="user-level-badge" onclick="openProfileModal()" id="user-level-badge">
-                <div class="level-circle" id="nav-level">1</div>
-                <div class="xp-bar-container">
-                    <div class="xp-bar-fill" id="nav-xp-bar" style="width: 0%"></div>
-                </div>
-            </div>
             <div class="streak-badge" id="streak-badge">
-                đź”Ą <span id="streak-count">0</span> dnĹŻ
+                🔥 <span id="streak-count">0</span> dnů
             </div>
             <div class="stat-item">
                 <div class="stat-value" id="cards-today">0</div>
@@ -37,10 +31,10 @@
             </div>
             <div class="stat-item">
                 <div class="stat-value" id="mastery-percent">0%</div>
-                <div class="stat-label">ZvlĂˇdnuto</div>
+                <div class="stat-label">Zvládnuto</div>
             </div>
-            <button class="theme-toggle" id="theme-toggle" onclick="toggleTheme()" title="PĹ™epnout tĂ©ma">
-                đźŚ™
+            <button class="theme-toggle" id="theme-toggle" onclick="toggleTheme()" title="Přepnout téma">
+                🌗
             </button>
         </div>
     </nav>
@@ -51,250 +45,144 @@
             <section id="dashboard" class="section active">
                 <div
                     style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem; flex-wrap: wrap; gap: 1rem;">
-                    <h1 style="font-size: 2rem;">Organizace informacĂ­</h1>
+                    <h1 style="font-size: 2rem;">Informační etika</h1>
                     <div style="display: flex; gap: 0.5rem;">
-                        <button class="btn-secondary" onclick="openHelpModal()">âť“ NĂˇpovÄ›da</button>
-                        <button class="btn-secondary" onclick="openImportExportModal()">đź“Ą Import/Export</button>
+                        <button class="btn-secondary" onclick="openHelpModal()">❓ Nápověda</button>
+                        <button class="btn-secondary" onclick="openImportExportModal()">📥 Import/Export</button>
                     </div>
                 </div>
 
                 <!-- What to do now - CTA Section -->
                 <div class="cta-grid" id="dashboard-ctas">
                     <button class="cta-btn primary" id="cta-review" onclick="startReviewSession()">
-                        <span class="cta-btn-icon">đźŽ´</span>
-                        <span class="cta-btn-label">Spustit opakovĂˇnĂ­</span>
-                        <span class="cta-btn-count" id="cta-review-count">0 kartiÄŤek k opakovĂˇnĂ­</span>
+                        <span class="cta-btn-icon">🎴</span>
+                        <span class="cta-btn-label">Spustit opakování</span>
+                        <span class="cta-btn-count" id="cta-review-count">0 kartiček k opakování</span>
                     </button>
                     <button class="cta-btn" onclick="startQuickQuiz()">
-                        <span class="cta-btn-icon">âšˇ</span>
-                        <span class="cta-btn-label">RychlĂ˝ kvĂ­z</span>
-                        <span class="cta-btn-count">10 nĂˇhodnĂ˝ch otĂˇzek</span>
+                        <span class="cta-btn-icon">⚡</span>
+                        <span class="cta-btn-label">Rychlý kvíz</span>
+                        <span class="cta-btn-count">10 náhodných otázek</span>
                     </button>
                     <button class="cta-btn" onclick="switchSection('topics')">
-                        <span class="cta-btn-icon">đź“š</span>
-                        <span class="cta-btn-label">ProchĂˇzet tĂ©mata</span>
-                        <span class="cta-btn-count" id="cta-topics-count">0 tĂ©mat</span>
+                        <span class="cta-btn-icon">📚</span>
+                        <span class="cta-btn-label">Procházet témata</span>
+                        <span class="cta-btn-count" id="cta-topics-count">0 témat</span>
                     </button>
                 </div>
 
                 <!-- Suggestion when nothing due -->
                 <div class="ui-state" id="dashboard-empty-state" style="display: none; margin-bottom: 2rem;">
-                    <span class="ui-state-icon">đźŽ‰</span>
-                    <div class="ui-state-title">VĹˇe zvlĂˇdnuto!</div>
-                    <div class="ui-state-desc">NemĂˇĹˇ ĹľĂˇdnĂ© kartiÄŤky k opakovĂˇnĂ­. Zkus kvĂ­z nebo si projdi
-                        tĂ©mata.</div>
+                    <span class="ui-state-icon">🎉</span>
+                    <div class="ui-state-title">Vše zvládnuto!</div>
+                    <div class="ui-state-desc">Nemáš žádné kartičky k opakování. Zkus kvíz nebo si projdi témata.</div>
                 </div>
 
                 <!-- Time estimate -->
                 <div id="time-estimate" style="text-align: center; margin-bottom: 2rem; color: #c4c4cc; display: none;">
-                    <span>âŹ±ď¸Ź OdhadovanĂ˝ ÄŤas opakovĂˇnĂ­: </span>
+                    <span>⏳ Odhadovaný čas opakování: </span>
                     <strong id="estimate-minutes" style="color: var(--primary);">0 min</strong>
                 </div>
 
                 <div class="dashboard-grid">
                     <div class="dashboard-card">
-                        <h3>CelkovĂ˝ pokrok</h3>
+                        <h3>Celkový pokrok</h3>
                         <div class="value" style="color: var(--secondary);" id="total-progress">0%</div>
-                        <p style="color: #c4c4cc; margin-top: 0.5rem;">kartiÄŤek zvlĂˇdnuto</p>
+                        <p style="color: #c4c4cc; margin-top: 0.5rem;">kartiček zvládnuto</p>
                     </div>
                     <div class="dashboard-card">
-                        <h3>K opakovĂˇnĂ­ dnes</h3>
+                        <h3>K opakování dnes</h3>
                         <div class="value" style="color: var(--warning);" id="due-today">0</div>
                         <p style="color: #c4c4cc; margin-top: 0.5rem;">podle SRS algoritmu</p>
                     </div>
                     <div class="dashboard-card">
-                        <h3>SprĂˇvnĂ© odpovÄ›di</h3>
+                        <h3>Správné odpovědi</h3>
                         <div class="value" style="color: var(--primary);" id="correct-rate">0%</div>
-                        <p style="color: #c4c4cc; margin-top: 0.5rem;">prĹŻmÄ›rnĂˇ ĂşspÄ›Ĺˇnost</p>
+                        <p style="color: #c4c4cc; margin-top: 0.5rem;">průměrná úspěšnost</p>
                     </div>
                     <div class="dashboard-card">
-                        <h3>StudijnĂ­ ÄŤas</h3>
+                        <h3>Studijní čas</h3>
                         <div class="value" id="study-time">0 min</div>
-                        <p style="color: #c4c4cc; margin-top: 0.5rem;">celkovĂ˝ ÄŤas</p>
+                        <p style="color: #c4c4cc; margin-top: 0.5rem;">celkový čas</p>
                     </div>
                 </div>
 
-                <h2 style="margin: 2rem 0 1rem;">RychlĂ˝ start</h2>
+                <h2 style="margin: 2rem 0 1rem;">Rychlý start</h2>
                 <div class="dashboard-grid">
                     <div class="topic-card" onclick="switchSection('flashcards')">
-                        <div class="topic-icon">đź“š</div>
+                        <div class="topic-icon">📚</div>
                         <div class="topic-title">Spaced Repetition</div>
-                        <div class="topic-description">ProcviÄŤuj kartiÄŤky s optimĂˇlnĂ­m rozloĹľenĂ­m v ÄŤase pro
-                            maximĂˇlnĂ­
-                            zapamatovĂˇnĂ­.</div>
+                        <div class="topic-description">Procvičuj kartičky s optimálním rozložením v čase pro maximální
+                            zapamatování.</div>
                     </div>
                     <div class="topic-card" onclick="switchSection('quiz')">
-                        <div class="topic-icon">đź§ </div>
+                        <div class="topic-icon">🧠</div>
                         <div class="topic-title">Active Recall Quiz</div>
-                        <div class="topic-description">Testuj svĂ© znalosti pomocĂ­ kvĂ­zĹŻ s okamĹľitou zpÄ›tnou
-                            vazbou.
+                        <div class="topic-description">Testuj své znalosti pomocí kvízů s okamžitou zpětnou vazbou.
                         </div>
                     </div>
                     <div class="topic-card" onclick="switchSection('topics')">
-                        <div class="topic-icon">đź—şď¸Ź</div>
-                        <div class="topic-title">PĹ™ehled tĂ©mat</div>
-                        <div class="topic-description">Prozkoumej vĹˇechna tĂ©mata a jejich koncepty.</div>
+                        <div class="topic-icon">🗺️</div>
+                        <div class="topic-title">Přehled témat</div>
+                        <div class="topic-description">Prozkoumej všechna témata a jejich koncepty.</div>
                     </div>
                 </div>
             </section>
 
             <!-- Flashcards -->
             <section id="flashcards" class="section">
-                <!-- Enhanced Audio Study Panel -->
-                <div class="audio-panel" id="audio-panel">
-                    <div class="audio-panel-header">
-                        <div class="audio-panel-title">
-                            <span>đźŽ§</span> Audio Study Mode
-                        </div>
-                        <div style="display: flex; gap: 0.5rem;">
-                            <button class="audio-toggle-collapsed" onclick="toggleAudioPanel()"
-                                title="Sbalit/Rozbalit">â–Ľ</button>
-                            <button class="audio-panel-close" onclick="hideAudioPanel()" title="ZavĹ™Ă­t">Ă—</button>
-                        </div>
-                    </div>
 
-                    <div class="audio-panel-body">
-                        <!-- Main Controls -->
-                        <div class="audio-main-controls">
-                            <button class="audio-btn-lg play" id="audio-play-btn" onclick="AudioStudy.play()">
-                                â–¶ď¸Ź Spustit
-                            </button>
-                            <button class="audio-btn-lg pause" id="audio-pause-btn" onclick="AudioStudy.pause()"
-                                style="display: none;">
-                                âŹ¸ď¸Ź Pauza
-                            </button>
-                            <button class="audio-btn-lg play" id="audio-resume-btn" onclick="AudioStudy.resume()"
-                                style="display: none;">
-                                â–¶ď¸Ź PokraÄŤovat
-                            </button>
-                            <button class="audio-btn-lg stop" id="audio-stop-btn" onclick="AudioStudy.stop()" disabled>
-                                âŹąď¸Ź Stop
-                            </button>
-                            <button class="audio-btn-lg skip" id="audio-skip-btn" onclick="AudioStudy.skip()" disabled>
-                                âŹ­ď¸Ź DalĹˇĂ­
-                            </button>
-                        </div>
-
-                        <!-- Voice and Speed Settings -->
-                        <div class="audio-settings-grid">
-                            <div class="audio-setting">
-                                <span class="audio-setting-label">đź—Łď¸Ź Hlas</span>
-                                <div style="display: flex; gap: 0.5rem;">
-                                    <select class="audio-voice-select" id="audio-voice-select"
-                                        onchange="AudioStudy.setVoice(this.value)">
-                                        <option value="">NaÄŤĂ­tĂˇnĂ­ hlasĹŻ...</option>
-                                    </select>
-                                    <button class="audio-test-btn" onclick="AudioStudy.testVoice()">đź”Š Test</button>
-                                </div>
-                            </div>
-                            <div class="audio-setting">
-                                <span class="audio-setting-label">đźŹ Rychlost ÄŤtenĂ­</span>
-                                <div class="audio-speed-container">
-                                    <input type="range" class="audio-speed-slider" id="audio-speed-slider" min="0.5"
-                                        max="2" step="0.1" value="1" oninput="AudioStudy.setRate(this.value)">
-                                    <span class="audio-speed-value" id="audio-speed-value">1.0x</span>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Pause Settings -->
-                        <div class="audio-pause-settings">
-                            <div class="pause-setting">
-                                <label>âŹ±ď¸Ź Pauza po otĂˇzce:</label>
-                                <input type="number" id="pause-after-question" value="3" min="0" max="10"
-                                    onchange="AudioStudy.saveSettings()"> sec
-                            </div>
-                            <div class="pause-setting">
-                                <label>âŹ±ď¸Ź Pauza po kartiÄŤce:</label>
-                                <input type="number" id="pause-after-card" value="2" min="0" max="10"
-                                    onchange="AudioStudy.saveSettings()"> sec
-                            </div>
-                        </div>
-
-                        <!-- Podcast Mode -->
-                        <div class="audio-podcast-mode">
-                            <div class="podcast-info">
-                                <span class="podcast-icon">đź“»</span>
-                                <div class="podcast-text">
-                                    <h4>Podcast mĂłd</h4>
-                                    <p>PĹ™ehraje vĹˇechny kartiÄŤky jako audio pĹ™ednĂˇĹˇku</p>
-                                </div>
-                            </div>
-                            <button class="podcast-btn" id="podcast-btn" onclick="AudioStudy.startPodcast()">
-                                đźŽ™ď¸Ź Spustit podcast
-                            </button>
-                        </div>
-
-                        <!-- Progress -->
-                        <div class="audio-progress-container" id="audio-progress-container" style="display: none;">
-                            <div class="audio-progress-info">
-                                <span id="audio-progress-text">KartiÄŤka 0 z 0</span>
-                                <span id="audio-progress-percent">0%</span>
-                            </div>
-                            <div class="audio-progress-bar">
-                                <div class="audio-progress-fill" id="audio-progress-fill" style="width: 0%;"></div>
-                            </div>
-                        </div>
-
-                        <!-- Now Playing -->
-                        <div class="audio-now-playing hidden" id="audio-now-playing">
-                            <div class="now-playing-pulse"></div>
-                            <div class="now-playing-text">
-                                <div class="now-playing-label">PrĂˇvÄ› ÄŤte:</div>
-                                <div class="now-playing-content" id="now-playing-content">-</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
 
                 <!-- Empty State -->
                 <div class="ui-state" id="fc-empty-state" style="display: none;">
-                    <span class="ui-state-icon">đźŽ‰</span>
-                    <div class="ui-state-title">VĂ˝bornÄ›!</div>
-                    <div class="ui-state-desc">VĹˇechny kartiÄŤky pro dneĹˇek jsou zvlĂˇdnuty.<br>VraĹĄ se zĂ­tra nebo
+                    <span class="ui-state-icon">🎉</span>
+                    <div class="ui-state-title">Výborně!</div>
+                    <div class="ui-state-desc">Všechny kartičky pro dnešek jsou zvládnuty.<br>Vrať se zítra nebo
                         zkus
-                        kvĂ­z.</div>
+                        kvíz.</div>
                     <div class="btn-row" style="justify-content: center;">
-                        <button class="btn-secondary" onclick="switchSection('quiz')">Spustit kvĂ­z</button>
-                        <button class="btn-secondary" onclick="switchSection('dashboard')">ZpÄ›t na dashboard</button>
+                        <button class="btn-secondary" onclick="switchSection('quiz')">Spustit kvíz</button>
+                        <button class="btn-secondary" onclick="switchSection('dashboard')">Zpět na
+                            dashboard</button>
                     </div>
                 </div>
 
                 <!-- Flashcard Container -->
                 <div id="fc-active-container">
                     <div class="flashcard-progress">
-                        <span id="fc-current">1</span> / <span id="fc-total">0</span> k opakovĂˇnĂ­
+                        <span id="fc-current">1</span> / <span id="fc-total">0</span> k opakování
                     </div>
 
                     <div class="flashcard-container">
                         <div class="flashcard" id="flashcard" onclick="flipCard()">
                             <div class="flashcard-face flashcard-front">
                                 <span class="flashcard-category" id="fc-category">Kategorie</span>
-                                <p class="flashcard-question" id="fc-question">PĹ™ipravuji kartiÄŤky...</p>
+                                <p class="flashcard-question" id="fc-question">Připravuji kartičky...</p>
                                 <span class="flashcard-hint">Klikni nebo stiskni <kbd class="kbd">Space</kbd></span>
                             </div>
                             <div class="flashcard-face flashcard-back">
-                                <p class="flashcard-answer" id="fc-answer">OdpovÄ›ÄŹ...</p>
-                                <div class="flashcard-explanation" id="fc-explanation" style="display: none;"></div>
+                                <p class="flashcard-answer" id="fc-answer">Odpověď...</p>
+                                <div class="flashcard-explanation" id="fc-explanation" style="display: none;">
+                                </div>
                             </div>
                         </div>
                     </div>
 
                     <div class="flashcard-controls" id="fc-controls" style="display: none;">
                         <button class="fc-btn again" onclick="rateCard(0)">Znovu<br><small>
-                                < 1 min</small><kbd class="kbd">1</kbd></button>
-                        <button class="fc-btn hard" onclick="rateCard(1)">TÄ›ĹľkĂ©<br><small>
-                                < 10 min</small><kbd class="kbd">2</kbd></button>
-                        <button class="fc-btn good" onclick="rateCard(2)">DobĹ™e<br><small>1 den</small><kbd
+                                &lt; 1 min</small><kbd class="kbd">1</kbd></button>
+                        <button class="fc-btn hard" onclick="rateCard(1)">Těžké<br><small>
+                                &lt; 10 min</small><kbd class="kbd">2</kbd></button>
+                        <button class="fc-btn good" onclick="rateCard(2)">Dobře<br><small>1 den</small><kbd
                                 class="kbd">3</kbd></button>
-                        <button class="fc-btn easy" onclick="rateCard(3)">SnadnĂ©<br><small>4 dny</small><kbd
+                        <button class="fc-btn easy" onclick="rateCard(3)">Snadné<br><small>4 dny</small><kbd
                                 class="kbd">4</kbd></button>
                     </div>
 
                     <div class="keyboard-hints" id="fc-keyboard-hints">
-                        <span><kbd class="kbd">Space</kbd> OtoÄŤit</span>
+                        <span><kbd class="kbd">Space</kbd> Otočit</span>
                         <span><kbd class="kbd">1-4</kbd> Hodnotit</span>
-                        <span><kbd class="kbd">â†’</kbd> DalĹˇĂ­</span>
+                        <span><kbd class="kbd">→</kbd> Další</span>
                     </div>
                 </div>
             </section>
@@ -304,28 +192,28 @@
                 <div class="quiz-container">
                     <!-- Quiz Setup -->
                     <div id="quiz-setup" class="quiz-question-card">
-                        <h2 style="margin-bottom: 1.5rem; text-align: center;">NastavenĂ­ kvĂ­zu</h2>
+                        <h2 style="margin-bottom: 1.5rem; text-align: center;">Nastavení kvízu</h2>
 
                         <!-- Quiz Mode Selection -->
                         <div style="margin-bottom: 1.5rem;">
-                            <label style="display: block; margin-bottom: 0.5rem; color: #c4c4cc;">ReĹľim
-                                kvĂ­zu:</label>
+                            <label style="display: block; margin-bottom: 0.5rem; color: #c4c4cc;">Režim
+                                kvízu:</label>
                             <div class="quiz-modes-grid">
                                 <button class="quiz-mode-btn selected" data-mode="drill"
                                     onclick="selectQuizMode('drill')">
-                                    <span class="mode-icon">âšˇ</span>
-                                    <span class="mode-label">RychlĂ˝ drill</span>
-                                    <span class="mode-desc">10 otĂˇzek, okamĹľitĂˇ zpÄ›tnĂˇ vazba</span>
+                                    <span class="mode-icon">⚡</span>
+                                    <span class="mode-label">Rychlý drill</span>
+                                    <span class="mode-desc">10 otázek, okamžitá zpětná vazba</span>
                                 </button>
                                 <button class="quiz-mode-btn" data-mode="exam" onclick="selectQuizMode('exam')">
-                                    <span class="mode-icon">đź“ť</span>
-                                    <span class="mode-label">ZkouĹˇkovĂ˝ reĹľim</span>
-                                    <span class="mode-desc">Bez nĂˇpovÄ›d, vĂ˝sledky aĹľ na konci</span>
+                                    <span class="mode-icon">📝</span>
+                                    <span class="mode-label">Zkouškový režim</span>
+                                    <span class="mode-desc">Bez nápověd, výsledky až na konci</span>
                                 </button>
                                 <button class="quiz-mode-btn" data-mode="weakness" onclick="selectQuizMode('weakness')">
-                                    <span class="mode-icon">đźŽŻ</span>
-                                    <span class="mode-label">ProcviÄŤit slabiny</span>
-                                    <span class="mode-desc">OtĂˇzky s nĂ­zkou ĂşspÄ›ĹˇnostĂ­</span>
+                                    <span class="mode-icon">🎯</span>
+                                    <span class="mode-label">Procvičit slabiny</span>
+                                    <span class="mode-desc">Otázky s nízkou úspěšností</span>
                                 </button>
                             </div>
                         </div>
@@ -333,48 +221,48 @@
                         <!-- Question Type Toggle -->
                         <div style="margin-bottom: 1.5rem;">
                             <label style="display: block; margin-bottom: 0.5rem; color: #c4c4cc;">Typ
-                                otĂˇzek:</label>
+                                otázek:</label>
                             <div class="question-type-toggle">
                                 <button class="type-toggle-btn active" data-type="mc"
-                                    onclick="selectQuestionType('mc')">VĂ˝bÄ›r z moĹľnostĂ­</button>
+                                    onclick="selectQuestionType('mc')">Výběr z možností</button>
                                 <button class="type-toggle-btn" data-type="open"
-                                    onclick="selectQuestionType('open')">OtevĹ™enĂˇ odpovÄ›ÄŹ</button>
+                                    onclick="selectQuestionType('open')">Otevřená odpověď</button>
                                 <button class="type-toggle-btn" data-type="mixed"
                                     onclick="selectQuestionType('mixed')">Kombinace</button>
                             </div>
                         </div>
 
                         <div style="margin-bottom: 1.5rem;">
-                            <label style="display: block; margin-bottom: 0.5rem; color: #c4c4cc;">TĂ©ma:</label>
+                            <label style="display: block; margin-bottom: 0.5rem; color: #c4c4cc;">Téma:</label>
                             <select id="quiz-category"
                                 style="width: 100%; padding: 0.75rem; background: var(--bg-light); border: 1px solid var(--border); border-radius: 8px; color: var(--text); font-size: 1rem;">
-                                <option value="all">VĹˇechna tĂ©mata</option>
-                                <option value="ProÄŤ tĹ™Ă­dĂ­me">ProÄŤ tĹ™Ă­dĂ­me</option>
-                                <option value="Co kdo tĹ™Ă­dĂ­">Co kdo tĹ™Ă­dĂ­</option>
-                                <option value="Co tĹ™Ă­dĂ­me">Co tĹ™Ă­dĂ­me</option>
-                                <option value="SelekÄŤnĂ­ jazyky">SelekÄŤnĂ­ jazyky</option>
-                                <option value="SystematickĂ© SJ">SystematickĂ© SJ (DDC, LCC, MDT...)</option>
-                                <option value="PĹ™edmÄ›tovĂ© SJ">PĹ™edmÄ›tovĂ© SJ (tezaury, PH...)</option>
+                                <option value="all">Všechna témata</option>
+                                <option value="Proč třídíme">Proč třídíme</option>
+                                <option value="Co kdo třídí">Co kdo třídí</option>
+                                <option value="Co třídíme">Co třídíme</option>
+                                <option value="Selekční jazyky">Selekční jazyky</option>
+                                <option value="Systematické SJ">Systematické SJ (DDC, LCC, MDT...)</option>
+                                <option value="Předmětové SJ">Předmětové SJ (tezaury, PH...)</option>
                                 <option value="Morfologie SJ">Morfologie a struktura SJ</option>
-                                <option value="Jak tĹ™Ă­dĂ­me">Jak tĹ™Ă­dĂ­me (obsahovĂˇ analĂ˝za)</option>
+                                <option value="Jak třídíme">Jak třídíme (obsahová analýza)</option>
                                 <option value="Indexace">Indexace</option>
-                                <option value="SOD">SOD a redukovanĂ© texty</option>
-                                <option value="VyhledĂˇvĂˇnĂ­">VyhledĂˇvĂˇnĂ­</option>
-                                <option value="SystĂ©my">UniverzĂˇlnĂ­ a oborovĂ© systĂ©my</option>
+                                <option value="SOD">SOD a redukované texty</option>
+                                <option value="Vyhledávání">Vyhledávání</option>
+                                <option value="Systémy">Univerzální a oborové systémy</option>
                                 <option value="Budoucnost">Ontologie a budoucnost</option>
                             </select>
                         </div>
 
                         <div style="margin-bottom: 1.5rem;">
-                            <label style="display: block; margin-bottom: 0.5rem; color: #c4c4cc;">PoÄŤet
-                                otĂˇzek:</label>
+                            <label style="display: block; margin-bottom: 0.5rem; color: #c4c4cc;">Počet
+                                otázek:</label>
                             <select id="quiz-count"
                                 style="width: 100%; padding: 0.75rem; background: var(--bg-light); border: 1px solid var(--border); border-radius: 8px; color: var(--text); font-size: 1rem;">
-                                <option value="10">10 otĂˇzek</option>
-                                <option value="20">20 otĂˇzek</option>
-                                <option value="30">30 otĂˇzek</option>
-                                <option value="50">50 otĂˇzek</option>
-                                <option value="all">VĹˇechny dostupnĂ©</option>
+                                <option value="10">10 otázek</option>
+                                <option value="20">20 otázek</option>
+                                <option value="30">30 otázek</option>
+                                <option value="50">50 otázek</option>
+                                <option value="all">Všechny dostupné</option>
                             </select>
                         </div>
 
@@ -383,7 +271,7 @@
                             style="display: none; margin-bottom: 1.5rem; padding: 1rem; background: var(--bg); border-radius: 8px;">
                             <label style="display: flex; align-items: center; gap: 0.5rem; cursor: pointer;">
                                 <input type="checkbox" id="quiz-timer-enabled" style="width: 18px; height: 18px;">
-                                <span>ÄŚasovĂ˝ limit</span>
+                                <span>Časový limit</span>
                             </label>
                             <select id="quiz-timer-minutes"
                                 style="margin-top: 0.5rem; padding: 0.5rem; background: var(--bg-light); border: 1px solid var(--border); border-radius: 6px; color: var(--text);">
@@ -401,29 +289,29 @@
                                 style="display: flex; align-items: center; gap: 0.5rem; cursor: pointer; margin-bottom: 0.5rem;">
                                 <input type="checkbox" id="ignore-diacritics" style="width: 18px; height: 18px;"
                                     checked>
-                                <span>Ignorovat diakritiku (hĂˇÄŤky, ÄŤĂˇrky)</span>
+                                <span>Ignorovat diakritiku (háčky, čárky)</span>
                             </label>
                             <label style="display: flex; align-items: center; gap: 0.5rem; cursor: pointer;">
                                 <input type="checkbox" id="fuzzy-matching" style="width: 18px; height: 18px;" checked>
-                                <span>Povolit pĹ™eklepy (fuzzy matching)</span>
+                                <span>Povolit překlepy (fuzzy matching)</span>
                             </label>
                         </div>
 
                         <div id="quiz-category-info"
                             style="background: var(--bg); padding: 1rem; border-radius: 8px; margin-bottom: 1.5rem;">
                             <span style="color: var(--secondary); font-weight: 600;" id="available-count">120</span>
-                            <span style="color: #c4c4cc;"> otĂˇzek k dispozici</span>
+                            <span style="color: #c4c4cc;"> otázek k dispozici</span>
                             <span id="weakness-count"
                                 style="display: none; margin-left: 1rem; color: var(--warning);">(<span
-                                    id="weak-questions-num">0</span> slabĂ˝ch)</span>
+                                    id="weak-questions-num">0</span> slabých)</span>
                         </div>
 
                         <div style="display: flex; gap: 0.75rem; flex-wrap: wrap;">
                             <button class="quiz-btn" onclick="startQuizWithSettings()" style="flex: 1;">Spustit
-                                kvĂ­z</button>
+                                kvíz</button>
                             <button class="btn-secondary" onclick="showMistakeBank()"
                                 style="display: flex; align-items: center; gap: 0.5rem;">
-                                đź“‹ Banka chyb <span id="mistake-count-badge"
+                                📋 Banka chyb <span id="mistake-count-badge"
                                     style="background: var(--danger); color: white; padding: 0.15rem 0.5rem; border-radius: 10px; font-size: 0.75rem;">0</span>
                             </button>
                         </div>
@@ -433,8 +321,8 @@
                     <div id="mistake-bank-view" class="quiz-question-card" style="display: none;">
                         <div
                             style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
-                            <h2 style="margin: 0;">đź“‹ Banka chyb</h2>
-                            <button class="btn-secondary" onclick="hideMistakeBank()">â† ZpÄ›t</button>
+                            <h2 style="margin: 0;">📋 Banka chyb</h2>
+                            <button class="btn-secondary" onclick="hideMistakeBank()">← Zpět</button>
                         </div>
 
                         <div class="quiz-stats-summary" id="mistake-stats">
@@ -444,40 +332,39 @@
                             </div>
                             <div class="stat-box">
                                 <div class="stat-box-value" id="unresolved-mistakes">0</div>
-                                <div class="stat-box-label">NevyĹ™eĹˇenĂ˝ch</div>
+                                <div class="stat-box-label">Nevyřešených</div>
                             </div>
                             <div class="stat-box">
                                 <div class="stat-box-value" id="resolved-mistakes">0</div>
-                                <div class="stat-box-label">VyĹ™eĹˇenĂ˝ch</div>
+                                <div class="stat-box-label">Vyřešených</div>
                             </div>
                         </div>
 
                         <div class="btn-row" style="margin-bottom: 1rem;">
-                            <button class="btn-secondary" onclick="practiceMistakes()">đźŽŻ ProcviÄŤit chyby</button>
-                            <button class="btn-secondary" onclick="exportMistakesCSV()">đź“Ą Export CSV</button>
-                            <button class="btn-secondary" onclick="clearResolvedMistakes()">đź—‘ď¸Ź Smazat
-                                vyĹ™eĹˇenĂ©</button>
+                            <button class="btn-secondary" onclick="practiceMistakes()">🎯 Procvičit chyby</button>
+                            <button class="btn-secondary" onclick="exportMistakesCSV()">📥 Export CSV</button>
+                            <button class="btn-secondary" onclick="clearResolvedMistakes()">🗑️ Smazat vyřešené</button>
                         </div>
 
                         <div class="mistake-bank-container" id="mistake-list">
                             <div class="ui-state">
-                                <span class="ui-state-icon">âś¨</span>
-                                <div class="ui-state-title">Ĺ˝ĂˇdnĂ© chyby!</div>
-                                <div class="ui-state-desc">ZatĂ­m jsi neudÄ›lal/a ĹľĂˇdnĂ© chyby v kvĂ­zech.</div>
+                                <span class="ui-state-icon">✨</span>
+                                <div class="ui-state-title">Žádné chyby!</div>
+                                <div class="ui-state-desc">Zatím jsi neudělal/a žádné chyby v kvízech.</div>
                             </div>
                         </div>
                     </div>
 
                     <!-- Quiz Header -->
                     <div class="quiz-header" id="quiz-header-bar" style="display: none;">
-                        <span id="quiz-counter">OtĂˇzka 1/10</span>
+                        <span id="quiz-counter">Otázka 1/10</span>
                         <div class="quiz-progress-bar">
                             <div class="quiz-progress-fill" id="quiz-progress" style="width: 10%;"></div>
                         </div>
                         <div style="display: flex; align-items: center; gap: 1rem;">
-                            <span id="quiz-score">SkĂłre: 0</span>
+                            <span id="quiz-score">Skóre: 0</span>
                             <div class="quiz-timer" id="quiz-timer" style="display: none;">
-                                âŹ±ď¸Ź <span id="quiz-time-remaining">20:00</span>
+                                ⏳ <span id="quiz-time-remaining">20:00</span>
                             </div>
                         </div>
                     </div>
@@ -485,7 +372,7 @@
                     <div class="quiz-question-card" id="quiz-card" style="display: none;">
                         <div
                             style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
-                            <div class="quiz-question-number" id="quiz-q-num">OtĂˇzka 1</div>
+                            <div class="quiz-question-number" id="quiz-q-num">Otázka 1</div>
                             <div style="display: flex; align-items: center; gap: 0.5rem;">
                                 <span id="quiz-q-type-badge"
                                     style="background: var(--secondary); padding: 0.2rem 0.5rem; border-radius: 8px; font-size: 0.7rem;">MC</span>
@@ -494,12 +381,12 @@
                                     id="quiz-q-cat">Kategorie</span>
                             </div>
                         </div>
-                        <div class="quiz-question-text" id="quiz-question">NaÄŤĂ­tĂˇm otĂˇzku...</div>
+                        <div class="quiz-question-text" id="quiz-question">Načítám otázku...</div>
 
                         <!-- Hint Section -->
                         <div id="quiz-hint-container" style="display: none;">
                             <button class="quiz-hint-btn" onclick="toggleHint()">
-                                đź’ˇ Zobrazit nĂˇpovÄ›du
+                                💡 Zobrazit nápovědu
                             </button>
                             <div class="quiz-hint-box" id="quiz-hint-text"></div>
                         </div>
@@ -509,15 +396,15 @@
 
                         <!-- Open Answer Input -->
                         <div id="quiz-open-container" style="display: none;">
-                            <textarea class="quiz-open-answer" id="quiz-open-input"
-                                placeholder="NapiĹˇ svou odpovÄ›ÄŹ..." rows="3"></textarea>
+                            <textarea class="quiz-open-answer" id="quiz-open-input" placeholder="Napiš svou odpověď..."
+                                rows="3"></textarea>
                             <div
                                 style="display: flex; justify-content: space-between; align-items: center; margin-top: 0.5rem;">
                                 <div class="keyboard-hints" style="margin: 0; font-size: 0.75rem;">
                                     <span><kbd class="kbd">Enter</kbd> Odeslat</span>
                                 </div>
                                 <button class="quiz-btn" id="submit-open-btn" onclick="submitOpenAnswer()"
-                                    style="padding: 0.5rem 1.5rem;">Odeslat odpovÄ›ÄŹ</button>
+                                    style="padding: 0.5rem 1.5rem;">Odeslat odpověď</button>
                             </div>
                         </div>
 
@@ -525,42 +412,40 @@
                         <div id="quiz-feedback-container" style="display: none;"></div>
 
                         <button class="quiz-btn" id="quiz-btn" onclick="nextQuestion()" disabled
-                            style="margin-top: 1rem;">DalĹˇĂ­ otĂˇzka</button>
+                            style="margin-top: 1rem;">Další otázka</button>
 
-                        <!-- Keyboard Hints -->
                         <div class="keyboard-hints" id="quiz-keyboard-hints" style="margin-top: 0.75rem;">
-                            <span><kbd class="kbd">1-4</kbd> Vybrat moĹľnost</span>
-                            <span><kbd class="kbd">Enter</kbd> DalĹˇĂ­</span>
-                            <span><kbd class="kbd">Esc</kbd> UkonÄŤit</span>
+                            <span><kbd class="kbd">1-4</kbd> Vybrat možnost</span>
+                            <span><kbd class="kbd">Enter</kbd> Další</span>
+                            <span><kbd class="kbd">Esc</kbd> Ukončit</span>
                         </div>
                     </div>
 
                     <div class="results-container" id="quiz-results" style="display: none;">
                         <div class="results-score" id="final-score">0%</div>
-                        <div class="results-message" id="results-message">VĂ˝bornÄ›!</div>
+                        <div class="results-message" id="results-message">Výborně!</div>
                         <div id="results-details"
                             style="margin: 2rem 0; text-align: left; background: var(--bg-card); padding: 1.5rem; border-radius: 12px;">
                         </div>
-                        <button class="quiz-btn" onclick="showQuizSetup()">NovĂ˝ kvĂ­z</button>
+                        <button class="quiz-btn" onclick="showQuizSetup()">Nový kvíz</button>
                     </div>
                 </div>
             </section>
 
             <!-- Concept Maps -->
             <section id="maps" class="section">
-                <h1 style="margin-bottom: 1rem;">KonceptovĂ© mapy</h1>
-                <p style="color: #c4c4cc; margin-bottom: 2rem;">VizuĂˇlnĂ­ pĹ™ehled klĂ­ÄŤovĂ˝ch konceptĹŻ a jejich
-                    vztahĹŻ
-                    (Dual Coding). Klikni na kartu pro rozbalenĂ­ obsahu.</p>
+                <h1 style="margin-bottom: 1rem;">Konceptové mapy</h1>
+                <p style="color: #c4c4cc; margin-bottom: 2rem;">Vizuální přehled klíčových konceptů a jejich vztahů
+                    (Dual Coding). Klikni na kartu pro rozbalení obsahu.</p>
 
                 <div class="concept-maps-container" id="concept-maps-container">
-                    <!-- Dynamicky generovĂˇno JavaScriptem -->
+                    <!-- Dynamicky generováno JavaScriptem -->
                 </div>
             </section>
 
             <!-- Topics -->
             <section id="topics" class="section">
-                <h1 style="margin-bottom: 2rem;">TĂ©mata ke studiu</h1>
+                <h1 style="margin-bottom: 2rem;">Témata ke studiu</h1>
                 <div class="topics-grid" id="topics-grid"></div>
             </section>
         </div>
@@ -570,7 +455,7 @@
     <div class="modal" id="topic-modal">
         <div class="modal-content">
             <div class="modal-header">
-                <h2 class="modal-title" id="modal-title">TĂ©ma</h2>
+                <h2 class="modal-title" id="modal-title">Téma</h2>
                 <button class="modal-close" onclick="closeModal()">&times;</button>
             </div>
             <div id="modal-body"></div>
@@ -581,38 +466,36 @@
     <div class="modal" id="help-modal">
         <div class="modal-content" style="max-width: 600px;">
             <div class="modal-header">
-                <h2 class="modal-title">Jak pouĹľĂ­vat StudyPrep</h2>
+                <h2 class="modal-title">Jak používat StudyPrep</h2>
                 <button class="modal-close" onclick="closeHelpModal()">&times;</button>
             </div>
             <div style="line-height: 1.8;">
-                <h3 style="color: var(--primary); margin: 1rem 0 0.5rem;">đźŽ´ Spaced Repetition (SRS)</h3>
-                <p>Aplikace pouĹľĂ­vĂˇ algoritmus SM-2 pro optimĂˇlnĂ­ rozloĹľenĂ­ opakovĂˇnĂ­. KartiÄŤky se zobrazujĂ­
-                    podle toho,
-                    kdy je potĹ™eba je zopakovat.</p>
+                <h3 style="color: var(--primary); margin: 1rem 0 0.5rem;">🎴 Spaced Repetition (SRS)</h3>
+                <p>Aplikace používá algoritmus SM-2 pro optimální rozložení opakování. Kartičky se zobrazují podle toho,
+                    kdy je potřeba je zopakovat.</p>
                 <ul style="margin: 0.5rem 0 1rem 1.5rem;">
-                    <li><strong>Znovu</strong> - KartiÄŤku uvidĂ­Ĺˇ znovu za pĂˇr minut</li>
-                    <li><strong>TÄ›ĹľkĂ©</strong> - Interval se zkrĂˇtĂ­</li>
-                    <li><strong>DobĹ™e</strong> - Interval se prodlouĹľĂ­ (1â†’3â†’7â†’14 dnĹŻ...)</li>
-                    <li><strong>SnadnĂ©</strong> - Interval se vĂ˝raznÄ› prodlouĹľĂ­</li>
+                    <li><strong>Znovu</strong> - Kartičku uvidíš znovu za pár minut</li>
+                    <li><strong>Těžké</strong> - Interval se zkrátí</li>
+                    <li><strong>Dobře</strong> - Interval se prodlouží (1→3→7→14 dnů...)</li>
+                    <li><strong>Snadné</strong> - Interval se výrazně prodlouží</li>
                 </ul>
 
-                <h3 style="color: var(--primary); margin: 1rem 0 0.5rem;">âŚ¨ď¸Ź KlĂˇvesovĂ© zkratky</h3>
+                <h3 style="color: var(--primary); margin: 1rem 0 0.5rem;">⌨️ Klávesové zkratky</h3>
                 <ul style="margin: 0.5rem 0 1rem 1.5rem;">
-                    <li><kbd class="kbd">Space</kbd> - OtoÄŤit kartiÄŤku / Zobrazit odpovÄ›ÄŹ</li>
+                    <li><kbd class="kbd">Space</kbd> - Otočit kartičku / Zobrazit odpověď</li>
                     <li><kbd class="kbd">1</kbd> - Znovu</li>
-                    <li><kbd class="kbd">2</kbd> - TÄ›ĹľkĂ©</li>
-                    <li><kbd class="kbd">3</kbd> - DobĹ™e</li>
-                    <li><kbd class="kbd">4</kbd> - SnadnĂ©</li>
-                    <li><kbd class="kbd">â†’</kbd> - DalĹˇĂ­ kartiÄŤka (bez hodnocenĂ­)</li>
+                    <li><kbd class="kbd">2</kbd> - Těžké</li>
+                    <li><kbd class="kbd">3</kbd> - Dobře</li>
+                    <li><kbd class="kbd">4</kbd> - Snadné</li>
+                    <li><kbd class="kbd">→</kbd> - Další kartička (bez hodnocení)</li>
                 </ul>
 
-                <h3 style="color: var(--primary); margin: 1rem 0 0.5rem;">đź“Ą Import/Export</h3>
-                <p>Data mĹŻĹľeĹˇ exportovat do CSV a pozdÄ›ji importovat. FormĂˇt:
-                    <code>topic,front,back,explanation</code>
+                <h3 style="color: var(--primary); margin: 1rem 0 0.5rem;">📥 Import/Export</h3>
+                <p>Data můžeš exportovat do CSV a později importovat. Formát: <code>topic,front,back,explanation</code>
                 </p>
 
-                <h3 style="color: var(--primary); margin: 1rem 0 0.5rem;">đźŽ§ Audio Loop</h3>
-                <p>ReĹľim pro hands-free studium. ÄŚte otĂˇzky a odpovÄ›di nahlas pomocĂ­ Web Speech API.</p>
+                <h3 style="color: var(--primary); margin: 1rem 0 0.5rem;">🎧 Audio Loop</h3>
+                <p>Režim pro hands-free studium. Čte otázky a odpovědi nahlas pomocí Web Speech API.</p>
             </div>
         </div>
     </div>
@@ -626,71 +509,40 @@
             </div>
 
             <div style="margin-bottom: 1.5rem;">
-                <h3 style="color: var(--secondary); margin-bottom: 0.5rem;">Export kartiÄŤek (CSV)</h3>
-                <p style="color: #c4c4cc; font-size: 0.9rem; margin-bottom: 0.5rem;">FormĂˇt:
+                <h3 style="color: var(--secondary); margin-bottom: 0.5rem;">Export kartiček (CSV)</h3>
+                <p style="color: #c4c4cc; font-size: 0.9rem; margin-bottom: 0.5rem;">Formát:
                     topic,front,back,explanation</p>
                 <div class="btn-row">
-                    <button class="btn-secondary" onclick="exportFlashcardsCSV()">đź“Ą Exportovat kartiÄŤky</button>
-                    <button class="btn-secondary" onclick="exportQuizCSV()">đź“Ą Exportovat kvĂ­zovĂ© otĂˇzky</button>
-                    <button class="btn-secondary" onclick="exportProgress()">đź’ľ Exportovat pokrok</button>
+                    <button class="btn-secondary" onclick="exportFlashcardsCSV()">📥 Exportovat kartičky</button>
+                    <button class="btn-secondary" onclick="exportQuizCSV()">📥 Exportovat kvízové otázky</button>
+                    <button class="btn-secondary" onclick="exportProgress()">💾 Exportovat pokrok</button>
                 </div>
             </div>
 
             <div style="margin-bottom: 1.5rem;">
-                <h3 style="color: var(--secondary); margin-bottom: 0.5rem;">Import kartiÄŤek (CSV)</h3>
-                <p style="color: #c4c4cc; font-size: 0.9rem; margin-bottom: 0.5rem;">VloĹľ CSV data ve formĂˇtu:
+                <h3 style="color: var(--secondary); margin-bottom: 0.5rem;">Import kartiček (CSV)</h3>
+                <p style="color: #c4c4cc; font-size: 0.9rem; margin-bottom: 0.5rem;">Vlož CSV data ve formátu:
                     topic,front,back,explanation</p>
                 <textarea class="import-export-area" id="import-data" placeholder="topic,front,back,explanation
-ProÄŤ tĹ™Ă­dĂ­me,Co je informaÄŤnĂ­ exploze?,RĹŻst mnoĹľstvĂ­ dat...,VysvÄ›tlenĂ­ proÄŤ je to dĹŻleĹľitĂ©"></textarea>
+Proč třídíme,Co je informační exploze?,Růst množství dat...,Vysvětlení proč je to důležité"></textarea>
                 <div class="btn-row">
-                    <button class="btn-secondary" onclick="importFlashcardsCSV()">đź“¤ Importovat kartiÄŤky</button>
-                    <button class="btn-secondary" onclick="importProgress()">đź“¤ Importovat pokrok</button>
+                    <button class="btn-secondary" onclick="importFlashcardsCSV()">📥 Importovat kartičky</button>
+                    <button class="btn-secondary" onclick="importProgress()">📥 Importovat pokrok</button>
                 </div>
             </div>
 
             <div style="margin-bottom: 1rem;">
-                <h3 style="color: var(--warning); margin-bottom: 0.5rem;">âš ď¸Ź Reset dat</h3>
-                <p style="color: #c4c4cc; font-size: 0.9rem; margin-bottom: 0.5rem;">SmaĹľe veĹˇkerĂ˝ pokrok a
-                    vrĂˇtĂ­ aplikaci do vĂ˝chozĂ­ho stavu.</p>
+                <h3 style="color: var(--warning); margin-bottom: 0.5rem;">⚠️ Reset dat</h3>
+                <p style="color: #c4c4cc; font-size: 0.9rem; margin-bottom: 0.5rem;">Smaže veškerý pokrok a
+                    vrátí aplikaci do výchozího stavu.</p>
                 <button class="btn-secondary" style="border-color: var(--danger); color: var(--danger);"
-                    onclick="resetAllProgress()">đź—‘ď¸Ź Resetovat pokrok</button>
+                    onclick="resetAllProgress()">🗑️ Resetovat pokrok</button>
             </div>
 
             <div id="import-export-status"
                 style="margin-top: 1rem; padding: 0.75rem; border-radius: 8px; display: none;"></div>
         </div>
     </div>
-
-    <!-- Profile Modal (Gamification) -->
-    <div class="modal" id="profile-modal">
-        <div class="modal-content" style="max-width: 800px;">
-            <div class="modal-header">
-                <button class="modal-close" onclick="closeProfileModal()">&times;</button>
-            </div>
-
-            <div class="profile-header">
-                <div class="profile-avatar">🎓</div>
-                <div class="profile-level" id="profile-level-text">Level 1: Nováček</div>
-                <div class="profile-xp-details">
-                    <span id="profile-xp-current">0</span> / <span id="profile-xp-next">100</span> XP
-                </div>
-                <div class="large-xp-bar">
-                    <div class="xp-bar-fill" id="profile-xp-bar" style="width: 0%"></div>
-                </div>
-            </div>
-
-            <div class="modal-section-title">
-                <span>🏅 Tvoje odznaky</span>
-            </div>
-
-            <div class="badges-grid" id="badges-grid">
-                <!-- Badges will be generated here -->
-            </div>
-        </div>
-    </div>
-
-    <!-- Toast Container -->
-    <div class="toast-container" id="toast-container"></div>
 
     <script src="js/terms.js"></script>
     <script src="js/data.js"></script>
