@@ -4580,13 +4580,13 @@ Proč třídíme,Co je informační exploze?,Růst množství dat...,Vysvětlen�
         let quizTimeRemaining = 0;
 
         // Mistake Bank
-        let mistakeBank = [];
+        let mistakeBank = JSON.parse(localStorage.getItem('mistakeBank')) || [];
 
         // Question Statistics (per-question)
-        let questionStats = {};
+        let questionStats = JSON.parse(localStorage.getItem('questionStats')) || {};
 
         // Topic Statistics (per-topic)
-        let topicStats = {};
+        let topicStats = JSON.parse(localStorage.getItem('topicStats')) || {};
 
         // ========== UTILITY FUNCTIONS - Czech Text Normalization ==========
         const czechDiacriticsMap = {
