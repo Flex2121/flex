@@ -5747,11 +5747,17 @@ Proč třídíme,Co je informační exploze?,Růst množství dat...,Vysvětlen�
             // Map question hashes back to questions is tricky without a direct map.
             // We'll iterate over all questions in quizData and look up their stats.
 
+            let totalAnswered = 0;
+            let totalCorrect = 0;
+
             quizData.forEach(q => {
                 const qId = hashQuestion(q);
                 const stats = questionStats[qId];
 
                 if (stats && stats.attempts > 0) {
+                    totalAnswered += stats.attempts;
+                    totalCorrect += stats.correct;
+
                     const successRate = (stats.correct / stats.attempts) * 100;
                     items.push({
                         q: q,
@@ -5760,6 +5766,11 @@ Proč třídíme,Co je informační exploze?,Růst množství dat...,Vysvětlen�
                     });
                 }
             });
+
+            // Update Global Counters UI
+            document.getElementById('stats-total-answered').textContent = totalAnswered;
+            document.getElementById('stats-total-correct').textContent = totalCorrect;
+            document.getElementById('stats-total-incorrect').textContent = totalAnswered - totalCorrect;
 
             // Filter
             if (currentStatsFilter === 'worst') {
