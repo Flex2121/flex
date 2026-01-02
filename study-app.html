@@ -4944,15 +4944,79 @@ Proč třídíme,Co je informační exploze?,Růst množství dat...,Vysvětlen�
                 (type === 'open' || type === 'mixed') ? 'block' : 'none';
         }
 
-        function showQuizSetup() {
-            document.getElementById('quiz-setup').style.display = 'block';
-            document.getElementById('mistake-bank-view').style.display = 'none';
-            document.getElementById('quiz-header-bar').style.display = 'none';
-            document.getElementById('quiz-card').style.display = 'none';
-            document.getElementById('quiz-results').style.display = 'none';
-            stopQuizTimer();
-            updateAvailableCount();
-            renderMistakeBank();
+        // Gamification State & Functions (Global)
+        let userXP = parseInt(localStorage.getItem('flex_user_xp_v1')) || 0;
+        let userLevel = 1;
+        const LEVEL_THRESHOLDS = [0, 500, 1200, 2200, 3500, 5000, 7000, 10000, 15000, 25000]; // XP required for level N (index+1)
+
+        // Calculate initial level
+        calculateLevel();
+
+        function calculateLevel() {
+            let lvl = 1;
+            for (let i = 0; i < LEVEL_THRESHOLDS.length; i++) {
+                if (userXP >= LEVEL_THRESHOLDS[i]) {
+                    lvl = i + 1;
+                } else {
+                    break;
+                }
+            }
+            if (lvl !== userLevel) {
+                userLevel = lvl;
+                // Could trigger level up animation here if it changed during session
+            }
+            return lvl;
+        }
+
+        function addXP(amount, reason = '') {
+            const oldLevel = userLevel;
+            userXP += amount;
+            localStorage.setItem('flex_user_xp_v1', userXP);
+
+            calculateLevel();
+
+            // Visual feedback
+            showFloatingXP(amount, reason);
+            updateStats(); // Update dashboard
+
+            if (userLevel > oldLevel) {
+                showLevelUpModal(userLevel);
+            }
+        }
+
+        function showFloatingXP(amount, reason) {
+            // Find a good anchor. If in quiz, use quiz container. Default to body.
+            const container = document.querySelector('.quiz-container') || document.body;
+
+            const float = document.createElement('div');
+            float.className = 'xp-float';
+            float.innerHTML = `+${amount} XP <small>${reason}</small>`;
+            float.style.cssText = `
+                position: fixed;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                background: var(--gradient-3);
+                color: #000;
+                padding: 0.5rem 1rem;
+                border-radius: 20px;
+                font-weight: bold;
+                pointer-events: none;
+                z-index: 9999;
+                animation: floatUp 1.5s ease-out forwards;
+                box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            `;
+
+            document.body.appendChild(float);
+
+            setTimeout(() => {
+                float.remove();
+            }, 1500);
+        }
+
+        function showLevelUpModal(level) {
+            alert(`🎉 LEVEL UP! 🎉\n\nDosáhl/a jsi úrovně ${level}!`);
+            // Later we can make a nice modal
         }
 
         function startQuizWithSettings() {
@@ -4971,94 +5035,11 @@ Proč třídíme,Co je informační exploze?,Růst množství dat...,Vysvětlen�
             const countSelect = document.getElementById('quiz-count').value;
             const count = countSelect === 'all' ? filtered.length : Math.min(parseInt(countSelect), filtered.length);
 
-            let quizTimer = null;
-            let quizTimeRemaining = 0;
-            let quizState = {
-                current: 0,
-                score: 0,
-                answered: false,
-                questions: [],
-                total: 0,
-                wrongAnswers: [],
-                mode: 'drill', // drill, exam, weakness
-                questionType: 'mc', // mc, open, mixed
-                examAnswers: [] // For exam mode deferred feedback
-            };
+            // Reset global state
+            quizTimer = null;
+            quizTimeRemaining = 0;
 
-            // Gamification State
-            let userXP = parseInt(localStorage.getItem('flex_user_xp_v1')) || 0;
-            let userLevel = 1;
-            const LEVEL_THRESHOLDS = [0, 500, 1200, 2200, 3500, 5000, 7000, 10000, 15000, 25000]; // XP required for level N (index+1)
-
-            // Calculate initial level
-            calculateLevel();
-
-            function calculateLevel() {
-                let lvl = 1;
-                for (let i = 0; i < LEVEL_THRESHOLDS.length; i++) {
-                    if (userXP >= LEVEL_THRESHOLDS[i]) {
-                        lvl = i + 1;
-                    } else {
-                        break;
-                    }
-                }
-                if (lvl !== userLevel) {
-                    userLevel = lvl;
-                    // Could trigger level up animation here if it changed during session
-                }
-                return lvl;
-            }
-
-            function addXP(amount, reason = '') {
-                const oldLevel = userLevel;
-                userXP += amount;
-                localStorage.setItem('flex_user_xp_v1', userXP);
-
-                calculateLevel();
-
-                // Visual feedback
-                showFloatingXP(amount, reason);
-                updateStats(); // Update dashboard
-
-                if (userLevel > oldLevel) {
-                    showLevelUpModal(userLevel);
-                }
-            }
-
-            function showFloatingXP(amount, reason) {
-                // Find a good anchor. If in quiz, use quiz container. Default to body.
-                const container = document.querySelector('.quiz-container') || document.body;
-
-                const float = document.createElement('div');
-                float.className = 'xp-float';
-                float.innerHTML = `+${amount} XP <small>${reason}</small>`;
-                float.style.cssText = `
-                    position: fixed;
-                    top: 50%;
-                    left: 50%;
-                    transform: translate(-50%, -50%);
-                    background: var(--gradient-3);
-                    color: #000;
-                    padding: 0.5rem 1rem;
-                    border-radius: 20px;
-                    font-weight: bold;
-                    pointer-events: none;
-                    z-index: 9999;
-                    animation: floatUp 1.5s ease-out forwards;
-                    box-shadow: 0 4px 15px rgba(0,0,0,0.3);
-                `;
-
-                document.body.appendChild(float);
-
-                setTimeout(() => {
-                    float.remove();
-                }, 1500);
-            }
-
-            function showLevelUpModal(level) {
-                alert(`🎉 LEVEL UP! 🎉\n\nDosáhl/a jsi úrovně ${level}!`);
-                // Later we can make a nice modal
-            }
+            // Gamification logic moved to global scope
 
             quizState = {
                 current: 0,
