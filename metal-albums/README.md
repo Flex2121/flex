@@ -6,6 +6,15 @@ Aplikace pro monitorování nových metalových a rockových alb z celého svět
 
 Aplikace **funguje hned** s testovacími mock daty! Nepotřebuješ nastavovat žádné API klíče.
 
+**Varianta 1: Automatický start (doporučeno)**
+
+```bash
+cd metal-albums
+./start.sh
+```
+
+**Varianta 2: Manuální start**
+
 ```bash
 # 1. Spusť backend
 cd backend
