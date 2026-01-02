@@ -1,4 +1,6 @@
-﻿const flashcardsData = window.studyData.flashcards; const quizData = window.studyData.quizzes; const topicsData = window.studyData.topics;
+﻿console.log('App.js execution started');
+// Data references - initialized in init() after data.js loads
+let flashcardsData, quizData, topicsData;
 // ========== STATE ==========
 let currentCardIndex = 0;
 let currentDueIndex = 0;
@@ -1085,6 +1087,13 @@ function showResults() {
     if (history.length > 20) history.shift();
     localStorage.setItem('quizHistory', JSON.stringify(history));
     updateStats();
+
+    // Gamification check
+    Gamification.checkBadges('quiz_end', {
+        score: quizState.score,
+        count: quizState.total,
+        scorePercent: percent
+    });
 }
 
 // Initialize category selector
@@ -2550,6 +2559,7 @@ const AudioStudy = {
     }
 };
 
+console.log('Defining Gamification object...');
 // Gamification functions
 const Gamification = {
     state: {
@@ -2559,17 +2569,10 @@ const Gamification = {
         unlockedBadges: {} // Map for easy lookup with timestamps
     },
 
-    badges: [
-        { id: 'first_step', name: 'První krok', icon: '🥇', desc: 'Dokonči první aktivitu', condition: (ctx) => true },
-        { id: 'on_fire_3', name: 'On Fire', icon: '🔥', desc: '3 dny v řadě', condition: (ctx) => studyStreak >= 3 },
-        { id: 'week_warrior', name: 'Week Warrior', icon: '📅', desc: '7 dnů v řadě', condition: (ctx) => studyStreak >= 7 },
-        { id: 'night_owl', name: 'Night Owl', icon: '🦉', desc: 'Studium po 22:00', condition: (ctx) => new Date().getHours() >= 22 },
-        { id: 'early_bird', name: 'Early Bird', icon: '☀️', desc: 'Studium před 6:00', condition: (ctx) => new Date().getHours() < 6 },
-        { id: 'quiz_master', name: 'Quiz Master', icon: '🧠', desc: '100% v kvízu (min 5 otázek)', condition: (ctx) => ctx.type === 'quiz_end' && ctx.score === 100 && ctx.count >= 5 },
-        { id: 'card_shark', name: 'Card Shark', icon: '🃏', desc: '20 karet v jedné session', condition: (ctx) => ctx.type === 'card' && cardsStudiedToday >= 20 }
-    ],
+    badges: [],
 
     init() {
+        console.log('Gamification.init called');
         const saved = localStorage.getItem('userState');
         if (saved) {
             this.state = JSON.parse(saved);
@@ -2622,7 +2625,7 @@ const Gamification = {
             }
 
             // Update global and storage
-            lastStudyDate = today;
+            lastStudyDate = new Date().toLocaleDateString();
             localStorage.setItem('studyStreak', studyStreak.toString());
             localStorage.setItem('lastStudyDate', lastStudyDate);
 
@@ -2635,33 +2638,20 @@ const Gamification = {
     },
 
     checkLevelUp() {
-        const newLevel = Math.floor(Math.sqrt(this.state.xp / 100)) + 1;
+        // Simple level formula: level = floor(1 + sqrt(xp / 100))
+        const newLevel = Math.floor(1 + Math.sqrt(this.state.xp / 100));
+
         if (newLevel > this.state.level) {
+            const oldLevel = this.state.level;
             this.state.level = newLevel;
-            this.showToast('LEVEL UP!', `Dosáhl jsi úrovně ${newLevel}`, '🎉');
-            // Play sound or animation here if desired
+            this.handleLevelUp(newLevel);
         }
     },
 
-    checkBadges(type, context = {}) {
-        const ctx = { type, ...context };
-
-        this.badges.forEach(badge => {
-            if (this.state.unlockedBadges[badge.id]) return; // Already unlocked
-
-            if (badge.condition(ctx)) {
-                this.unlockBadge(badge);
-            }
-        });
-    },
-
-    unlockBadge(badge) {
-        this.state.badges.push(badge.id);
-        this.state.unlockedBadges[badge.id] = Date.now();
-        this.showToast('Nový odznak!', badge.name, badge.icon);
-        this.addXP(100, 'Badge Bonus');
+    handleLevelUp(level) {
+        this.showToast(`🎉 Level Up! Jsi nyní na úrovni ${level}!`, 'Gratulujeme!', '⭐');
         this.save();
-        this.renderBadges();
+        this.updateUI();
     },
 
     save() {
@@ -2669,29 +2659,27 @@ const Gamification = {
     },
 
     updateUI() {
-        // Navbar
-        const navLevel = document.getElementById('nav-level');
-        const navBar = document.getElementById('nav-xp-bar');
-        if (navLevel) navLevel.textContent = this.state.level;
+        const xpBar = document.getElementById('nav-xp-bar');
+        const levelBadge = document.getElementById('nav-level');
+        const profileLevel = document.getElementById('profile-level-text');
+        const profileXp = document.getElementById('profile-xp-current');
+        const profileNextXp = document.getElementById('profile-xp-next');
+        const profileBar = document.getElementById('profile-xp-bar');
 
-        const xpForNextLevel = Math.pow(this.state.level, 2) * 100;
-        const xpForCurrentLevel = Math.pow(this.state.level - 1, 2) * 100;
-        const progress = Math.round(((this.state.xp - xpForCurrentLevel) / (xpForNextLevel - xpForCurrentLevel)) * 100) || 0;
+        // Calculate progress
+        const currentLevelBaseXP = 100 * Math.pow(this.state.level - 1, 2);
+        const nextLevelBaseXP = 100 * Math.pow(this.state.level, 2);
+        const levelXP = this.state.xp - currentLevelBaseXP;
+        const levelRange = nextLevelBaseXP - currentLevelBaseXP;
+        const progress = Math.min(100, Math.max(0, (levelXP / levelRange) * 100));
 
-        if (navBar) navBar.style.width = `${Math.min(100, progress)}%`;
+        if (xpBar) xpBar.style.width = `${progress}%`;
+        if (levelBadge) levelBadge.textContent = this.state.level;
 
-        // Profile Modal
-        const profileLevelText = document.getElementById('profile-level-text');
-        if (profileLevelText) profileLevelText.textContent = `Level ${this.state.level}: ${this.getLevelTitle(this.state.level)}`;
-
-        const profileXpCurrent = document.getElementById('profile-xp-current');
-        if (profileXpCurrent) profileXpCurrent.textContent = this.state.xp;
-
-        const profileXpNext = document.getElementById('profile-xp-next');
-        if (profileXpNext) profileXpNext.textContent = xpForNextLevel;
-
-        const profileXpBar = document.getElementById('profile-xp-bar');
-        if (profileXpBar) profileXpBar.style.width = `${Math.min(100, progress)}%`;
+        if (profileLevel) profileLevel.textContent = `Level ${this.state.level} - ${this.getLevelTitle(this.state.level)}`;
+        if (profileXp) profileXp.textContent = Math.floor(this.state.xp);
+        if (profileNextXp) profileNextXp.textContent = Math.floor(nextLevelBaseXP);
+        if (profileBar) profileBar.style.width = `${progress}%`;
     },
 
     getLevelTitle(level) {
@@ -2702,25 +2690,56 @@ const Gamification = {
         return 'Profesor';
     },
 
-    renderBadges() {
-        const container = document.getElementById('badges-grid');
-        if (!container) return;
+    checkBadges(type, context = {}) {
+        const ctx = { ...context, type, xp: this.state.xp, level: this.state.level };
+        let newBadges = false;
 
-        container.innerHTML = '';
         this.badges.forEach(badge => {
-            const isUnlocked = !!this.state.unlockedBadges[badge.id];
-            const el = document.createElement('div');
-            el.className = `badge-item ${isUnlocked ? 'unlocked' : ''}`;
-            el.innerHTML = `
-                <div class="badge-icon">${badge.icon}</div>
-                <div class="badge-name">${badge.name}</div>
-                <div class="badge-desc">${badge.desc}</div>
-            `;
-            container.appendChild(el);
+            if (this.state.badges.includes(badge.id)) return; // Already unlocked
+
+            // Try/catch for robust badge checking
+            try {
+                if (badge.condition(ctx)) {
+                    this.unlockBadge(badge);
+                    newBadges = true;
+                }
+            } catch (e) {
+                console.warn('Error checking badge:', badge.id, e);
+            }
         });
+
+        if (newBadges) {
+            this.save();
+            this.renderBadges();
+        }
     },
 
-    showToast(title, message, icon) {
+    unlockBadge(badge) {
+        this.state.badges.push(badge.id);
+        this.state.unlockedBadges[badge.id] = new Date().toISOString();
+        this.showToast(`Odemčen odznak: ${badge.name}`, 'Úspěch!', badge.icon || '🏆');
+        this.addXP(100, 'Badge Bonus'); // Bonus XP for badge
+    },
+
+    renderBadges() {
+        const grid = document.getElementById('badges-grid');
+        if (!grid) return;
+
+        grid.innerHTML = this.badges.map(badge => {
+            const unlocked = this.state.badges.includes(badge.id);
+            const dateStr = unlocked ? new Date(this.state.unlockedBadges[badge.id]).toLocaleDateString() : '';
+            return `
+                <div class="badge-item ${unlocked ? 'unlocked' : 'locked'}">
+                    <div class="badge-icon">${badge.icon || '🏆'}</div>
+                    <div class="badge-name">${badge.name}</div>
+                    <div class="badge-desc">${badge.desc}</div>
+                    ${unlocked ? `<div class="badge-date">Získáno: ${dateStr}</div>` : ''}
+                </div>
+            `;
+        }).join('');
+    },
+
+    showToast(message, title = 'Info', icon = 'info') {
         const container = document.getElementById('toast-container');
         if (!container) return;
 
@@ -2736,20 +2755,27 @@ const Gamification = {
 
         container.appendChild(toast);
 
-        // Animate in
-        requestAnimationFrame(() => {
-            toast.classList.add('show');
-        });
+        // Animate
+        requestAnimationFrame(() => toast.classList.add('show'));
 
-        // Remove after 3s
+        // Remove
         setTimeout(() => {
             toast.classList.remove('show');
-            setTimeout(() => {
-                toast.remove();
-            }, 400); // Wait for transition
+            setTimeout(() => toast.remove(), 400);
         }, 3000);
     }
 };
+
+// Profile Modal Functions (Global)
+function openProfileModal() {
+    Gamification.updateUI();
+    Gamification.renderBadges();
+    document.getElementById('profile-modal').classList.add('active');
+}
+
+function closeProfileModal() {
+    document.getElementById('profile-modal').classList.remove('active');
+}
 
 // Audio panel toggle functions
 function toggleAudioPanel() {
@@ -2885,6 +2911,14 @@ function handleKeyboardShortcuts(e) {
 
 // ========== INIT ==========
 function init() {
+    console.log('init() called');
+
+    // Initialize data references from window.studyData (loaded by data.js)
+    flashcardsData = window.studyData.flashcards;
+    quizData = window.studyData.quizzes;
+    topicsData = window.studyData.topics;
+    console.log('Data references initialized');
+
     checkDailyProgress(); // Check for day change on startup
     loadTheme();
     initCardStats();

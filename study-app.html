@@ -607,6 +607,23 @@
             }
         }
 
+        @keyframes floatUp {
+            0% {
+                opacity: 0;
+                transform: translate(-50%, -30%) scale(0.5);
+            }
+
+            20% {
+                opacity: 1;
+                transform: translate(-50%, -50%) scale(1.2);
+            }
+
+            100% {
+                opacity: 0;
+                transform: translate(-50%, -150%) scale(1);
+            }
+        }
+
         /* Dashboard */
         .dashboard-grid {
             display: grid;
@@ -2877,6 +2894,26 @@
                 </div>
 
                 <div class="dashboard-grid">
+                    <!-- Level Card -->
+                    <div class="dashboard-card"
+                        style="grid-column: 1 / -1; background: var(--gradient-3); color: white;">
+                        <div
+                            style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem;">
+                            <h3 style="margin: 0; font-size: 1.2rem;">Úroveň <span id="user-level-display">1</span></h3>
+                            <span id="user-level-title" style="font-size: 0.9rem; opacity: 0.9;">Začátečník</span>
+                        </div>
+                        <div style="display: flex; align-items: center; gap: 1rem;">
+                            <div
+                                style="flex: 1; height: 10px; background: rgba(255,255,255,0.3); border-radius: 5px; overflow: hidden;">
+                                <div id="user-level-progress"
+                                    style="height: 100%; width: 0%; background: white; border-radius: 5px; transition: width 0.5s ease;">
+                                </div>
+                            </div>
+                            <div style="font-size: 0.9rem; font-weight: 600;"><span id="user-xp-display">0</span> XP
+                            </div>
+                        </div>
+                    </div>
+
                     <div class="dashboard-card">
                         <h3>Celkový pokrok</h3>
                         <div class="value" style="color: var(--secondary);" id="total-progress">0%</div>
@@ -3207,6 +3244,10 @@
                                 style="display: flex; align-items: center; gap: 0.5rem;">
                                 📋 Banka chyb <span id="mistake-count-badge"
                                     style="background: var(--danger); color: white; padding: 0.15rem 0.5rem; border-radius: 10px; font-size: 0.75rem;">0</span>
+                            </button>
+                            <button class="btn-secondary" onclick="showQuestionStats()"
+                                style="display: flex; align-items: center; gap: 0.5rem;">
+                                📊 Statistiky otázek
                             </button>
                         </div>
                     </div>
@@ -4930,6 +4971,95 @@ Proč třídíme,Co je informační exploze?,Růst množství dat...,Vysvětlen�
             const countSelect = document.getElementById('quiz-count').value;
             const count = countSelect === 'all' ? filtered.length : Math.min(parseInt(countSelect), filtered.length);
 
+            let quizTimer = null;
+            let quizTimeRemaining = 0;
+            let quizState = {
+                current: 0,
+                score: 0,
+                answered: false,
+                questions: [],
+                total: 0,
+                wrongAnswers: [],
+                mode: 'drill', // drill, exam, weakness
+                questionType: 'mc', // mc, open, mixed
+                examAnswers: [] // For exam mode deferred feedback
+            };
+
+            // Gamification State
+            let userXP = parseInt(localStorage.getItem('flex_user_xp_v1')) || 0;
+            let userLevel = 1;
+            const LEVEL_THRESHOLDS = [0, 500, 1200, 2200, 3500, 5000, 7000, 10000, 15000, 25000]; // XP required for level N (index+1)
+
+            // Calculate initial level
+            calculateLevel();
+
+            function calculateLevel() {
+                let lvl = 1;
+                for (let i = 0; i < LEVEL_THRESHOLDS.length; i++) {
+                    if (userXP >= LEVEL_THRESHOLDS[i]) {
+                        lvl = i + 1;
+                    } else {
+                        break;
+                    }
+                }
+                if (lvl !== userLevel) {
+                    userLevel = lvl;
+                    // Could trigger level up animation here if it changed during session
+                }
+                return lvl;
+            }
+
+            function addXP(amount, reason = '') {
+                const oldLevel = userLevel;
+                userXP += amount;
+                localStorage.setItem('flex_user_xp_v1', userXP);
+
+                calculateLevel();
+
+                // Visual feedback
+                showFloatingXP(amount, reason);
+                updateStats(); // Update dashboard
+
+                if (userLevel > oldLevel) {
+                    showLevelUpModal(userLevel);
+                }
+            }
+
+            function showFloatingXP(amount, reason) {
+                // Find a good anchor. If in quiz, use quiz container. Default to body.
+                const container = document.querySelector('.quiz-container') || document.body;
+
+                const float = document.createElement('div');
+                float.className = 'xp-float';
+                float.innerHTML = `+${amount} XP <small>${reason}</small>`;
+                float.style.cssText = `
+                    position: fixed;
+                    top: 50%;
+                    left: 50%;
+                    transform: translate(-50%, -50%);
+                    background: var(--gradient-3);
+                    color: #000;
+                    padding: 0.5rem 1rem;
+                    border-radius: 20px;
+                    font-weight: bold;
+                    pointer-events: none;
+                    z-index: 9999;
+                    animation: floatUp 1.5s ease-out forwards;
+                    box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+                `;
+
+                document.body.appendChild(float);
+
+                setTimeout(() => {
+                    float.remove();
+                }, 1500);
+            }
+
+            function showLevelUpModal(level) {
+                alert(`🎉 LEVEL UP! 🎉\n\nDosáhl/a jsi úrovně ${level}!`);
+                // Later we can make a nice modal
+            }
+
             quizState = {
                 current: 0,
                 score: 0,
@@ -5058,6 +5188,31 @@ Proč třídíme,Co je informační exploze?,Růst množství dat...,Vysvětlen�
             // Update question stats
             updateQuestionStats(q, isCorrect);
 
+            if (isCorrect) {
+                // XP Logic
+                let xpGain = 10;
+                let reason = 'Správná odpověď';
+                if (quizState.currentStreak > 2) {
+                    xpGain += 5;
+                    reason += ' + Série!';
+                }
+                addXP(xpGain, reason);
+            }
+
+            if (isCorrect) {
+                // Base XP
+                let xpGain = 10;
+                let reason = 'Správná odpověď';
+
+                // Streak bonus check
+                if (quizState.currentStreak > 2) {
+                    xpGain += 5;
+                    reason += ' + Série!';
+                }
+
+                addXP(xpGain, reason);
+            }
+
             const options = document.querySelectorAll('.quiz-option');
 
             // In exam mode, don't show feedback
@@ -5130,6 +5285,19 @@ Proč třídíme,Co je informační exploze?,Růst množství dat...,Vysvětlen�
 
             // Update question stats
             updateQuestionStats(q, evaluation.correct);
+
+            // XP Logic for Open Answer
+            if (evaluation.correct) {
+                let xpGain = 10;
+                let reason = 'Správná odpověď';
+                if (quizState.currentStreak > 2) {
+                    xpGain += 5;
+                    reason += ' + Série!';
+                }
+                addXP(xpGain, reason);
+            } else if (evaluation.matchType === 'partial' || evaluation.matchType === 'keywords') {
+                addXP(2, 'Částečně správně');
+            }
 
             // Apply styling based on result
             input.classList.remove('correct', 'incorrect', 'partial');
@@ -5255,8 +5423,10 @@ Proč třídíme,Co je informační exploze?,Růst množství dat...,Vysvětlen�
             if (isCorrect) {
                 stats.correct++;
                 stats.streakCorrect++;
+                if (quizState) quizState.currentStreak++; // Increase session streak
             } else {
                 stats.streakCorrect = 0;
+                if (quizState) quizState.currentStreak = 0; // Reset session streak
             }
 
             // Keep last 10 attempts in history
@@ -5521,6 +5691,13 @@ Proč třídíme,Co je informační exploze?,Růst množství dat...,Vysvětlen�
             const percent = Math.round((quizState.score / quizState.total) * 100);
             document.getElementById('final-score').textContent = `${percent}%`;
 
+            // Completion XP
+            addXP(50, 'Dokončení kvízu');
+            if (percent === 100) {
+                addXP(100, 'Perfektní skóre!');
+                launchConfetti();
+            }
+
             let message = '';
             if (percent >= 90) message = 'Vynikající! Jsi připraven/a na zkoušku!';
             else if (percent >= 70) message = 'Velmi dobře! Ještě trochu procvič.';
@@ -5553,6 +5730,146 @@ Proč třídíme,Co je informační exploze?,Růst množství dat...,Vysvětlen�
             if (history.length > 20) history.shift();
             localStorage.setItem('quizHistory', JSON.stringify(history));
             updateStats();
+        }
+
+        // ========== QUESTION STATS VIEW ==========
+        let currentStatsFilter = 'worst';
+
+        function showQuestionStats() {
+            document.getElementById('quiz-setup').style.display = 'none';
+            document.getElementById('question-stats-view').style.display = 'block';
+            filterQuestionStats('worst');
+        }
+
+        function hideQuestionStats() {
+            document.getElementById('question-stats-view').style.display = 'none';
+            document.getElementById('quiz-setup').style.display = 'block';
+        }
+
+        function filterQuestionStats(filter, btn) {
+            currentStatsFilter = filter;
+            if (btn) {
+                document.querySelectorAll('#question-stats-view .quiz-mode-btn').forEach(b => b.classList.remove('selected'));
+                btn.classList.add('selected');
+            }
+
+            renderQuestionStatsList();
+        }
+
+        function renderQuestionStatsList() {
+            const container = document.getElementById('question-stats-list');
+            container.innerHTML = '';
+
+            // Gather all stats
+            let items = [];
+
+            // Map question hashes back to questions is tricky without a direct map.
+            // We'll iterate over all questions in quizData and look up their stats.
+
+            quizData.forEach(q => {
+                const qId = hashQuestion(q);
+                const stats = questionStats[qId];
+
+                if (stats && stats.attempts > 0) {
+                    const successRate = (stats.correct / stats.attempts) * 100;
+                    items.push({
+                        q: q,
+                        stats: stats,
+                        rate: successRate
+                    });
+                }
+            });
+
+            // Filter
+            if (currentStatsFilter === 'worst') {
+                items = items.filter(i => i.rate < 60).sort((a, b) => a.rate - b.rate);
+            } else if (currentStatsFilter === 'best') {
+                items = items.filter(i => i.rate >= 80).sort((a, b) => b.rate - a.rate);
+            } else { // all
+                items.sort((a, b) => b.stats.attempts - a.stats.attempts);
+            }
+
+            if (items.length === 0) {
+                container.innerHTML = `
+                    <div class="ui-state">
+                        <span class="ui-state-icon">📭</span>
+                        <div class="ui-state-title">Žádné otázky</div>
+                        <div class="ui-state-desc">Pro tento filtr nebyly nalezeny žádné otázky.</div>
+                    </div>
+                `;
+                return;
+            }
+
+            items.forEach(item => {
+                const el = document.createElement('div');
+                el.style.cssText = `
+                    background: var(--bg);
+                    padding: 1rem;
+                    border-radius: 8px;
+                    margin-bottom: 0.75rem;
+                    border-left: 4px solid ${item.rate >= 80 ? 'var(--secondary)' : item.rate < 50 ? 'var(--danger)' : 'var(--warning)'};
+                `;
+
+                el.innerHTML = `
+                    <div style="display:flex; justify-content:space-between; margin-bottom:0.5rem;">
+                        <span style="font-weight:600; font-size:0.9rem; color:var(--text);">${item.q.cat}</span>
+                        <span style="font-size:0.85rem; color:${item.rate >= 80 ? 'var(--secondary)' : item.rate < 50 ? 'var(--danger)' : 'var(--warning)'}">
+                            ${Math.round(item.rate)}% (${item.stats.correct}/${item.stats.attempts})
+                        </span>
+                    </div>
+                    <div style="font-size:0.95rem; margin-bottom:0.5rem;">${item.q.q}</div>
+                    <div style="font-size:0.8rem; color:#c4c4cc; display:flex; gap:1rem;">
+                        <span>Naposledy: ${new Date(item.stats.lastAttemptAt).toLocaleDateString()}</span>
+                        <span>Série: ${item.stats.streakCorrect}</span>
+                    </div>
+                `;
+                container.appendChild(el);
+            });
+        }
+
+        function practiceFilteredStats() {
+            // Logic to create a quiz from the current filtered items
+            // Gather filtered questions
+            let items = [];
+            quizData.forEach(q => {
+                const qId = hashQuestion(q);
+                const stats = questionStats[qId];
+                if (stats && stats.attempts > 0) {
+                    const successRate = (stats.correct / stats.attempts) * 100;
+                    items.push({ q, rate: successRate, stats });
+                }
+            });
+
+            let filteredQs = [];
+            if (currentStatsFilter === 'worst') filteredQs = items.filter(i => i.rate < 60).map(i => i.q);
+            else if (currentStatsFilter === 'best') filteredQs = items.filter(i => i.rate >= 80).map(i => i.q);
+            else filteredQs = items.map(i => i.q); // all sorted? keep random for quiz
+
+            if (filteredQs.length === 0) {
+                alert('Žádné otázky k procvičení.');
+                return;
+            }
+
+            // Start quiz
+            quizState = {
+                current: 0,
+                score: 0,
+                currentStreak: 0,
+                answered: false,
+                questions: shuffleArray(filteredQs).slice(0, 20), // Cap at 20
+                total: Math.min(filteredQs.length, 20),
+                wrongAnswers: [],
+                mode: 'drill',
+                questionType: 'mixed',
+                examAnswers: []
+            };
+
+            // Switch UI
+            document.getElementById('question-stats-view').style.display = 'none';
+            document.getElementById('quiz-header-bar').style.display = 'flex';
+            document.getElementById('quiz-card').style.display = 'block';
+
+            showQuestion();
         }
 
         // Initialize category selector
@@ -5644,6 +5961,49 @@ Proč třídíme,Co je informační exploze?,Růst množství dat...,Vysvětlen�
             if (quizHistory.length > 0) {
                 const avgScore = quizHistory.reduce((a, b) => a + b, 0) / quizHistory.length;
                 document.getElementById('correct-rate').textContent = `${Math.round(avgScore)}%`;
+            }
+
+            // Update Level UI
+            document.getElementById('user-level-display').textContent = userLevel;
+            document.getElementById('user-xp-display').textContent = userXP;
+
+            // Calculate progress to next level
+            const currentLevelMin = LEVEL_THRESHOLDS[userLevel - 1] || 0;
+            const nextLevelMin = LEVEL_THRESHOLDS[userLevel] || (currentLevelMin * 1.5); // Fallback for max level
+            const levelRange = nextLevelMin - currentLevelMin;
+            const progress = Math.max(0, Math.min(100, ((userXP - currentLevelMin) / levelRange) * 100));
+
+            document.getElementById('user-level-progress').style.width = `${progress}%`;
+
+            // Level Title
+            const titles = ['Začátečník', 'Student', 'Badatel', 'Expert', 'Mistr', 'Vědec', 'Profesor', 'Génius', 'Legenda', 'Vševěd'];
+            document.getElementById('user-level-title').textContent = titles[Math.min(userLevel - 1, titles.length - 1)];
+        }
+
+        function launchConfetti() {
+            const colors = ['#8b5cf6', '#06d6a0', '#ef4444', '#f59e0b', '#3b82f6'];
+
+            for (let i = 0; i < 100; i++) {
+                const confetti = document.createElement('div');
+                confetti.classList.add('confetti');
+
+                // Random properties
+                const bg = colors[Math.floor(Math.random() * colors.length)];
+                const left = Math.random() * 100 + 'vw';
+                const animDuration = Math.random() * 3 + 2 + 's';
+                const size = Math.random() * 10 + 5 + 'px';
+
+                confetti.style.backgroundColor = bg;
+                confetti.style.left = left;
+                confetti.style.top = '-20px';
+                confetti.style.width = size;
+                confetti.style.height = size;
+                confetti.style.animationDuration = animDuration;
+
+                document.body.appendChild(confetti);
+
+                // Remove after animation
+                setTimeout(() => confetti.remove(), 5000);
             }
         }
 
