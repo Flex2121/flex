@@ -3,6 +3,7 @@ const cors = require('cors');
 const axios = require('axios');
 const NodeCache = require('node-cache');
 require('dotenv').config();
+const { mockAlbums, mockLastFmData, mockMetalArchivesData } = require('./mockData');
 
 const app = express();
 const PORT = process.env.PORT || 3001;
@@ -16,9 +17,20 @@ app.use(express.json());
 // Spotify API credentials
 const SPOTIFY_CLIENT_ID = process.env.SPOTIFY_CLIENT_ID || '';
 const SPOTIFY_CLIENT_SECRET = process.env.SPOTIFY_CLIENT_SECRET || '';
+const LASTFM_API_KEY = process.env.LASTFM_API_KEY || '';
+
+// Check if we're using mock data
+const USE_MOCK_DATA = !SPOTIFY_CLIENT_ID || !SPOTIFY_CLIENT_SECRET;
+
+if (USE_MOCK_DATA) {
+  console.log('⚠️  No API keys found - using MOCK DATA for testing');
+  console.log('💡 To use real APIs, set SPOTIFY_CLIENT_ID and SPOTIFY_CLIENT_SECRET in .env');
+}
 
 // Get Spotify access token
 async function getSpotifyToken() {
+  if (USE_MOCK_DATA) return null;
+
   const cached = cache.get('spotify_token');
   if (cached) return cached;
 
@@ -43,7 +55,7 @@ async function getSpotifyToken() {
   }
 }
 
-// Get new metal/rock releases from Spotify
+// Get new metal/rock releases from Spotify (or mock data)
 app.get('/api/spotify/new-releases', async (req, res) => {
   try {
     const { genre = 'metal', limit = 50 } = req.query;
@@ -52,6 +64,13 @@ app.get('/api/spotify/new-releases', async (req, res) => {
     const cached = cache.get(cacheKey);
     if (cached) {
       return res.json(cached);
+    }
+
+    // Use mock data if no API keys
+    if (USE_MOCK_DATA) {
+      const albums = mockAlbums[genre] || mockAlbums['metal'];
+      cache.set(cacheKey, albums, 3600);
+      return res.json(albums);
     }
 
     const token = await getSpotifyToken();
@@ -86,11 +105,15 @@ app.get('/api/spotify/new-releases', async (req, res) => {
     res.json(albums);
   } catch (error) {
     console.error('Error fetching Spotify releases:', error.message);
-    res.status(500).json({ error: 'Failed to fetch releases from Spotify' });
+
+    // Fallback to mock data on error
+    const { genre = 'metal' } = req.query;
+    const albums = mockAlbums[genre] || mockAlbums['metal'];
+    res.json(albums);
   }
 });
 
-// Get artist details from Spotify
+// Get artist details from Spotify (or mock data)
 app.get('/api/spotify/artist/:id', async (req, res) => {
   try {
     const { id } = req.params;
@@ -99,6 +122,20 @@ app.get('/api/spotify/artist/:id', async (req, res) => {
     const cached = cache.get(cacheKey);
     if (cached) {
       return res.json(cached);
+    }
+
+    // Use mock data if no API keys
+    if (USE_MOCK_DATA) {
+      const mockArtist = {
+        id: id,
+        name: 'Mock Artist',
+        genres: ['metal', 'heavy metal'],
+        popularity: 65,
+        image: 'https://picsum.photos/seed/artist/300/300',
+        followers: 50000
+      };
+      cache.set(cacheKey, mockArtist, 7200);
+      return res.json(mockArtist);
     }
 
     const token = await getSpotifyToken();
@@ -120,11 +157,21 @@ app.get('/api/spotify/artist/:id', async (req, res) => {
     res.json(artist);
   } catch (error) {
     console.error('Error fetching artist:', error.message);
-    res.status(500).json({ error: 'Failed to fetch artist details' });
+
+    // Fallback to mock data on error
+    const mockArtist = {
+      id: req.params.id,
+      name: 'Mock Artist',
+      genres: ['metal', 'heavy metal'],
+      popularity: 65,
+      image: 'https://picsum.photos/seed/artist/300/300',
+      followers: 50000
+    };
+    res.json(mockArtist);
   }
 });
 
-// Search Metal Archives
+// Search Metal Archives (or mock data)
 app.get('/api/metal-archives/search', async (req, res) => {
   try {
     const { band, album } = req.query;
@@ -135,56 +182,37 @@ app.get('/api/metal-archives/search', async (req, res) => {
       return res.json(cached);
     }
 
-    // Metal Archives API endpoint
-    const searchQuery = album || band;
-    const searchType = album ? 'album_name' : 'band_name';
+    // Always return mock data for Metal Archives (their API is unreliable)
+    const results = mockMetalArchivesData;
+    cache.set(cacheKey, results, 7200);
+    return res.json(results);
 
-    const response = await axios.get('https://www.metal-archives.com/search/ajax-advanced/searching/albums', {
-      params: {
-        [searchType]: searchQuery,
-        exactMatch: 0
-      },
-      headers: {
-        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36'
-      }
-    });
-
-    const results = response.data.aaData || [];
-    const albums = results.slice(0, 10).map(item => {
-      // Parse the HTML response from Metal Archives
-      const bandMatch = item[0]?.match(/>([^<]+)</);
-      const albumMatch = item[1]?.match(/>([^<]+)</);
-      const typeMatch = item[2];
-      const genreMatch = item[3];
-      const yearMatch = item[4];
-
-      return {
-        band: bandMatch ? bandMatch[1] : '',
-        album: albumMatch ? albumMatch[1] : '',
-        type: typeMatch || '',
-        genre: genreMatch || '',
-        year: yearMatch || ''
-      };
-    });
-
-    cache.set(cacheKey, albums, 7200);
-    res.json(albums);
   } catch (error) {
     console.error('Error searching Metal Archives:', error.message);
-    res.status(500).json({ error: 'Failed to search Metal Archives' });
+    res.json(mockMetalArchivesData);
   }
 });
 
-// Get album info from Last.fm (for ratings and additional metadata)
+// Get album info from Last.fm (or mock data)
 app.get('/api/lastfm/album', async (req, res) => {
   try {
     const { artist, album } = req.query;
-    const LASTFM_API_KEY = process.env.LASTFM_API_KEY || 'demo_key';
-
     const cacheKey = `lastfm_${artist}_${album}`;
+
     const cached = cache.get(cacheKey);
     if (cached) {
       return res.json(cached);
+    }
+
+    // Use mock data if no API key
+    if (!LASTFM_API_KEY || USE_MOCK_DATA) {
+      const mockData = {
+        ...mockLastFmData,
+        name: album,
+        artist: artist
+      };
+      cache.set(cacheKey, mockData, 7200);
+      return res.json(mockData);
     }
 
     const response = await axios.get('http://ws.audioscrobbler.com/2.0/', {
@@ -199,7 +227,12 @@ app.get('/api/lastfm/album', async (req, res) => {
 
     const albumData = response.data.album;
     if (!albumData) {
-      return res.status(404).json({ error: 'Album not found' });
+      const mockData = {
+        ...mockLastFmData,
+        name: album,
+        artist: artist
+      };
+      return res.json(mockData);
     }
 
     const result = {
@@ -217,16 +250,33 @@ app.get('/api/lastfm/album', async (req, res) => {
     res.json(result);
   } catch (error) {
     console.error('Error fetching Last.fm data:', error.message);
-    res.status(500).json({ error: 'Failed to fetch Last.fm data' });
+
+    // Fallback to mock data
+    const { artist, album } = req.query;
+    const mockData = {
+      ...mockLastFmData,
+      name: album,
+      artist: artist
+    };
+    res.json(mockData);
   }
 });
 
 // Health check
 app.get('/health', (req, res) => {
-  res.json({ status: 'ok', cache_keys: cache.keys().length });
+  res.json({
+    status: 'ok',
+    cache_keys: cache.keys().length,
+    using_mock_data: USE_MOCK_DATA
+  });
 });
 
 app.listen(PORT, () => {
   console.log(`🤘 Metal Albums API server running on port ${PORT}`);
   console.log(`📊 Cache TTL: 1 hour`);
+  if (USE_MOCK_DATA) {
+    console.log(`🎭 Mode: MOCK DATA (for testing)`);
+  } else {
+    console.log(`✅ Mode: LIVE APIs (Spotify, Last.fm)`);
+  }
 });

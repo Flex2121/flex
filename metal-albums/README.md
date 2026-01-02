@@ -2,6 +2,28 @@
 
 Aplikace pro monitorování nových metalových a rockových alb z celého světa. Sleduj nové releasy, hodnocení a informace z více zdrojů včetně Spotify, Metal Archives a Last.fm.
 
+## 🚀 Rychlý start (bez API klíčů)
+
+Aplikace **funguje hned** s testovacími mock daty! Nepotřebuješ nastavovat žádné API klíče.
+
+```bash
+# 1. Spusť backend
+cd backend
+npm install
+npm start
+
+# 2. V novém terminálu spusť frontend
+cd frontend
+npm install
+npm run dev
+
+# 3. Otevři http://localhost:5173 🤘
+```
+
+Backend automaticky detekuje, že nejsou nastavené API klíče a použije **mock data** s realistickými metalovými alby.
+
+> 💡 **Tip**: Pokud chceš reálná data ze Spotify a Last.fm, následuj [pokyny níže](#-instalace-s-reálnými-api).
+
 ## ✨ Funkce
 
 - 📅 **Týdenní nové releasy** - Zobrazení nově vydaných alb za poslední týden, měsíc nebo den
@@ -24,7 +46,14 @@ Aplikace pro monitorování nových metalových a rockových alb z celého svět
 - Node-cache pro cachování (1 hodina)
 - CORS enabled pro cross-origin requests
 
-## 📦 Instalace
+## 📦 Instalace s reálnými API
+
+### Režimy provozu
+
+Aplikace podporuje **2 režimy**:
+
+1. **🎭 Mock Data Mode** (výchozí) - Bez API klíčů, testovací data
+2. **✅ Live API Mode** - S API klíči, reálná data ze Spotify a Last.fm
 
 ### 1. Backend
 
@@ -32,6 +61,12 @@ Aplikace pro monitorování nových metalových a rockových alb z celého svět
 cd backend
 npm install
 ```
+
+**Bez API klíčů (Mock Data Mode)**:
+
+Backend funguje ihned bez konfigurace! Nepotřebuješ vytvářet `.env` soubor.
+
+**S API klíči (Live API Mode)**:
 
 Vytvoř `.env` soubor s API klíči:
 
@@ -43,8 +78,14 @@ PORT=3001
 ```
 
 **Získání API klíčů:**
-- **Spotify**: [https://developer.spotify.com/dashboard](https://developer.spotify.com/dashboard)
-- **Last.fm**: [https://www.last.fm/api/account/create](https://www.last.fm/api/account/create)
+1. **Spotify**:
+   - Jdi na [Spotify Dashboard](https://developer.spotify.com/dashboard)
+   - Vytvoř novou aplikaci
+   - Zkopíruj Client ID a Client Secret
+2. **Last.fm**:
+   - Jdi na [Last.fm API](https://www.last.fm/api/account/create)
+   - Vytvoř API účet
+   - Zkopíruj API Key
 
 Spuštění backendu:
 
